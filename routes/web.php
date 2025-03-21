@@ -23,4 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
 });
 
+
+Route::get('/inspinia/footable', function () {
+    return view('inspinia.footable');
+});
+
 require __DIR__.'/auth.php';

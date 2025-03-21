@@ -7,14 +7,14 @@ trait HasRoles
 {
     public function roles()
     {
-        return $this->morphMany(Role::class, 'model');
+        return $this->morphToMany(Role::class, 'model', 'model_has_roles');
     }
 
     public function assignRole($roleName)
     {
-        $role = new Role(['name' => $roleName]);
+        $role = Role::where('name', $roleName)->firstOrFail();
 
-        $this->roles()->save($role);
+        $this->roles()->attach($role->id);
     }
 
     public function hasRole($roleName)
