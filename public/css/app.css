@@ -1,0 +1,66 @@
+@import url("bootstrap/bootstrap.css");
+
+html, body {
+    height: 100%;
+}
+
+.bg-gradient-custom {
+    background: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgba(255,255,255,1) 40%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    width: 300px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #e4e4e5;
+}
+
+.navbar-logo{
+    height: 125px;
+    width: 100%;
+    padding: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: black;
+    
+}
+
+.navbar-logo img{
+    height: 1.6em;
+}
+
+.navbar-nav {
+    width: 100%;
+    list-style: none;
+}
+
+.navbar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 0px 12px 40px;
+}
+
+.navbar-nav .selected .nav-link{
+    font-weight: bold !important;
+    border-right: 3px solid black;
+}
+
+.logout {
+    margin-top: auto;
+    color: #ff4d4d;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
