@@ -1,0 +1,7 @@
+- Traducciones
+- Estilos responsive
+- Validaciones de formularios
+- Iconos del proyecto
+- Barra de navegacion
+- Barra de navegacion responsive
+- Tipografia exacta

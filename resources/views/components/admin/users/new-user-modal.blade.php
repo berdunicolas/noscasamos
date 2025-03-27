@@ -58,7 +58,7 @@
                 </div>
 
             <div class="modal-footer border-0">
-              <x-form.button type="submit" classes="btn btn-outline-dark">Registrar usuario</x-form.button>
+              <x-form.button type="submit" classes="btn btn-dark">Registrar usuario</x-form.button>
             </div>
         </form>
       </div>
