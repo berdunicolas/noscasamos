@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar navbar-bg">
     <div class="navbar-logo">
         <img src="{{asset('miscellaneous/Marca-Nos-Casamos.svg')}}" alt="noscasamos logo">
     </div>
@@ -9,7 +9,7 @@
             </a>
         </li>
         <li class="nav-item {{ ($selected == 'invitations') ? 'selected' : '' }}">
-            <a href="" class="nav-link text-dark btn btn-light rounded-0">
+            <a href="{{route('invitations.index')}}" class="nav-link text-dark btn btn-light rounded-0">
                 <span>Invitaciones</span>
             </a>
         </li>

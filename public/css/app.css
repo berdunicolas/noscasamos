@@ -20,6 +20,18 @@ html, body {
     padding: 0;
     display: flex;
     flex-direction: column;
+
+}
+
+.navbar-secondary {
+    width: 200px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.navbar-bg{
     background-color: #e4e4e5;
 }
 
@@ -31,8 +43,7 @@ html, body {
     justify-content: center;
     align-items: center;
 
-    background-color: black;
-    
+    background-color: black;   
 }
 
 .navbar-logo img{
@@ -46,11 +57,11 @@ html, body {
 
 .navbar-nav .nav-link {
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     padding: 12px 0px 12px 40px;
 }
 
-.navbar-nav .selected .nav-link{
+.navbar-nav .selected a{
     font-weight: bold !important;
     border-right: 3px solid black;
 }

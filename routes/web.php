@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Invitation\InvitationController;
 use App\Http\Controllers\Admin\User\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
+    Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
 });
 
 

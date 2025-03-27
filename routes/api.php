@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\InvitationApiController;
 use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::resource('users', UserApiController::class)->only(['index', 'store', 'show']);
+    Route::resource('invitations', InvitationApiController::class)->only(['index', 'store', 'show', 'destroy']);
 });
