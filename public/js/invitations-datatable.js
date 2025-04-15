@@ -19,26 +19,74 @@ function renderDatatable(){
         },
         columns: [
             { data: 'id' },
-            { data: 'event' },
-            { data: 'created_by' },
-            { data: 'name' },
             { 
-                data: 'seller_id',
+                data: 'event_id',
+                name: 'nombre',
+            },
+            { data: 'event' },
+            { 
+                data: 'name',
+                responsivePriority: 1,
+            },
+            { 
+                data: 'path_name',
+                responsivePriority: 2,
+                render: (data) => '<i class="fa-light fa-slash-forward"></i>' + data
+            },
+            { 
+                data: 'plan',
+                responsivePriority: 3,
+                className: 'text-center',
                 render: function(data) {
-                    return '---'
+                    if(data == 'Platino'){
+                        return `<span class="badge text-bg-secondary">${data}</span>`;
+                    }
+                    if(data == 'Gold'){
+                        return `<span class="badge text-bg-warning">${data}</span>`;
+                    }
+                    if(data == 'Clásico'){
+                        return `<span class="badge text-bg-info">${data}</span>`;
+                    }
                 }
             },
-            { data: 'plan' }, 
-            { data: 'date' }, 
-            { data: 'active'},
+            { data: 'created_by' },
+            { 
+                data: 'seller_name',
+                responsivePriority: 4,
+            },
+            { data: 'date', className: 'text-center' }, 
+            { 
+                data: 'validity',
+                className: 'text-center',
+                render: function(data) {
+                    if(data === null) {
+                        return '<span class="badge text-bg-warning">Sin fecha <i class="fa-light fa-calendar-xmark fa-lg"></i></span>';
+                    }else if(data){
+                        return '<span class="badge text-bg-secondary">No vigente <i class="fa-light fa-calendar-check fa-lg"></i></span>';
+                    }else{
+                        return '<span class="badge text-bg-info">Vigente <i class="fa-light fa-calendar-clock fa-lg"></i></span>';
+                    }
+                }
+            },
             { 
                 data: 'url_item',
-                render: function(data) {
-                    return `<a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary">Editar</a>
-                            <button class="btn btn-sm btn-outline-danger" onclick="deleteInvitation('${data}')">Eliminar</button>`;
+                orderable: false,
+                render: function(data, type, row) {
+                    return `
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="invitation-trigger" onChange="changeInvitationStatus(this, '${data}')" ${row.active ? 'checked' : ''}>
+                            <a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
+                            <button class="btn btn-sm btn-outline-success" data-url="${data}" id="invitation-cloner"><i class="fa-light fa-clone"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteInvitation('${data}')"><i class="fa-light fa-trash"></i></button>
+                        </div>
+                    `;
                 }
-            }
+            },
         ],
+        order: {
+            name: 'nombre',
+            dir: 'asc'
+        },
         language: {
             lengthMenu: "Mostrar _MENU_ registros por página",
             zeroRecords: "No se encontraron resultados",
@@ -47,12 +95,58 @@ function renderDatatable(){
             infoFiltered: "(filtrado de _MAX_ registros totales)",
             search: "Buscar:",
             paginate: {
-                first: "<<",
-                last: ">>",
-                next: ">",
-                previous: "<"
+                first: '<i class="fa-light fa-chevrons-left"></i>',
+                last: '<i class="fa-light fa-chevrons-right"></i>',
+                next: '<i class="fa-light fa-chevron-right"></i>',
+                previous: '<i class="fa-light fa-chevron-left"></i>'
             }
-        }
+        },
+        dom: "<'row mb-2'<'col-sm-6'B><'col-sm-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row mt-2'<'col-sm-12 d-flex justify-content-between'<'mr-3'i><'ml-auto'p>>",
+        buttons: [
+            {
+                header: false,
+                extend: 'csv',
+                text: '<span class="mx-2"><i class="fa-light fa-file-arrow-down fa-lg me-2"></i> csv</span>',
+                className: 'btn btn-light btn-outline-dark',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            }
+        ]
+    });
+
+    $('#datatable tbody').on('click', '#invitation-cloner', function () {
+        const button = $(this);
+        const url = button.data('url');
+    
+        const tr = button.closest('tr');
+        const row = $('#datatable').DataTable().row(tr);
+    
+        fetch(url + '/clone', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+        })
+        .then(async response => {
+        
+            if (!response.ok) throw new Error("Error en la clonación");
+            
+            return await response.json();
+        })
+        .then(data => {
+            const parentRow = button.closest('tr');
+
+            const newRow = datatable.row.add(data.data).draw().node();
+        })
+        .catch(err => {
+            console.error(err);
+        });
     });
 }
 
@@ -84,7 +178,6 @@ function newInvitation(e) {
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
             let id = await data.data.id;
-            console.error(id);
             window.location = 'invitations/' + id + '/edit';
         } else {
             console.error(data);
@@ -110,6 +203,34 @@ function deleteInvitation(url) {
         } else {
             const text = await response.text();
             const data = text ? JSON.parse(text) : {};
+            console.error(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function changeInvitationStatus(checkbox, url){
+    const active = checkbox.checked ? true : false;
+
+    fetch(url + '/change-status', {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({active: active})
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });
+    })
+    .then(async ({statusCode, data}) => {
+        if(statusCode !== 201){
+            checkbox.checked = !checkbox.checked;
             console.error(data);
         }
     })

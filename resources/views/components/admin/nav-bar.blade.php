@@ -5,34 +5,34 @@
     <ul class="nav navbar-nav flex-column pt-2 font-size-2">
         <li class="nav-item {{ ($selected == 'dashboard') ? 'selected' : '' }}">
             <a href="{{route('dashboard')}}" class="nav-link text-dark btn btn-light rounded-0">
-                <span>Dashboard</span>
+                <span>{!! ($selected == 'dashboard') ? '<i class="fa-solid fa-house me-2">' : '<i class="fa-light fa-house me-2"></i>' !!}</i>Dashboard</span>
             </a>
         </li>
         <li class="nav-item {{ ($selected == 'invitations') ? 'selected' : '' }}">
             <a href="{{route('invitations.index')}}" class="nav-link text-dark btn btn-light rounded-0">
-                <span>Invitaciones</span>
+                <span>{!! ($selected == 'invitations') ? '<i class="fa-solid fa-envelope-open me-2"></i>' : '<i class="fa-light fa-envelope-open me-2"></i>' !!}Invitaciones</span>
             </a>
         </li>
         <li class="nav-item {{ ($selected == 'statistics') ? 'selected' : '' }}">
             <a href="" class="nav-link text-dark btn btn-light rounded-0">
-                <span>Estadisticas</span>
+                <span>{!! ($selected == 'statistics') ? '<i class="fa-solid fa-chart-mixed me-2"></i>' : '<i class="fa-light fa-chart-mixed me-2"></i>' !!}Estadisticas</span>
             </a>
         </li>
         <li class="nav-item {{ ($selected == 'users') ? 'selected' : '' }}">
             <a href="{{route('users.index')}}" class="nav-link text-dark btn btn-light rounded-0">
-                <span>Usuarios</span>
+                <span>{!! ($selected == 'users') ? '<i class="fa-solid fa-user me-2"></i>' : '<i class="fa-light fa-user me-2"></i>' !!}Usuarios</span>
             </a>
         </li>
     </ul>
     <ul class="nav navbar-nav flex-column mt-auto mb-4 font-size-2">
         <li class="nav-item {{ ($selected == 'sellers') ? 'selected' : '' }}">
             <a href="" class="nav-link text-dark btn btn-light rounded-0">
-                <span>Sellers</span>
+                <span>{!! ($selected == 'sellers') ? '<i class="fa-solid fa-signature me-2"></i>' : '<i class="fa-light fa-signature me-2"></i>' !!}Sellers</span>
             </a>
         </li>
         <li class="nav-item {{ ($selected == 'settings') ? 'selected' : '' }}">
             <a href="" class="nav-link text-dark btn btn-light rounded-0">
-                <span>Ajustes</span>
+                <span>{!! ($selected == 'settings') ? '<i class="fa-solid fa-gears me-2"></i>' : '<i class="fa-light fa-gears me-2"></i>' !!}Ajustes</span>
             </a>
         </li>
         <li>

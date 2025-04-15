@@ -9,6 +9,7 @@
     placeholder="{{$placeholder}}"
     value="{{$value}}"
     class="form-control {{$inputClasses}}"
+    {{$extraAttributes}}
 >
 
 @empty(!$errors)

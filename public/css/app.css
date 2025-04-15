@@ -75,3 +75,41 @@ html, body {
     flex-grow: 1;
     padding: 20px;
 }
+
+.save-button-editor {
+    width: 85px;
+    height: 85px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    margin: 36px;
+}
+
+/*
+td.details-control {
+    cursor: pointer;
+    background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+}
+tr.shown td.details-control {
+    background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+}*/
+
+
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+}
+
+.dataTables_filter {
+    float: right;
+    text-align: right;
+}
+
+.dataTables_info {
+    margin-right: 1rem;
+}
+
+.dataTables_paginate {
+    margin-left: auto;
+}

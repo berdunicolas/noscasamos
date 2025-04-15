@@ -19,6 +19,8 @@ class Select extends Component
         public string $value = '',
         public string $labelClasses = '',
         public string $selectClasses = '',
+        public bool $disabled = false,
+        public string $extraAttributes = '',
     ) {}
 
     /**

@@ -6,6 +6,7 @@ use App\View\Components\Admin\Layout;
 use App\View\Components\Admin\NavBar;
 use App\View\Components\Admin\Users\NewUserModal;
 use App\View\Components\Form\Button;
+use App\View\Components\Form\ColorPicker;
 use App\View\Components\Form\Input;
 use App\View\Components\Form\InputGroup;
 use App\View\Components\Form\Select;
@@ -38,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('form.select', Select::class);
         Blade::component('form.select-option', SelectOption::class);
         Blade::component('form.button', Button::class);
+        Blade::component('form.color-picker', ColorPicker::class);
 
         Blade::component('admin.nav-bar', NavBar::class);
         Blade::component('admin.users.new-user-modal', NewUserModal::class);

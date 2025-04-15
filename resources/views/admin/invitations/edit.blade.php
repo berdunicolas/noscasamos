@@ -1,0 +1,387 @@
+<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="">
+    <div class="container-fluid" >
+        {{--
+        <header class="d-flex flex-row align-items-center" style="height: 105px">
+            <p style="font-size: 2em;">Editor</p>             
+        </header>--}}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('invitations.index')}}" class="link-dark">Invitaciones</a></li>
+                <li class="breadcrumb-item active fw-bold text-black" aria-current="page">Editor</li>
+            </ol>
+        </nav>
+        <header class="d-flex flex-row justify-items-between w-100" style="height: 105px">
+            <div>
+                <p style="font-size: 2em;" id="invitation-name" class="m-0">{{$invitation->event->name}}</p>      
+                <span class="me-3"><i class="fa-light fa-hashtag"></i> {{$invitation->id}}</span>
+                <span class="me-3"><i class="fa-light fa-calendar"></i> {{($invitation->date) ? $invitation->date : 'Sin Fecha' }}</span>
+                
+                <span class="me-1 badge text-bg-primary">{{$invitation->event->event}}</span>
+                
+                @switch($invitation->event->plan->value)
+                    @case('Clásico')
+                        <span class="me-1 badge text-bg-info">{{$invitation->event->plan}}</span>
+                        @break
+                    @case('Gold')
+                        <span class="me-1 badge text-bg-warning">{{$invitation->event->plan}}</span>
+                        @break
+                    @case('Platino')
+                        <span class="me-1 badge text-bg-secondary">{{$invitation->event->plan}}</span>
+                        @break
+                    @default
+                @endswitch
+
+                @if ($invitation->active)
+                    <span class="me-1 badge text-bg-success">Activo</span>
+                @else
+                    <span class="me-1 badge text-bg-danger">No activo</span>
+                @endif
+{{--
+                @if (now()->toDateString() >= $invitation->date->toDateString())
+                    <span class="me-1 badge border border-warning text-warning">No activo</span>    
+                    @endif
+--}}
+                <span class="me-1 badge border border-warning text-warning">Vencido</span>    
+                <span class="me-1 badge border border-black text-black">noscasamos</span>    
+{{--
+                @if ($invitation->createdBy)
+                    <span class="me-3 badge border border-warning text-warning">{{$inviation->createdBy}}</span>    
+                @endif
+--}}
+                
+    
+            </div>
+            <div class="ms-auto">
+                <button class="btn btn-outline-dark"><span class="mx-3"><i class="fa-light fa-share me-2"></i>Compartir</span></button>
+                <button class="btn btn-outline-dark"><span class="mx-3"><i class="fa-light fa-users me-2"></i>Invitados</span></button>
+                <button class="btn btn-dark"><span class="mx-3"><i class="fa-light fa-eye me-2"></i>Ver invitación</span></button>
+            </div>
+
+        </header>
+
+        
+    </div>
+    <main class="d-flex flex-row">
+        <nav class="navbar-secondary">
+            <ul class="nav navbar-nav flex-column font-size-2" id="editor-nav-tab">
+                <li class="nav-item selected">
+                    <a onclick="selectEditorForm(this)" id="configuration" class="w-100 py-2 text-start text-dark btn btn-light rounded-0">
+                        <span>Configuración</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a onclick="selectEditorForm(this)" id="personalization" class="w-100 py-2 text-start text-dark btn btn-light rounded-0">
+                        <span>Personalización</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a onclick="selectEditorForm(this)" id="modules" class="w-100 py-2 text-start text-dark btn btn-light rounded-0">
+                        <span>Módulos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a onclick="selectEditorForm(this)" id="logs" class="w-100 py-2 text-start text-dark btn btn-light rounded-0">
+                        <span>Logs</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="w-100 h-100">
+            <form action="{{route('api.invitations.set-config', $invitation->id)}}" onsubmit="saveInvitationChanges(event, this)">
+                <div class="tab-form px-3" id="configuration-form">
+                    <h4 class="py-2">Configuración de evento</h4>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <x-form.select
+                                id="country-select"
+                                name="country"
+                                label="País"
+                                extraAttributes="onchange=loadCountryDivisions()"
+                            >   
+                                @if ($invitation->event->country_id !== null)
+                                    @foreach ($countries as $country)
+                                        <x-form.select-option
+                                            value="{{$country->code}}"
+                                            label="{{$country->name}}"
+                                            selected="{{($invitation->event->country_id == $country->id) ? true : false}}"
+                                        />
+                                    @endforeach
+                                @else
+                                    <x-form.select-option
+                                        value=""
+                                        label="Selecciona un país"
+                                        selected="true"
+                                    />
+                                    @foreach ($countries as $country)
+                                        <x-form.select-option
+                                            value="{{$country->code}}"
+                                            label="{{$country->name}}"
+                                        />
+                                    @endforeach
+                                @endif
+                            </x-form.select>
+                        </div>
+                        <div class="col-6">
+                            <x-form.select
+                                id="country-division-select"
+                                name="country_division"
+                                label="Provincia"
+                                disabled="{{($invitation->event->country_id === null) ? true : false}}"
+                            >
+                                @if ($invitation->event->country_id !== null)
+                                    @foreach ($countryDivisions as $division)
+                                        <x-form.select-option
+                                            value="{{$division->id}}"
+                                            label="{{$division->state_name}}"
+                                            selected="{{($invitation->event->country_division_id == $division->id) ? true : false}}"
+                                        />
+                                    @endforeach
+                                @endif
+                            </x-form.select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <x-form.input-group label="Nombre" labelFor="path_name" :errors="(array) $errors->get('path_name')">
+                            <span class="input-group-text" id="basic-addon3">https://evnt.ar/</span>
+
+                            <x-form.input
+                                id="config-form-input"
+                                name="path_name"
+                                placeholder="MarYJulian"
+                                value="{{$invitation->path_name}}"
+                                extraAttributes="onChange=checkPathName(this) data-original-pathname={{$invitation->path_name}}"
+                            />
+                        </x-form.input-group>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <x-form.select id="config-form-input" name="event" label="Tipo de evento">
+                                @foreach ($eventTypes as $eventType)
+                                    <x-form.select-option
+                                        value="{{$eventType}}"
+                                        label="{{$eventType}}"
+                                        selected="{{($invitation->event->event->value == $eventType) ? true : false}}"
+                                    />
+                                @endforeach
+                            </x-form.select>
+                        </div>
+                        <div class="col-4">
+                            <x-form.select id="config-form-input" name="plan" label="Plan">
+                                @foreach ($planTypes as $planType)
+                                    <x-form.select-option
+                                        value="{{$planType}}"
+                                        label="{{$planType}}"
+                                        selected="{{($invitation->event->plan->value == $planType) ? true : false}}"
+                                    />
+                                    
+                                @endforeach
+                            </x-form.select>
+                        </div>
+                        <div class="col-4">
+                            <x-form.select id="config-form-input" name="active" label="Estado">
+                                <x-form.select-option
+                                    value="1"
+                                    label="Activo"
+                                    selected="{{($invitation->active) ? true : false}}"
+                                />
+                                <x-form.select-option
+                                    value="0"
+                                    label="No activo"
+                                    selected="{{($invitation->active) ? false : true}}"
+                                />
+                            </x-form.select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <x-form.input
+                                id="config-form-input"
+                                name="date"
+                                label="Fecha"
+                                type="date"
+                                value="{{$invitation->date}}"
+                                :errors="(array) $errors->get('date')"
+                            />
+                        </div>
+                        <div class="col-3">
+                            <x-form.input
+                                id="config-form-input"
+                                name="time"
+                                label="Hora"
+                                type="time"
+                                value="{{$invitation->time}}"
+
+                                :errors="(array) $errors->get('time')"
+                            />
+                        </div>
+                        <div class="col-3">
+                            <x-form.select id="config-form-input" name="time_zone" label="Zona horaria">
+                                @foreach ($timezones as $timezone)
+                                    <x-form.select-option
+                                        value="{{$timezone->timezone}}"
+                                        label="{{$timezone->timezone}}"
+                                        selected="{{($invitation->time_zone == $timezone->timezone) ? true : false}}"
+                                    />
+                                @endforeach
+                            </x-form.select>
+                        </div>
+                        <div class="col-3">
+                            <x-form.input
+                                id="config-form-input"
+                                name="duration"
+                                label="Duración"
+                                type="number"
+                                value="{{$invitation->duration}}"
+
+                                :errors="(array) $errors->get('duration')"
+                            />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <x-form.input
+                                id="config-form-input"
+                                name="meta_title"
+                                label="Meta titulo"
+                                type="text"
+                                value="{{$invitation->meta_title}}"
+                                :errors="(array) $errors->get('meta_title')"
+                            />
+                        </div>
+                        <div class="col-4">
+                            <x-form.input
+                                id="config-form-input"
+                                name="meta_description"
+                                label="Meta descripción"
+                                type="text"
+                                value="{{$invitation->meta_description}}"
+                                :errors="(array) $errors->get('meta_description')"
+                            />
+                        </div>
+                        <div class="col-4">
+                            <x-form.input
+                                id="config-form-input"
+                                name="meta_image"
+                                label="Meta imagen"
+                                type="file"
+
+                                :errors="(array) $errors->get('meta_image')"
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-end mt-5">
+                        <x-form.button id="save-config-btn" type="submit" classes="btn btn-dark" disabled="true">
+                            <span class="mx-3">
+                                <i class="fa-light fa-floppy-disk me-2"></i> Guardar
+                            </span>
+                        </x-form.button>
+                    </div>
+                </div>
+            </form>
+            <form action="{{route('api.invitations.set-style', $invitation->id)}}" onsubmit="saveInvitationChanges(event, this)">
+                <div class="tab-form px-3 visually-hidden" id="personalization-form">
+                    <h4 class="py-2">Personalización</h4>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <x-form.select
+                                id="style-form-input"
+                                name="style"
+                                label="Estilo"
+                            >
+                                @foreach ($styleTypes as $styleType)
+                                    <x-form.select-option
+                                        value="{{$styleType}}"
+                                        label="{{$styleType}}"
+                                        selected="{{$invitation->style?->value == $styleType ? true : false}}"
+                                    />  
+                                @endforeach
+                            </x-form.select>
+                        </div>
+                        <div class="col-4">
+                            <x-form.color-picker
+                                id="style-form-input"
+                                name="color"
+                                label="Color principal"
+                                value="{{$invitation->color}}"
+                            />
+                        </div>
+                        <div class="col-4">
+                            <x-form.color-picker
+                                id="style-form-input"
+                                name="background_color"
+                                label="Color de fondo"
+                                value="{{$invitation->background_color}}"
+                            />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <x-form.select
+                                id="style-form-input"
+                                name="spacing"
+                                label="Espaciado"
+                            >
+                                @foreach ($spacingTypes as $spacingType)
+                                    <x-form.select-option
+                                        value="{{$spacingType}}"
+                                        label="{{$spacingType}}"
+                                        selected="{{$invitation->spacing?->value == $spacingType ? true : false}}"
+                                    />  
+                                @endforeach
+                            </x-form.select>
+                        </div>
+                        <div class="col-6">
+                            <x-form.select
+                                id="style-form-input"
+                                name="font"
+                                label="Tipo de letra"
+                            >
+                                @foreach ($fontTypes as $fontType)
+                                    <x-form.select-option
+                                        value="{{$fontType}}"
+                                        label="{{$fontType}}"
+                                        selected="{{$invitation->font?->value == $fontType ? true : false}}"
+                                    />  
+                                @endforeach
+                            </x-form.select>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-end mt-5">
+                        <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark" disabled="true">
+                            <span class="mx-3">
+                                <i class="fa-light fa-floppy-disk me-2"></i> Guardar
+                            </span>
+                        </x-form.button>
+                    </div>
+                </div>
+            </form>
+            <div class="tab-form px-3 visually-hidden" id="modules-form">
+                <h4 class="py-2">Modulos</h4>
+                
+            </div>
+            <div class="tab-form px-3 visually-hidden" id="logs-form">
+                <h4 class="py-2">Logs</h4>
+                
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="save-changes-modal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fa-light fa-triangle-exclamation me-2"></i>Cambios sin guardar</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>¿Esta seguro de salir sin guardar los cambios?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-dark" onclick="changeFormTab()" data-bs-dismiss="modal"><span class="mx-3">Salir</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="{{asset('js/invitation-editor.js')}}"></script>
+</x-admin.layout>

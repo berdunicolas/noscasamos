@@ -22,8 +22,7 @@ class StoreInvitationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|unique:invitations,name',
-            'date' => 'required|date',
+            'name' => 'required|string|unique:events,name',
             'event' => 'required|string',
             'plan' => 'required|string',
         ];
