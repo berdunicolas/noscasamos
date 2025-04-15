@@ -4,9 +4,13 @@
 @endisset
 
 <select 
+    id="{{$id}}"
     name="{{$name}}" 
     class="form-select {{$selectClasses}}" 
-    aria-label="{{$ariaLabel}}">
+    aria-label="{{$ariaLabel}}"
+    {{($disabled) ? 'disabled' : ''}}
+
+    {{$extraAttributes}}
 >
     {{$slot}}
 </select>

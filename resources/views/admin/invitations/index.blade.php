@@ -4,7 +4,9 @@
             <p style="font-size: 2em;">Invitaciones</p>             
             <button class="btn btn-dark rounded-1 font-size-1 font-bold my-2 ms-auto" 
             data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
-                Nueva invitación
+                <span class="mx-3">
+                    <i class="fa-light fa-plus-large me-2"></i>Nuevo evento
+                </span>
             </button>
         </header>
         <div>

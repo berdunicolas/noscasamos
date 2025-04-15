@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css')}}">
 
     <script src="{{ asset('js/bootstrap/bootstrap.js') }}" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/24d21a37ec.js" crossorigin="anonymous"></script>
 
     @if($datatable)
         <link rel="stylesheet" href="{{ asset('inspinia/plugins/datatables/css/dataTables.bootstrap5.min.css') }}">
@@ -32,20 +33,20 @@
     <script src="{{ asset('inspinia/plugins/datatables/js/dataTables.bootstrap5.min.js') }}"></script>
 
     <!-- DataTables Buttons & Dependencies -->
-    <!--
+    
     <script src="{{ asset('inspinia/plugins/datatables/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/datatables/js/buttons.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/datatables/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/datatables/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/datatables/js/buttons.colVis.min.js') }}"></script>
-    -->
+    
 
     <!-- PDF and Excel Export Support -->
-    <!--
+    
     <script src="{{ asset('inspinia/plugins/datatables/js/jszip.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/datatables/js/pdfmake.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/datatables/js/vfs_fonts.js') }}"></script>
-    -->
+    
 
     <script src="{{ asset('js/' . $dataTableName) }}"></script>
     @endif

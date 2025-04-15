@@ -15,18 +15,21 @@ class InvitationResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'event_id' => $this->event_id,
+            'name' => $this->event->name,
+            'event' => $this->event->event,
             'id' => $this->id,
-            'event' => $this->event,
-            'name' => $this->name,
+            'path_name' => $this->path_name,
             'seller_id' => null,
-            'plan' => $this->plan,
+            'seller_name' => 'noscasamos',
+            'plan' => $this->event->plan,
+            'validity' => $this->isExpired(),
             'date' => $this->date,
             'time' => $this->time,
             'time_zone' => $this->time_zone,
             'duration' => $this->duration,
             'active' => $this->active,
             'created_by' => $this->createdBy?->name,
-            'path_name' => $this->path_name,
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
 

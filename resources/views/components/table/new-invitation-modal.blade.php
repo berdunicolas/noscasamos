@@ -17,30 +17,16 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <x-form.input
-                            name="date"
-                            label="Fecha"
-                            type="date"
-                            :errors="(array) $errors->get('name')"
-                        />
-                    </div>
-                    <div class="mb-3">
                         <x-form.select 
                             name="event"
                             label="Evento"
                         >
-                            <x-form.select-option 
-                                value="Boda"
-                                label="Boda"
-                            />
-                            <x-form.select-option 
-                                value="Cumple"
-                                label="Cumple"
-                            />
-                            <x-form.select-option 
-                                value="Quince"
-                                label="Quince"
-                            />
+                            @foreach ($eventTypes as $eventType)
+                                <x-form.select-option
+                                    value="{{$eventType}}"
+                                    label="{{$eventType}}"
+                                />
+                            @endforeach
                         </x-form.select>
                     </div>
                     <div class="mb-3">
@@ -48,18 +34,12 @@
                             name="plan"
                             label="Plan"
                         >
-                            <x-form.select-option 
-                                value="Clásico"
-                                label="Clásico"
-                            />
-                            <x-form.select-option 
-                                value="Gold"
-                                label="Gold"
-                            />
-                            <x-form.select-option 
-                                value="Platino"
-                                label="Platino"
-                            />
+                            @foreach ($planTypes as $planType)
+                                <x-form.select-option
+                                    value="{{$planType}}"
+                                    label="{{$planType}}"
+                                />
+                            @endforeach
                         </x-form.select>
                     </div>
                 </div>

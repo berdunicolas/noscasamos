@@ -1,15 +1,17 @@
-<div class="row">
+<div class="row mt-4">
     <div class="col-lg-12">
-        <table class="table table-bordered table-hover" id="datatable">
+        <table class="table table-bordered table-hover align-middle" id="datatable">
             <thead>
                 <tr class="table-secondary">
-                    <th>Id</th>
+                    <th class="text-start">Id</th>
+                    <th class="text-start">Id evnt.</th>
                     <th>Evento</th>
-                    <th>Usuario</th>
                     <th>Nombre</th>
-                    <th>Seller</th>
+                    <th>Ruta</th>
                     <th>Plan</th>
-                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Seller</th>
+                    <th class="text-start">Fecha</th>
                     <th>Vigencia</th>
                     <th>Acciones</th>
                 </tr>

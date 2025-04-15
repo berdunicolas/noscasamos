@@ -6,16 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Button extends Component
+class ColorPicker extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public string $type = 'button',
-        public string $classes = '',
-        public string $id = '',
-        public bool $disabled = false,
+        public string $name,
+        public string $label = '',
+        public string $value = '#C9AD7C',
     ) {}
 
     /**
@@ -23,6 +22,6 @@ class Button extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.form.button');
+        return view('components.form.color-picker');
     }
 }

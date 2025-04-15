@@ -22,6 +22,7 @@ class Input extends Component
         public string $labelClasses = '',
         public string $inputClasses = '',
         public array $errors = [],
+        public string $extraAttributes = '',
     ) {}
 
     /**
