@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\FontTypeEnum;
+use App\Enums\ModuleTypeEnum;
 use App\Enums\SpacingTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Traits\HasMedia;
@@ -14,6 +15,29 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Invitation extends Model
 {
     use HasFactory, HasMedia;
+
+    protected $customMediaCollections = [
+        ModuleTypeEnum::HIGHLIGHTS['name'],
+        ModuleTypeEnum::EVENTS['name'].'/civil',
+        ModuleTypeEnum::EVENTS['name'].'/ceremony',
+        ModuleTypeEnum::EVENTS['name'].'/party',
+        ModuleTypeEnum::EVENTS['name'].'/dresscode',
+        ModuleTypeEnum::SUGGESTIONS['name'],
+        ModuleTypeEnum::HISTORY['name'],
+        ModuleTypeEnum::INFO['name'],
+        ModuleTypeEnum::GALERY['name'],
+        ModuleTypeEnum::INTRO['name'],
+        ModuleTypeEnum::MUSIC['name'],
+        ModuleTypeEnum::COVER['name'],
+        ModuleTypeEnum::COVER['name'].'/desktop_images',
+        ModuleTypeEnum::COVER['name'].'/mobile_images',
+        ModuleTypeEnum::COVER['name'].'/desktop_video',
+        ModuleTypeEnum::COVER['name'].'/mobile_video',
+        ModuleTypeEnum::COVER['name'].'/logo_cover',
+        ModuleTypeEnum::COVER['name'].'/central_image_cover',
+        ModuleTypeEnum::GIFTS['name'],
+        ModuleTypeEnum::WELCOME['name'],
+    ];
 
     protected $fillable = [
         'seller_id',
@@ -32,6 +56,7 @@ class Invitation extends Model
         'spacing',
         'color',
         'background_color',
+        'modules',
     ];
 
     protected $casts = [
@@ -39,6 +64,7 @@ class Invitation extends Model
         'style' => StyleTypeEnum::class,
         'spacing' => SpacingTypeEnum::class,
         'active' => 'boolean',
+        'modules' => 'array'
     ];
 
     public function createdBy(): BelongsTo

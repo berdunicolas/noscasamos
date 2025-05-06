@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Api\InvitationApiController;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\InvitationModuleApiController;
+use App\View\Components\Modules\Example;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +45,11 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
             ], 200);
         }
     });
+
+    Route::get('intivations/{invitation}/modules', [InvitationModuleApiController::class, 'getInvitationModules'])->name('invitation.modules');
+    Route::patch('intivations/{invitation}/modules/change-order', [InvitationModuleApiController::class, 'changeModolesOrder'])->name('invitation.modules.change-order');
+    Route::patch('intivations/{invitation}/modules/{module}/change-status', [InvitationModuleApiController::class, 'changeModuleStatus'])->name('invitation.modules.change-order');
+    Route::patch('invitations/{invitation}/modules/{module}', [InvitationModuleApiController::class, 'updateModule'])->name('invitation.modules.update');
 });
 
 Route::get('/country-divisions/{code}', function ($code) {

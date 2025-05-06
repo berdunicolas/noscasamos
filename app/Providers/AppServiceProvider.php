@@ -48,5 +48,7 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('table.invitations', Invitations::class);
         Blade::component('admin.invitations.new-invitation-modal', NewInvitationModal::class);
+
+        Blade::component('module-forms.form', \App\View\Components\ModuleForms\Form::class);
     }
 }

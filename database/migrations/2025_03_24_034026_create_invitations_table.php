@@ -39,6 +39,8 @@ return new class extends Migration
 
             $table->string('color', 7)->nullable();
             $table->string('background_color', 7)->nullable();
+
+            $table->json('modules')->nullable();
             
             $table->timestamps();
 

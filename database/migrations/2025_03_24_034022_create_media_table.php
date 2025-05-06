@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('file_path'); 
             $table->string('file_type'); // Tipo MIME (ejemplo: image/png, application/pdf)
             $table->string('mediaable_type');
+            $table->string('collection_name')->default('default');
             $table->string('disk');
             $table->unsignedBigInteger('mediaable_id');
             $table->timestamps();

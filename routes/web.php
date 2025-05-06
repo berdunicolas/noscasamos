@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ModuleTypeEnum;
 use App\Http\Controllers\Admin\Invitation\InvitationController;
 use App\Http\Controllers\Admin\User\RegisteredUserController;
 use App\Models\Invitation;
@@ -32,9 +33,24 @@ Route::get('/inspinia/footable', function () {
     return view('inspinia.footable');
 });
 
+Route::get('/modules', function () {
+    return view('modules');
+});
+
+
 
 Route::get('/{invitation:path_name}', function (Invitation $invitation) {
-    return view('invitation-template', ['invitation', $invitation]);
-})->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+');;
+/*
+    $modules = [];
+
+    foreach($invitation->modules as $module) {
+        $modules[] = ModuleTypeEnum::getModuleComponent($module['name']);
+    }
+*/
+    if ($invitation->isExpired()) {
+        return response()->isNotFound(); // PROBAR
+    }
+    return view('invitations.invitation', ['invitation' => $invitation]);
+})->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+');
 
 require __DIR__.'/auth.php';

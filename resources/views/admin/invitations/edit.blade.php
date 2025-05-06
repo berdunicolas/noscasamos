@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="">
+<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true">
     <div class="container-fluid" >
         {{--
         <header class="d-flex flex-row align-items-center" style="height: 105px">
@@ -65,22 +65,22 @@
         <nav class="navbar-secondary">
             <ul class="nav navbar-nav flex-column font-size-2" id="editor-nav-tab">
                 <li class="nav-item selected">
-                    <a onclick="selectEditorForm(this)" id="configuration" class="w-100 py-2 text-start text-dark btn btn-light rounded-0">
+                    <a onclick="selectEditorForm(this)" id="configuration" class="w-100 py-2 text-start text-dark btn btn-white rounded-0">
                         <span>Configuración</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a onclick="selectEditorForm(this)" id="personalization" class="w-100 py-2 text-start text-dark btn btn-light rounded-0">
+                    <a onclick="selectEditorForm(this)" id="personalization" class="w-100 py-2 text-start text-dark btn btn-white rounded-0">
                         <span>Personalización</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a onclick="selectEditorForm(this)" id="modules" class="w-100 py-2 text-start text-dark btn btn-light rounded-0">
+                    <a onclick="selectEditorForm(this)" id="modules" class="w-100 py-2 text-start text-dark btn btn-white rounded-0">
                         <span>Módulos</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a onclick="selectEditorForm(this)" id="logs" class="w-100 py-2 text-start text-dark btn btn-light rounded-0">
+                    <a onclick="selectEditorForm(this)" id="logs" class="w-100 py-2 text-start text-dark btn btn-white rounded-0">
                         <span>Logs</span>
                     </a>
                 </li>
@@ -355,13 +355,36 @@
                     </div>
                 </div>
             </form>
-            <div class="tab-form px-3 visually-hidden" id="modules-form">
-                <h4 class="py-2">Modulos</h4>
-                
+            <div class="tab-form px-3 visually-hidden d-flex flex-row nowrap" id="modules-form">
+                <div class="w-25">
+                    <h4 class="py-2">Módulos<button type="button" class="ms-2 btn btn-white btn-sm"><i class="fa-light fa-plus"></i></button></h4>
+                    <div class="">
+                        <ul id="invitation-modules" class="invitation-modules">
+                            @foreach ($invitation->modules as $module)                                
+                                <li class="item-module shadow-sm mb-2 {{ $module['fixed'] ? 'fixed-module' : '' }}" data-module-id="{{ $module['name'] }}">
+                                    <div class="d-flex align-items-center">
+                                        <div class="flex-grow-1">
+                                            <i class="fa-light {{($module['fixed']) ? '' : 'fa-grip-dots-vertical'}} me-2"></i><b>{{$module['display_name']}}</b>
+                                        </div>
+                                        @if (!$module['on_plan'])
+                                            <button class="btn btn-sm btn-white" onclick="deleteModule()"><i class="fa-light fa-trash-can"></i></button>
+                                        @endif
+                                        <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
+                                        <div class="form-check form-switch form-check-reverse">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" onchange="statusModuleSwitch(this, '{{ $module['name'] }}')" {{($module['active']) ? 'checked' : ''}}>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+                <div class="px-4 w-100" id="module-form">
+                    
+                </div>
             </div>
             <div class="tab-form px-3 visually-hidden" id="logs-form">
                 <h4 class="py-2">Logs</h4>
-                
             </div>
         </div>
     </main>
@@ -383,5 +406,12 @@
         </div>
       </div>
 
+    <script>
+        window.INVITATION_MODULES_URL = "{{ route('api.invitation.modules', $invitation->id) }}";
+    </script>
+    <script src="{{ asset('inspinia/plugins/jquery/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('inspinia/plugins/jquery-ui/js/jquery-ui.min.js') }}"></script>
+
     <script src="{{asset('js/invitation-editor.js')}}"></script>
+    <script src="{{asset('js/invitation-modules.js')}}"></script>
 </x-admin.layout>
