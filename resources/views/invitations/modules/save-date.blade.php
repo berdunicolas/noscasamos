@@ -1,6 +1,5 @@
 @php
 
-$icontype = "a"; // Tipo de icono a = Animado
 $trigger = "loop"; // Animación de icono
 $stroke = "light"; // Estilo de Icono = light regular bold
 
@@ -18,9 +17,6 @@ $hs = "20:00:00";
 $tz = "+ 3 hours"; //Zona horaria en negativo ej: buenos aires + 3 en lugar de - 3       
 $fecha = $mes . "/" . $dia . "/" . $ano . " " . $hs;
 $fechat = $dia . " de " . $mestxt;
-$fechali = date_format(date_create($fecha), 'YmdHis');
-$fechalip = date('YmdHis', strtotime($fechali . $tz));
-$fechalif = date('YmdHis', strtotime($fechalip . '+ 5 hours'));
 
 $dias = "Días";
 $horas = "Hs";
@@ -36,10 +32,9 @@ $stdbtnicon = "mzfjzfjs";
 $stdlink = "";
 $stdmarco = $marco;
 @endphp
-
 <section class="countdown wow animate__animated animate__fadeInUp" data-wow-duration="1.5s" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} {{ (!empty($stdmarco)) ? "background-image: url('images/".$stdmarco."');" : ''}} background-repeat:repeat-x;">
     @if (!empty($stdbtnicon))
-        @if($icontype==='a')
+        @if($icontype==='Animado')
             <lord-icon class="icon" src="https://cdn.lordicon.com/{{$stdbtnicon}}.json" trigger="{{$trigger}}" state="{{$stdbtnicons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
         @else
             <i class="fa-thin {{$module['icon'] ?? 'fa-calendar-check'}}"></i>

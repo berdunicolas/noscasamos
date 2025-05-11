@@ -56,10 +56,10 @@ $regalotxt3 = "En caso que prefieras regalar en efectivo, tendrás a disposició
 $regalobtn3 = "";
 $regalolink3 = "";
 
-$catalogo = "n"; // s = Si o n = No //
+$catalogo = "s"; // s = Si o n = No //
 $catalogotitulo = "Ideas de regalos";
 $catalogotxt = "Te compartimos algunas opciones que seguro disfrutaremos en nuestra luna de miel.";
-$producto1 = "";
+$producto1 = "vino";
 $productoimg1 = "gift1.png";
 $productoprecio1 = "";
 $productolink1 = "";
@@ -86,154 +86,155 @@ $productolink6 = "";
 @endphp
 
 
-@if($regalos == "s")
-    <section class="gifts" style="background-image: url('images/{{$regalosbg}}');">
-        <div class="card wow animate__animated animate__fadeInUp" data-wow-duration="1s">
-            @empty(!$regalosimg)
-                <img src="images/{{$regalosimg}}" alt="{{$regalostitulo}}" style="max-width:90%;"/>
-            @endempty
+<section class="gifts" style="background-image: url('{{$module['background_image']}}');">
+    <div class="card wow animate__animated animate__fadeInUp" data-wow-duration="1s">
+        @empty(!$module['module_image'])
+            <img src="{{$module['module_image']}}" alt="{{$module['pre_tittle']}}" style="max-width:90%;"/>
+        @endempty
+        
+        @empty(!$module['icon'])
+            @if($icontype==='a')
+                <lord-icon src="https://cdn.lordicon.com/{{$regalosicon}}.json" trigger="{{$trigger}}" state="{{$regalosicons}}" stroke="{{$stroke}}" delay="300" colors="primary:#666,secondary:{{$pcolor}}" style="width:70px;height:70px"></lord-icon>
+            @else
+                <i class="fa-thin {{$module['icon']}}"></i>
+            @endif
+        @endempty
+                    
+        @empty(!$module['pre_tittle'])
+            <h2>{{$module['pre_tittle']}}</h2>
+        @endempty
+        @empty(!$module['text'])
+            <p>{!!$module['text']!!}</p>
+        @endempty
+        
+        @if(!empty ($module['button_text']))
+            @if($module['button_type'] == 'Link'))
+                <a class="modal-button" href="{{$module['button_url']}}">{{$module['button_text']}}</a>
+            @else
+                <button class="modal-button" href="#myModal1">{{$module['button_text']}}</button>
+            @endif
+        @endif
+    </div>
+    
+
+    <div class="modalGift" id="myModal1">
+        <div class="contenido-modal">
+            <span class="closeModal"><i class="fa-regular fa-xmark"></i></span>
             
-            @empty(!$regalosicon)
-                @if($icontype==='a')
-                    <lord-icon src="https://cdn.lordicon.com/{{$regalosicon}}.json" trigger="{{$trigger}}" state="{{$regalosicons}}" stroke="{{$stroke}}" delay="300" colors="primary:#666,secondary:{{$pcolor}}" style="width:70px;height:70px"></lord-icon>
-                @else
-                    <i class="fa-thin {{$regalosiconf}}"></i>
-                @endif
-            @endempty
+            <!-- REGALO 1 -->
+            @if($module['first_account']['active'])
+                <div class="item">
+                    <div class="left">
+                        <h3>{{$module['first_account']['tittle']}}</h3>
+                    </div>
+                    <div class="right">
+                        <p>{!!$module['first_account']['text']!!}</p>
+                        @empty(!$module['first_account']['value'])
+                            <p><b>{{$module['first_account']['data']}}:</b></P>
+                            <input type="text" disabled="disabled" value="{{$module['first_account']['value']}}" id="GfGInput">
+                            <p id="gfg" class="gfg"></p>
+                            <span onclick="GeeksForGeeks()" value="Copy"><i class="fa-regular fa-copy"></i>Copiar {{$module['first_account']['data']}}</span>
+                        @endempty
+                        {{--@if($btncopiar == "s")
+                            <p id="gfg" class="gfg"></p>
+                            <span onclick="GeeksForGeeks()" value="Copy"><i class="fa-regular fa-copy"></i>{{$regalocbucopiabtn}}</span>
+                        @endif--}}
+                    </div>
+                </div>
+            @endif
+            <!-- REGALO 2 -->
+            @if($module['second_account']['active'])
+                <div class="item">
+                    <div class="left">
+                        <h3>{{$regalotitulo2}}</h3>
+                    </div>
+                    <div class="right">
+                        <p>{{$regalotxt2}}</p>
+                        @empty(!$regalobtn2)
+                            <a href="{{$regalolink2}}" class="link">{{$regalobtn2}}</a>
+                        @endempty
+                    </div>
+                </div>
+            @endif
+            <!-- REGALO 3 -->
+            @if($regalo3 == "s")
+            <div class="item">
+                <div class="left">
+                    <h3>{{$regalotitulo3}}</h3>
+                </div>
+                <div class="right">
+                    <p>{{$regalotxt3}}</p>
+                    @empty(!$regalobtn3)
+                    <a href="{{$regalolink3}}" class="link">{{$regalobtn3}}</a>
+                    @endempty
+                </div>
+            </div>
+            @endif
+            
+            <!-- CATALOGO -->
+            @if ($catalogo == "s")
+            <div class="item">
+                <div class="left">
+                    <h3>{{$catalogotitulo}}</h3>
+                </div>
+                <div class="right">
+                    @empty(!$catalogotxt)
+                    <p>{{$catalogotxt}}</p>
+                    @endempty
+                    
+                    <div class="list">
+                        @empty(!$producto1)
+                            <a href="{{$productolink1}}">
+                                {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$producto1}}"/>--}}
+                                <img src="{{asset("boda/images/regalos/".$productoimg1)}}" alt="{{$producto1}}"/>
+                                <p>{{$producto1}}</p>
+                                <h4>{{$productoprecio1}}</h4>
+                            </a>
+                        @endempty
                         
-            @empty(!$regalostitulo)
-                <h2>{{$regalostitulo}}</h2>
-            @endempty
-            @empty(!$regalostxt)
-                <p>{{$regalostxt}}</p>
-            @endempty
-            
-            @if(!empty ($regalosbtn))
-                @if(!empty ($regaloslink))
-                    <a class="modal-button" href="{{$regaloslink}}">{{$regalosbtn}}</a>
-                @else
-                    <button class="modal-button" href="#myModal1">{{$regalosbtn}}</button>
-                @endif
+                        @empty(!$producto2)
+                            <a href="{{$productolink2}}">
+                                <img src="images/regalos/{{$productoimg2}}" alt="{{$producto2}}"/>
+                                <p>{{$producto2}}</p>
+                                <h4>{{$productoprecio2}}</h4>
+                            </a>
+                        @endempty
+                        
+                        @empty(!$producto3)
+                            <a href="{{$productolink3}}">
+                                <img src="images/regalos/{{$productoimg3}}" alt="{{$producto3}}"/>
+                                <p>{{$producto3}}</p>
+                                <h4>{{$productoprecio3}}</h4>
+                            </a>
+                        @endempty
+                        
+                        @empty(!$producto4)
+                        <a href="{{$productolink4}}">
+                            <img src="images/regalos/{{$productoimg4}}" alt="{{$producto4}}"/>
+                            <p>{{$producto4}}</p>
+                            <h4>{{$productoprecio4}}</h4>
+                        </a>
+                        @endempty
+                        
+                        @empty(!$producto5)
+                            <a href="{{$productolink5}}">
+                            <img src="images/regalos/{{$productoimg5}}" alt="{{$producto5}}"/>
+                            <p>{{$producto5}}</p>
+                            <h4>{{$productoprecio5}}</h4>
+                        </a>
+                        @endempty
+                        
+                        @empty(!$producto6)
+                            <a href="{{$productolink6}}">
+                            <img src="images/regalos/{{$productoimg6}}" alt="{{$producto6}}"/>
+                            <p>{{$producto6}}</p>
+                            <h4>{{$productoprecio6}}</h4>
+                        </a>
+                        @endempty
+                    </div>
+                </div>
+            </div>
             @endif
         </div>
-        
-    
-        <div class="modalGift" id="myModal1">
-            <div class="contenido-modal">
-                <span class="closeModal"><i class="fa-regular fa-xmark"></i></span>
-                
-                <!-- REGALO 1 -->
-                @if($regalo1 == "s")
-                    <div class="item">
-                        <div class="left">
-                            <h3>{{$regalotitulo1}}</h3>
-                        </div>
-                        <div class="right">
-                            <p>{{$regalotxt1}}</p>
-                            @empty(!$regalocbu)
-                                <p><b>{{$regalocodigo}}:</b></P>
-                                <input type="text" disabled="disabled" value="{{$regalocbu}}" id="GfGInput">
-                            @endempty
-                            @if($btncopiar == "s")
-                                <p id="gfg" class="gfg"></p>
-                                <span onclick="GeeksForGeeks()" value="Copy"><i class="fa-regular fa-copy"></i>{{$regalocbucopiabtn}}</span>
-                            @endif
-                        </div>
-                    </div>
-                @endif
-                <!-- REGALO 2 -->
-                @if($regalo2 == "s")
-                    <div class="item">
-                        <div class="left">
-                            <h3>{{$regalotitulo2}}</h3>
-                        </div>
-                        <div class="right">
-                            <p>{{$regalotxt2}}</p>
-                            @empty(!$regalobtn2)
-                                <a href="{{$regalolink2}}" class="link">{{$regalobtn2}}</a>
-                            @endempty
-                        </div>
-                    </div>
-                @endif
-                <!-- REGALO 3 -->
-                @if($regalo3 == "s")
-                <div class="item">
-                    <div class="left">
-                        <h3>{{$regalotitulo3}}</h3>
-                    </div>
-                    <div class="right">
-                        <p>{{$regalotxt3}}</p>
-                        @empty(!$regalobtn3)
-                        <a href="{{$regalolink3}}" class="link">{{$regalobtn3}}</a>
-                        @endempty
-                    </div>
-                </div>
-                @endif
-                
-                <!-- CATALOGO -->
-                @if ($catalogo == "s")
-                <div class="item">
-                    <div class="left">
-                        <h3>{{$catalogotitulo}}</h3>
-                    </div>
-                    <div class="right">
-                        @empty(!$catalogotxt)
-                        <p>{{$catalogotxt}}</p>
-                        @endempty
-                        
-                        <div class="list">
-                            @empty(!$producto1)
-                                <a href="{{$productolink1}}">
-                                    <img src="images/regalos/{{$productoimg1}}" alt="{{$producto1}}"/>
-                                    <p>{{$producto1}}</p>
-                                    <h4>{{$productoprecio1}}</h4>
-                                </a>
-                            @endempty
-                            
-                            @empty(!$producto2)
-                                <a href="{{$productolink2}}">
-                                    <img src="images/regalos/{{$productoimg2}}" alt="{{$producto2}}"/>
-                                    <p>{{$producto2}}</p>
-                                    <h4>{{$productoprecio2}}</h4>
-                                </a>
-                            @endempty
-                            
-                            @empty(!$producto3)
-                                <a href="{{$productolink3}}">
-                                    <img src="images/regalos/{{$productoimg3}}" alt="{{$producto3}}"/>
-                                    <p>{{$producto3}}</p>
-                                    <h4>{{$productoprecio3}}</h4>
-                                </a>
-                            @endempty
-                            
-                            @empty(!$producto4)
-                            <a href="{{$productolink4}}">
-                                <img src="images/regalos/{{$productoimg4}}" alt="{{$producto4}}"/>
-                                <p>{{$producto4}}</p>
-                                <h4>{{$productoprecio4}}</h4>
-                            </a>
-                            @endempty
-                            
-                            @empty(!$producto5)
-                                <a href="{{$productolink5}}">
-                                <img src="images/regalos/{{$productoimg5}}" alt="{{$producto5}}"/>
-                                <p>{{$producto5}}</p>
-                                <h4>{{$productoprecio5}}</h4>
-                            </a>
-                            @endempty
-                            
-                            @empty(!$producto6)
-                                <a href="{{$productolink6}}">
-                                <img src="images/regalos/{{$productoimg6}}" alt="{{$producto6}}"/>
-                                <p>{{$producto6}}</p>
-                                <h4>{{$productoprecio6}}</h4>
-                            </a>
-                            @endempty
-                        </div>
-                    </div>
-                </div>
-                @endif
-            </div>
-        </div>
-    </section>
-@endif
+    </div>
+</section>

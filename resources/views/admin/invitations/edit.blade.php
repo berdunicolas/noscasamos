@@ -91,7 +91,18 @@
                 <div class="tab-form px-3" id="configuration-form">
                     <h4 class="py-2">Configuración de evento</h4>
                     <div class="row mb-3">
-                        <div class="col-6">
+                        <div class="col-4">
+                            <x-form.input
+                                id="config-form-input"
+                                name="host_names"
+                                label="Nombre de anfitriones"
+                                type="text"
+                                placeholder="Juan y Micaela"
+                                value="{{$invitation->host_names}}"
+                                {{--:errors="(array) $errors->get('meta_title')"--}}
+                            />
+                        </div>
+                        <div class="col-4">
                             <x-form.select
                                 id="country-select"
                                 name="country"
@@ -121,7 +132,7 @@
                                 @endif
                             </x-form.select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <x-form.select
                                 id="country-division-select"
                                 name="country_division"
@@ -315,7 +326,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-6">
+                        <div class="col-4">
                             <x-form.select
                                 id="style-form-input"
                                 name="spacing"
@@ -330,7 +341,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <x-form.select
                                 id="style-form-input"
                                 name="font"
@@ -343,6 +354,24 @@
                                         selected="{{$invitation->font?->value == $fontType ? true : false}}"
                                     />  
                                 @endforeach
+                            </x-form.select>
+                        </div>
+                        <div class="col-4">
+                            <x-form.select
+                                id="style-form-input"
+                                name="icon_type"
+                                label="Tipo de icono"
+                            >
+                                <x-form.select-option
+                                    value="Animado"
+                                    label="Animado"
+                                    selected="{{$invitation->icon_type == 'Animado' ? true : false}}"
+                                />  
+                                <x-form.select-option
+                                    value="Estatico"
+                                    label="Estatico"
+                                    selected="{{$invitation->icon_type == 'Estatico' ? true : false}}"
+                                />  
                             </x-form.select>
                         </div>
                     </div>
@@ -358,7 +387,7 @@
             <div class="tab-form px-3 visually-hidden d-flex flex-row nowrap" id="modules-form">
                 <div class="w-25">
                     <h4 class="py-2">Módulos<button type="button" class="ms-2 btn btn-white btn-sm"><i class="fa-light fa-plus"></i></button></h4>
-                    <div class="">
+                    <div>
                         <ul id="invitation-modules" class="invitation-modules">
                             @foreach ($invitation->modules as $module)                                
                                 <li class="item-module shadow-sm mb-2 {{ $module['fixed'] ? 'fixed-module' : '' }}" data-module-id="{{ $module['name'] }}">

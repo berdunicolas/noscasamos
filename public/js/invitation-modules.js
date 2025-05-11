@@ -19,7 +19,6 @@ $(document).ready(function () {
         if(statusCode === 200){
             let moduleForms = document.getElementById('module-form');
             data = data.join('');
-            console.log(data);
             moduleForms.innerHTML = data;
         } else {
             console.error(data);
@@ -56,7 +55,6 @@ $(document).ready(function () {
             })
             .then(async ({statusCode, data}) => {
                 if(statusCode === 201){
-                    console.log(data);
                 } else {
                     console.error(data);
                 }
@@ -86,7 +84,6 @@ function statusModuleSwitch(checkbox, module){
     })
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
-            console.log(data);
         } else {
             console.error(data);
         }
@@ -142,9 +139,28 @@ function hideModuleForms() {
     });
 }
 
-function sendModuleForm(e, form){
+function sendModuleForm(e, form, name = ''){
     e.preventDefault();
     let formData = new FormData(form);
+
+    if(name == 'COVER'){
+        selectedFiles['images_desktop_cover'].forEach(file => {
+            if (file) {
+                formData.append('desktop_images[]', file);
+            }
+        });
+        selectedFiles['images_mobile_cover'].forEach(file => {
+            if (file) {
+                formData.append('mobile_images[]', file);
+            }
+        });
+    }else if(name == 'GALERY'){
+        selectedFiles['galery_images'].forEach(file => {
+            if (file) {
+                formData.append('galery_images[]', file);
+            }
+        });
+    }
 
     fetch(form.action, {
         method: 'POST',
@@ -162,7 +178,6 @@ function sendModuleForm(e, form){
     })
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
-            console.log(data);
             //location.reload();
         } else {
             console.error(data);
@@ -173,12 +188,12 @@ function sendModuleForm(e, form){
 
 
 // float button
-
+/*
 function changeFloatButton(select) {
     let iconButton = document.getElementById('icon_input');
     let urlButton = document.getElementById('url_input');
 
-    if (select.value === 'Link Personalizado') {
+    if (select.value === 'Confirmar Asistencia') {
         iconButton.classList.remove('d-none');
         urlButton.classList.remove('d-none');
         iconButton.attributes.remove('disabled');
@@ -189,7 +204,7 @@ function changeFloatButton(select) {
         iconButton.attributes.add('disabled', 'disabled');
         iconButton.attributes.add('disabled', 'disabled');
     }
-}
+}*/
 
 // cover
 
@@ -203,7 +218,7 @@ function changeCoverFormat(select) {
 
 
 
-    if (select.value === 'Imagenes') {
+    if (select.value === 'Imagenes' || select.value === 'Imagenes con marco') {
         imagesInpusDiv.classList.remove('d-none');
         videoInpustDiv.classList.add('d-none');
 
@@ -213,7 +228,7 @@ function changeCoverFormat(select) {
         desktopVideoInput.attributes.add('disabled', 'disabled');
         mobileVideoInput.attributes.add('disabled', 'disabled');
 
-    } else if(select.value === 'Video') {
+    } else if(select.value === 'Video' || select.value === 'Video centrado') {
         imagesInpusDiv.classList.add('d-none');
         videoInpustDiv.classList.remove('d-none');
         
@@ -222,6 +237,16 @@ function changeCoverFormat(select) {
 
         desktopImagesInput.attributes.add('disabled', 'disabled');
         mobileImagesInput.attributes.add('disabled', 'disabled');
+    } else {
+        imagesInpusDiv.classList.add('d-none');
+        videoInpustDiv.classList.add('d-none');
+        
+        desktopVideoInput.attributes.add('disabled', 'disabled');
+        mobileVideoInput.attributes.add('disabled', 'disabled');
+
+        desktopImagesInput.attributes.add('disabled', 'disabled');
+        mobileImagesInput.attributes.add('disabled', 'disabled');
+
     }
 }
 
@@ -239,6 +264,87 @@ function updatetext_color_coverColor() {
 
 function checkboxSwitch(checkbox, inputId) {
     let input = document.getElementById(inputId);
-    console.log(checkbox.checked);
     input.value = checkbox.checked ? 1 : 0;
 }
+
+
+
+// images handle
+
+let selectedFiles = {
+    'images_desktop_cover': [],
+    'images_mobile_cover': [],
+    'galery_images': [],
+};
+
+function abrirSelector(id) {
+    document.getElementById(id).click();
+}
+
+function manejarSeleccion(input, zoneName) {
+    const files = input.files;
+    procesarArchivos(files, zoneName);
+    input.value = ''; // Para permitir volver a seleccionar el mismo archivo
+}
+
+function manejarDragOver(event, id) {
+    event.preventDefault();
+    document.getElementById(id).classList.add('dragover');
+}
+
+function manejarDragLeave(event, id) {
+    document.getElementById(id).classList.remove('dragover');
+}
+
+function manejarDrop(event, id, zoneName) {
+    event.preventDefault();
+    document.getElementById(id).classList.remove('dragover');
+    const files = event.dataTransfer.files;
+    procesarArchivos(files, zoneName);
+}
+
+function procesarArchivos(files, zoneName) {
+    for (let file of files) {
+        if (!file.type.startsWith('image/')) continue;
+
+        selectedFiles[zoneName].push(file);
+        const index = selectedFiles[zoneName].length - 1;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const div = document.createElement('div');
+            div.classList.add('preview-item');
+            div.innerHTML = `
+                <img src="${e.target.result}" alt="preview">
+                <button type="button" class="remove-btn" onclick="eliminarImagen(${index}, this, '${zoneName}')">&times;</button>
+            `;
+            document.getElementById('preview-container-'+zoneName).appendChild(div);
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function eliminarImagen(index, btnElement, zoneName) {
+    selectedFiles[zoneName][index] = null;
+    btnElement.parentElement.remove();
+}
+/*
+function enviarFormulario(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    selectedFiles.forEach(file => {
+        if (file) {
+            formData.append('images[]', file);
+        }
+    });
+
+    fetch('/ruta/a/tu/backend', {
+        method: 'POST',
+        body: formData
+    })
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+    .catch(err => console.error(err));
+}
+*/

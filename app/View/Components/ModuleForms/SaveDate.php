@@ -17,6 +17,7 @@ class SaveDate extends Component
     public function __construct(
         public int $invitationId,
         public array $module = [],
+        public string $icontype = 'Animado',
         public string $moduleName = ModuleTypeEnum::SAVE_DATE['name'],
     ) {
         $this->module['tittle'] = $module['tittle'] ?? '';

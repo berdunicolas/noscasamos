@@ -41,13 +41,15 @@ $rsvpico = "heqlbljj";
 $rsvpantetitulo = "rsvp";
 $rsvptitulo = "Confirmación de Asistencia";
 $rsvptxt = "Esperamos contar con tu presencia";
-$rsvplimite = "";
+$rsvplimite = "limnite";
 $rsvplimitetxt = "Por favor confirmar antes del";
 $rsvpbtn = "Confirmar Asistencia";
-$linkconfirmacion = ""; //https://api.whatsapp.com/send?phone=5493815802802&text=%C2%A1Hola%21+quiero+confirmar+mi+asistencia+en+su+boda
+$linkconfirmacion = "https://api.whatsapp.com/send?phone=5493815802802&text=%C2%A1Hola%21+quiero+confirmar+mi+asistencia+en+su+boda"; //https://api.whatsapp.com/send?phone=5493815802802&text=%C2%A1Hola%21+quiero+confirmar+mi+asistencia+en+su+boda
 // Info extra
-$extratitulo = ""; // Ej: Valór de Tarjetas
-$extratxt = "";
+//$extratitulo = ""; // Ej: Valór de Tarjetas
+$extratitulo = "extra titulo"; // Ej: Valór de Tarjetas
+//$extratxt = "";
+$extratxt = "texto extra";
 $extrabtn = "s"; // s = Boton visible
 $extrabtntxt = "Cómo abonar"; // Texto del botón
 // Formulario
@@ -56,16 +58,20 @@ $aclaracionform = "El formulario es individual.<br> Si tu invitación incluye ac
 $asistire = "Asistiré";
 $noasistire = "No Asistiré";
 $nombre = "Apellido y Nombre";
-$correo = "";
-$telefono = "";
+//$correo = "";
+$correo = "correo";
+//$telefono = "";
+$telefono = "tel";
 $menu = "¿Necesitas un menú especial?";
 $menu1 = "Ninguno";
 $menu2 = "Celíaco";
 $menu3 = "Vegetariano";
 $menu4 = "Vegano";
 $menu5 = "Diabético";
-$acompanantes = ""; //Apellido y nombres de acompañantes (si corresponde)
-$traslado = "";
+//$acompanantes = ""; //Apellido y nombres de acompañantes (si corresponde)
+$acompanantes = "Acompañantes"; //Apellido y nombres de acompañantes (si corresponde)
+//$traslado = "";
+$traslado = "Traslado";
 $traslado1 = "No, voy por mis propios medios";
 $traslado2 = "Si, necesito traslado";
 $traslado3 = "";
@@ -153,11 +159,11 @@ $gracias = "¡Gracias por confirmar tu asistencia!";
                         <div class="selectField">
                             <i class="fa-regular fa-angle-down"></i>
                             <select name="alimentos" id="alimentos" onchange="javacript: var typename = this.options[selectedIndex].text; document.getElementById('alimento').value = typename;">
-                                {{(!empty($menu1)) ? '<option value="'.$menu1.'">'.$menu1.'</option>' : ''}}
-                                {{(!empty($menu2)) ? '<option value="'.$menu2.'">'.$menu2.'</option>' : ''}}
-                                {{(!empty($menu3)) ? '<option value="'.$menu3.'">'.$menu3.'</option>' : ''}}
-                                {{(!empty($menu4)) ? '<option value="'.$menu4.'">'.$menu4.'</option>' : ''}}
-                                {{(!empty($menu5)) ? '<option value="'.$menu5.'">'.$menu5.'</option>' : ''}}
+                                {!!(!empty($menu1)) ? '<option value="'.$menu1.'">'.$menu1.'</option>' : ''!!}
+                                {!!(!empty($menu2)) ? '<option value="'.$menu2.'">'.$menu2.'</option>' : ''!!}
+                                {!!(!empty($menu3)) ? '<option value="'.$menu3.'">'.$menu3.'</option>' : ''!!}
+                                {!!(!empty($menu4)) ? '<option value="'.$menu4.'">'.$menu4.'</option>' : ''!!}
+                                {!!(!empty($menu5)) ? '<option value="'.$menu5.'">'.$menu5.'</option>' : ''!!}
                                 <!--<option value="valor">valor</option>-->
                             </select> 
                         </div>
@@ -169,10 +175,10 @@ $gracias = "¡Gracias por confirmar tu asistencia!";
                         <div class="selectField">
                             <i class="fa-regular fa-angle-down"></i>
                             <select name="traslados"  id="traslados" onchange="javacript: var typename = this.options[selectedIndex].text; document.getElementById('traslado').value = typename;">
-                                {{(!empty($traslado1)) ? '<option value="'.$traslado1.'">'.$traslado1.'</option>' : ''}}
-                                {{(!empty($traslado2)) ? '<option value="'.$traslado2.'">'.$traslado2.'</option>' : ''}}
-                                {{(!empty($traslado3)) ? '<option value="'.$traslado3.'">'.$traslado3.'</option>' : ''}}
-                                {{(!empty($traslado4)) ? '<option value="'.$traslado4.'">'.$traslado4.'</option>' : ''}}
+                                {!!(!empty($traslado1)) ? '<option value="'.$traslado1.'">'.$traslado1.'</option>' : ''!!}
+                                {!!(!empty($traslado2)) ? '<option value="'.$traslado2.'">'.$traslado2.'</option>' : ''!!}
+                                {!!(!empty($traslado3)) ? '<option value="'.$traslado3.'">'.$traslado3.'</option>' : ''!!}
+                                {!!(!empty($traslado4)) ? '<option value="'.$traslado4.'">'.$traslado4.'</option>' : ''!!}
 <!--                                    <option value="valor">valor</option>-->
                             </select> 
                         </div>

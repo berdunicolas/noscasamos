@@ -47,6 +47,37 @@ $interactivosmarco = $marco;
 @endphp
 
 
+@if($interactives['spotify']['active'] || $interactives['hashtag']['active'] || $interactives['ig']['active'] || $interactives['link']['active'])
+    <section class="social" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} {{(!empty($interactivosmarco)) ? "background-image: url('images/".$interactivosmarco."')" : ''}} background-repeat:repeat-x;">
+        @foreach ($interactives as $key => $interactive)            
+            @if($interactive['active'])
+                <article class="item wow animate__animated animate__fadeInUp">
+                    @empty(!$interactive['icon'])
+                        @if($icontype==='a')
+                            <lord-icon src="https://cdn.lordicon.com/{{$inter1icon}}.json" trigger="{{$trigger}}" state="{{$inter1icons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="o") ? '#fff' : '#666'}},secondary:{{$pcolor}}" style="width:70px;height:70px"></lord-icon>
+                        @else
+                            <i class="fa-brands {{$interactive['icon']}}"></i>
+                        @endif
+                    @endempty
+                            
+                    @empty(!$interactive['tittle'])
+                        <h2>{{$interactive['tittle']}}</h2>
+                    @endempty
+                    @empty(!$interactive['text'])
+                    <div>
+                        <p>{!!$interactive['text']!!}</p>
+                    </div>
+                    @endempty
+                    @empty(!$interactive['button_url'])
+                        <a href="{{$interactive['button_url']}}" target="_blank">{{$interactive['button_text']}}</a>
+                    @endempty
+                </article>
+            @endif
+        @endforeach
+    </section>
+@endif
+
+{{--
 @if ($inter1 == "s" || $inter2 == "s" || $inter3 == "s")
     <section class="social" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} {{(!empty($interactivosmarco)) ? "background-image: url('images/".$interactivosmarco."')" : ''}} background-repeat:repeat-x;">
         @if($inter1 == "s")
@@ -121,3 +152,5 @@ $interactivosmarco = $marco;
         @endif
     </section>
 @endif
+
+--}}

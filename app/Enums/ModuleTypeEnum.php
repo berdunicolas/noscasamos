@@ -229,21 +229,21 @@ final class ModuleTypeEnum
             'INTRO' => new Intro($invitation->id),
             'MUSIC' => new Music($invitation->id),
             'FLOAT_BUTTON' => new FloatButton($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'COVER' => new Cover($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'COVER' => new Cover($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name), $invitation->host_names),
             'GUEST' => new Guest($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'SAVE_DATE' => new SaveDate($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'WELCOME' => new Welcome($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'EVENTS' => new Events($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'HISTORY' => new History(),
-            'INFO' => new Info(),
-            'HIGHLIGHTS' => new Highlights(),
-            'INTERACTIVE' => new Interactive(),
-            'VIDEO' => new Video(),
-            'SUGGESTIONS' => new Suggestions(),
-            'GALERY' => new Galery(),
-            'GIFTS' => new Gifts(),
-            'CONFIRMATION' => new Confirmation(),
-            'FOOT' => new Foot(),
+            'HISTORY' => new History($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'INFO' => new Info($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'HIGHLIGHTS' => new Highlights($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'INTERACTIVE' => new Interactive($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'VIDEO' => new Video($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'SUGGESTIONS' => new Suggestions($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'GALERY' => new Galery($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'GIFTS' => new Gifts($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'CONFIRMATION' => new Confirmation($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'FOOT' => new Foot($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
         };
 
         return Blade::renderComponent($form);
@@ -255,7 +255,7 @@ final class ModuleTypeEnum
             'INTRO' => new IntroModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->style->value),
             'MUSIC' => new MusicModule(self::getModuleFromArrayByName($invitation->modules, $name)),
             'FLOAT_BUTTON' => new FloatButtonModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->color),
-            'COVER' => new CoverModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->meta_title, $invitation->color, $invitation->background_color),
+            'COVER' => new CoverModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->host_names, $invitation->meta_title, $invitation->color, $invitation->background_color),
             'GUEST' => new GuestModule(self::getModuleFromArrayByName($invitation->modules, $name)),
             'SAVE_DATE' => new SaveDateModule(
                 self::getModuleFromArrayByName($invitation->modules, $name),
@@ -264,7 +264,8 @@ final class ModuleTypeEnum
                 $invitation->time,
                 $invitation->time_zone,
                 $invitation->style->value,
-                $invitation->color
+                $invitation->color,
+                $invitation->icon_type
             ),
             'WELCOME' => new WelcomeModule(self::getModuleFromArrayByName($invitation->modules, $name)),
             'EVENTS' => new EventsModule(self::getModuleFromArrayByName($invitation->modules, $name)),
@@ -313,20 +314,23 @@ final class ModuleTypeEnum
             ],
             'COVER' => [
                 'format' => 'required|string',
-                'frame_type' => 'required|string',
-                'align' => 'required|string',
+                'active_header' => 'boolean',
+                'active_logo' => 'boolean',
+                'active_central' => 'boolean',
+                'names' => 'required|string',
                 'tittle' => 'required|string',
                 'detail' => 'required|string',
                 'text_color_cover' => 'required|string',
-                'desktop_images' => [
-                    File::image()
+                'desktop_images' => ['array'
+                    /*File::image()
                         ->types(['jpeg', 'png', 'jpg'])
-                        ->max(2*2048)
+                        ->max(2*2048)*/
                 ],
                 'mobile_images' => [
-                    File::image()
+                    'array'
+                    /*File::image()
                         ->types(['jpeg', 'png', 'jpg'])
-                        ->max(2*2048)
+                        ->max(2*2048)*/
                 ],
                 'desktop_video' => [
                         File::types(['mp4', 'mov', 'avi'])
@@ -383,6 +387,8 @@ final class ModuleTypeEnum
                 'civil_hr_translation' => 'required_if:civil_active,1',
                 'civil_name' => 'required_if:civil_active,1',
                 'civil_detail' => 'required_if:civil_active,1',
+                'civil_button_url' => 'required_if:civil_active,1',
+                'civil_button_text' => 'required_if:civil_active,1',
                 'civil_image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -398,6 +404,8 @@ final class ModuleTypeEnum
                 'ceremony_hr_translation' => 'required_if:ceremony_active,1',
                 'ceremony_name' => 'required_if:ceremony_active,1',
                 'ceremony_detail' => 'required_if:ceremony_active,1',
+                'ceremony_button_url' => 'required_if:ceremony_active,1',
+                'ceremony_button_text' => 'required_if:ceremony_active,1',
                 'ceremony_image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -413,6 +421,8 @@ final class ModuleTypeEnum
                 'party_hr_translation' => 'required_if:party_active,1',
                 'party_name' => 'required_if:party_active,1',
                 'party_detail' => 'required_if:party_active,1',
+                'party_button_url' => 'required_if:party_active,1',
+                'party_button_text' => 'required_if:party_active,1',
                 'party_image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -425,22 +435,160 @@ final class ModuleTypeEnum
                 'dresscode_order' => 'required_if:dresscode_active,1',
                 'dresscode_name' => 'required_if:dresscode_active,1',
                 'dresscode_detail' => 'required_if:dresscode_active,1',
+                'dresscode_button_url' => 'required_if:dresscode_active,1',
+                'dresscode_button_text' => 'required_if:dresscode_active,1',
                 'dresscode_image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
                 ],
             ],
-            'HISTORY' => [],
-            'INFO' => [],
-            'HIGHLIGHTS' => [],
-            'INTERACTIVE' => [],
-            'VIDEO' => [],
-            'SUGGESTIONS' => [],
-            'GALERY' => [],
-            'GIFTS' => [],
+            'HISTORY' => [
+                'icon' => 'required|string',
+                'tittle' => 'required|string',
+                'text' => 'required|string',
+                /*'button_icon' => 'required|string',
+                'button_text' => 'required|string',
+                'button_url' => 'required|string',*/
+                'image' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+            ],
+            'INFO' => [
+                'icon' => 'required|string',
+                'tittle' => 'required|string',
+                'text' => 'required|string',
+                'button_icon' => 'required|string',
+                'button_text' => 'required|string',
+                'button_url' => 'required|string',
+                'image' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+            ],
+            'HIGHLIGHTS' => [
+                'icon' => 'required|string',
+                'tittle' => 'required|string',
+                'text' => 'required|string',
+                'button_icon' => 'required|string',
+                'button_text' => 'required|string',
+                'button_url' => 'required|string',
+                'image' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+            ],
+            'INTERACTIVE' => [
+                'spotify_active' => 'boolean',
+                'spotify_icon' => 'string',
+                'spotify_order' => 'string',
+                'spotify_tittle' => 'string',
+                'spotify_text' => 'string',
+                'spotify_button_icon' => 'string',
+                'spotify_button_text' => 'string',
+                'spotify_button_url' => 'string',
+
+                'hastag_active' => 'boolean',
+                'hastag_icon' => 'string',
+                'hastag_order' => 'string',
+                'hastag_tittle' => 'string',
+                'hastag_text' => 'string',
+                'hastag_button_icon' => 'string',
+                'hastag_button_text' => 'string',
+                'hastag_button_url' => 'string',
+
+                'ig_active' => 'boolean',
+                'ig_icon' => 'string',
+                'ig_order' => 'string',
+                'ig_tittle' => 'string',
+                'ig_text' => 'string',
+                'ig_button_icon' => 'string',
+                'ig_button_text' => 'string',
+                'ig_button_url' => 'string',
+
+                'link_active' => 'boolean',
+                'link_icon' => 'string',
+                'link_order' => 'string',
+                'link_tittle' => 'string',
+                'link_text' => 'string',
+                'link_button_icon' => 'string',
+                'link_button_text' => 'string',
+                'link_button_url' => 'string',
+            ],
+            'VIDEO' => [
+                'icon' => 'string',
+                'pre_tittle' => 'string',
+                'tittle' => 'string',
+                'video_id' => 'string',
+                'type_video' => 'string',
+                'format' => 'string',
+            ],
+            'SUGGESTIONS' => [
+                'pre_tittle' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'text' => 'nullable|string',
+                'icon' => 'nullable|string',
+                'suggestion_1' => 'nullable|string', 'link_1' => 'nullable|string',
+                'suggestion_2' => 'nullable|string', 'link_2' => 'nullable|string',
+                'suggestion_3' => 'nullable|string', 'link_3' => 'nullable|string',
+                'suggestion_4' => 'nullable|string', 'link_4' => 'nullable|string',
+                'suggestion_5' => 'nullable|string', 'link_5' => 'nullable|string',
+                'suggestion_6' => 'nullable|string', 'link_6' => 'nullable|string',
+                'suggestion_7' => 'nullable|string', 'link_7' => 'nullable|string',
+                'suggestion_8' => 'nullable|string', 'link_8' => 'nullable|string',
+            ],
+            'GALERY' => [
+                'pre_tittle' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'galery_images' => 'array'
+            ],
+            'GIFTS' => [
+                'icon' => 'nullable|string',
+                'pre_tittle' => 'nullable|string',
+                'background_image' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'module_image' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'button_icon' => 'nullable|string',
+                'button_text' => 'nullable|string',
+                'button_type' => 'nullable|string',
+                'button_url' => 'nullable|string',
+                'first_account_active' => 'nullable|boolean',
+                'first_account_tittle' => 'nullable|string',
+                'first_account_text' => 'nullable|string',
+                'first_account_data' => 'nullable|string',
+                'first_account_value' => 'nullable|string',
+                'second_account_active' => 'nullable|boolean',
+                'second_account_tittle' => 'nullable|string',
+                'second_account_text' => 'nullable|string',
+                'second_account_data' => 'nullable|string',
+                'second_account_value' => 'nullable|string',
+                'box_active' => 'nullable|boolean',
+                'box_tittle' => 'nullable|string',
+                'box_text' => 'nullable|string',
+                'box_button_text' => 'nullable|string',
+                'box_button_url' => 'nullable|string',
+                'list_active' => 'nullable|boolean',
+                'list_tittle' => 'nullable|string',
+                'list_text' => 'nullable|string',
+                'list_button_text' => 'nullable|string',
+                'list_button_url' => 'nullable|string',
+            ],
             'CONFIRMATION' => [],
-            'FOOT' => [],
+            'FOOT' => [
+                'seller_name' => 'required|string',
+                'foot_text' => 'required|string',
+            ],
         };
 
         return $rules;
@@ -491,32 +639,64 @@ final class ModuleTypeEnum
                 'icon_button' => $data['icon_button']
             ]),
            'COVER' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media()->where('collection_name', 'like', self::COVER['name'].'%')->each(function ($media) {
+
+               
+               if($data['format'] == 'Imagenes' || $data['format'] == 'Imagenes con marco'){
+                    $invitation->media(self::COVER['name'].'/desktop_images')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->media(self::COVER['name'].'/mobile_images')->each(function ($media) {
+                        $media->delete();
+                    });
+
+                    if(isset($data['desktop_images'])){
+                        foreach($data['desktop_images'] as $image){
+                            $invitation->addMedia($image, self::COVER['name'].'/desktop_images', $invitation->path_name);
+                        }
+                    }
+                    if(isset($data['mobile_images'])){
+                        foreach($data['mobile_images'] as $image){
+                            $invitation->addMedia($image, self::COVER['name'].'/mobile_images', $invitation->path_name);
+                        }                    
+                    }
+                }else if($data['format'] == 'Video' || $data['format'] == 'Video centrado'){
+                    $invitation->media(self::COVER['name'].'/desktop_video')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->media(self::COVER['name'].'/mobile_video')->each(function ($media) {
+                        $media->delete();
+                    });
+
+                    if(isset($data['desktop_video'])) $invitation->addMedia($data['desktop_video'], self::COVER['name'].'/desktop_video', $invitation->path_name);
+                    if(isset($data['mobile_video'])) $invitation->addMedia($data['mobile_video'], self::COVER['name'].'/mobile_video', $invitation->path_name);
+                }
+
+                $invitation->media(self::COVER['name'].'/logo_cover')->each(function ($media) {
                     $media->delete();
                 });
-
-                if($data['format'] == 'Imagenes'){
-                    $invitation->addMedia($data['desktop_images'], self::COVER['name'].'/desktop_images', $invitation->path_name);
-                    $invitation->addMedia($data['mobile_images'], self::COVER['name'].'/mobile_images', $invitation->path_name);
-                }else{
-                    $invitation->addMedia($data['desktop_video'], self::COVER['name'].'/desktop_video', $invitation->path_name);
-                    $invitation->addMedia($data['mobile_video'], self::COVER['name'].'/mobile_video', $invitation->path_name);
-                }
+                $invitation->media(self::COVER['name'].'/central_image_cover')->each(function ($media) {
+                    $media->delete();
+                });
 
                 if(isset($data['logo_cover'])) $invitation->addMedia($data['logo_cover'], self::COVER['name'].'/logo_cover', $invitation->path_name);
                 if(isset($data['central_image_cover'])) $invitation->addMedia($data['central_image_cover'], self::COVER['name'].'/central_image_cover', $invitation->path_name);
                 $invitation->refresh();
 
                 return $updateTask($modules, $name, [
-                    'desktop_images' => $invitation->media(self::COVER['name'].'/desktop_images')->first()?->getMediaUrl(),
-                    'mobile_images' => $invitation->media(self::COVER['name'].'/mobile_images')->first()?->getMediaUrl(),
+                    'desktop_images' => $invitation->media(self::COVER['name'].'/desktop_images')->get()?->map(function ($media) {
+                        return $media->getMediaUrl();
+                    })->toArray(),
+                    'mobile_images' => $invitation->media(self::COVER['name'].'/mobile_images')->get()?->map(function ($media) {
+                        return $media->getMediaUrl();
+                    })->toArray(),
                     'desktop_video' => $invitation->media(self::COVER['name'].'/desktop_video')->first()?->getMediaUrl(),
                     'mobile_video' => $invitation->media(self::COVER['name'].'/mobile_video')->first()?->getMediaUrl(),
                     'logo_cover' => $invitation->media(self::COVER['name'].'/logo_cover')->first()?->getMediaUrl(),
                     'central_image_cover' => $invitation->media(self::COVER['name'].'/central_image_cover')->first()?->getMediaUrl(),
+                    'active_header' => $data['active_header'],
+                    'active_logo' => $data['active_logo'],
                     'format' => $data['format'],
-                    'frame_type' => $data['frame_type'],
-                    'align' => $data['align'],
+                    'names' => $data['names'],
                     'tittle' => $data['tittle'],
                     'detail' => $data['detail'],
                     'text_color_cover' => $data['text_color_cover'],
@@ -580,6 +760,8 @@ final class ModuleTypeEnum
                 $module['civil']['hr_translation'] = $data['civil_hr_translation'] ?? '';
                 $module['civil']['name'] = $data['civil_name'] ?? '';
                 $module['civil']['detail'] = $data['civil_detail'] ?? '';
+                $module['civil']['button_url'] = $data['civil_button_url'] ?? '';
+                $module['civil']['button_text'] = $data['civil_button_text'] ?? '';
                 $module['civil']['image'] = $invitation->media(self::EVENTS['name'].'/civil')->first()?->getMediaUrl();
                 $module['ceremony']['active'] = $data['ceremony_active'] ?? false;
                 $module['ceremony']['event'] = $data['ceremony_event'] ?? '';
@@ -590,6 +772,8 @@ final class ModuleTypeEnum
                 $module['ceremony']['hr_translation'] = $data['ceremony_hr_translation'] ?? '';
                 $module['ceremony']['name'] = $data['ceremony_name'] ?? '';
                 $module['ceremony']['detail'] = $data['ceremony_detail'] ?? '';
+                $module['ceremony']['button_url'] = $data['ceremony_button_url'] ?? '';
+                $module['ceremony']['button_text'] = $data['ceremony_button_text'] ?? '';
                 $module['ceremony']['image'] = $invitation->media(self::EVENTS['name'].'/ceremony')->first()?->getMediaUrl();
                 $module['party']['active'] = $data['party_active'] ?? false;
                 $module['party']['event'] = $data['party_event'] ?? '';
@@ -600,6 +784,8 @@ final class ModuleTypeEnum
                 $module['party']['hr_translation'] = $data['party_hr_translation'] ?? '';
                 $module['party']['name'] = $data['party_name'] ?? '';
                 $module['party']['detail'] = $data['party_detail'] ?? '';
+                $module['party']['button_url'] = $data['party_button_url'] ?? '';
+                $module['party']['button_text'] = $data['party_button_text'] ?? '';
                 $module['party']['image'] = $invitation->media(self::EVENTS['name'].'/party')->first()?->getMediaUrl();
                 $module['dresscode']['active'] = $data['dresscode_active'] ?? false;
                 $module['dresscode']['event'] = $data['dresscode_event'] ?? '';
@@ -607,6 +793,8 @@ final class ModuleTypeEnum
                 $module['dresscode']['order'] = $data['dresscode_order'] ?? '';
                 $module['dresscode']['name'] = $data['dresscode_name'] ?? '';
                 $module['dresscode']['detail'] = $data['dresscode_detail'] ?? '';
+                $module['dresscode']['button_url'] = $data['dresscode_button_url'] ?? '';
+                $module['dresscode']['button_text'] = $data['dresscode_button_text'] ?? '';
                 $module['dresscode']['image'] = $invitation->media(self::EVENTS['name'].'/dresscode')->first()?->getMediaUrl();
 
                 uasort($module, function ($a, $b) {
@@ -621,16 +809,213 @@ final class ModuleTypeEnum
                 }
                 return $modules;
             })(),
-           // 'HISTORY' => $updateTask($modules, $name, $data),
-           // 'INFO' => $updateTask($modules, $name, $data),
-           // 'HIGHLIGHTS' => $updateTask($modules, $name, $data),
-           // 'INTERACTIVE' => $updateTask($modules, $name, $data),
-           // 'VIDEO' => $updateTask($modules, $name, $data),
-           // 'SUGGESTIONS' => $updateTask($modules, $name, $data),
-           // 'GALERY' => $updateTask($modules, $name, $data),
-           // 'GIFTS' => $updateTask($modules, $name, $data),
+            'HISTORY' => (function () use ($invitation, $modules, $name, $data, $updateTask){
+                $invitation->media(self::HISTORY['name'])->each(function ($media) {
+                    $media->delete();
+                });
+
+                if(isset($data['image'])) $invitation->addMedia($data['image'], self::HISTORY['name'], $invitation->path_name);
+                $invitation->refresh();
+
+                return $updateTask($modules, $name, [
+                    'tittle' => $data['tittle'],
+                    'icon' => $data['icon'],
+                    'text' => $data['text'],
+                    /*'button_icon' => $data['button_icon'],
+                    'button_text' => $data['button_text'],
+                    'button_url' => $data['button_url'],*/
+                    'image' => $invitation->media(self::HISTORY['name'])->first()?->getMediaUrl()
+                ]);
+            })(),
+            'INFO' => (function () use ($invitation, $modules, $name, $data, $updateTask){
+                $invitation->media(self::INFO['name'])->each(function ($media) {
+                    $media->delete();
+                });
+
+                if(isset($data['image'])) $invitation->addMedia($data['image'], self::INFO['name'], $invitation->path_name);
+                $invitation->refresh();
+
+                return $updateTask($modules, $name, [
+                    'tittle' => $data['tittle'],
+                    'icon' => $data['icon'],
+                    'text' => $data['text'],
+                    'button_icon' => $data['button_icon'],
+                    'button_text' => $data['button_text'],
+                    'button_url' => $data['button_url'],
+                    'image' => $invitation->media(self::INFO['name'])->first()?->getMediaUrl()
+                ]);
+            })(),
+            'HIGHLIGHTS' => (function () use ($invitation, $modules, $name, $data, $updateTask){
+                $invitation->media(self::HIGHLIGHTS['name'])->each(function ($media) {
+                    $media->delete();
+                });
+
+                if(isset($data['image'])) $invitation->addMedia($data['image'], self::HIGHLIGHTS['name'], $invitation->path_name);
+                $invitation->refresh();
+
+                return $updateTask($modules, $name, [
+                    'tittle' => $data['tittle'],
+                    'icon' => $data['icon'],
+                    'text' => $data['text'],
+                    'button_icon' => $data['button_icon'],
+                    'button_text' => $data['button_text'],
+                    'button_url' => $data['button_url'],
+                    'image' => $invitation->media(self::HIGHLIGHTS['name'])->first()?->getMediaUrl()
+                ]);
+            })(),
+            'INTERACTIVE' => (function () use ($invitation, $modules, $name, $data, $updateTask){
+                
+                $module = [
+                    'spotify' => [],
+                    'hashtag' => [],
+                    'ig' => [],
+                    'link' => [],
+                ]; 
+
+                $module['spotify']['active'] = $data['spotify_active'] ?? false;
+                $module['spotify']['icon'] = $data['spotify_icon'] ?? '';
+                $module['spotify']['order'] = $data['spotify_order'] ?? '';
+                $module['spotify']['tittle'] = $data['spotify_tittle'] ?? '';
+                $module['spotify']['text'] = $data['spotify_text'] ?? '';
+                $module['spotify']['button_icon'] = $data['spotify_button_icon'] ?? '';
+                $module['spotify']['button_text'] = $data['spotify_button_text'] ?? '';
+                $module['spotify']['button_url'] = $data['spotify_button_url'] ?? '';
+
+                $module['hashtag']['active'] = $data['hashtag_active'] ?? false;
+                $module['hashtag']['icon'] = $data['hashtag_icon'] ?? '';
+                $module['hashtag']['order'] = $data['hashtag_order'] ?? '';
+                $module['hashtag']['tittle'] = $data['hashtag_tittle'] ?? '';
+                $module['hashtag']['text'] = $data['hashtag_text'] ?? '';
+                $module['hashtag']['button_icon'] = $data['hashtag_button_icon'] ?? '';
+                $module['hashtag']['button_text'] = $data['hashtag_button_text'] ?? '';
+                $module['hashtag']['button_url'] = $data['hashtag_button_url'] ?? '';
+
+                $module['ig']['active'] = $data['ig_active'] ?? false;
+                $module['ig']['icon'] = $data['ig_icon'] ?? '';
+                $module['ig']['order'] = $data['ig_order'] ?? '';
+                $module['ig']['tittle'] = $data['ig_tittle'] ?? '';
+                $module['ig']['text'] = $data['ig_text'] ?? '';
+                $module['ig']['button_icon'] = $data['ig_button_icon'] ?? '';
+                $module['ig']['button_text'] = $data['ig_button_text'] ?? '';
+                $module['ig']['button_url'] = $data['ig_button_url'] ?? '';
+
+                $module['link']['active'] = $data['link_active'] ?? false;
+                $module['link']['icon'] = $data['link_icon'] ?? '';
+                $module['link']['order'] = $data['link_order'] ?? '';
+                $module['link']['tittle'] = $data['link_tittle'] ?? '';
+                $module['link']['text'] = $data['link_text'] ?? '';
+                $module['link']['button_icon'] = $data['link_button_icon'] ?? '';
+                $module['link']['button_text'] = $data['link_button_text'] ?? '';
+                $module['link']['button_url'] = $data['link_button_url'] ?? '';
+
+
+                uasort($module, function ($a, $b) {
+                    return ($a['order'] ?? PHP_INT_MAX) <=> ($b['order'] ?? PHP_INT_MAX);
+                });
+                            
+                foreach($modules as $index => $item){
+                    if($item['name'] == $name){
+                        $modules[$index]['interactives'] = $module;
+                        break;
+                    }
+                }
+                return $modules;
+            })(),
+            'VIDEO' => $updateTask($modules, $name, [
+                'icon' => $data['icon'],
+                'pre_tittle' => $data['pre_tittle'],
+                'tittle' => $data['tittle'],
+                'video_id' => $data['video_id'],
+                'type_video' => $data['type_video'],
+                'format' => $data['format'],
+            ]),
+            'SUGGESTIONS' => $updateTask($modules, $name, [
+                'pre_tittle' => $data['pre_tittle'],
+                'tittle' => $data['tittle'],
+                'text' => $data['text'],
+                'icon' => $data['icon'],
+                'suggestions' => [
+                    ['suggestion_1' => $data['suggestion_1'], 'link_1' => $data['link_1']],
+                    ['suggestion_2' => $data['suggestion_2'], 'link_2' => $data['link_2']],
+                    ['suggestion_3' => $data['suggestion_3'], 'link_3' => $data['link_3']],
+                    ['suggestion_4' => $data['suggestion_4'], 'link_4' => $data['link_4']],
+                    ['suggestion_5' => $data['suggestion_5'], 'link_5' => $data['link_5']],
+                    ['suggestion_6' => $data['suggestion_6'], 'link_6' => $data['link_6']],
+                    ['suggestion_7' => $data['suggestion_7'], 'link_7' => $data['link_7']],
+                    ['suggestion_8' => $data['suggestion_8'], 'link_8' => $data['link_8']],
+                ]
+            ]),
+            'GALERY' => (function () use ($invitation, $modules, $name, $data, $updateTask){
+                $invitation->media(self::GALERY['name'])->each(function ($media) {
+                    $media->delete();
+                });
+                foreach($data['galery_images'] as $image){
+                    $invitation->addMedia($image, self::GALERY['name'], $invitation->path_name);
+                }
+ 
+                return $updateTask($modules, $name, [
+                    'galery_images' => $invitation->media(self::GALERY['name'])->get()?->map(function ($media) {
+                        return $media->getMediaUrl();
+                    })->toArray(),
+                    'pre_tittle' => $data['pre_tittle'],
+                    'tittle' => $data['tittle'],
+                ]);
+             })(),
+            'GIFTS' => (function () use ($invitation, $modules, $name, $data, $updateTask){
+                $invitation->media(self::GIFTS['name'].'/background')->each(function ($media) {
+                    $media->delete();
+                });
+                $invitation->media(self::GIFTS['name'].'/module')->each(function ($media) {
+                    $media->delete();
+                });
+
+                if(isset($data['background_image'])) $invitation->addMedia($data['background_image'], self::GIFTS['name'].'/background', $invitation->path_name);
+                $invitation->refresh();
+
+                if(isset($data['module_image'])) $invitation->addMedia($data['module_image'], self::GIFTS['name'].'/module', $invitation->path_name);
+                $invitation->refresh();
+
+                return $updateTask($modules, $name, [
+                    'icon' => $data['icon'],
+                    'pre_tittle' => $data['pre_tittle'],
+                    'background_image' => $invitation->media(self::GIFTS['name'].'/background')->first()?->getMediaUrl(),
+                    'module_image' => $invitation->media(self::GIFTS['name'].'/module')->first()?->getMediaUrl(),
+                    'button_icon' => $data['button_icon'],
+                    'button_text' => $data['button_text'],
+                    'button_type' => $data['button_type'],
+                    'button_url' => $data['button_url'],
+                    'first_account' => [
+                        'active' => $data['first_account_active'],
+                        'tittle' => $data['first_account_tittle'],
+                        'text' => $data['first_account_text'],
+                        'data' => $data['first_account_data'],
+                        'value' => $data['first_account_value'],
+                    ],
+                    'second_account' => [
+                        'active' => $data['second_account_active'],
+                        'tittle' => $data['second_account_tittle'],
+                        'text' => $data['second_account_text'],
+                        'data' => $data['second_account_data'],
+                        'value' => $data['second_account_value'],
+                    ],
+                    'box' => [
+                        'active' => $data['box_active'],
+                        'tittle' => $data['box_tittle'],
+                        'text' => $data['box_text'],
+                        'button_text' => $data['box_button_text'],
+                        'button_url' => $data['box_button_url'],
+                    ],
+                    'list' => [
+                        'active' => $data['list_active'],
+                        'tittle' => $data['list_tittle'],
+                        'text' => $data['list_text'],
+                        'button_text' => $data['list_button_text'],
+                        'button_url' => $data['list_button_url'],
+                    ],
+                ]);
+            })(),
            // 'CONFIRMATION' => $updateTask($modules, $name, $data),
-           // 'FOOT' => $updateTask($modules, $name, $data),
+           'FOOT' => $updateTask($modules, $name, $data),
         };
 
         return $updatedModules;

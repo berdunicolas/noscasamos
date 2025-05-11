@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -22,13 +23,17 @@ class RegisteredUserController extends Controller
         ]);
     }
 
-
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
+    public function show(User $user): View
     {
-        return view('users.register');
+        return view('admin.users.show', [ 
+            'user' => $user
+        ]);
+    }
+
+    public function edit(User $user): View
+    {
+        $roles = Role::all();
+        return view('admin.users.edit', ['user' => $user, 'roles' => $roles]);
     }
 
     /**
@@ -49,11 +54,41 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        $user->assignRole($request->role);
 
         event(new Registered($user));
 
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));
+    }
+
+    public function update(User $user, Request $request): View
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                Rule::unique(User::class, 'email')->ignore($user->id),
+            ],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->removeAllRoles();
+        $user->assignRole($request->role);
+
+        $user->save();
+
+        $roles = Role::all();
+
+        return view('admin.users.edit', ['user' => $user, 'roles' => $roles]);
     }
 }

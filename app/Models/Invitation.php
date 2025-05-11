@@ -35,11 +35,13 @@ class Invitation extends Model
         ModuleTypeEnum::COVER['name'].'/mobile_video',
         ModuleTypeEnum::COVER['name'].'/logo_cover',
         ModuleTypeEnum::COVER['name'].'/central_image_cover',
-        ModuleTypeEnum::GIFTS['name'],
+        ModuleTypeEnum::GIFTS['name'].'/background',
+        ModuleTypeEnum::GIFTS['name'].'/module',
         ModuleTypeEnum::WELCOME['name'],
     ];
 
     protected $fillable = [
+        'host_names',
         'seller_id',
         'event_id',
         'date',
@@ -51,6 +53,7 @@ class Invitation extends Model
         'path_name',
         'meta_title',
         'meta_description',
+        'icon_type',
         'style',
         'font',
         'spacing',
@@ -80,8 +83,10 @@ class Invitation extends Model
     public function isExpired(): bool|null
     {   
         if(!$this->date) return null;
+
+        $validTime = Setting::where('name', 'valid_time')->first();
         
-        $date = Carbon::parse($this->date)->addDays(30);
+        $date = Carbon::parse($this->date)->addDays($validTime->value);
         $currentDate = Carbon::now();
         //$currentDate->setTimezone($this->time_zone);
 

@@ -18,13 +18,14 @@
 
 
 </head>
-<body>
+<body class="h-100 d-flex">
+    <x-admin.nav-bar :selected="$navBarSelected" />
+    <main class="content">
+        {{ $slot }}
+    </main>
+    {{--
     <div class="h-100 d-flex">
-        <x-admin.nav-bar :selected="$navBarSelected" />
-        <main class="content">
-            {{ $slot }}
-        </main>
-    </div>
+    </div>--}}
     @if ($datatable)
     <script src="{{ asset('inspinia/plugins/jquery/js/jquery.min.js') }}"></script>
 

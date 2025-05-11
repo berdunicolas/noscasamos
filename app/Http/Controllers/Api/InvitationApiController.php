@@ -96,6 +96,7 @@ class InvitationApiController extends Controller
             $event->country_division_id = $request->country_division;
             $event->save();
 
+            $invitation->host_names = $request->host_names;
             $invitation->path_name = $request->path_name;
             $invitation->active = $request->active;
             $invitation->date = $request->date;
@@ -125,6 +126,7 @@ class InvitationApiController extends Controller
 
             $invitation->style = $request->style;
             $invitation->color = $request->color;
+            $invitation->icon_type = $request->icon_type;
             $invitation->background_color = $request->background_color;
             $invitation->spacing = $request->spacing;
             $invitation->font = $request->font;

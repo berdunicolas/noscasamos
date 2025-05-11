@@ -100,7 +100,7 @@ $eventosIcons = [
 @endphp
 
 
-@if($module['civil']['active'] || $module['ceremony']['active'] || $module['party']['active'] || $module['dresscode']['active'])
+@if($events['civil']['active'] || $events['ceremony']['active'] || $events['party']['active'] || $events['dresscode']['active'])
     <section class="events" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}}{{(!empty($eventosmarco)) ? "background-image: url('images/".$eventosmarco."');" : ''}} background-repeat:repeat-x;">
     @foreach ($events as $key => $event)
         @if($event['active'])
@@ -145,10 +145,10 @@ $eventosIcons = [
                     </div>
                     @endif
                 </div>
-                {{-- DE DONDE????
-                @empty(!$evento1btn)
-                    <a href="{{$evento1link}}" target="_blank">{{$evento1btn}}</a>
-                @endempty--}}
+                
+                @empty(!$event['button_text'])
+                    <a href="{{$event['button_url']}}" target="_blank">{{$event['button_text']}}</a>
+                @endempty
             </article>
         @endif
     @endforeach

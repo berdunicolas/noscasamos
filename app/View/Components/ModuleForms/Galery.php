@@ -9,12 +9,19 @@ use Illuminate\View\Component;
 
 class Galery extends Component
 {
+    public string $id = ModuleTypeEnum::GALERY['name'] . '-module-form';
+
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public string $id = ModuleTypeEnum::GALERY['name'] . '-module-form',
-    ) {}
+        public int $invitationId,
+        public array $module = [],
+        public string $moduleName = ModuleTypeEnum::GALERY['name'],
+    ) {
+        $this->module['pre_tittle'] = $module['pre_tittle'] ?? '';
+        $this->module['tittle'] = $module['tittle'] ?? '';
+    }
 
     /**
      * Get the view / contents that represent the component.

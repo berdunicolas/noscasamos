@@ -11,9 +11,12 @@ class GaleryModule extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
-        //
+    public function __construct(
+        public array $module,
+    ) {
+        $this->module['tittle'] = $module['tittle'] ?? '';
+        $this->module['pre_tittle'] = $module['pre_tittle'] ?? '';
+        $this->module['galery_images'] = $module['galery_images'] ?? [];
     }
 
     /**

@@ -17,6 +17,7 @@ return new class extends Migration {
         });
 
         Role::create(['name' => 'ADMIN']);
+        Role::create(['name' => 'ADVISOR']);
 
         User::first()->assignRole('ADMIN');
     }

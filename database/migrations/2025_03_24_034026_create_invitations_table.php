@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
 
+            $table->string('host_names')->nullable();
             $table->string('path_name')->unique();
             $table->unsignedBigInteger('event_id');
 
@@ -33,6 +34,7 @@ return new class extends Migration
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             
+            $table->enum('icon_type', ['Animado', 'Estatico']);
             $table->enum('style', StyleTypeEnum::values());
             $table->enum('font', FontTypeEnum::values());
             $table->enum('spacing', SpacingTypeEnum::values());

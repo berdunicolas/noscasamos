@@ -21,7 +21,7 @@
             </x-form.select>
         </div>
 
-        <div id="icon_input" class="mb-3 {{ ($module['type_button'] !==  'Link Personalizado') ? 'd-none' : '' }}">
+        <div id="icon_input" class="mb-3">
             <x-form.input
                 name="icon_button"
                 label="Icono"
@@ -29,7 +29,7 @@
                 placeholder="clipboard-list-check"                
             />
         </div>
-        <div id="url_input" class="mb-3 {{ ($module['type_button'] !==  'Link Personalizado') ? 'd-none' : '' }}">
+        <div id="url_input" class="mb-3">
             <x-form.input
                 name="url_button"
                 label="URL"

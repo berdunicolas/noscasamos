@@ -8,12 +8,16 @@ use Illuminate\View\Component;
 
 class InteractiveModule extends Component
 {
+    public array $interactives;
+
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(
+        public array $module
+    )
     {
-        //
+        $this->interactives = $module['interactives'];
     }
 
     /**

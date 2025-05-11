@@ -19,6 +19,10 @@ class SaveDateModule extends Component
     */
     public string $fullDateTime;
     public string $dateTittle;
+    public string $fechali;
+    public string $fechalip;
+    public string $fechalif;
+
     /**
      * Create a new component instance.
      */
@@ -30,6 +34,7 @@ class SaveDateModule extends Component
         public string $timezone,
         public string $style,
         public string $color,
+        public string $icontype
     ) {
         //Carbon::setLocale(App::getLocale()); 
         Carbon::setLocale('es'); 
@@ -40,6 +45,10 @@ class SaveDateModule extends Component
         );
         $this->dateTittle = $dataTime->translatedFormat('j \d\e F');
         $this->fullDateTime = $dataTime->translatedFormat('m/d/Y/ H:i:s');
+        $this->fechali = $dataTime->translatedFormat('YmdHis');
+
+        $this->fechalip = date('YmdHis', strtotime($this->fechali)); //. $tz));
+        $this->fechalif = date('YmdHis', strtotime($this->fechalip . '+ 5 hours'));
     }
 
     /**

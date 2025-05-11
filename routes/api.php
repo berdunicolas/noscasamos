@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\InvitationApiController;
+use App\Http\Controllers\Api\SellerApiController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\InvitationModuleApiController;
 use App\View\Components\Modules\Example;
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::resource('users', UserApiController::class)->only(['index', 'store', 'show']);
+    Route::resource('sellers', SellerApiController::class)->only(['index', 'store', 'show', 'destroy']);
     Route::resource('invitations', InvitationApiController::class)->only(['index', 'store', 'show', 'destroy']);
     Route::patch('invitations/{invitation}/set-config', [InvitationApiController::class, 'setConfig'])->name('invitations.set-config');
     Route::patch('invitations/{invitation}/set-style', [InvitationApiController::class, 'setStyle'])->name('invitations.set-style');

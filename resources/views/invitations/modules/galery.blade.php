@@ -39,38 +39,21 @@ $galeriamarco = $marco;
             <h2 class="wow animate__animated animate__fadeInUp" data-wow-duration="1s">{{$galeriatitulo}}></h2>
         @endempty
         <div class="wall">
-            {{--
             @php
-            $num = "1";
-            $dirFiles = array();
-
-            if ($handle = opendir('images/gal/')) {
-                while (false !== ($file = readdir($handle))) {
-
-                    $crap   = array(".jpg", ".jpeg", ".JPG", ".JPEG", ".png", ".PNG", ".gif", ".GIF", ".bmp", ".BMP", "_", "-");    
-                    $newstring = str_replace($crap, " ", $file );   
-                    if ($file != "." && $file != ".." && $file != "index.php" && $file != "Thumbnails") {
-                        $dirFiles[] = $file;
-                    }
-                }
-                closedir($handle);
-            }
-            sort($dirFiles);
-            foreach($dirFiles as $file)
-            {
-                echo '<div class="image wow animate__animated animate__fadeInUp" data-wow-duration="1s"><img onclick="openModal(); currentSlide(' . $num++ . ')" src="images/gal/' . $file . '" border="0" /></div>';
-            }
-
-            @endphp--}}
+                $num = 1;
+            @endphp
+            @foreach ($module['galery_images'] as $key => $image)
+                <div class="image wow animate__animated animate__fadeInUp" data-wow-duration="1s"><img onclick="openModal(); currentSlide('{{$num++}}')" src="{{$image}}" border="0" /></div>
+            @endforeach
         </div>
         <div id="myModal" class="modal">
             <span class="close" onclick="closeModal()"><i class="fa-thin fa-times"></i></span>
             <div class="modal-content">
-                {{--
-                @foreach($dirFiles as $file)
-                    <div class="mySlides"><img src="images/gal/{{$file}}" border="0" /></div>
+                
+                @foreach($module['galery_images'] as $image)
+                    <div class="mySlides"><img src="{{$image}}" border="0" /></div>
                 @endforeach
-                --}}
+                
             </div>
             <!-- Next/previous controls -->
             <a class="prev" onclick="plusSlides(-1)"><i class="fa-thin fa-angle-left"></i></a>

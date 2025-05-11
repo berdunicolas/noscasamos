@@ -26,8 +26,8 @@ function renderDatatable(){
             { 
                 data: 'url_item',
                 render: function(data) {
-                    return `<button class="btn btn-sm btn-outline-primary" onclick="editarUsuario(${data})">Editar</button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="eliminarUsuario(${data})">Eliminar</button>`;
+                    return `<a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${data}')"><i class="fa-light fa-trash"></i></button>`;
                 }
             }
         ],
@@ -39,10 +39,10 @@ function renderDatatable(){
             infoFiltered: "(filtrado de _MAX_ registros totales)",
             search: "Buscar:",
             paginate: {
-                first: "<<",
-                last: ">>",
-                next: ">",
-                previous: "<"
+                first: '<i class="fa-light fa-chevrons-left"></i>',
+                last: '<i class="fa-light fa-chevrons-right"></i>',
+                next: '<i class="fa-light fa-chevron-right"></i>',
+                previous: '<i class="fa-light fa-chevron-left"></i>'
             }
         }
     });
@@ -79,6 +79,29 @@ function newUser(e) {
             datatable.ajax.reload();
             closeModal.click();
         } else {
+            console.error(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+function deleteUser(url) {
+    
+    fetch(url, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+        },
+    })
+    .then(async response => {
+        if(response.status === 200){
+            datatable.ajax.reload();
+        } else {
+            const text = await response.text();
+            const data = text ? JSON.parse(text) : {};
             console.error(data);
         }
     })

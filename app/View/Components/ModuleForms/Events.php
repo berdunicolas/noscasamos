@@ -29,6 +29,8 @@ class Events extends Component
         $this->module['civil']['hr_translation'] = $module['civil']['hr_translation'] ?? false;
         $this->module['civil']['name'] = $module['civil']['name'] ?? false;
         $this->module['civil']['detail'] = $module['civil']['detail'] ?? false;
+        $this->module['civil']['button_url'] = $module['civil']['button_url'] ?? false;
+        $this->module['civil']['button_text'] = $module['civil']['button_text'] ?? false;
 
         $this->module['ceremony'] = $module['ceremony'] ?? [];
         $this->module['ceremony']['active'] = $module['ceremony']['active'] ?? false;
@@ -40,6 +42,8 @@ class Events extends Component
         $this->module['ceremony']['hr_translation'] = $module['ceremony']['hr_translation'] ?? false;
         $this->module['ceremony']['name'] = $module['ceremony']['name'] ?? false;
         $this->module['ceremony']['detail'] = $module['ceremony']['detail'] ?? false;
+        $this->module['ceremony']['button_url'] = $module['ceremony']['button_url'] ?? false;
+        $this->module['ceremony']['button_text'] = $module['ceremony']['button_text'] ?? false;
 
         $this->module['party'] = $module['party'] ?? [];
         $this->module['party']['active'] = $module['party']['active'] ?? false;
@@ -51,6 +55,8 @@ class Events extends Component
         $this->module['party']['hr_translation'] = $module['party']['hr_translation'] ?? false;
         $this->module['party']['name'] = $module['party']['name'] ?? false;
         $this->module['party']['detail'] = $module['party']['detail'] ?? false;
+        $this->module['party']['button_url'] = $module['party']['button_url'] ?? false;
+        $this->module['party']['button_text'] = $module['party']['button_text'] ?? false;
 
         $this->module['dresscode'] = $module['dresscode'] ?? [];
         $this->module['dresscode']['active'] = $module['dresscode']['active'] ?? false;
@@ -59,6 +65,8 @@ class Events extends Component
         $this->module['dresscode']['order'] = $module['dresscode']['order'] ?? false;
         $this->module['dresscode']['name'] = $module['dresscode']['name'] ?? false;
         $this->module['dresscode']['detail'] = $module['dresscode']['detail'] ?? false;
+        $this->module['dresscode']['button_url'] = $module['dresscode']['button_url'] ?? false;
+        $this->module['dresscode']['button_text'] = $module['dresscode']['button_text'] ?? false;
     }
 
     /**

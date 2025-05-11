@@ -93,6 +93,28 @@
                                 type="file"
                             />
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="civil_button_url"
+                                    label="Url botón"
+                                    type="text"
+                                    placeholder="https://www.google.com"
+                                    value="{{$module['civil']['button_url']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <x-form.input
+                                        name="civil_button_text"
+                                        label="Texto botón"
+                                        type="text"
+                                        placeholder="Ver más"
+                                        value="{{$module['civil']['button_text']}}"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,6 +207,28 @@
                                 label="Imagen"
                                 type="file"
                             />
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="ceremony_button_url"
+                                    label="Url botón"
+                                    type="text"
+                                    placeholder="https://www.google.com"
+                                    value="{{$module['ceremony']['button_url']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <x-form.input
+                                        name="ceremony_button_text"
+                                        label="Texto botón"
+                                        type="text"
+                                        placeholder="Ver más"
+                                        value="{{$module['ceremony']['button_text']}}"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,6 +323,28 @@
                                 type="file"
                             />
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="party_button_url"
+                                    label="Url botón"
+                                    type="text"
+                                    placeholder="https://www.google.com"
+                                    value="{{$module['party']['button_url']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <x-form.input
+                                        name="party_button_text"
+                                        label="Texto botón"
+                                        type="text"
+                                        placeholder="Ver más"
+                                        value="{{$module['party']['button_text']}}"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,6 +408,28 @@
                                 label="Imagen"
                                 type="file"
                             />
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="dresscode_button_url"
+                                    label="Url botón"
+                                    type="text"
+                                    placeholder="https://www.google.com"
+                                    value="{{$module['dresscode']['button_url']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <x-form.input
+                                        name="dresscode_button_text"
+                                        label="Texto botón"
+                                        type="text"
+                                        placeholder="Ver más"
+                                        value="{{$module['dresscode']['button_text']}}"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

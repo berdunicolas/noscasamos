@@ -24,28 +24,26 @@ $historiaicon = "aydxrkfl";
 $historiaimg = "historia.jpg";
 @endphp
 
-@if($historia == "s")
-    <section class="story">
-        @empty(!$historiaimg)
-            <div class="image wow animate__animated animate__fadeInLeft">
-                <img src="{{asset("boda/images/".$historiaimg)}}" alt="{{$historiatitulo}}"/>
-            </div>
-        @endempty
-        @empty(!$historiatxt)
-        <div class="text wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
-            
-            @empty(!$historiaicon)
-                @if($icontype==='a')
-                    <lord-icon src="https://cdn.lordicon.com/{{$historiaicon}}.json" trigger="{{$trigger}}" state="{{$historiaicons}}" stroke="{{$stroke}}" delay="300" colors="primary:#fff,secondary:#fff" style="width:70px;height:70px"></lord-icon>                @else
-                    <i class="fa-thin {{$historiaiconf}}"></i>
-                @endif
-            @endempty
-            @empty($historiatitulo)
-                <h2>{{$historiatitulo}}</h2>
-            @endempty
-            <p>{!!$historiatxt!!}</p>
-            <!--<a href="#">Ver más</a>-->
+<section class="story">
+    @empty(!$module['image'])
+        <div class="image wow animate__animated animate__fadeInLeft">
+            <img src="{{$module['image']}}" alt="{{$module['tittle']}}"/>
         </div>
+    @endempty
+    @empty(!$module['text'])
+    <div class="text wow animate__animated animate__fadeInUp" data-wow-delay="0.2s">
+        @empty(!$module['icon'])
+            @if($icontype==='a')
+                <lord-icon src="https://cdn.lordicon.com/{{$historiaicon}}.json" trigger="{{$trigger}}" state="{{$historiaicons}}" stroke="{{$stroke}}" delay="300" colors="primary:#fff,secondary:#fff" style="width:70px;height:70px"></lord-icon>                
+            @else
+                <i class="fa-thin {{empty($module['icon']) ? 'fa-heart' : $module['icon']}}"></i>
+            @endif
         @endempty
-    </section>
-@endif
+        @empty($module['tittle'])
+            <h2>{{$module['tittle']}}</h2>
+        @endempty
+        <p>{!!$module['text']!!}</p>
+        <!--<a href="#">Ver más</a>-->
+    </div>
+    @endempty
+</section>

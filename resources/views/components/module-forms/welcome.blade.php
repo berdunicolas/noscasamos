@@ -35,7 +35,7 @@
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
             <textarea name="text" placeholder="Te invitamos a celebrar con nosotros..." class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['text']}}</textarea>
-          </div>
+        </div>
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">
                 <span class="mx-3">

@@ -28,7 +28,7 @@
 
                     document.getElementById('module-root').appendChild(newModule);
                 } else {
-                    console.error(data);
+                    //console.error(data);
                 }
             })
             .catch(error => console.error('Error:', error));

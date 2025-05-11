@@ -27,38 +27,33 @@ $infomarco = $marco;
 @endphp
 
 
-@if($info == "s")
-    <section class="content wow animate__animated animate__fadeInUp" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} {{(!empty($infomarco)) ? "background-image: url('images/".$infomarco."');" : ""}} background-repeat:repeat-x;">
-        <div class="info" style="padding:50px 0px;">
-        @if(!empty($infoimg) && empty($infoderecha))
-            <div class="image wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-                <img src="images/{{$infoimg}}" alt="{{$infotitulo}}"/>
-            </div>
-        @endif
-            
-        @if (!empty($infotitulo))
-            <div class="text wow animate__animated animate__fadeInUp">
-                @empty(!$infoicon)
-                    @if($icontype==='a')
-                        <lord-icon src="https://cdn.lordicon.com/{{$infoicon}}.json" trigger="{{$trigger}}" state="{{$infoicons}}" stroke="{{$stroke}}" delay="500" colors="primary:{{($style=="o") ? '#fff' : '#666'}},secondary:{{$pcolor}}" style="width:70px;height:70px"></lord-icon>
-                    @else
-                        <i class="fa-thin {{$infoiconf}}"></i>
-                    @endif
-                @endempty
-                        
-                
-                    <h2>{{$infotitulo}}</h2>
-                
-                @empty(!$infotxt)
-                <p>{{$infotxt}}</p>
-                @endempty
-            </div>
-        @endif   
-        @if (!empty($infoimg) && $infoderecha=="s")
-            <div class="image wow animate__animated animate__fadeInUp">
-                <img src="images/{{$infoimg}}" alt="{{$infotitulo}}"/>
-            </div>
-        @endif
+<section class="content wow animate__animated animate__fadeInUp" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} {{(!empty($infomarco)) ? "background-image: url('".$module['image']."');" : ""}} background-repeat:repeat-x;">
+    <div class="info" style="padding:50px 0px;">
+    @if(!empty($module['image']) && empty($infoderecha))
+        <div class="image wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
+            <img src="{{$module['image']}}" alt="{{$module['title']}}"/>
         </div>
-    </section>
-@endif
+    @endif
+        
+    @if (!empty($module['tittle']))
+        <div class="text wow animate__animated animate__fadeInUp">
+            @empty(!$module['icon'])
+                @if($icontype==='a')
+                    <lord-icon src="https://cdn.lordicon.com/{{$infoicon}}.json" trigger="{{$trigger}}" state="{{$infoicons}}" stroke="{{$stroke}}" delay="500" colors="primary:{{($style=="o") ? '#fff' : '#666'}},secondary:{{$pcolor}}" style="width:70px;height:70px"></lord-icon>
+                @else
+                    <i class="fa-thin {{$module['icon']}}"></i>
+                @endif
+            @endempty
+                <h2>{{$module['tittle']}}</h2>
+            @empty(!$module['text'])
+            <p>{{$module['text']}}</p>
+            @endempty
+        </div>
+    @endif   
+    @if (!empty($module['image']) && $infoderecha=="s")
+        <div class="image wow animate__animated animate__fadeInUp">
+            <img src="{{$module['image']}}" alt="{{$module['tittle']}}"/>
+        </div>
+    @endif
+    </div>
+</section>

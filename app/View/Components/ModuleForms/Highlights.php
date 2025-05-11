@@ -9,12 +9,24 @@ use Illuminate\View\Component;
 
 class Highlights extends Component
 {
+    public string $id = ModuleTypeEnum::HIGHLIGHTS['name'] . '-module-form';
+
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public string $id = ModuleTypeEnum::HIGHLIGHTS['name'] . '-module-form',
-    ) {}
+        public int $invitationId,
+        public array $module = [],
+        public string $moduleName = ModuleTypeEnum::HIGHLIGHTS['name'],
+    ) {
+        $this->module['icon'] = $module['icon'] ?? '';
+        $this->module['image'] = $module['image'] ?? '';
+        $this->module['tittle'] = $module['tittle'] ?? '';
+        $this->module['text'] = $module['text'] ?? '';
+        $this->module['button_icon'] = $module['button_icon'] ?? '';
+        $this->module['button_text'] = $module['button_text'] ?? '';
+        $this->module['button_url'] = $module['button_url'] ?? '';
+    }
 
     /**
      * Get the view / contents that represent the component.
