@@ -96,7 +96,6 @@
               var comentarios = $("#comentarios").val();
               
               var dataString = 'asiste=' + asiste + '&nombre=' + nombre + '&alimento=' + alimento + '&nombre_a=' + nombre_a + '&traslado=' + traslado + '&mail=' + mail + '&telefono=' + telefono + '&comentarios=' + comentarios;
-              console.log(dataString);
               if (nombre === '')
               {
                 $('.error').fadeOut(200).show();

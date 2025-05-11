@@ -32,6 +32,7 @@ class SetStyleInvitationRequest extends FormRequest
                 Rule::in(StyleTypeEnum::values())
             ],
             "color" => "string|max:7",
+            "icon_type" => "string",
             "background_color" => "string|max:7",
             "spacing" => [
                 Rule::in(SpacingTypeEnum::values())

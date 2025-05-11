@@ -4,9 +4,9 @@ namespace App\Enums;
 
 enum EventTypeEnum: string
 {
+    case BODA = 'Boda';
     case QUINCE = 'Quince';
     case CUMPLE = 'Cumple';
-    case BODA = 'Boda';
 
     public static function values(): array
     {

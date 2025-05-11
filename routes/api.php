@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\Api\InvitationApiController;
+use App\Http\Controllers\Api\SellerApiController;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\InvitationModuleApiController;
+use App\View\Components\Modules\Example;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::resource('users', UserApiController::class)->only(['index', 'store', 'show']);
+    Route::resource('sellers', SellerApiController::class)->only(['index', 'store', 'show', 'destroy']);
     Route::resource('invitations', InvitationApiController::class)->only(['index', 'store', 'show', 'destroy']);
     Route::patch('invitations/{invitation}/set-config', [InvitationApiController::class, 'setConfig'])->name('invitations.set-config');
     Route::patch('invitations/{invitation}/set-style', [InvitationApiController::class, 'setStyle'])->name('invitations.set-style');
@@ -42,6 +47,11 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
             ], 200);
         }
     });
+
+    Route::get('intivations/{invitation}/modules', [InvitationModuleApiController::class, 'getInvitationModules'])->name('invitation.modules');
+    Route::patch('intivations/{invitation}/modules/change-order', [InvitationModuleApiController::class, 'changeModolesOrder'])->name('invitation.modules.change-order');
+    Route::patch('intivations/{invitation}/modules/{module}/change-status', [InvitationModuleApiController::class, 'changeModuleStatus'])->name('invitation.modules.change-order');
+    Route::patch('invitations/{invitation}/modules/{module}', [InvitationModuleApiController::class, 'updateModule'])->name('invitation.modules.update');
 });
 
 Route::get('/country-divisions/{code}', function ($code) {

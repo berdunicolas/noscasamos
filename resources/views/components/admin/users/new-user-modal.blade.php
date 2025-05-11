@@ -3,7 +3,7 @@
       <div class="modal-content">
         <div class="modal-header border-0">
           <h4 class="modal-title">Registrar usuario</h4>
-          <button type="button" class="btn btn-close btn-light rounded-1" data-bs-dismiss="modal" id="close-modal-btn" aria-label="Close"></button>
+          <button type="button" class="btn btn-close btn-white rounded-1" data-bs-dismiss="modal" id="close-modal-btn" aria-label="Close"></button>
         </div>
         <form action="" onsubmit="newUser(event)" id="new-product-form">
             <div>

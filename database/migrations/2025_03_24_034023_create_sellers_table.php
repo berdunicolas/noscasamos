@@ -15,10 +15,11 @@ return new class extends Migration
         Schema::create('sellers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('url');
             $table->timestamps();
         });
 
-        Seller::create(['name' => 'noscasamos']);
+        Seller::create(['name' => 'noscasamos', 'url' => 'https://noscasamos.ar/']);
     }
 
     /**

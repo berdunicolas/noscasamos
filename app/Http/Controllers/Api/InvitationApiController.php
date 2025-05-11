@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ModuleTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInvitationRequest;
 use App\Http\Requests\SetConfigInvitationRequest;
@@ -10,6 +11,7 @@ use App\Http\Resources\InvitationResource;
 use App\Models\Country;
 use App\Models\Event;
 use App\Models\Invitation;
+use App\Models\Plan;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -29,6 +31,12 @@ class InvitationApiController extends Controller
     public function store(StoreInvitationRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
+        $plan = collect(ModuleTypeEnum::getModulesByPlan($validatedData['plan']))->map(function ($item) {
+            $item['on_plan'] = true;
+            $item['active'] = true;
+
+            return $item;
+        });
 
         try {
             DB::beginTransaction();
@@ -54,6 +62,7 @@ class InvitationApiController extends Controller
                 'meta_description' => null,
                 'country_id' => null,
                 'country_division' => null,
+                'modules' => $plan->toArray()
             ]);
 
             DB::commit();
@@ -87,6 +96,7 @@ class InvitationApiController extends Controller
             $event->country_division_id = $request->country_division;
             $event->save();
 
+            $invitation->host_names = $request->host_names;
             $invitation->path_name = $request->path_name;
             $invitation->active = $request->active;
             $invitation->date = $request->date;
@@ -116,6 +126,7 @@ class InvitationApiController extends Controller
 
             $invitation->style = $request->style;
             $invitation->color = $request->color;
+            $invitation->icon_type = $request->icon_type;
             $invitation->background_color = $request->background_color;
             $invitation->spacing = $request->spacing;
             $invitation->font = $request->font;

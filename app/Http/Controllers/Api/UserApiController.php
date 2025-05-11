@@ -47,6 +47,5 @@ class UserApiController extends Controller
             }
             return response()->json(['message' => 'Error creating user'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
     }
 }

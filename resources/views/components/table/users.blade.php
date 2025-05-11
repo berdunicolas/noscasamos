@@ -12,17 +12,6 @@
                 </tr>
             </thead>
             <tbody>
-                {{---
-                @foreach ($users as $user)
-                <tr class="gradeC">
-                    <td>{{$user->id}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->roles->first()->name}}</td>
-                    <td>{{($user->email_verified_at !== null) ? 'Activo' : 'No activo'}}</td>
-                    <td></td>
-                </tr>
-                @endforeach--}}
             </tbody>
             <tfoot>
             </tfoot>

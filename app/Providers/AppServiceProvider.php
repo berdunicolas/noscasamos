@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\View\Components\Admin\Layout;
 use App\View\Components\Admin\NavBar;
+use App\View\Components\Admin\Sellers\NewSellerModal;
 use App\View\Components\Admin\Users\NewUserModal;
 use App\View\Components\Form\Button;
 use App\View\Components\Form\ColorPicker;
@@ -11,8 +12,10 @@ use App\View\Components\Form\Input;
 use App\View\Components\Form\InputGroup;
 use App\View\Components\Form\Select;
 use App\View\Components\Form\SelectOption;
+use App\View\Components\Form\UploadZone;
 use App\View\Components\Table\Invitations;
 use App\View\Components\Table\NewInvitationModal;
+use App\View\Components\Table\Sellers;
 use App\View\Components\Table\Users;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -40,13 +43,18 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('form.select-option', SelectOption::class);
         Blade::component('form.button', Button::class);
         Blade::component('form.color-picker', ColorPicker::class);
+        Blade::component('form.upload-zone', UploadZone::class);
 
         Blade::component('admin.nav-bar', NavBar::class);
         Blade::component('admin.users.new-user-modal', NewUserModal::class);
         Blade::component('table.users', Users::class);
-
+        
+        Blade::component('admin.sellers.new-seller-modal', NewSellerModal::class);
+        Blade::component('table.sellers', Sellers::class);
 
         Blade::component('table.invitations', Invitations::class);
         Blade::component('admin.invitations.new-invitation-modal', NewInvitationModal::class);
+
+        Blade::component('module-forms.form', \App\View\Components\ModuleForms\Form::class);
     }
 }

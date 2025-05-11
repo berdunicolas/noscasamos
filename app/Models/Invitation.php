@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\FontTypeEnum;
+use App\Enums\ModuleTypeEnum;
 use App\Enums\SpacingTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Traits\HasMedia;
@@ -15,7 +16,32 @@ class Invitation extends Model
 {
     use HasFactory, HasMedia;
 
+    protected $customMediaCollections = [
+        ModuleTypeEnum::HIGHLIGHTS['name'],
+        ModuleTypeEnum::EVENTS['name'].'/civil',
+        ModuleTypeEnum::EVENTS['name'].'/ceremony',
+        ModuleTypeEnum::EVENTS['name'].'/party',
+        ModuleTypeEnum::EVENTS['name'].'/dresscode',
+        ModuleTypeEnum::SUGGESTIONS['name'],
+        ModuleTypeEnum::HISTORY['name'],
+        ModuleTypeEnum::INFO['name'],
+        ModuleTypeEnum::GALERY['name'],
+        ModuleTypeEnum::INTRO['name'],
+        ModuleTypeEnum::MUSIC['name'],
+        ModuleTypeEnum::COVER['name'],
+        ModuleTypeEnum::COVER['name'].'/desktop_images',
+        ModuleTypeEnum::COVER['name'].'/mobile_images',
+        ModuleTypeEnum::COVER['name'].'/desktop_video',
+        ModuleTypeEnum::COVER['name'].'/mobile_video',
+        ModuleTypeEnum::COVER['name'].'/logo_cover',
+        ModuleTypeEnum::COVER['name'].'/central_image_cover',
+        ModuleTypeEnum::GIFTS['name'].'/background',
+        ModuleTypeEnum::GIFTS['name'].'/module',
+        ModuleTypeEnum::WELCOME['name'],
+    ];
+
     protected $fillable = [
+        'host_names',
         'seller_id',
         'event_id',
         'date',
@@ -27,11 +53,13 @@ class Invitation extends Model
         'path_name',
         'meta_title',
         'meta_description',
+        'icon_type',
         'style',
         'font',
         'spacing',
         'color',
         'background_color',
+        'modules',
     ];
 
     protected $casts = [
@@ -39,6 +67,7 @@ class Invitation extends Model
         'style' => StyleTypeEnum::class,
         'spacing' => SpacingTypeEnum::class,
         'active' => 'boolean',
+        'modules' => 'array'
     ];
 
     public function createdBy(): BelongsTo
@@ -54,8 +83,10 @@ class Invitation extends Model
     public function isExpired(): bool|null
     {   
         if(!$this->date) return null;
+
+        $validTime = Setting::where('name', 'valid_time')->first();
         
-        $date = Carbon::parse($this->date)->addDays(30);
+        $date = Carbon::parse($this->date)->addDays($validTime->value);
         $currentDate = Carbon::now();
         //$currentDate->setTimezone($this->time_zone);
 
