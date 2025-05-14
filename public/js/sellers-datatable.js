@@ -20,7 +20,7 @@ function renderDatatable(){
         columns: [
             { data: 'id' },
             { data: 'name' },
-            { data: 'url' },
+            { data: 'site_link' },
             { 
                 data: 'url_item',
                 render: function(data) {

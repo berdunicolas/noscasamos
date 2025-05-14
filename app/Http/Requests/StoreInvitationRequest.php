@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreInvitationRequest extends FormRequest
 {
@@ -25,6 +26,10 @@ class StoreInvitationRequest extends FormRequest
             'name' => 'required|string|unique:events,name',
             'event' => 'required|string',
             'plan' => 'required|string',
+            'seller' => [
+                'required',
+                Rule::exists('sellers', 'id')
+            ],
         ];
     }
 }

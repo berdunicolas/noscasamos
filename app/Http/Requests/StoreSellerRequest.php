@@ -25,7 +25,7 @@ class StoreSellerRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'url' => ['required', 'string']
+            'site_link' => ['required', 'string']
         ]; 
     }
 

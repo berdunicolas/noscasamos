@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\CountryDivision;
 use App\Models\Invitation;
+use App\Models\Seller;
 use App\Models\Timezone;
 use Illuminate\Contracts\View\View;
 
@@ -40,6 +41,7 @@ class InvitationController extends Controller
         $styleTypes = StyleTypeEnum::values();
         $spacingTypes = SpacingTypeEnum::values();
         $fontTypes = FontTypeEnum::values();
+        $sellers = Seller::select('id', 'name')->get();
 
         return view('admin.invitations.edit', [
             'invitation' => $invitation, 
@@ -51,6 +53,7 @@ class InvitationController extends Controller
             'styleTypes' => $styleTypes,
             'spacingTypes' => $spacingTypes,
             'fontTypes' => $fontTypes,
+            'sellers' => $sellers,
         ]);
     }
 }

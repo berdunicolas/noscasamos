@@ -41,8 +41,14 @@
                     <span class="me-1 badge border border-warning text-warning">No activo</span>    
                     @endif
 --}}
-                <span class="me-1 badge border border-warning text-warning">Vencido</span>    
-                <span class="me-1 badge border border-black text-black">noscasamos</span>    
+                @if ($invitation->date)
+                    @if ($invitation->validity)
+                        <span class="me-1 badge border text-bg-secondary">No vigente</span>
+                    @else
+                        <span class="me-1 badge border text-bg-info">Vigente</span>
+                    @endif
+                @endif
+                <span class="me-1 badge border border-black text-black">{{$invitation->seller->name}}</span>    
 {{--
                 @if ($invitation->createdBy)
                     <span class="me-3 badge border border-warning text-warning">{{$inviation->createdBy}}</span>    
@@ -165,7 +171,7 @@
                         </x-form.input-group>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-4">
+                        <div class="col-3">
                             <x-form.select id="config-form-input" name="event" label="Tipo de evento">
                                 @foreach ($eventTypes as $eventType)
                                     <x-form.select-option
@@ -176,7 +182,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <x-form.select id="config-form-input" name="plan" label="Plan">
                                 @foreach ($planTypes as $planType)
                                     <x-form.select-option
@@ -188,7 +194,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <x-form.select id="config-form-input" name="active" label="Estado">
                                 <x-form.select-option
                                     value="1"
@@ -200,6 +206,18 @@
                                     label="No activo"
                                     selected="{{($invitation->active) ? false : true}}"
                                 />
+                            </x-form.select>
+                        </div>
+                        <div class="col-3">
+                            <x-form.select id="config-form-input" name="seller" label="Seller">
+                                @foreach ($sellers as $seller)
+                                    <x-form.select-option
+                                        value="{{$seller->id}}"
+                                        label="{{$seller->name}}"
+                                        selected="{{($invitation->seller_id == $seller->id) ? true : false}}"
+                                    />
+                                    
+                                @endforeach
                             </x-form.select>
                         </div>
                     </div>

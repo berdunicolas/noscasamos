@@ -163,13 +163,6 @@ final class ModuleTypeEnum
         'is_unique' => true, 
         'plan' => PlanTypeEnum::PLATINO->value
     ];
-    const FOOT = [
-        'name' => 'FOOT',
-        'display_name' => 'Foot', 
-        'fixed' => true, 
-        'is_unique' => true, 
-        'plan' => 'default'
-    ];
 
     
     public static function values(): array
@@ -243,7 +236,6 @@ final class ModuleTypeEnum
             'GALERY' => new Galery($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'GIFTS' => new Gifts($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'CONFIRMATION' => new Confirmation($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'FOOT' => new Foot($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
         };
 
         return Blade::renderComponent($form);
@@ -278,7 +270,6 @@ final class ModuleTypeEnum
             'GALERY' => new GaleryModule(self::getModuleFromArrayByName($invitation->modules, $name)),
             'GIFTS' => new GiftsModule(self::getModuleFromArrayByName($invitation->modules, $name)),
             'CONFIRMATION' => new ConfirmationModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->icon_type),
-            'FOOT' => new FootModule(self::getModuleFromArrayByName($invitation->modules, $name)),
         };
 
         return Blade::renderComponent($module);
@@ -665,11 +656,7 @@ final class ModuleTypeEnum
                 'form_comments' => 'nullable|string',
                 'form_thanks' => 'nullable|string',
                 'form_errors' => 'nullable|string',
-            ],
-            'FOOT' => [
-                'seller_name' => 'required|string',
-                'foot_text' => 'required|string',
-            ],
+            ]
         };
 
         return $rules;
@@ -1155,8 +1142,7 @@ final class ModuleTypeEnum
                     ],
                 ]);
             })(),
-            'CONFIRMATION' => $updateTask($modules, $name, $data),
-            'FOOT' => $updateTask($modules, $name, $data),
+            'CONFIRMATION' => $updateTask($modules, $name, $data)
         };
 
         return $updatedModules;

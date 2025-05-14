@@ -13,6 +13,7 @@ use App\View\Components\Form\InputGroup;
 use App\View\Components\Form\Select;
 use App\View\Components\Form\SelectOption;
 use App\View\Components\Form\UploadZone;
+use App\View\Components\Modules\FootModule;
 use App\View\Components\Table\Invitations;
 use App\View\Components\Table\NewInvitationModal;
 use App\View\Components\Table\Sellers;
@@ -56,5 +57,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('admin.invitations.new-invitation-modal', NewInvitationModal::class);
 
         Blade::component('module-forms.form', \App\View\Components\ModuleForms\Form::class);
+
+        Blade::component('module-foot', FootModule::class);
     }
 }

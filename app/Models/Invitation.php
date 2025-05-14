@@ -98,4 +98,9 @@ class Invitation extends Model
 
         return $currentDate->greaterThan($date);
     }
+
+    public function seller(): BelongsTo
+    {
+        return $this->belongsTo(Seller::class, 'seller_id', 'id');
+    }
 }

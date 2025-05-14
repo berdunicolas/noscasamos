@@ -491,6 +491,8 @@ include '../foot/' . $proveedor . '.html';
 {!!$module!!}
 @endforeach
 
+<x-module-foot :seller="$invitation->seller" />
+
 
         <!-- ************************************************************************************************************
                             SCRIPTS

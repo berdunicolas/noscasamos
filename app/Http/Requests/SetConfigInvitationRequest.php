@@ -41,6 +41,10 @@ class SetConfigInvitationRequest extends FormRequest
             "plan" => [
                 Rule::in(PlanTypeEnum::values())
             ],
+            "seller" => [
+                'required',
+                Rule::exists('sellers', 'id')
+            ],
             "active" => "boolean",
 
             "date" => "Date|date_format:Y-m-d",

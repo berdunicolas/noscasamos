@@ -17,7 +17,7 @@ class SellerResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'url' => $this->url,
+            'site_link' => $this->site_link,
             'url_item' => route('api.sellers.show', $this->id)
         ];
     }

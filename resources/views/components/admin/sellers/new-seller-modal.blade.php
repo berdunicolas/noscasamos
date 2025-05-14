@@ -18,10 +18,10 @@
                     </div>
                     <div class="mb-3">
                         <x-form.input
-                            name="url"
-                            label="Url"
+                            name="site_link"
+                            label="Sitio web"
                             placeholder="https://www.evnt.ar/"
-                            :errors="(array) $errors->get('url')"
+                            :errors="(array) $errors->get('site_link')"
                         />
                     </div>
                 </div>

@@ -42,6 +42,19 @@
                             @endforeach
                         </x-form.select>
                     </div>
+                    <div class="mb-3">
+                        <x-form.select 
+                            name="seller"
+                            label="Seller"
+                        >
+                            @foreach ($sellers as $seller)
+                                <x-form.select-option
+                                    value="{{$seller->id}}"
+                                    label="{{$seller->name}}"
+                                />
+                            @endforeach
+                        </x-form.select>
+                    </div>
                 </div>
 
             <div class="modal-footer border-0">

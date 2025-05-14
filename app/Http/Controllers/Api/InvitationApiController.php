@@ -54,7 +54,7 @@ class InvitationApiController extends Controller
                 'date' => null,
                 'time_zone' => null,
                 'time' => null,
-                'seller_id' => null,
+                'seller_id' => $validatedData['seller'],
                 'duration' => null,
                 'active' => true,
                 'created_by' => auth()->user()->id,
@@ -95,7 +95,8 @@ class InvitationApiController extends Controller
             $event->country_id = $country?->id;
             $event->country_division_id = $request->country_division;
             $event->save();
-
+            
+            $invitation->seller_id = $request->seller;
             $invitation->host_names = $request->host_names;
             $invitation->path_name = $request->path_name;
             $invitation->active = $request->active;
