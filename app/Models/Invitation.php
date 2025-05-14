@@ -37,6 +37,12 @@ class Invitation extends Model
         ModuleTypeEnum::COVER['name'].'/central_image_cover',
         ModuleTypeEnum::GIFTS['name'].'/background',
         ModuleTypeEnum::GIFTS['name'].'/module',
+        ModuleTypeEnum::GIFTS['name'].'/product_1',
+        ModuleTypeEnum::GIFTS['name'].'/product_2',
+        ModuleTypeEnum::GIFTS['name'].'/product_3',
+        ModuleTypeEnum::GIFTS['name'].'/product_4',
+        ModuleTypeEnum::GIFTS['name'].'/product_5',
+        ModuleTypeEnum::GIFTS['name'].'/product_6',
         ModuleTypeEnum::WELCOME['name'],
     ];
 

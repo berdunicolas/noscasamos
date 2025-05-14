@@ -40,9 +40,9 @@
         <div class="mb-3">
             <x-form.input
                 name="limit_date"
-                label="Limite de confirmación   "
-                type="date"
+                label="Limite de confirmación"
                 value="{{$module['limit_date']}}"
+                placeholder="Tenés tiempo hasta el 20 de Marzo."
             />
         </div>
 
@@ -50,64 +50,278 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <label class="form-check-label" for="switchCheckChecked">Formulario</label>
+                        <label class="form-check-label" for="switchCheckChecked">Valor tarjeta</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'form_active')" type="checkbox" role="switch" {{$module['form']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="form_active" id="form_active" value="{{$module['form']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'card_active')" type="checkbox" role="switch" {{$module['card_active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="card_active" id="card_active" value="{{$module['card_active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <label class="form-check-label" for="switchCheckChecked">Botón 1</label>
-                        <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'first_button_active')" type="checkbox" role="switch" {{$module['first_button']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="first_button_active" id="first_button_active" value="{{$module['first_button']['active'] ? 1 : 0}}">
+                        <div class="mb-3">
+                            <x-form.input
+                                name="card_tittle"
+                                label="Titulo"
+                                type="text"
+                                placeholder="Valor de tarjeta"
+                                value="{{$module['card_tittle']}}"
+                            />
                         </div>
-                    </button>
-                </h2>
-                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <label class="form-check-label" for="switchCheckChecked">Botón 2</label>
-                        <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" type="checkbox" onchange="checkboxSwitch(this, 'second_button_active')" role="switch" {{$module['second_button']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="second_button_active" id="second_button_active" value="{{$module['second_button']['active'] ? 1 : 0}}">
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
+                            <textarea name="card_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['card_text']}}</textarea>
                         </div>
-                    </button>
-                </h2>
-                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        
+                        <div class="mb-3">
+                            <x-form.input
+                                name="card_button_text"
+                                label="Texto boton"
+                                type="text"
+                                placeholder="Cómo abonar"
+                                value="{{$module['card_button_text']}}"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        <label class="form-check-label" for="switchCheckChecked">Valor tarjeta</label>
+                        <label class="form-check-label" for="switchCheckChecked">Formulario</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'card_value_active')" type="checkbox" role="switch" {{$module['card_value']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="card_value_active" id="card_value_active" value="{{$module['card_value']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'form_active')" type="checkbox" role="switch" {{$module['form_active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="form_active" id="form_active" value="{{$module['form_active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
                 <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_button_text"
+                                    label="Texto boton"
+                                    type="text"
+                                    placeholder="Confirmár asistencia"
+                                    value="{{$module['form_button_text']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_button_url"
+                                    label="Link boton"
+                                    type="text"
+                                    placeholder="forms.google.com"
+                                    value="{{$module['form_button_url']}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
+                            <textarea name="form_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['form_text']}}</textarea>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_ill_attend"
+                                    label="Asistiré"
+                                    type="text"
+                                    placeholder="Asistiré"
+                                    value="{{$module['form_ill_attend']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_ill_n_attend"
+                                    label="No asistiré"
+                                    type="text"
+                                    placeholder="No asistiré"
+                                    value="{{$module['form_ill_n_attend']}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <x-form.input
+                                name="form_name"
+                                label="Nombre"
+                                type="text"
+                                placeholder="Apellido y nombre"
+                                value="{{$module['form_name']}}"
+                            />
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_email"
+                                    label="Email"
+                                    type="text"
+                                    placeholder="Correo electronico"
+                                    value="{{$module['form_email']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_phone"
+                                    label="Teléfono"
+                                    type="text"
+                                    placeholder="Teléfono"
+                                    value="{{$module['form_phone']}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <x-form.input
+                                name="form_special_menu"
+                                label="Menu especial"
+                                type="text"
+                                placeholder="¿Necesitas un menu especial?"
+                                value="{{$module['form_special_menu']}}"
+                            />
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <x-form.input
+                                    name="form_nothing"
+                                    label="Ninguno"
+                                    type="text"
+                                    placeholder="Ninguno"
+                                    value="{{$module['form_nothing']}}"
+                                />
+                            </div>
+                            <div class="col-4">
+                                <x-form.input
+                                    name="form_menu1"
+                                    label="Menu 1"
+                                    type="text"
+                                    placeholder="Celiaco"
+                                    value="{{$module['form_menu1']}}"
+                                />
+                            </div>
+                            <div class="col-4">
+                                <x-form.input
+                                    name="form_menu2"
+                                    label="Menu 2"
+                                    type="text"
+                                    placeholder="Vegetariano"
+                                    value="{{$module['form_menu2']}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-4">
+                                <x-form.input
+                                    name="form_menu3"
+                                    label="Menu 3"
+                                    type="text"
+                                    placeholder="Vegano"
+                                    value="{{$module['form_menu3']}}"
+                                />
+                            </div>
+                            <div class="col-4">
+                                <x-form.input
+                                    name="form_menu4"
+                                    label="Menu 4"
+                                    type="text"
+                                    placeholder="Diabetico"
+                                    value="{{$module['form_menu4']}}"
+                                />
+                            </div>
+                            <div class="col-4">
+                                <x-form.input
+                                    name="form_menu5"
+                                    label="Menu 5"
+                                    type="text"
+                                    placeholder="Kosher"
+                                    value="{{$module['form_menu5']}}"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <x-form.input
+                                name="form_transfer"
+                                label="Traslado"
+                                type="text"
+                                placeholder="¿Necesitas traslado?"
+                                value="{{$module['form_transfer']}}"
+                            />
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_option1"
+                                    label="Opción 1"
+                                    type="text"
+                                    placeholder="No, voy por mis medios"
+                                    value="{{$module['form_option1']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_option2"
+                                    label="Opción 2"
+                                    type="text"
+                                    placeholder="Si, necesito traslado"
+                                    value="{{$module['form_option2']}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_option3"
+                                    label="Opción 3"
+                                    type="text"
+                                    value="{{$module['form_option3']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <x-form.input
+                                    name="form_option4"
+                                    label="Opción 4"
+                                    type="text"
+                                    value="{{$module['form_option4']}}"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <x-form.input
+                                name="form_companions"
+                                label="Acompañantes"
+                                type="text"
+                                placeholder="Nombre y apellido de acompañantes (si corresponde)"
+                                value="{{$module['form_companions']}}"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <x-form.input
+                                name="form_comments"
+                                label="Comentarios"
+                                type="text"
+                                placeholder="Comentarios o mensajes"
+                                value="{{$module['form_comments']}}"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <x-form.input
+                                name="form_errors"
+                                label="Errores de formulario"
+                                type="text"
+                                placeholder="Por favor completa todos los campos"
+                                value="{{$module['form_errors']}}"
+                            />
+                        </div>
+                        <div class="mb-3">
+                            <x-form.input
+                                name="form_thanks"
+                                label="Gracias"
+                                type="text"
+                                placeholder="¡Gracias por confirmar asistencia!"
+                                value="{{$module['form_thanks']}}"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

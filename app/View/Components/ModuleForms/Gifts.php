@@ -35,8 +35,8 @@ class Gifts extends Component
         $this->module['first_account']['value'] = $module['first_account']['value'] ?? '';
         $this->module['second_account']['active'] = $module['second_account']['active'] ?? '';
         $this->module['second_account']['tittle'] = $module['second_account']['tittle'] ?? '';
-        $this->module['second_account']['text'] = $module['second_account']['text'] ?? '';
-        $this->module['second_account']['data'] = $module['second_account']['data'] ?? '';
+        $this->module['second_account']['button_url'] = $module['second_account']['button_url'] ?? '';
+        $this->module['second_account']['button_text'] = $module['second_account']['button_text'] ?? '';
         $this->module['second_account']['value'] = $module['second_account']['value'] ?? '';
         $this->module['box']['active'] = $module['box']['active'] ?? '';
         $this->module['box']['tittle'] = $module['box']['tittle'] ?? '';
@@ -48,6 +48,30 @@ class Gifts extends Component
         $this->module['list']['text'] = $module['list']['text'] ?? '';
         $this->module['list']['button_text'] = $module['list']['button_text'] ?? '';
         $this->module['list']['button_url'] = $module['list']['button_url'] ?? '';
+        $this->module['list']['product_1'] = $module['list']['product_1'] ?? '';
+        $this->module['list']['product_url_1'] = $module['list']['product_url_1'] ?? '';
+        $this->module['list']['product_price_1'] = $module['list']['product_price_1'] ?? '';
+        $this->module['list']['product_image_1'] = $module['list']['product_image_1'] ?? '';
+        $this->module['list']['product_2'] = $module['list']['product_2'] ?? '';
+        $this->module['list']['product_url_2'] = $module['list']['product_url_2'] ?? '';
+        $this->module['list']['product_price_2'] = $module['list']['product_price_2'] ?? '';
+        $this->module['list']['product_image_2'] = $module['list']['product_image_2'] ?? '';
+        $this->module['list']['product_3'] = $module['list']['product_3'] ?? '';
+        $this->module['list']['product_url_3'] = $module['list']['product_url_3'] ?? '';
+        $this->module['list']['product_price_3'] = $module['list']['product_price_3'] ?? '';
+        $this->module['list']['product_image_3'] = $module['list']['product_image_3'] ?? '';
+        $this->module['list']['product_4'] = $module['list']['product_4'] ?? '';
+        $this->module['list']['product_url_4'] = $module['list']['product_url_4'] ?? '';
+        $this->module['list']['product_price_4'] = $module['list']['product_price_4'] ?? '';
+        $this->module['list']['product_image_4'] = $module['list']['product_image_4'] ?? '';
+        $this->module['list']['product_5'] = $module['list']['product_5'] ?? '';
+        $this->module['list']['product_url_5'] = $module['list']['product_url_5'] ?? '';
+        $this->module['list']['product_price_5'] = $module['list']['product_price_5'] ?? '';
+        $this->module['list']['product_image_5'] = $module['list']['product_image_5'] ?? '';
+        $this->module['list']['product_6'] = $module['list']['product_6'] ?? '';
+        $this->module['list']['product_url_6'] = $module['list']['product_url_6'] ?? '';
+        $this->module['list']['product_price_6'] = $module['list']['product_price_6'] ?? '';
+        $this->module['list']['product_image_6'] = $module['list']['product_image_6'] ?? '';
     }
 
     /**

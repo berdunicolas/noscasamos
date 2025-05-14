@@ -277,7 +277,7 @@ final class ModuleTypeEnum
             'SUGGESTIONS' => new SuggestionsModule(self::getModuleFromArrayByName($invitation->modules, $name)),
             'GALERY' => new GaleryModule(self::getModuleFromArrayByName($invitation->modules, $name)),
             'GIFTS' => new GiftsModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'CONFIRMATION' => new ConfirmationModule(self::getModuleFromArrayByName($invitation->modules, $name)),
+            'CONFIRMATION' => new ConfirmationModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->icon_type),
             'FOOT' => new FootModule(self::getModuleFromArrayByName($invitation->modules, $name)),
         };
 
@@ -571,8 +571,8 @@ final class ModuleTypeEnum
                 'second_account_active' => 'nullable|boolean',
                 'second_account_tittle' => 'nullable|string',
                 'second_account_text' => 'nullable|string',
-                'second_account_data' => 'nullable|string',
-                'second_account_value' => 'nullable|string',
+                'second_account_button_url' => 'nullable|string',
+                'second_account_button_text' => 'nullable|string',
                 'box_active' => 'nullable|boolean',
                 'box_tittle' => 'nullable|string',
                 'box_text' => 'nullable|string',
@@ -581,10 +581,91 @@ final class ModuleTypeEnum
                 'list_active' => 'nullable|boolean',
                 'list_tittle' => 'nullable|string',
                 'list_text' => 'nullable|string',
-                'list_button_text' => 'nullable|string',
-                'list_button_url' => 'nullable|string',
+                'list_product_1' => 'nullable|string',
+                'list_product_url_1' => 'nullable|string',
+                'list_product_price_1' => 'nullable|string',
+                'list_product_image_1' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_2' => 'nullable|string',
+                'list_product_url_2' => 'nullable|string',
+                'list_product_price_2' => 'nullable|string',
+                'list_product_image_2' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_3' => 'nullable|string',
+                'list_product_url_3' => 'nullable|string',
+                'list_product_price_3' => 'nullable|string',
+                'list_product_image_3' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_4' => 'nullable|string',
+                'list_product_url_4' => 'nullable|string',
+                'list_product_price_4' => 'nullable|string',
+                'list_product_image_4' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_5' => 'nullable|string',
+                'list_product_url_5' => 'nullable|string',
+                'list_product_price_5' => 'nullable|string',
+                'list_product_image_5' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_6' => 'nullable|string',
+                'list_product_url_6' => 'nullable|string',
+                'list_product_price_6' => 'nullable|string',
+                'list_product_image_6' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
             ],
-            'CONFIRMATION' => [],
+            'CONFIRMATION' => [
+                'icon' => 'nullable|string',
+                'pre_tittle' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'text' => 'nullable|string',
+                'limit_date' => 'nullable|string',
+                'card_active' => 'nullable|boolean',
+                'card_tittle' => 'nullable|string',
+                'card_text' => 'nullable|string',
+                'card_button_text' => 'nullable|string',
+                'form_active' => 'nullable|boolean',
+                'form_button_text' => 'nullable|string',
+                'form_button_url' => 'nullable|string',
+                'form_text' => 'nullable|string',
+                'form_ill_attend' => 'nullable|string',
+                'form_ill_n_attend' => 'nullable|string',
+                'form_name' => 'nullable|string',
+                'form_email' => 'nullable|string',
+                'form_phone' => 'nullable|string',
+                'form_special_menu' => 'nullable|string',
+                'form_nothing' => 'nullable|string',
+                'form_menu1' => 'nullable|string',
+                'form_menu2' => 'nullable|string',
+                'form_menu3' => 'nullable|string',
+                'form_menu4' => 'nullable|string',
+                'form_menu5' => 'nullable|string',
+                'form_transfer' => 'nullable|string',
+                'form_option1' => 'nullable|string',
+                'form_option2' => 'nullable|string',
+                'form_option3' => 'nullable|string',
+                'form_option4' => 'nullable|string',
+                'form_companions' => 'nullable|string',
+                'form_comments' => 'nullable|string',
+                'form_thanks' => 'nullable|string',
+                'form_errors' => 'nullable|string',
+            ],
             'FOOT' => [
                 'seller_name' => 'required|string',
                 'foot_text' => 'required|string',
@@ -970,10 +1051,48 @@ final class ModuleTypeEnum
                 });
 
                 if(isset($data['background_image'])) $invitation->addMedia($data['background_image'], self::GIFTS['name'].'/background', $invitation->path_name);
-                $invitation->refresh();
 
                 if(isset($data['module_image'])) $invitation->addMedia($data['module_image'], self::GIFTS['name'].'/module', $invitation->path_name);
+
+                if(isset($data['list_product_image_1'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_1')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_1'], self::GIFTS['name'].'/product_1', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_2'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_2')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_2'], self::GIFTS['name'].'/product_2', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_3'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_3')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_3'], self::GIFTS['name'].'/product_3', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_4'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_4')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_4'], self::GIFTS['name'].'/product_4', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_5'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_5')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_5'], self::GIFTS['name'].'/product_5', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_6'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_6')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_6'], self::GIFTS['name'].'/product_6', $invitation->path_name);
+                }
+
                 $invitation->refresh();
+
 
                 return $updateTask($modules, $name, [
                     'icon' => $data['icon'],
@@ -995,8 +1114,8 @@ final class ModuleTypeEnum
                         'active' => $data['second_account_active'],
                         'tittle' => $data['second_account_tittle'],
                         'text' => $data['second_account_text'],
-                        'data' => $data['second_account_data'],
-                        'value' => $data['second_account_value'],
+                        'button_url' => $data['second_account_button_url'],
+                        'button_text' => $data['second_account_button_text'],
                     ],
                     'box' => [
                         'active' => $data['box_active'],
@@ -1009,13 +1128,35 @@ final class ModuleTypeEnum
                         'active' => $data['list_active'],
                         'tittle' => $data['list_tittle'],
                         'text' => $data['list_text'],
-                        'button_text' => $data['list_button_text'],
-                        'button_url' => $data['list_button_url'],
+                        'product_1' => $data['list_product_1'],
+                        'product_url_1' => $data['list_product_url_1'],
+                        'product_price_1' => $data['list_product_price_1'],
+                        'product_image_1' => $invitation->media(self::GIFTS['name'].'/product_1')->first()?->getMediaUrl(),
+                        'product_2' => $data['list_product_2'],
+                        'product_url_2' => $data['list_product_url_2'],
+                        'product_price_2' => $data['list_product_price_2'],
+                        'product_image_2' => $invitation->media(self::GIFTS['name'].'/product_2')->first()?->getMediaUrl(),
+                        'product_3' => $data['list_product_3'],
+                        'product_url_3' => $data['list_product_url_3'],
+                        'product_price_3' => $data['list_product_price_3'],
+                        'product_image_3' => $invitation->media(self::GIFTS['name'].'/product_3')->first()?->getMediaUrl(),
+                        'product_4' => $data['list_product_4'],
+                        'product_url_4' => $data['list_product_url_4'],
+                        'product_price_4' => $data['list_product_price_4'],
+                        'product_image_4' => $invitation->media(self::GIFTS['name'].'/product_4')->first()?->getMediaUrl(),
+                        'product_5' => $data['list_product_5'],
+                        'product_url_5' => $data['list_product_url_5'],
+                        'product_price_5' => $data['list_product_price_5'],
+                        'product_image_5' => $invitation->media(self::GIFTS['name'].'/product_5')->first()?->getMediaUrl(),
+                        'product_6' => $data['list_product_6'],
+                        'product_url_6' => $data['list_product_url_6'],
+                        'product_price_6' => $data['list_product_price_6'],
+                        'product_image_6' => $invitation->media(self::GIFTS['name'].'/product_6')->first()?->getMediaUrl(),
                     ],
                 ]);
             })(),
-           // 'CONFIRMATION' => $updateTask($modules, $name, $data),
-           'FOOT' => $updateTask($modules, $name, $data),
+            'CONFIRMATION' => $updateTask($modules, $name, $data),
+            'FOOT' => $updateTask($modules, $name, $data),
         };
 
         return $updatedModules;

@@ -121,7 +121,7 @@ $productolink6 = "";
         <div class="contenido-modal">
             <span class="closeModal"><i class="fa-regular fa-xmark"></i></span>
             
-            <!-- REGALO 1 -->
+            <!-- REGALO 1 = CUENTA 1 -->
             @if($module['first_account']['active'])
                 <div class="item">
                     <div class="left">
@@ -142,94 +142,94 @@ $productolink6 = "";
                     </div>
                 </div>
             @endif
-            <!-- REGALO 2 -->
+            <!-- REGALO 2 = CUENTA 2-->
             @if($module['second_account']['active'])
                 <div class="item">
                     <div class="left">
-                        <h3>{{$regalotitulo2}}</h3>
+                        <h3>{{$module['second_account']['tittle']}}</h3>
                     </div>
                     <div class="right">
-                        <p>{{$regalotxt2}}</p>
-                        @empty(!$regalobtn2)
-                            <a href="{{$regalolink2}}" class="link">{{$regalobtn2}}</a>
+                        <p>{!!$module['second_account']['text']!!}</p>
+                        @empty(!$module['second_account']['button_text'])
+                            <a href="{{$module['second_account']['button_url']}}" class="link">{{$module['second_account']['button_text']}}</a>
                         @endempty
                     </div>
                 </div>
             @endif
-            <!-- REGALO 3 -->
-            @if($regalo3 == "s")
+            <!-- REGALO 3 = BUZON -->
+            @if($module['box']['active'])
             <div class="item">
                 <div class="left">
-                    <h3>{{$regalotitulo3}}</h3>
+                    <h3>{{$module['box']['tittle']}}</h3>
                 </div>
                 <div class="right">
-                    <p>{{$regalotxt3}}</p>
-                    @empty(!$regalobtn3)
-                    <a href="{{$regalolink3}}" class="link">{{$regalobtn3}}</a>
+                    <p>{!!$module['box']['text']!!}</p>
+                    @empty(!$module['box']['button_text'])
+                    <a href="{{$module['box']['button_url']}}" class="link">{{$module['box']['button_text']}}</a>
                     @endempty
                 </div>
             </div>
             @endif
             
-            <!-- CATALOGO -->
-            @if ($catalogo == "s")
+            <!-- CATALOGO = LISTA -->
+            @if ($module['list']['active'])
             <div class="item">
                 <div class="left">
-                    <h3>{{$catalogotitulo}}</h3>
+                    <h3>{{$module['list']['tittle']}}</h3>
                 </div>
                 <div class="right">
-                    @empty(!$catalogotxt)
-                    <p>{{$catalogotxt}}</p>
+                    @empty(!$module['list']['text'])
+                    <p>{!!$module['list']['text']!!}</p>
                     @endempty
                     
                     <div class="list">
-                        @empty(!$producto1)
-                            <a href="{{$productolink1}}">
-                                {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$producto1}}"/>--}}
-                                <img src="{{asset("boda/images/regalos/".$productoimg1)}}" alt="{{$producto1}}"/>
-                                <p>{{$producto1}}</p>
-                                <h4>{{$productoprecio1}}</h4>
+                        @empty(!$module['list']['product_1'])
+                            <a href="{{$module['list']['product_url_1']}}">
+                                {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module['list']['product_1']}}"/>--}}
+                                <img src="{{$module['list']['product_image_1']}}" alt="{{$module['list']['product_1']}}"/>
+                                <p>{{$module['list']['product_1']}}</p>
+                                <h4>{{$module['list']['product_price_1']}}</h4>
                             </a>
                         @endempty
-                        
-                        @empty(!$producto2)
-                            <a href="{{$productolink2}}">
-                                <img src="images/regalos/{{$productoimg2}}" alt="{{$producto2}}"/>
-                                <p>{{$producto2}}</p>
-                                <h4>{{$productoprecio2}}</h4>
+                        @empty(!$module['list']['product_2'])
+                            <a href="{{$module['list']['product_url_2']}}">
+                                {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module['list']['product_2']}}"/>--}}
+                                <img src="{{$module['list']['product_image_2']}}" alt="{{$module['list']['product_2']}}"/>
+                                <p>{{$module['list']['product_2']}}</p>
+                                <h4>{{$module['list']['product_price_2']}}</h4>
                             </a>
                         @endempty
-                        
-                        @empty(!$producto3)
-                            <a href="{{$productolink3}}">
-                                <img src="images/regalos/{{$productoimg3}}" alt="{{$producto3}}"/>
-                                <p>{{$producto3}}</p>
-                                <h4>{{$productoprecio3}}</h4>
+                        @empty(!$module['list']['product_3'])
+                            <a href="{{$module['list']['product_url_3']}}">
+                                {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module['list']['product_3']}}"/>--}}
+                                <img src="{{$module['list']['product_image_3']}}" alt="{{$module['list']['product_3']}}"/>
+                                <p>{{$module['list']['product_3']}}</p>
+                                <h4>{{$module['list']['product_price_3']}}</h4>
                             </a>
                         @endempty
-                        
-                        @empty(!$producto4)
-                        <a href="{{$productolink4}}">
-                            <img src="images/regalos/{{$productoimg4}}" alt="{{$producto4}}"/>
-                            <p>{{$producto4}}</p>
-                            <h4>{{$productoprecio4}}</h4>
-                        </a>
+                        @empty(!$module['list']['product_4'])
+                            <a href="{{$module['list']['product_url_4']}}">
+                                {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module['list']['product_4']}}"/>--}}
+                                <img src="{{$module['list']['product_image_4']}}" alt="{{$module['list']['product_4']}}"/>
+                                <p>{{$module['list']['product_4']}}</p>
+                                <h4>{{$module['list']['product_price_4']}}</h4>
+                            </a>
                         @endempty
-                        
-                        @empty(!$producto5)
-                            <a href="{{$productolink5}}">
-                            <img src="images/regalos/{{$productoimg5}}" alt="{{$producto5}}"/>
-                            <p>{{$producto5}}</p>
-                            <h4>{{$productoprecio5}}</h4>
-                        </a>
+                        @empty(!$module['list']['product_5'])
+                            <a href="{{$module['list']['product_url_5']}}">
+                                {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module['list']['product_5']}}"/>--}}
+                                <img src="{{$module['list']['product_image_5']}}" alt="{{$module['list']['product_5']}}"/>
+                                <p>{{$module['list']['product_5']}}</p>
+                                <h4>{{$module['list']['product_price_5']}}</h4>
+                            </a>
                         @endempty
-                        
-                        @empty(!$producto6)
-                            <a href="{{$productolink6}}">
-                            <img src="images/regalos/{{$productoimg6}}" alt="{{$producto6}}"/>
-                            <p>{{$producto6}}</p>
-                            <h4>{{$productoprecio6}}</h4>
-                        </a>
+                        @empty(!$module['list']['product_6'])
+                            <a href="{{$module['list']['product_url_6']}}">
+                                {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module['list']['product_6']}}"/>--}}
+                                <img src="{{$module['list']['product_image_6']}}" alt="{{$module['list']['product_6']}}"/>
+                                <p>{{$module['list']['product_6']}}</p>
+                                <h4>{{$module['list']['product_price_6']}}</h4>
+                            </a>
                         @endempty
                     </div>
                 </div>
