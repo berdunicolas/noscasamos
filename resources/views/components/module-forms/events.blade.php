@@ -8,8 +8,8 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <label class="form-check-label" for="switchCheckChecked">Civíl</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'civil_active')" type="checkbox" role="switch" {{$module['civil']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="civil_active" id="civil_active" value="{{$module['civil']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'civil_active')" type="checkbox" role="switch" {{$module['events']['civil']['active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="civil_active" id="civil_active" value="{{$module['events']['civil']['active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -22,7 +22,7 @@
                                     label="Evento"
                                     type="text"
                                     placeholder="Civil"
-                                    value="{{$module['civil']['event']}}"
+                                    value="{{$module['events']['civil']['event']}}"
                                 />
                             </div>
                             <div class="col-5">
@@ -31,7 +31,7 @@
                                     label="Icono"
                                     type="text"
                                     placeholder="fa-rings-wedding"
-                                    value="{{$module['civil']['icon']}}"
+                                    value="{{$module['events']['civil']['icon']}}"
                                 />
                             </div>
                             <div class="col-2">
@@ -40,7 +40,7 @@
                                     label="Orden"
                                     type="text"
                                     placeholder="1"
-                                    value="{{$module['civil']['order']}}"
+                                    value="{{$module['events']['civil']['order']}}"
                                 />
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                     label="Fecha"
                                     type="date"
                                     placeholder="29/12/2025"
-                                    value="{{$module['civil']['date']}}"
+                                    value="{{$module['events']['civil']['date']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -60,7 +60,7 @@
                                     label="Hora"
                                     type="time"
                                     placeholder="20:00"
-                                    value="{{$module['civil']['time']}}"
+                                    value="{{$module['events']['civil']['time']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -69,7 +69,7 @@
                                     label="Hs texto"
                                     type="text"
                                     placeholder="Horas"
-                                    value="{{$module['civil']['hr_translation']}}"
+                                    value="{{$module['events']['civil']['hr_translation']}}"
                                 />
                             </div>
                         </div>
@@ -79,12 +79,12 @@
                                 label="Nombre"
                                 type="text"
                                 placeholder="Registro civil de Palermo"
-                                value="{{$module['civil']['name']}}"
+                                value="{{$module['events']['civil']['name']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="civil_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['civil']['detail']}}</textarea>
+                            <textarea name="civil_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['events']['civil']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.input
@@ -100,7 +100,7 @@
                                     label="Url botón"
                                     type="text"
                                     placeholder="https://www.google.com"
-                                    value="{{$module['civil']['button_url']}}"
+                                    value="{{$module['events']['civil']['button_url']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -110,7 +110,7 @@
                                         label="Texto botón"
                                         type="text"
                                         placeholder="Ver más"
-                                        value="{{$module['civil']['button_text']}}"
+                                        value="{{$module['events']['civil']['button_text']}}"
                                     />
                                 </div>
                             </div>
@@ -123,8 +123,8 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         <label class="form-check-label" for="switchCheckChecked">Ceremonia</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'ceremony_active')" type="checkbox" role="switch" {{$module['ceremony']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="ceremony_active" id="ceremony_active" value="{{$module['ceremony']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'ceremony_active')" type="checkbox" role="switch" {{$module['events']['ceremony']['active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="ceremony_active" id="ceremony_active" value="{{$module['events']['ceremony']['active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -137,7 +137,7 @@
                                     label="Evento"
                                     type="text"
                                     placeholder="Ceremonia"
-                                    value="{{$module['ceremony']['event']}}"
+                                    value="{{$module['events']['ceremony']['event']}}"
                                 />
                             </div>
                             <div class="col-5">
@@ -146,7 +146,7 @@
                                     label="Icono"
                                     type="text"
                                     placeholder="fa-rings-wedding"
-                                    value="{{$module['ceremony']['icon']}}"
+                                    value="{{$module['events']['ceremony']['icon']}}"
                                 />
                             </div>
                             <div class="col-2">
@@ -155,7 +155,7 @@
                                     label="Orden"
                                     type="text"
                                     placeholder="1"
-                                    value="{{$module['ceremony']['order']}}"
+                                    value="{{$module['events']['ceremony']['order']}}"
                                 />
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                                     label="Fecha"
                                     type="date"
                                     placeholder="29/12/2025"
-                                    value="{{$module['ceremony']['date']}}"
+                                    value="{{$module['events']['ceremony']['date']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -175,7 +175,7 @@
                                     label="Hora"
                                     type="time"
                                     placeholder="20:00"
-                                    value="{{$module['ceremony']['time']}}"
+                                    value="{{$module['events']['ceremony']['time']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -184,7 +184,7 @@
                                     label="Hs texto"
                                     type="text"
                                     placeholder="Horas"
-                                    value="{{$module['ceremony']['hr_translation']}}"
+                                    value="{{$module['events']['ceremony']['hr_translation']}}"
                                 />
                             </div>
                         </div>
@@ -194,12 +194,12 @@
                                 label="Nombre"
                                 type="text"
                                 placeholder="Parroquia San Benito"
-                                value="{{$module['ceremony']['name']}}"
+                                value="{{$module['events']['ceremony']['name']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="ceremony_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['ceremony']['detail']}}</textarea>
+                            <textarea name="ceremony_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['events']['ceremony']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.input
@@ -215,7 +215,7 @@
                                     label="Url botón"
                                     type="text"
                                     placeholder="https://www.google.com"
-                                    value="{{$module['ceremony']['button_url']}}"
+                                    value="{{$module['events']['ceremony']['button_url']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -225,7 +225,7 @@
                                         label="Texto botón"
                                         type="text"
                                         placeholder="Ver más"
-                                        value="{{$module['ceremony']['button_text']}}"
+                                        value="{{$module['events']['ceremony']['button_text']}}"
                                     />
                                 </div>
                             </div>
@@ -238,8 +238,8 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         <label class="form-check-label" for="switchCheckChecked">Festejo</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" type="checkbox" onchange="checkboxSwitch(this, 'party_active')" role="switch" {{$module['party']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="party_active" id="party_active" value="{{$module['party']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" type="checkbox" onchange="checkboxSwitch(this, 'party_active')" role="switch" {{$module['events']['party']['active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="party_active" id="party_active" value="{{$module['events']['party']['active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -252,7 +252,7 @@
                                     label="Evento"
                                     type="text"
                                     placeholder="Fiesta"
-                                    value="{{$module['party']['event']}}"
+                                    value="{{$module['events']['party']['event']}}"
                                 />
                             </div>
                             <div class="col-5">
@@ -261,7 +261,7 @@
                                     label="Icono"
                                     type="text"
                                     placeholder="fa-rings-wedding"
-                                    value="{{$module['party']['icon']}}"
+                                    value="{{$module['events']['party']['icon']}}"
                                 />
                             </div>
                             <div class="col-2">
@@ -270,7 +270,7 @@
                                     label="Orden"
                                     type="text"
                                     placeholder="1"
-                                    value="{{$module['party']['order']}}"
+                                    value="{{$module['events']['party']['order']}}"
                                 />
                             </div>
                         </div>
@@ -281,7 +281,7 @@
                                     label="Fecha"
                                     type="date"
                                     placeholder="29/12/2025"
-                                    value="{{$module['party']['date']}}"
+                                    value="{{$module['events']['party']['date']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -290,7 +290,7 @@
                                     label="Hora"
                                     type="time"
                                     placeholder="20:00"
-                                    value="{{$module['party']['time']}}"
+                                    value="{{$module['events']['party']['time']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -299,7 +299,7 @@
                                     label="Hs texto"
                                     type="text"
                                     placeholder="Horas"
-                                    value="{{$module['party']['hr_translation']}}"
+                                    value="{{$module['events']['party']['hr_translation']}}"
                                 />
                             </div>
                         </div>
@@ -309,12 +309,12 @@
                                 label="Nombre"
                                 type="text"
                                 placeholder="Parroquia San Benito"
-                                value="{{$module['party']['name']}}"
+                                value="{{$module['events']['party']['name']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="party_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['party']['detail']}}</textarea>
+                            <textarea name="party_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['events']['party']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.input
@@ -330,7 +330,7 @@
                                     label="Url botón"
                                     type="text"
                                     placeholder="https://www.google.com"
-                                    value="{{$module['party']['button_url']}}"
+                                    value="{{$module['events']['party']['button_url']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -340,7 +340,7 @@
                                         label="Texto botón"
                                         type="text"
                                         placeholder="Ver más"
-                                        value="{{$module['party']['button_text']}}"
+                                        value="{{$module['events']['party']['button_text']}}"
                                     />
                                 </div>
                             </div>
@@ -353,8 +353,8 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                         <label class="form-check-label" for="switchCheckChecked">Dresscode</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'dresscode_active')" type="checkbox" role="switch" {{$module['dresscode']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="dresscode_active" id="dresscode_active" value="{{$module['dresscode']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'dresscode_active')" type="checkbox" role="switch" {{$module['events']['dresscode']['active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="dresscode_active" id="dresscode_active" value="{{$module['events']['dresscode']['active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -367,7 +367,7 @@
                                     label="Evento"
                                     type="text"
                                     placeholder="Dresscode"
-                                    value="{{$module['dresscode']['event']}}"
+                                    value="{{$module['events']['dresscode']['event']}}"
                                 />
                             </div>
                             <div class="col-5">
@@ -376,7 +376,7 @@
                                     label="Icono"
                                     type="text"
                                     placeholder="fa-rings-wedding"
-                                    value="{{$module['dresscode']['icon']}}"
+                                    value="{{$module['events']['dresscode']['icon']}}"
                                 />
                             </div>
                             <div class="col-2">
@@ -385,7 +385,7 @@
                                     label="Orden"
                                     type="text"
                                     placeholder="1"
-                                    value="{{$module['dresscode']['order']}}"
+                                    value="{{$module['events']['dresscode']['order']}}"
                                 />
                             </div>
                         </div>
@@ -395,12 +395,12 @@
                                 label="Nombre"
                                 type="text"
                                 placeholder="Parroquia San Benito"
-                                value="{{$module['dresscode']['name']}}"
+                                value="{{$module['events']['dresscode']['name']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="dresscode_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['dresscode']['detail']}}</textarea>
+                            <textarea name="dresscode_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['events']['dresscode']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.input
@@ -416,7 +416,7 @@
                                     label="Url botón"
                                     type="text"
                                     placeholder="https://www.google.com"
-                                    value="{{$module['dresscode']['button_url']}}"
+                                    value="{{$module['events']['dresscode']['button_url']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -426,7 +426,7 @@
                                         label="Texto botón"
                                         type="text"
                                         placeholder="Ver más"
-                                        value="{{$module['dresscode']['button_text']}}"
+                                        value="{{$module['events']['dresscode']['button_text']}}"
                                     />
                                 </div>
                             </div>

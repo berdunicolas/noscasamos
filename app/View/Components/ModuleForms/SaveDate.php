@@ -19,16 +19,7 @@ class SaveDate extends Component
         public array $module = [],
         public string $icontype = 'Animado',
         public string $moduleName = ModuleTypeEnum::SAVE_DATE['name'],
-    ) {
-        $this->module['tittle'] = $module['tittle'] ?? '';
-        $this->module['icon'] = $module['icon'] ?? '';
-        $this->module['text_button'] = $module['text_button'] ?? '';
-        $this->module['is_countdown'] = $module['is_countdown'] ?? false;
-        $this->module['days_tanslation'] = $module['days_tanslation'] ?? '';
-        $this->module['hr_tanslation'] = $module['hr_tanslation'] ?? '';
-        $this->module['min_translation'] = $module['min_translation'] ?? '';
-        $this->module['sec_translation'] = $module['sec_translation'] ?? '';
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

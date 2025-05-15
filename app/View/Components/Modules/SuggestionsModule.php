@@ -16,11 +16,6 @@ class SuggestionsModule extends Component
         array $module,
     )
     {
-        $this->module['pre_tittle'] = $module['pre_tittle'] ?? '';
-        $this->module['tittle'] = $module['tittle'] ?? '';
-        $this->module['text'] = $module['text'] ?? '';
-        $this->module['icon'] = $module['icon'] ?? '';
-
         if(empty($module['suggestions'])){
             for ($i=1; $i <= 8; $i++) { 
                 $this->module['suggestions'][] = ['suggestion_' . $i => '', 'link_' . $i => ''];
