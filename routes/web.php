@@ -68,7 +68,10 @@ Route::get('/{invitation:path_name}', function (Invitation $invitation) {
     if ($invitation->isExpired()) {
         return response()->isNotFound(); // PROBAR
     }
-    return view('invitations.invitation', ['invitation' => $invitation]);
-})->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+');
+
+    return view('invitations.invitation', [
+        'invitation' => $invitation,
+    ]);
+})->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
 
 require __DIR__.'/auth.php';

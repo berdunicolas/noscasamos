@@ -7,7 +7,6 @@ use App\View\Components\ModuleForms\Confirmation;
 use App\View\Components\ModuleForms\Cover;
 use App\View\Components\ModuleForms\Events;
 use App\View\Components\ModuleForms\FloatButton;
-use App\View\Components\ModuleForms\Foot;
 use App\View\Components\ModuleForms\Galery;
 use App\View\Components\ModuleForms\Gifts;
 use App\View\Components\ModuleForms\Guest;
@@ -25,7 +24,6 @@ use App\View\Components\Modules\ConfirmationModule;
 use App\View\Components\Modules\CoverModule;
 use App\View\Components\Modules\EventsModule;
 use App\View\Components\Modules\FloatButtonModule;
-use App\View\Components\Modules\FootModule;
 use App\View\Components\Modules\GaleryModule;
 use App\View\Components\Modules\GiftsModule;
 use App\View\Components\Modules\GuestModule;
@@ -49,14 +47,16 @@ final class ModuleTypeEnum
         'display_name' => 'Intro Animada',
         'fixed' => true, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::CLÁSICO->value
+        'plan' => PlanTypeEnum::CLÁSICO->value,
+        'stamp_image' => ''
     ];
     const MUSIC = [
         'name' => 'MUSIC',
         'display_name' => 'Música', 
         'fixed' => true, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::GOLD->value
+        'plan' => PlanTypeEnum::GOLD->value,
+        'song' => ''
     ];
     const FLOAT_BUTTON = [
         'name' => 'FLOAT_BUTTON',

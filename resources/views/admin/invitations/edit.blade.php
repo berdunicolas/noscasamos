@@ -344,22 +344,25 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-4">
-                            <x-form.select
+                        <div class="col-3">
+                            <x-form.input
                                 id="style-form-input"
-                                name="spacing"
-                                label="Espaciado"
-                            >
-                                @foreach ($spacingTypes as $spacingType)
-                                    <x-form.select-option
-                                        value="{{$spacingType}}"
-                                        label="{{$spacingType}}"
-                                        selected="{{$invitation->spacing?->value == $spacingType ? true : false}}"
-                                    />  
-                                @endforeach
-                            </x-form.select>
+                                name="padding"
+                                label="Relleno"
+                                placeholder="20px"
+                                type="text"
+                                value="{{$invitation->padding}}"
+                            />
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
+                            <x-form.input
+                                id="style-form-input"
+                                name="frame_image"
+                                label="Marco"
+                                type="file"
+                            />
+                        </div>
+                        <div class="col-3">
                             <x-form.select
                                 id="style-form-input"
                                 name="font"
@@ -374,7 +377,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <x-form.select
                                 id="style-form-input"
                                 name="icon_type"

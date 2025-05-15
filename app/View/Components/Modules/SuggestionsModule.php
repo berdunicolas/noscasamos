@@ -8,12 +8,11 @@ use Illuminate\View\Component;
 
 class SuggestionsModule extends Component
 {
-    public array $module;
     /**
      * Create a new component instance.
      */
     public function __construct(
-        array $module,
+    public array $module,
     )
     {
         if(empty($module['suggestions'])){

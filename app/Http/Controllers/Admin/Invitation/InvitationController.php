@@ -40,8 +40,8 @@ class InvitationController extends Controller
         $planTypes = PlanTypeEnum::values();
         $styleTypes = StyleTypeEnum::values();
         $spacingTypes = SpacingTypeEnum::values();
-        $fontTypes = FontTypeEnum::values();
         $sellers = Seller::select('id', 'name')->get();
+        $fontTypes = FontTypeEnum::values();
 
         return view('admin.invitations.edit', [
             'invitation' => $invitation, 

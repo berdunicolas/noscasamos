@@ -13,9 +13,9 @@ class CoverModule extends Component
      */
     public function __construct(
         public array $module,
-        public string $nombres,
-        public string $principalColor,
-        public string $backgroundColor,
+        public ?string $nombres,
+        public ?string $principalColor,
+        public ?string $backgroundColor,
 
     ) {
         $this->module['names'] = (isset($this->module['names'])) ? $module['names'] : $nombres;
