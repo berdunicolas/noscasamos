@@ -22,8 +22,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::domain('admin.'. config('app.url'))->group(function () {
+if(config('app.env') == 'production') {
 
+    Route::domain(config('app.subdomain').config('app.url'))->group(function () {
+    
+        Route::middleware('auth', EnsureCorrectAuthModel::class.':web')->group(function () {
+            Route::get('/', function () {
+                return view('admin.dashboard');
+            })->name('dashboard');
+    
+            Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
+            Route::get('/users/{user}/edit', [RegisteredUserController::class, 'edit'])->name('users.edit');
+            Route::get('/users/{user}', [RegisteredUserController::class, 'show'])->name('users.show');
+            Route::post('/users/{user}', [RegisteredUserController::class, 'update'])->name('users.update');
+            Route::get('/sellers', [SellerController::class, 'index'])->name('sellers.index');
+            Route::get('/sellers/{seller}/edit', [SellerController::class, 'edit'])->name('sellers.edit');
+            Route::post('/sellers/{seller}', [SellerController::class, 'update'])->name('sellers.update');
+            Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
+            Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
+            Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+            Route::post('/settings/invitations', [SettingsController::class, 'invitationsStore'])->name('settings.invitations.store');
+        });
+    });
+
+} else {
     Route::middleware('auth', EnsureCorrectAuthModel::class.':web')->group(function () {
         Route::get('/', function () {
             return view('admin.dashboard');
@@ -41,8 +63,7 @@ Route::domain('admin.'. config('app.url'))->group(function () {
         Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('/settings/invitations', [SettingsController::class, 'invitationsStore'])->name('settings.invitations.store');
     });
-});
-
+}
 
 
 
@@ -50,8 +71,10 @@ Route::get('/{invitation:path_name}', [GuestController::class, 'index'])->where(
 Route::get('/{invitation:path_name}/invitados/login', [GuestController::class, 'loginForm'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
 Route::post('/{invitation:path_name}/invitados/login', [GuestController::class, 'login'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
 
+
 Route::middleware('auth', EnsureCorrectAuthModel::class.':guests')->group(function () {
     Route::get('/{invitation:path_name}/invitados', [GuestController::class, 'guest'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests');
+    Route::post('/{invitation:path_name}/invitados/logout', [GuestController::class, 'logout'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.logout');
 });
 
 require __DIR__.'/auth.php';

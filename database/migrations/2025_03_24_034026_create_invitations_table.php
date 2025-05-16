@@ -38,6 +38,8 @@ return new class extends Migration
             $table->enum('style', StyleTypeEnum::values());
             $table->enum('font', FontTypeEnum::values());
             $table->string('padding')->nullable();
+            $table->string('password');
+            $table->string('plain_token');
 
             $table->string('color', 7)->nullable();
             $table->string('background_color', 7)->nullable();

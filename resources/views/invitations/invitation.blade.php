@@ -21,6 +21,7 @@ $tituloYBajada =  $invitation->tituloYBajada();
         <meta property="og:description" content="{{$tituloYBajada['titulo']}} {{$tituloYBajada['bajada']}}">
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{{route('invitation', ['invitation' => $invitation->path_name])}}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{$invitation->host_names}} - {{$invitation->fechat()}} - {{config('app.name')}}</title>
         <link rel="icon" type="image/x-icon" href="{{asset("assets/images/favicon.ico")}}">
@@ -82,37 +83,54 @@ $tituloYBajada =  $invitation->tituloYBajada();
                 $("#asiste").val($("input:checked").val());
 
             });
-            $(function () {
-                $(".submit").click(function (event) {
-                    var asiste = $("#asiste").val();
-                    var alimento = $("#alimento").val();
-                    var nombre = $("#nombre").val();
-                    var nombre_a = $("#nombre_a").val();
-                    var traslado = $("#traslado").val();
-                    var mail = $("#mail").val();
-                    var telefono = $("#telefono").val();
-                    var comentarios = $("#comentarios").val();
+            function sendConfirmation(event, form){
+                event.preventDefault();
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+               /* var asiste = $("#asiste").val();
+                var alimento = $("#alimento").val();
+                var nombre = $("#nombre").val();
+                var nombre_a = $("#nombre_a").val();
+                var traslado = $("#traslado").val();
+                var mail = $("#mail").val();
+                var telefono = $("#telefono").val();
+                var comentarios = $("#comentarios").val();*/
+                /*
+                var dataString = 'asiste=' + asiste + '&nombre=' + nombre + '&alimento=' + alimento + '&nombre_a=' + nombre_a + '&traslado=' + traslado + '&mail=' + mail + '&telefono=' + telefono + '&comentarios=' + comentarios;
+                if (nombre === '')
+                {
+                    $('.error').fadeOut(200).show();
+                } else
+                {*/
+                    fetch(form.action, {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                    .then(async response => {
+                        const statusCode = response.status;
+                        const text = await response.text();
+                        const data = text ? JSON.parse(text) : {};
+                        return ({ statusCode, data });
+                    })
+                    .then(async ({statusCode, data}) => {
+                        if(statusCode === 201){
+                            $('.thanks').show()
+                            $('.cont').hide
+                            $("#data").html(data);
+                        } else {
+                            console.error(data);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                //}
+            }
 
-                    var dataString = 'asiste=' + asiste + '&nombre=' + nombre + '&alimento=' + alimento + '&nombre_a=' + nombre_a + '&traslado=' + traslado + '&mail=' + mail + '&telefono=' + telefono + '&comentarios=' + comentarios;
-                    if (nombre === '')
-                    {
-                        $('.error').fadeOut(200).show();
-                    } else
-                    {
-                        $.ajax({
-                            type: "POST",
-                            url: "_save.php",
-                            data: dataString,
-                            success: function (data) {
-                                $('.thanks').fadeIn(200).show();
-                                $('.cont').fadeOut(200).hide();
-                                $("#data").html(data);
-                            }
-                        });
-                    }
-                    event.preventDefault();
-                });
-            });
         </script>
         <script src="https://cdn.lordicon.com/lordicon.js"></script>
         <script src="{{asset("assets/js/wow/wow.js")}}"></script>

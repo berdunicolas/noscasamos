@@ -10,6 +10,7 @@ use App\Enums\StyleTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\CountryDivision;
+use App\Models\Guest;
 use App\Models\Invitation;
 use App\Models\Seller;
 use App\Models\Timezone;
@@ -33,6 +34,9 @@ class InvitationController extends Controller
         $invitation->event->load('country');
 
 
+        $con = Guest::where('invitation_id', $invitation->id)->orderBy('created_at', 'desc')->get();
+
+
         $countries = Country::where('active', 1)->get();
         $CountryDivision = CountryDivision::where('country_code', $invitation->event->country?->code)->get();
         $timezones = Timezone::all();
@@ -54,6 +58,7 @@ class InvitationController extends Controller
             'spacingTypes' => $spacingTypes,
             'fontTypes' => $fontTypes,
             'sellers' => $sellers,
+            'con' => $con,
         ]);
     }
 }

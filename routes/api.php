@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\InvitationApiController;
 use App\Http\Controllers\Api\SellerApiController;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\InvitationModuleApiController;
 use App\View\Components\Modules\Example;
 use Illuminate\Http\Request;
@@ -53,6 +54,8 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::patch('intivations/{invitation}/modules/{module}/change-status', [InvitationModuleApiController::class, 'changeModuleStatus'])->name('invitation.modules.change-order');
     Route::patch('invitations/{invitation}/modules/{module}', [InvitationModuleApiController::class, 'updateModule'])->name('invitation.modules.update');
 });
+
+Route::post('/{invitation:path_name}/confirm-invitation', [GuestController::class, 'store'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('api.invitation.store');
 
 Route::get('/country-divisions/{code}', function ($code) {
     $divisions = \App\Models\CountryDivision::select('id', 'state_name')->where('country_code', $code)->get();
