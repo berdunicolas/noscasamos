@@ -71,8 +71,7 @@ $rsvpicos = "s"
                 
                 <div class="form">
                     <div class="msj error" style="display:none">{{$module['form_errors']}}</div>
-                    <form method="post" action="_save.php">
-                        @csrf
+                    <form onsubmit="sendConfirmation(event, this)" action="{{route('api.invitation.store', ['invitation' => $invitation_id])}}">
                         <div class="radio">
                             @empty(!$module['form_ill_attend'])
                                 <label class="container">{{$module['form_ill_attend']}}
@@ -108,7 +107,7 @@ $rsvpicos = "s"
                             <label>{{$module['form_special_menu']}}</label>
                             <div class="selectField">
                                 <i class="fa-regular fa-angle-down"></i>
-                                <select name="alimentos" id="alimentos" onchange="javacript: var typename = this.options[selectedIndex].text; document.getElementById('alimento').value = typename;">
+                                <select name="alimento" id="alimentos" onchange="javacript: var typename = this.options[selectedIndex].text; document.getElementById('alimento').value = typename;">
                                     {!!(!empty($module['form_nothing'])) ? '<option value="'.$module['form_nothing'].'">'.$module['form_nothing'].'</option>' : ''!!}
                                     {!!(!empty($module['form_menu1'])) ? '<option value="'.$module['form_menu1'].'">'.$module['form_menu1'].'</option>' : ''!!}
                                     {!!(!empty($module['form_menu2'])) ? '<option value="'.$module['form_menu2'].'">'.$module['form_menu2'].'</option>' : ''!!}
@@ -124,7 +123,7 @@ $rsvpicos = "s"
                             <label>{{$module['form_transfer']}}</label>
                             <div class="selectField">
                                 <i class="fa-regular fa-angle-down"></i>
-                                <select name="traslados"  id="traslados" onchange="javacript: var typename = this.options[selectedIndex].text; document.getElementById('traslado').value = typename;">
+                                <select name="traslado"  id="traslados" onchange="javacript: var typename = this.options[selectedIndex].text; document.getElementById('traslado').value = typename;">
                                     {!!(!empty($module['form_option1'])) ? '<option value="'.$module['form_option1'].'">'.$module['form_option1'].'</option>' : ''!!}
                                     {!!(!empty($module['form_option2'])) ? '<option value="'.$module['form_option2'].'">'.$module['form_option2'].'</option>' : ''!!}
                                     {!!(!empty($module['form_option3'])) ? '<option value="'.$module['form_option3'].'">'.$module['form_option3'].'</option>' : ''!!}

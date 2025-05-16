@@ -61,6 +61,8 @@ class Invitation extends Authenticatable
         'active',
         'created_by',
         'path_name',
+        'password',
+        'plain_token',
         'meta_title',
         'meta_description',
         'icon_type',
@@ -72,13 +74,18 @@ class Invitation extends Authenticatable
         'modules',
     ];
 
+    protected $hidden = [
+        'password',
+    ];
+
     protected $casts = [
         'font' => FontTypeEnum::class,
         'style' => StyleTypeEnum::class,
         //'spacing' => SpacingTypeEnum::class,
         'active' => 'boolean',
         'modules' => 'array',
-        'time' => TimeFormatCast::class
+        'time' => TimeFormatCast::class,
+        'password' => 'hashed',
     ];
 
     public function createdBy(): BelongsTo

@@ -13,6 +13,7 @@ class ConfirmationModule extends Component
      */
     public function __construct(
         public array $module = [],
+        public string $invitation_id,
         public ?string $style,
         public ?string $color,
         public ?string $icontype,

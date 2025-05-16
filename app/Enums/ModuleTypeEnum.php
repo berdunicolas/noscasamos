@@ -597,6 +597,7 @@ final class ModuleTypeEnum
             ),
             'CONFIRMATION' => new ConfirmationModule(
                 self::getModuleFromArrayByName($invitation->modules, $name), 
+                $invitation->path_name,
                 $invitation->style->value,
                 $invitation->color,
                 $invitation->icon_type,

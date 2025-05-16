@@ -58,10 +58,86 @@
     
             </div>
             <div class="ms-auto">
-                <button class="btn btn-outline-dark"><span class="mx-3"><i class="fa-light fa-share me-2"></i>Compartir</span></button>
-                <button class="btn btn-outline-dark"><span class="mx-3"><i class="fa-light fa-users me-2"></i>Invitados</span></button>
-                <button class="btn btn-dark"><span class="mx-3"><i class="fa-light fa-eye me-2"></i>Ver invitación</span></button>
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#linkModal"><span class="mx-3"><i class="fa-light fa-share me-2"></i>Compartir</span></button>
+                <button class="btn btn-outline-dark"  data-bs-toggle="modal" data-bs-target="#invitadosModal"><span class="mx-3"><i class="fa-light fa-users me-2"></i>Invitados</span></button>
+                <a class="btn btn-dark" href="{{route('invitation', ['invitation' => $invitation->path_name])}}" target="_blank"><span class="mx-3"><i class="fa-light fa-eye me-2"></i>Ver invitación</span></a>
             </div>
+            <div class="modal fade" id="linkModal" tabindex="-1" aria-labelledby="linkModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="linkModalLabel">Compartir invitación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group">
+                        <input type="text" class="form-control" id="linkInput" value="{{route('invitation', ['invitation' => $invitation->path_name])}}" readonly>
+                        <button class="btn btn-dark" type="button" onclick="copiarEnlace()">
+                            <i class="fa-light fa-copy"></i>
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <script>
+                    function copiarEnlace() {
+                        const input = document.getElementById("linkInput");
+                        input.select();
+                        input.setSelectionRange(0, 99999); // Para móviles
+                        document.execCommand("copy");
+                    }
+                </script>
+            </div>
+
+            <div class="modal fade" id="invitadosModal" tabindex="-1" aria-labelledby="invitadosModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                        <h5 class="modal-title" id="invitadosModalLabel">Invitados</h5>
+                        <small class="text-muted">Código: {{$invitation->plain_token}}</small>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="example" class="display table table-bordered table-hover w-100">
+                        <thead>
+                            <tr>
+                            <th data-priority="1">Nombre</th>
+                            <th>Asiste</th>
+                            <th>Acompañante</th>
+                            <th>Alimentación</th>
+                            <th class="none">Email</th>
+                            <th class="none">Teléfono</th>
+                            <th class="none">Traslado</th>
+                            <th class="none">Comentarios</th>
+                            <th class="none">Fecha Confirmación</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($con as $item)
+                            <tr>
+                                <td>{{ $item->nombre }}</td>
+                                <td>{{ $item->asiste }}</td>
+                                <td>{{ $item->nombre_a }}</td>
+                                <td>{{ $item->alimento }}</td>
+                                <td class='none'>{{ $item->mail }}</td>
+                                <td class='none'>{{ $item->telefono }}</td>
+                                <td class='none'>{{ $item->traslado }}</td>
+                                <td class='none'>{{ $item->comentarios }}</td>
+                                <td class='none'>{{ $item->created_at }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ route('invitation.guests', ['invitation' => $invitation->path_name]) }}" target="_blank" class="btn btn-dark"><span class="mx-3"><i class="fa-light fa-link me-2"></i> Ir a panel</span></a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
 
         </header>
 

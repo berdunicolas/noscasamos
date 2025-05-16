@@ -48,7 +48,7 @@ class InvitationApiController extends Controller
                 'created_by' => auth()->user()->id,
             ]);
 
-
+            $token = randomToken();
             $invitation = Invitation::create([
                 'path_name' => $validatedData['name'],
                 'event_id' => $newEvent->id,
@@ -56,6 +56,8 @@ class InvitationApiController extends Controller
                 'time_zone' => null,
                 'time' => null,
                 'seller_id' => $validatedData['seller'],
+                'password' => $token,
+                'plain_token' => $token,
                 'duration' => 5,
                 'active' => true,
                 'created_by' => auth()->user()->id,

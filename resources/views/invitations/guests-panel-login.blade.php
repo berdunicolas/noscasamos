@@ -31,11 +31,14 @@
 
                 <input id="password" name="password" type="password" placeholder="*****"/><br/>
                 <button name="submit" type="submit" value="Ingresar">Ingresar</button>
-                {{--@php if ($error) { @endphp
+
+                @foreach ((array) $errors->get('password') as $password)
                     <em>
-                        <label class="err" for="password" generated="true" style="display: block;"><?php echo $error ?></label>
+                        <label class="err" for="password" generated="true" style="display: block;">
+                            {{$password}}
+                        </label>
                     </em>
-                @php } @endphp--}}
+                @endforeach
             </form>
             <a href="https://evnt.ar" target="_blank"><b>Evnt</b>.ar</a>
         </div>

@@ -13,3 +13,17 @@ if (!function_exists("getFont")) {
         return FontTypeEnum::getFont($font);
     }
 }
+
+if (!function_exists("randomToken")) {
+    function randomToken($length = 8): string
+    {
+        $charts = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_!?';
+        $token = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $token .= $charts[random_int(0, strlen($charts) - 1)];
+        }
+
+        return $token;
+    }
+}
