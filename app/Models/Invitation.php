@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Casts\TimeFormatCast;
 use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Invitation extends Model
+class Invitation extends Authenticatable
 {
     use HasFactory, HasMedia;
 
@@ -99,6 +100,7 @@ class Invitation extends Model
         $date = Carbon::parse($this->date)->addDays($validTime->value);
         $currentDate = Carbon::now();
         //$currentDate->setTimezone($this->time_zone);
+        //$date->setTimezone($this->time_zone);
 
         return $currentDate->greaterThan($date);
     }
@@ -116,7 +118,6 @@ class Invitation extends Model
             $dataTime = Carbon::createFromFormat(
                 'Y-m-d H:i:s',
                 $this->date . ' ' . $this->time.':00',
-                //$this->timezone
             );
             return $dataTime->translatedFormat('j \d\e F');
         }

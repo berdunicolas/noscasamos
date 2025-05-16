@@ -13,6 +13,11 @@ class HighlightsModule extends Component
      */
     public function __construct(
         public array $module,
+        public ?string $style,
+        public ?string $color,
+        public ?string $icontype,
+        public ?string $marco,
+        public ?string $padding,
     ) {}
 
     /**

@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\Invitation\InvitationController;
 use App\Http\Controllers\Admin\Seller\SellerController;
 use App\Http\Controllers\Admin\Settings\SettingsController;
 use App\Http\Controllers\Admin\User\RegisteredUserController;
+use App\Http\Controllers\Guest\GuestController;
+use App\Http\Middleware\EnsureCorrectAuthModel;
 use App\Models\Invitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,12 +22,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::domain('{account}.'. config('app.url'))->group(function () {
+    Route::get('/', function ($account) {
+        return "Bienvenido al sitio de $account";
+    });
+});
 
-Route::get('/', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth', EnsureCorrectAuthModel::class.':web')->group(function () {
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
     Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}/edit', [RegisteredUserController::class, 'edit'])->name('users.edit');
     Route::get('/users/{user}', [RegisteredUserController::class, 'show'])->name('users.show');
@@ -40,38 +47,12 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/inspinia/footable', function () {
-    return view('inspinia.footable');
+Route::get('/{invitation:path_name}', [GuestController::class, 'index'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
+Route::get('/{invitation:path_name}/invitados/login', [GuestController::class, 'loginForm'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
+Route::post('/{invitation:path_name}/invitados/login', [GuestController::class, 'login'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
+
+Route::middleware('auth', EnsureCorrectAuthModel::class.':guests')->group(function () {
+    Route::get('/{invitation:path_name}/invitados', [GuestController::class, 'guest'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests');
 });
-
-Route::get('/modules', function () {
-    return view('modules');
-});
-
-Route::get('/dev', function () {
-    return view('test');
-});
-Route::post('/dev', function (Request $request) {
-    dd($request);
-});
-
-
-
-Route::get('/{invitation:path_name}', function (Invitation $invitation) {
-/*
-    $modules = [];
-
-    foreach($invitation->modules as $module) {
-        $modules[] = ModuleTypeEnum::getModuleComponent($module['name']);
-    }
-*/
-    if ($invitation->isExpired()) {
-        return response()->isNotFound(); // PROBAR
-    }
-
-    return view('invitations.invitation', [
-        'invitation' => $invitation,
-    ]);
-})->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
 
 require __DIR__.'/auth.php';

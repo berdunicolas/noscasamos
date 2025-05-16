@@ -1,88 +1,13 @@
 @php
-$pcolor = "#E2BF83"; //Color Principal//
-$bcolor = "#F6F4F0"; //Color de Fondo//
-$style = "c"; //c = Claro o = Oscuro//
-//$font = $clasic; //Estilo de Texto//
-$icontype = "a"; // Tipo de icono a = Animado
+
 $trigger = "loop"; // Animación de icono
 $stroke = "light"; // Estilo de Icono = light regular bold
 
-$padding = ""; // Padding de los bloques - Vacío = Default
-$marco = ""; // Imagen de marco para los bloques
-
-$proveedor = "noscasamos"; //Nombre Archivo HTML//
-
-
-////
-
-$regalos = "s"; // s = Si o n = No //
-$regalosbg = "gifts.jpg"; //gifts.jpg
-$regalosimg = ""; // regalos.png
 $regalosicons = "";
 $regalosiconf = "fa-gift";
 $regalosicon = "kezeezyg";
-$regalostitulo = "Regalos";
-$regalostxt = "Tu presencia es lo más importante para nosotros. <br>Si además quieres hacernos un regalo, puedes ayudarnos con nuestra luna de miel";
-$regalosbtn = "Más información";
-$regaloslink = "";
 
-$regalo1 = "s"; // s = Si o n = No //
-$regalotitulo1 = "Cuenta Bancaria";
-$regalotxt1 = "
-    Cuenta: Nombre Banco<br>
-    <b>Titular:</b>Nos Casamos
-    <b>Alias:evnt.digital</b>
-";
-$regalocodigo = "CBU"; // CBU - CVU - Alias 
-$regalocbu = "0000003100080249610246";
-$btncopiar = "s"; // s = Boton visible
-$regalocbucopiabtn = "Copiar " . $regalocodigo;
-$regalocbucopiamsg = "Copiado en portapapeles!";
 
-$regalo2 = "n"; // s = Si o n = No //
-$regalotitulo2 = "Cuenta Bancaria en Dólares";
-$regalotxt2 = "
-    Cuenta:<br>
-    <b>Titular:</b>
-    <b>Alias:</b>
-    <b>CBU:</b>
-";
-$regalobtn2 = "";
-$regalolink2 = "";
-
-$regalo3 = "s"; // s = Si o n = No //
-$regalotitulo3 = "Buzón en Salón";
-$regalotxt3 = "En caso que prefieras regalar en efectivo, tendrás a disposición un buzón en el salón durante la recepción.";
-$regalobtn3 = "";
-$regalolink3 = "";
-
-$catalogo = "s"; // s = Si o n = No //
-$catalogotitulo = "Ideas de regalos";
-$catalogotxt = "Te compartimos algunas opciones que seguro disfrutaremos en nuestra luna de miel.";
-$producto1 = "vino";
-$productoimg1 = "gift1.png";
-$productoprecio1 = "";
-$productolink1 = "";
-$producto2 = "";
-$productoimg2 = "gift2.png";
-$productoprecio2 = "";
-$productolink2 = "";
-$producto3 = "";
-$productoimg3 = "gift3.png";
-$productoprecio3 = "";
-$productolink3 = "";
-$producto4 = "";
-$productoimg4 = "gift4.png";
-$productoprecio4 = "";
-$productolink4 = "";
-$producto5 = "";
-$productoimg5 = "gift5.png";
-$productoprecio5 = "";
-$productolink5 = "";
-$producto6 = "";
-$productoimg6 = "gift6.png";
-$productoprecio6 = "";
-$productolink6 = "";
 @endphp
 
 
@@ -93,8 +18,8 @@ $productolink6 = "";
         @endempty
         
         @empty(!$module['icon'])
-            @if($icontype==='a')
-                <lord-icon src="https://cdn.lordicon.com/{{$regalosicon}}.json" trigger="{{$trigger}}" state="{{$regalosicons}}" stroke="{{$stroke}}" delay="300" colors="primary:#666,secondary:{{$pcolor}}" style="width:70px;height:70px"></lord-icon>
+            @if($icontype==='Animado')
+                <lord-icon src="https://cdn.lordicon.com/{{$module['icon']}}.json" trigger="{{$trigger}}" state="{{$regalosicons}}" stroke="{{$stroke}}" delay="300" colors="primary:#666,secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
             @else
                 <i class="fa-thin {{$module['icon']}}"></i>
             @endif

@@ -81,6 +81,11 @@
                         label="Modal"
                         selected="{{ ($module['button_type'] ==  'Modal') ? true : false }}"
                     />
+                    <x-form.select-option
+                        value="Link"
+                        label="Link"
+                        selected="{{ ($module['button_type'] ==  'Link') ? true : false }}"
+                    />
                 </x-form.select>
             </div>
             <div class="col-6">

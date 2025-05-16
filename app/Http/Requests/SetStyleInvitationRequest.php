@@ -42,7 +42,7 @@ class SetStyleInvitationRequest extends FormRequest
             "frame_image" => [
                 File::image()
                     ->types(['jpeg', 'png', 'jpg', 'svg'])
-                    ->max(2048)
+                    ->max(4*1024)
             ],
 
         ];

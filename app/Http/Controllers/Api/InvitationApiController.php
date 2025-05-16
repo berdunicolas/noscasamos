@@ -56,7 +56,7 @@ class InvitationApiController extends Controller
                 'time_zone' => null,
                 'time' => null,
                 'seller_id' => $validatedData['seller'],
-                'duration' => null,
+                'duration' => 5,
                 'active' => true,
                 'created_by' => auth()->user()->id,
                 'meta_title' => null,
@@ -109,8 +109,13 @@ class InvitationApiController extends Controller
             $invitation->meta_description = $request->meta_description;
             $invitation->save();
 
-            if($request->meta_image)
+            if($request->meta_image){
+                $invitation->media('meta_img')->each(function ($media) {
+                    $media->delete();
+                });
+
                 $invitation->addMedia($request->meta_image, 'meta_img', $invitation->path_name);
+            }
             
             DB::commit();
 
@@ -137,8 +142,12 @@ class InvitationApiController extends Controller
             $invitation->font = $request->font;
             $invitation->save();
 
-            if($request->frame_image)
+            if($request->frame_image){
+                $invitation->media('frame_img')->each(function ($media) {
+                    $media->delete();
+                });
                 $invitation->addMedia($request->frame_image, 'frame_img', $invitation->path_name);
+            }
             
             DB::commit();
 

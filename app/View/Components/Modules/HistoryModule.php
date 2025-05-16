@@ -13,6 +13,7 @@ class HistoryModule extends Component
      */
     public function __construct(
         public array $module,
+        public ?string $icontype,
     ) {}
 
     /**

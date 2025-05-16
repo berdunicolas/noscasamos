@@ -12,7 +12,12 @@ class SuggestionsModule extends Component
      * Create a new component instance.
      */
     public function __construct(
-    public array $module,
+        public array $module,
+        public ?string $style,
+        public ?string $color,
+        public ?string $icontype,
+        public ?string $marco,
+        public ?string $padding,
     )
     {
         if(empty($module['suggestions'])){

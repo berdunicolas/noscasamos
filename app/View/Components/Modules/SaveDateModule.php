@@ -32,24 +32,27 @@ class SaveDateModule extends Component
         public ?string $date,
         public ?string $time,
         public ?string $timezone,
+        public ?int $duration,
         public ?string $style,
         public ?string $color,
-        public ?string $icontype
+        public ?string $icontype,
+        public ?string $marco,
+        public ?string $padding,
     ) {
-        //Carbon::setLocale(App::getLocale()); 
+        Carbon::setLocale('es');
         if($this->date && $this->time){     
-            Carbon::setLocale('es'); 
             $dataTime = Carbon::createFromFormat(
                 'Y-m-d H:i:s',
                 $this->date . ' ' . $this->time.':00',
-                //$this->timezone
+                $this->timezone
             );
             $this->dateTittle = $dataTime->translatedFormat('j \d\e F');
+
             $this->fullDateTime = $dataTime->translatedFormat('m/d/Y/ H:i:s');
             $this->fechali = $dataTime->translatedFormat('YmdHis');
-    
-            $this->fechalip = date('YmdHis', strtotime($this->fechali)); //. $tz));
-            $this->fechalif = date('YmdHis', strtotime($this->fechalip . '+ 5 hours'));
+
+            $this->fechalip = $dataTime->setTimezone('UTC')->translatedFormat('YmdHis');
+            $this->fechalif = $dataTime->addHours($this->duration)->setTimezone('UTC')->translatedFormat('YmdHis');
         }
     }
 

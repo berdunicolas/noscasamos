@@ -18,7 +18,7 @@ $tituloYBajada =  $invitation->tituloYBajada();
     <head>
         <meta property="og:image" content="{{$invitation->metaImg()}}">
         <meta property="og:title" content="{{$invitation->host_names}} - {{$invitation->fechat()}}">
-        <meta property="og:description" content="{{$tituloYBajada['titulo']}} {{$tituloYBajada['bajada']}}  ">
+        <meta property="og:description" content="{{$tituloYBajada['titulo']}} {{$tituloYBajada['bajada']}}">
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{{route('invitation', ['invitation' => $invitation->path_name])}}">
 
@@ -29,7 +29,7 @@ $tituloYBajada =  $invitation->tituloYBajada();
 
         <link rel="stylesheet" href="{{asset("assets/css/bootstrap-reboot.css")}}"/>
 
-        @if ($invitation->style == \App\Enums\StyleTypeEnum::LIGHT->value) {
+        @if ($invitation->style == \App\Enums\StyleTypeEnum::LIGHT) 
             <link rel="stylesheet" href="{{asset("assets/css/style.css")}}?build=@version.1"/>
         @else
             <link rel="stylesheet" href="{{asset("assets/css/styleb.css")}}?build=@version.1"/>

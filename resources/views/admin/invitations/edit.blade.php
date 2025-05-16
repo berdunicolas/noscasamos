@@ -247,9 +247,9 @@
                             <x-form.select id="config-form-input" name="time_zone" label="Zona horaria">
                                 @foreach ($timezones as $timezone)
                                     <x-form.select-option
-                                        value="{{$timezone->timezone}}"
+                                        value="{{$timezone->carbon_format}}"
                                         label="{{$timezone->timezone}}"
-                                        selected="{{($invitation->time_zone == $timezone->timezone) ? true : false}}"
+                                        selected="{{($invitation->time_zone == $timezone->carbon_format) ? true : false}}"
                                     />
                                 @endforeach
                             </x-form.select>

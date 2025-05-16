@@ -13,6 +13,9 @@ class WelcomeModule extends Component
      */
     public function __construct(
         public array $module,
+        public ?string $icontype,
+        public ?string $style,
+        public ?string $color,
     )
     {
         $this->module['tittle'] = $module['tittle'] ?? '';

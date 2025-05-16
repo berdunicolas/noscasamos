@@ -1,11 +1,4 @@
 @php
-
-$clasic = '"Old Standard TT", serif;';
-$minimal = '"Poppins", sans-serif;';
-$script = '"Sacramento", cursive;';
-$deco = '"Parisienne", cursive;';
-$display = '"Abril Fatface", cursive;';
-$fiber = '"Permanent Marker", cursive;';
 if (isset($_GET['n'])) {
     $invitadon = $_GET['n'];
 } else {
@@ -17,74 +10,21 @@ if (isset($_GET['c'])) {
     $invitadoc = "";
 }
 
-////
-
-$pcolor = "#E2BF83"; //Color Principal//
-$bcolor = "#F6F4F0"; //Color de Fondo//
-$style = "c"; //c = Claro o = Oscuro//
-$font = $clasic; //Estilo de Texto//
-$icontype = "a"; // Tipo de icono a = Animado
 $trigger = "loop"; // Animación de icono
 $stroke = "light"; // Estilo de Icono = light regular bold
 
-$padding = ""; // Padding de los bloques - Vacío = Default
-$marco = ""; // Imagen de marco para los bloques
-
-$proveedor = "noscasamos"; //Nombre Archivo HTML//
-
-////
-
-$rsvp = "s"; // s = Si o n = No //
-$rsvpicos = "s";
 $rsvpicof = "fa-clipboard-list";
 $rsvpico = "heqlbljj";
-$rsvpantetitulo = "rsvp";
-$rsvptitulo = "Confirmación de Asistencia";
-$rsvptxt = "Esperamos contar con tu presencia";
-$rsvplimite = "limnite";
-$rsvplimitetxt = "Por favor confirmar antes del";
-$rsvpbtn = "Confirmar Asistencia";
-$linkconfirmacion = "https://api.whatsapp.com/send?phone=5493815802802&text=%C2%A1Hola%21+quiero+confirmar+mi+asistencia+en+su+boda"; //https://api.whatsapp.com/send?phone=5493815802802&text=%C2%A1Hola%21+quiero+confirmar+mi+asistencia+en+su+boda
-// Info extra
-//$extratitulo = ""; // Ej: Valór de Tarjetas
-$extratitulo = "extra titulo"; // Ej: Valór de Tarjetas
-//$extratxt = "";
-$extratxt = "texto extra";
-$extrabtn = "s"; // s = Boton visible
-$extrabtntxt = "Cómo abonar"; // Texto del botón
-// Formulario
+$rsvpicos = "s"
 
-$aclaracionform = "El formulario es individual.<br> Si tu invitación incluye acompañantes repetí el proceso por cada persona."; // 
-$asistire = "Asistiré";
-$noasistire = "No Asistiré";
-$nombre = "Apellido y Nombre";
-//$correo = "";
-$correo = "correo";
-//$telefono = "";
-$telefono = "tel";
-$menu = "¿Necesitas un menú especial?";
-$menu1 = "Ninguno";
-$menu2 = "Celíaco";
-$menu3 = "Vegetariano";
-$menu4 = "Vegano";
-$menu5 = "Diabético";
-//$acompanantes = ""; //Apellido y nombres de acompañantes (si corresponde)
-$acompanantes = "Acompañantes"; //Apellido y nombres de acompañantes (si corresponde)
-//$traslado = "";
-$traslado = "Traslado";
-$traslado1 = "No, voy por mis propios medios";
-$traslado2 = "Si, necesito traslado";
-$traslado3 = "";
-$traslado4 = "";
-$comentarios = "Comentarios";
-$msgerror = "Por favor completa todos los campos";
-$gracias = "¡Gracias por confirmar tu asistencia!";
+
+
 @endphp
 
 <section class="confirmation">
     <div class="wow animate__animated animate__fadeInUp">
         @empty(!$module['icon'])
-            @if ($typeIcon == 'Animado')
+            @if ($icontype == 'Animado')
                 <lord-icon src="https://cdn.lordicon.com/{{$module['icon']}}.json" trigger="{{$trigger}}" state="{{$rsvpicos}}" stroke="{{$stroke}}" delay="300" colors="primary:#fff,secondary:#fff" style="width:70px;height:70px"></lord-icon>
             @else
                 <i class="fa-thin {{$module['icon']}}"></i>
@@ -101,8 +41,8 @@ $gracias = "¡Gracias por confirmar tu asistencia!";
         <!-- DETALLES EXTRA -->
         @empty (!$module['card_active'])
             <div class="value">
-                <h3>{{$module['extra_tittle']}}</h3>
-                <p>{!!$module['extra_text']!!}</p>
+                <h3>{{$module['card_tittle']}}</h3>
+                <p>{!!$module['card_text']!!}</p>
                 @empty (!$module['card_button_text'])
                     <button class="link modal-button" href="#myModal1">{{$module['card_button_text']}}</button>
                 @endempty
@@ -212,7 +152,7 @@ $gracias = "¡Gracias por confirmar tu asistencia!";
                 </div>
             </div>
             <div class="thanks" style="display:none;">
-                <lord-icon src="https://cdn.lordicon.com/qgtkfluv.json"  trigger="in" delay="300" state="in-reveal" stroke="light" colors="primary:#666,secondary:{{$pcolor}}" style="width:250px;height:250px"></lord-icon>
+                <lord-icon src="https://cdn.lordicon.com/qgtkfluv.json"  trigger="in" delay="300" state="in-reveal" stroke="light" colors="primary:#666,secondary:{{$color}}" style="width:250px;height:250px"></lord-icon>
                 <h2>{{$module['form_thanks']}}</h2>
             </div>
         </div>

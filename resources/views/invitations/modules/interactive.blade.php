@@ -1,60 +1,20 @@
 @php
 
-$pcolor = "#E2BF83"; //Color Principal//
-$bcolor = "#F6F4F0"; //Color de Fondo//
-$style = "c"; //c = Claro o = Oscuro//
-//$font = $clasic; //Estilo de Texto//
-$icontype = "a"; // Tipo de icono a = Animado
 $trigger = "loop"; // Animación de icono
 $stroke = "light"; // Estilo de Icono = light regular bold
-
-$padding = ""; // Padding de los bloques - Vacío = Default
-$marco = ""; // Imagen de marco para los bloques
-
-$proveedor = "noscasamos"; //Nombre Archivo HTML//
-
-////
-
-$inter1 = "s"; // s = Si o n = No //
-$inter1icons = "";
-$inter1iconf = "fa-spotify";
-$inter1icon = "xsiktwiz";
-$inter1titulo = "Nuestra Playlist";
-$inter1txt = "Agrega nuestra playlist y recomendá las canciones que no pueden faltar en nuestra boda";
-$inter1btn = "Ir a Spotify";
-$inter1link = "https://open.spotify.com/playlist/76enN7Gwvt3IP0IPIEkZON?si=uLjHUPcVSsGJmx0X7C_89A";
-
-$inter2 = "s"; // s = Si o n = No //
-$inter2icons = "s";
-$inter2iconf = "fa-instagram";
-$inter2icon = "tgyvxauj";
-$inter2titulo = "#NosCasamos";
-$inter2txt = "Sumate a la boda compartiendo fotos y videos con nuestro hashtag.";
-$inter2btn = "Ir a Instagram";
-$inter2link = "https://www.instagram.com/explore/tags/noscasamos/";
-
-$inter3 = ""; // s = Si o n = No //
-$inter3icons = "hover-draw";
-$inter3iconf = "fa-whatsapp";
-$inter3icon = "dnphlhar";
-$inter3titulo = "";
-$inter3txt = "";
-$inter3btn = "";
-$inter3link = "";
-
-$interactivosmarco = $marco;
+$inter1icons = "s";
 
 @endphp
 
 
 @if($interactives['spotify']['active'] || $interactives['hashtag']['active'] || $interactives['ig']['active'] || $interactives['link']['active'])
-    <section class="social" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} {{(!empty($interactivosmarco)) ? "background-image: url('images/".$interactivosmarco."')" : ''}} background-repeat:repeat-x;">
+    <section class="social" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} background-image: url('{{(!empty($marco)) ? $marco : ''}}'); background-repeat:repeat-x;">
         @foreach ($interactives as $key => $interactive)            
             @if($interactive['active'])
                 <article class="item wow animate__animated animate__fadeInUp">
                     @empty(!$interactive['icon'])
-                        @if($icontype==='a')
-                            <lord-icon src="https://cdn.lordicon.com/{{$inter1icon}}.json" trigger="{{$trigger}}" state="{{$inter1icons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="o") ? '#fff' : '#666'}},secondary:{{$pcolor}}" style="width:70px;height:70px"></lord-icon>
+                        @if($icontype==='Animado')
+                            <lord-icon src="https://cdn.lordicon.com/{{$interactive['icon']}}.json" trigger="{{$trigger}}" state="{{$inter1icons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="Dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
                         @else
                             <i class="fa-brands {{$interactive['icon']}}"></i>
                         @endif
