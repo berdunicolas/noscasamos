@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Casts\TimeFormatCast;
 use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
 use App\Enums\SpacingTypeEnum;
@@ -12,11 +14,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Invitation extends Model
+class Invitation extends Authenticatable
 {
     use HasFactory, HasMedia;
 
     protected $customMediaCollections = [
+        'meta_img',
+        'frame_img',
         ModuleTypeEnum::HIGHLIGHTS['name'],
         ModuleTypeEnum::EVENTS['name'].'/civil',
         ModuleTypeEnum::EVENTS['name'].'/ceremony',
@@ -37,6 +41,12 @@ class Invitation extends Model
         ModuleTypeEnum::COVER['name'].'/central_image_cover',
         ModuleTypeEnum::GIFTS['name'].'/background',
         ModuleTypeEnum::GIFTS['name'].'/module',
+        ModuleTypeEnum::GIFTS['name'].'/product_1',
+        ModuleTypeEnum::GIFTS['name'].'/product_2',
+        ModuleTypeEnum::GIFTS['name'].'/product_3',
+        ModuleTypeEnum::GIFTS['name'].'/product_4',
+        ModuleTypeEnum::GIFTS['name'].'/product_5',
+        ModuleTypeEnum::GIFTS['name'].'/product_6',
         ModuleTypeEnum::WELCOME['name'],
     ];
 
@@ -56,7 +66,7 @@ class Invitation extends Model
         'icon_type',
         'style',
         'font',
-        'spacing',
+        'paddin',
         'color',
         'background_color',
         'modules',
@@ -65,9 +75,10 @@ class Invitation extends Model
     protected $casts = [
         'font' => FontTypeEnum::class,
         'style' => StyleTypeEnum::class,
-        'spacing' => SpacingTypeEnum::class,
+        //'spacing' => SpacingTypeEnum::class,
         'active' => 'boolean',
-        'modules' => 'array'
+        'modules' => 'array',
+        'time' => TimeFormatCast::class
     ];
 
     public function createdBy(): BelongsTo
@@ -89,7 +100,44 @@ class Invitation extends Model
         $date = Carbon::parse($this->date)->addDays($validTime->value);
         $currentDate = Carbon::now();
         //$currentDate->setTimezone($this->time_zone);
+        //$date->setTimezone($this->time_zone);
 
         return $currentDate->greaterThan($date);
+    }
+
+    public function seller(): BelongsTo
+    {
+        return $this->belongsTo(Seller::class, 'seller_id', 'id');
+    }
+
+
+    public function fechat(): string 
+    {
+        if($this->date && $this->time){
+            Carbon::setLocale('es'); 
+            $dataTime = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $this->date . ' ' . $this->time.':00',
+            );
+            return $dataTime->translatedFormat('j \d\e F');
+        }
+
+        return '';
+    }
+
+    public function tituloYBajada(): array 
+    {
+        $module = ModuleTypeEnum::getModuleFromArrayByName($this->modules, ModuleTypeEnum::COVER['name']);
+        return ['titulo' => $module['tittle'], 'bajada' => $module['detail']];
+    }
+
+    public function metaImg(): string{
+        $metaImg = $this->media('meta_img')->first()?->getMediaUrl();
+        return $metaImg ?? '';
+    }
+
+    public function frameImg(): string{
+        $frameImg = $this->media('frame_img')->first()?->getMediaUrl();
+        return $frameImg ?? '';
     }
 }

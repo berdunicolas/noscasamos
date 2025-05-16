@@ -18,11 +18,7 @@ class Guest extends Component
         public int $invitationId,
         public array $module = [],
         public string $moduleName = ModuleTypeEnum::GUEST['name'],
-    ) {
-        $this->module['tittle'] = (isset($this->module['tittle'])) ? $module['tittle'] : '';
-        $this->module['icon'] = (isset($this->module['icon'])) ? $module['icon'] : '';
-        $this->module['signs'] = (isset($this->module['signs'])) ? $module['signs'] : '';
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

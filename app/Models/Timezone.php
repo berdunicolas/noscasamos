@@ -11,5 +11,7 @@ class Timezone extends Model
 
     protected $fillable = [
         'timezone',
+        'carbon_format',
+        'UTC_format',
     ];
 }

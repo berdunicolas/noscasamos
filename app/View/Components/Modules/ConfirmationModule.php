@@ -11,10 +11,15 @@ class ConfirmationModule extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(
+        public array $module = [],
+        public ?string $style,
+        public ?string $color,
+        public ?string $icontype,
+        public ?string $marco,
+        public ?string $padding,
+
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

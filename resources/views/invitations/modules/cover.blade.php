@@ -19,7 +19,7 @@
     @case("Video")
         @if($module['active_header'])
             <header style="background-color:{{$backgroundColor}}">
-            @if(!empty ($module['logo_cover']))
+            @if(!empty ($module['logo_cover']) && $module['active_logo'])
                 <img src="{{$module['logo_cover']}}"/>
             @else 
                 <h1 style="color:{{$module['text_color_cover']}}">{{$module['names']}}</h1>
@@ -29,14 +29,11 @@
         
         <section class="cover full">
             <div class="text">
-                
                 @if (!$module['active_header'])
-                    @if (!empty ($module['logo_cover'])) 
-                        @if ($module['active_logo'])
-                            <img src='{{$module['logo_cover']}}'/>
-                        @endif
+                    @if (!empty ($module['logo_cover']) && $module['active_logo']) 
+                        <img src='{{$module['logo_cover']}}'/>
                     @else 
-                    <h1>{{$module['names']}}</h1>
+                        <h1>{{$module['names']}}</h1>
                     @endif
                 @endif
                 
@@ -62,7 +59,7 @@
     @case("Video centrado")
         @if($module['active_header'])
             <header style="background-color:{{$backgroundColor}}">
-            @if(!empty ($module['logo_cover']))
+            @if(!empty ($module['logo_cover']) && $module['active_logo'])
                 <img src='{{$module['logo_cover']}}'/>
             @else 
                 <h1 style="color:{{$module['text_color_cover']}}">{{$module['names']}}</h1>
@@ -74,10 +71,8 @@
             <div class="text">
                 
                 @if (!$module['active_header'])
-                    @if (!empty ($module['logo_cover'])) 
-                        @if ($module['active_logo'])
-                            <img src='{{$module['logo_cover']}}'/>
-                        @endif
+                    @if (!empty ($module['logo_cover']) && $module['active_logo']) 
+                        <img src='{{$module['logo_cover']}}'/>
                     @else 
                     <h1>{{$module['names']}}</h1>
                     @endif
@@ -105,7 +100,7 @@
     @case("Imagenes")
         @if($module['active_header'])
             <header style="background-color:{{$backgroundColor}}">
-            @if(!empty ($module['logo_cover']))
+            @if(!empty ($module['logo_cover']) && $module['active_logo'])
                 <img src="{{$module['logo_cover']}}"/>
             @else 
                 <h1 style="color:{{$module['text_color_cover']}}">{{$module['names']}}</h1>
@@ -116,10 +111,8 @@
             <div class="text">
                 
                 @if (!$module['active_header'])
-                    @if (!empty ($module['logo_cover'])) 
-                        @if ($module['active_logo'])
-                            <img src='{{$module['logo_cover']}}'/>
-                        @endif
+                    @if (!empty ($module['logo_cover']) && $module['active_logo']) 
+                        <img src='{{$module['logo_cover']}}'/>
                     @else 
                     <h1>{{$module['names']}}</h1>
                     @endif
@@ -149,7 +142,7 @@
             </div>
         </section>
             
-        @if (count($module['desktop_images']) > 1) {
+        @if (count($module['desktop_images']) > 1) 
             <script src="{{asset("assets/js/slider.js")}}"></script>
         @endif
         @break
@@ -157,7 +150,7 @@
     @case("Imagenes con marco")
         
         <header>
-            @if (!empty ($module['logo_cover']))
+            @if (!empty ($module['logo_cover']) && $module['active_logo'])
                 <img src="{{$module['logo_cover']}}"/>
             @else
                 <h1>{{$module['names']}}</h1>
@@ -167,10 +160,8 @@
         <section class="cover">
             <div class="text">
             
-                @if (!empty ($module['central_image_cover']))
-                    @if ($module['active_central'])
+                @if (!empty ($module['central_image_cover']) && $module['active_logo'])
                     <img src="{{$module['central_image_cover']}}"/>
-                    @endif
                 @else
                     <h2>{{$module['tittle']}}</h2>
                     <p>{{$module['detail']}}</p>
@@ -200,7 +191,7 @@
         
         @if($module['active_header'])
             <header style="background-color:{{$backgroundColor}}">
-            @if(!empty ($module['logo_cover'])) 
+            @if(!empty ($module['logo_cover']) && $module['active_logo']) 
                 <img src="{{$module['logo_cover']}}"/> 
             @else
                 <h1 style="color:{{$module['text_color_cover']}}">{{$module['names']}}</h1>
@@ -212,11 +203,8 @@
             <div class="text">
             
                 @if(!$module['active_header'])
-                    @if(!empty($module['logo_cover']))
-                        @if($modulo['active_logo'])
-                            <img src="{{$module['logo_cover']}}" />
-                        @endif
-                        
+                    @if(!empty($module['logo_cover']) && $module['active_logo'])
+                        <img src="{{$module['logo_cover']}}" />
                     @else
                         <h1>{{$module['names']}}</h1>
                     @endif
@@ -235,7 +223,7 @@
             </div>
             <div class="slider">
                 <div class="image">
-                    @if (isMobile()) {
+                    @if (isMobile())
                         <img src="{{asset("boda/images/designm.jpg")}}"/>
                     @else
                         <img src="{{asset("boda/images/design.jpg")}}"/>
@@ -246,7 +234,7 @@
         @break
     @default
         <header>
-            @if(!empty ($module['logo_cover']))
+            @if(!empty ($module['logo_cover']) && $module['active_logo'])
                 <img src={{$module['logo_cover']}} />
             @else 
                 <h1>{{$module['names']}}</h1>
@@ -254,7 +242,7 @@
         </header>
         <section class="cover design">
             <div class="text">
-                @if(!empty ($module['central_image_cover'])) {
+                @if(!empty ($module['central_image_cover']))
                     if ($module['active_central']){
                         <img src="{{$module['central_image_cover']}}" />
                     }

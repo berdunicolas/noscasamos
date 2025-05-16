@@ -14,6 +14,11 @@ class EventsModule extends Component
      */
     public function __construct(
         public array $module,
+        public ?string $icontype,
+        public ?string $style,
+        public ?string $color,
+        public ?string $marco,
+        public ?string $padding,
     ) {
         $this->events = $module['events'];
     }

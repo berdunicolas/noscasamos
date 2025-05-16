@@ -17,38 +17,43 @@ class SaveDateModule extends Component
     public string $year;
     public string $hour;
     */
-    public string $fullDateTime;
-    public string $dateTittle;
-    public string $fechali;
-    public string $fechalip;
-    public string $fechalif;
+    public string $fullDateTime = '';
+    public string $dateTittle = '';
+    public string $fechali = '';
+    public string $fechalip = '';
+    public string $fechalif = '';
 
     /**
      * Create a new component instance.
      */
     public function __construct(
         public array $module,
-        public string $nombres,
-        public string $date,
-        public string $time,
-        public string $timezone,
-        public string $style,
-        public string $color,
-        public string $icontype
+        public ?string $nombres,
+        public ?string $date,
+        public ?string $time,
+        public ?string $timezone,
+        public ?int $duration,
+        public ?string $style,
+        public ?string $color,
+        public ?string $icontype,
+        public ?string $marco,
+        public ?string $padding,
     ) {
-        //Carbon::setLocale(App::getLocale()); 
-        Carbon::setLocale('es'); 
-        $dataTime = Carbon::createFromFormat(
-            'Y-m-d H:i:s',
-            $this->date . ' ' . $this->time,
-            //$this->timezone
-        );
-        $this->dateTittle = $dataTime->translatedFormat('j \d\e F');
-        $this->fullDateTime = $dataTime->translatedFormat('m/d/Y/ H:i:s');
-        $this->fechali = $dataTime->translatedFormat('YmdHis');
+        Carbon::setLocale('es');
+        if($this->date && $this->time){     
+            $dataTime = Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $this->date . ' ' . $this->time.':00',
+                $this->timezone
+            );
+            $this->dateTittle = $dataTime->translatedFormat('j \d\e F');
 
-        $this->fechalip = date('YmdHis', strtotime($this->fechali)); //. $tz));
-        $this->fechalif = date('YmdHis', strtotime($this->fechalip . '+ 5 hours'));
+            $this->fullDateTime = $dataTime->translatedFormat('m/d/Y/ H:i:s');
+            $this->fechali = $dataTime->translatedFormat('YmdHis');
+
+            $this->fechalip = $dataTime->setTimezone('UTC')->translatedFormat('YmdHis');
+            $this->fechalif = $dataTime->addHours($this->duration)->setTimezone('UTC')->translatedFormat('YmdHis');
+        }
     }
 
     /**

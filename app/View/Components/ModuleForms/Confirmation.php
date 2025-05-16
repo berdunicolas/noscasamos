@@ -18,18 +18,7 @@ class Confirmation extends Component
         public int $invitationId,
         public array $module = [],
         public string $moduleName = ModuleTypeEnum::CONFIRMATION['name'],
-    ) {
-        $this->module['icon'] = $module['icon'] ?? '';
-        $this->module['pre_tittle'] = $module['pre_tittle'] ?? '';
-        $this->module['tittle'] = $module['tittle'] ?? '';
-        $this->module['text'] = $module['text'] ?? '';
-        $this->module['limit_date'] = $module['limit_date'] ?? '';
-        $this->module['form']['active'] = $module['form']['active'] ?? false;
-        $this->module['first_button']['active'] = $module['first_button']['active'] ?? false;
-        $this->module['second_button']['active'] = $module['second_button']['active'] ?? false;
-        $this->module['card_value']['active'] = $module['card_value']['active'] ?? false;
-        
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

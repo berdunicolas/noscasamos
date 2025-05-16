@@ -37,7 +37,7 @@ return new class extends Migration
             $table->enum('icon_type', ['Animado', 'Estatico']);
             $table->enum('style', StyleTypeEnum::values());
             $table->enum('font', FontTypeEnum::values());
-            $table->enum('spacing', SpacingTypeEnum::values());
+            $table->string('padding')->nullable();
 
             $table->string('color', 7)->nullable();
             $table->string('background_color', 7)->nullable();

@@ -18,11 +18,7 @@ class FloatButton extends Component
         public int $invitationId,
         public array $module = [],
         public string $moduleName = ModuleTypeEnum::FLOAT_BUTTON['name'],
-    ) {
-        $this->module['type_button'] = (isset($this->module['type_button'])) ? $module['type_button'] : '';
-        $this->module['url_button'] = (isset($this->module['url_button'])) ? $module['url_button'] : '';
-        $this->module['icon_button'] = (isset($this->module['icon_button'])) ? $module['icon_button'] : '';
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

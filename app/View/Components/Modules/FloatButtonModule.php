@@ -13,7 +13,7 @@ class FloatButtonModule extends Component
      */
     public function __construct(
         public array $module,
-        public string $color,
+        public ?string $color,
     ) {}
 
     /**

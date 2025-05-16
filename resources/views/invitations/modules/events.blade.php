@@ -1,20 +1,7 @@
 @php
-$dia = "29";
-$mes = "12";
-$mestxt = "Diciembre";
-$ano = "2025";
-$hs = "20:00:00";
 
-$pcolor = "#E2BF83"; //Color Principal//
-$bcolor = "#F6F4F0"; //Color de Fondo//
-$style = "c"; //c = Claro o = Oscuro//
-//$font = $clasic; //Estilo de Texto//
-$icontype = "a"; // Tipo de icono a = Animado
 $trigger = "loop"; // Animación de icono
 $stroke = "light"; // Estilo de Icono = light regular bold
-
-$padding = ""; // Padding de los bloques - Vacío = Default
-$marco = ""; // Imagen de marco para los bloques
 
 $proveedor = "noscasamos"; //Nombre Archivo HTML//
 
@@ -25,89 +12,18 @@ $evento1titulo = "Civil";
 $evento1icons = "";
 $evento1iconf = "fa-rings-wedding";
 $evento1icon = "czmrowis";
-$evento1img = "evento1.png";
-$evento1dia = "28"; // Vacío oculta la fecha
-$evento1mes = $mestxt;
-$evento1hs = "17:00"; // Vacío oculta la hora
-$evento1hstxt = "Horas";
-$evento1lugar = "Registro Civil de Palermo"; // Vació oculta dirección
-$evento1info = "";
-$evento1btn = "Cómo llegar";
-$evento1link = "https://maps.google.com"; //Link del boton
-
-$evento2 = "s"; // s = Si
-$evento2titulo = "Ceremonia";
-$evento2icons = "";
-$evento2iconf = "fa-church";
-$evento2icon = "fshosubk";
-$evento2img = "evento2.png";
-$evento2dia = $dia; // Vacío oculta la fecha
-$evento2mes = $mestxt;
-$evento2hs = "20:00"; // Vacío oculta la hora
-$evento2hstxt = "Horas";
-$evento2lugar = "Parroquia Nuestra Señora del Rosario"; // Vació oculta dirección
-$evento2info = "Bonpland 1987, Buenos Aires";
-$evento2btn = "Cómo llegar";
-$evento2link = "https://maps.google.com"; //Link del boton
-
-$evento3 = "s"; // s = Si
-$evento3titulo = "Festejo";
-$evento3icons = "";
-$evento3iconf = "fa-champagne-glasses"; 
-$evento3icon = "ohcuigqh"; // Copas: yvgmrqny - Fiesta: ohcuigqh
-$evento3img = "evento3.png";
-$evento3dia = $dia; // Vacío oculta la fecha
-$evento3mes = $mestxt;
-$evento3hs = "21:00"; // Vacío oculta la hora
-$evento3hstxt = "Horas";
-$evento3lugar = "Howard Jonson"; // Vació oculta dirección
-$evento3info = "Av. Figueroa Alcorta 5575, BsAs.";
-$evento3btn = "Cómo llegar";
-$evento3link = "https://maps.google.com"; //Link del boton
-
-$dresscode = "s"; // s = Si
-$dresscodetitulo = "Dress Code";
-$dresscodeicons = "";
-$dresscodeiconf = "fa-clothes-hanger";
-$dresscodeicon = "dkyhucjt";
-$dresscodeimg = "dresscode.png";
-$dresscodetxt = "Formal - Elegante";
-$dresscodeinfo = "El Blanco queda reservado para La Novia";
-$dresscodebtn = "";
-$dresscodelink = "http://www.google.com";
-
-$eventosmarco = $marco;
-
-$eventosIcons = [
-    'civil' => [
-        'conf' => "fa-rings-wedding",
-        'icon' => "czmrowis"
-    ],
-    'ceremony' => [
-        'conf' => "fa-church",
-        'icon' => "fshosubk"
-    ],
-    'party' => [
-        'conf' => "fa-champagne-glasses",
-        'icon' => "ohcuigqh"
-    ],
-    'dresscode' => [
-        'conf' => "fa-clothes-hanger",
-        'icon' => "dkyhucjt"
-    ],
-];
 
 @endphp
 
 
 @if($events['civil']['active'] || $events['ceremony']['active'] || $events['party']['active'] || $events['dresscode']['active'])
-    <section class="events" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}}{{(!empty($eventosmarco)) ? "background-image: url('images/".$eventosmarco."');" : ''}} background-repeat:repeat-x;">
+    <section class="events" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} background-image: url('{{(!empty($marco)) ? $marco : ''}}'); background-repeat:repeat-x;">
     @foreach ($events as $key => $event)
         @if($event['active'])
             <article class="item wow animate__animated animate__fadeInUp" data-wow-duration="1s">
                 @if(!empty($event['icon']))
-                    @if($icontype==='a')
-                        <lord-icon src="https://cdn.lordicon.com/{{$eventosIcons[$key]['icon']}}.json" trigger="{{$trigger}}" state="{{$evento1icons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="o") ? '#fff' : '#666'}},secondary:{{$pcolor}}" style="width:70px;height:70px"></lord-icon>
+                    @if($icontype==='Animado')
+                        <lord-icon src="https://cdn.lordicon.com/{{$event['icon']}}.json" trigger="{{$trigger}}" state="{{$evento1icons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="Dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
                     @else
                         <i class="fa-thin {{$event['icon']}}"></i>
                     @endif

@@ -1,37 +1,24 @@
 @php
-$pcolor = "#E2BF83"; //Color Principal//
-$bcolor = "#F6F4F0"; //Color de Fondo//
-$style = "c"; //c = Claro o = Oscuro//
-//$font = $clasic; //Estilo de Texto//
-$icontype = "a"; // Tipo de icono a = Animado
+
 $trigger = "loop"; // Animación de icono
 $stroke = "light"; // Estilo de Icono = light regular bold
 
-$padding = ""; // Padding de los bloques - Vacío = Default
-$marco = ""; // Imagen de marco para los bloques
 
 $proveedor = "noscasamos"; //Nombre Archivo HTML//
 
 ////
 
-
-$info = "s"; // s = Si o n = No //
-$infoderecha = "s"; // s = Texto a la derecha
-$infotitulo = "Wedding Timeline";
-$infotxt = "";
 $infoicons = "hover-heartbeat-alt";
-$infoiconf = "fa-heart";
-$infoicon = "warimioc"; // Corazon: aydxrkfl - Reloj: warimioc
-$infoimg = "timeline.svg";
-$infomarco = $marco;
+
+$infoicon = "warimioc"; 
 @endphp
 
 
-<section class="content wow animate__animated animate__fadeInUp" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} {{(!empty($infomarco)) ? "background-image: url('".$module['image']."');" : ""}} background-repeat:repeat-x;">
+<section class="content wow animate__animated animate__fadeInUp" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} background-image: url('{{(!empty($marco)) ? $marco : ''}}'); background-repeat:repeat-x;">
     <div class="info" style="padding:50px 0px;">
-    @if(!empty($module['image']) && empty($infoderecha))
+    @if(!empty($module['image']) && $module['on_t_right'])
         <div class="image wow animate__animated animate__fadeInUp" data-wow-delay="0.3s">
-            <img src="{{$module['image']}}" alt="{{$module['title']}}"/>
+            <img src="{{$module['image']}}" alt="{{$module['tittle']}}"/>
         </div>
     @endif
         
@@ -50,7 +37,7 @@ $infomarco = $marco;
             @endempty
         </div>
     @endif   
-    @if (!empty($module['image']) && $infoderecha=="s")
+    @if (!empty($module['image']) && !$module['on_t_right'])
         <div class="image wow animate__animated animate__fadeInUp">
             <img src="{{$module['image']}}" alt="{{$module['tittle']}}"/>
         </div>

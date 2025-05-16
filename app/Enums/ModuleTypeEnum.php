@@ -7,7 +7,6 @@ use App\View\Components\ModuleForms\Confirmation;
 use App\View\Components\ModuleForms\Cover;
 use App\View\Components\ModuleForms\Events;
 use App\View\Components\ModuleForms\FloatButton;
-use App\View\Components\ModuleForms\Foot;
 use App\View\Components\ModuleForms\Galery;
 use App\View\Components\ModuleForms\Gifts;
 use App\View\Components\ModuleForms\Guest;
@@ -25,7 +24,6 @@ use App\View\Components\Modules\ConfirmationModule;
 use App\View\Components\Modules\CoverModule;
 use App\View\Components\Modules\EventsModule;
 use App\View\Components\Modules\FloatButtonModule;
-use App\View\Components\Modules\FootModule;
 use App\View\Components\Modules\GaleryModule;
 use App\View\Components\Modules\GiftsModule;
 use App\View\Components\Modules\GuestModule;
@@ -49,126 +47,380 @@ final class ModuleTypeEnum
         'display_name' => 'Intro Animada',
         'fixed' => true, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::CLÁSICO->value
+        'plan' => PlanTypeEnum::CLÁSICO->value,
+        'stamp_image' => ''
     ];
     const MUSIC = [
         'name' => 'MUSIC',
         'display_name' => 'Música', 
         'fixed' => true, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::GOLD->value
+        'plan' => PlanTypeEnum::GOLD->value,
+        'song' => ''
     ];
     const FLOAT_BUTTON = [
         'name' => 'FLOAT_BUTTON',
         'display_name' => 'Botón Flotante', 
         'fixed' => true, 
         'is_unique' => true, 
-        'plan' => 'default'
+        'plan' => 'default',
+        'type_button' => '',
+        'url_button' => '',
+        'icon_button' => '',
     ];
     const COVER = [
         'name' => 'COVER',
         'display_name' => 'Portada', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => 'default'
+        'plan' => 'default',
+        'format' => 'Imagenes',
+        'frame_type' => '',
+        'align' => '',
+        'active_header' => false,
+        'active_logo' => false,
+        'active_central' => false,
+        'names' => '',
+        'tittle' => '',
+        'detail' => '',
+        'text_color_cover' => '',
+        'desktop_images' => [],
+        'mobile_images' => [],
+        'desktop_video' => '',
+        'mobile_video' => '',
+        'logo_cover' => '',
+        'central_image_cover' => '',
     ];
     const GUEST = [
         'name' => 'GUEST',
         'display_name' => 'Invitado', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => 'default'
+        'plan' => 'default',
+        'tittle' => '',
+        'icon' => '',
+        'signs' => '',
     ];
     const SAVE_DATE = [
         'name' => 'SAVE_DATE',
         'display_name' => 'Save The Date', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::CLÁSICO->value
+        'plan' => PlanTypeEnum::CLÁSICO->value,
+        'tittle' => '',
+        'icon' => '',
+        'text_button' => '',
+        'is_countdown' => false,
+        'days_tanslation' => '',
+        'hr_tanslation' => '',
+        'min_translation' => '',
+        'sec_translation' => '',
     ];
     const WELCOME = [
         'name' => 'WELCOME',
-        'display_name' => 'Bienvenida', 
-        'fixed' => false, 
-        'is_unique' => true, 
-        'plan' => 'default'
+        'display_name' => 'Bienvenida',
+        'fixed' => false,
+        'is_unique' => true,
+        'plan' => 'default',
+        'tittle' => '',
+        'icon' => '',
+        'text' => '',
+        'image' => '',
     ];
     const EVENTS = [
         'name' => 'EVENTS',
         'display_name' => 'Eventos', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => 'default'
+        'plan' => 'default',
+        'events' => [
+            'civil' => [
+                'active' => false,
+                'event' => '',
+                'icon' => '',
+                'order' => '',
+                'date' => '',
+                'time' => '',
+                'hr_translation' => '',
+                'name' => '',
+                'detail' => '',
+                'button_url' => '',
+                'button_text' => '',
+            ],
+            'ceremony' => [
+                'active' => false,
+                'event' => '',
+                'icon' => '',
+                'order' => '',
+                'date' => '',
+                'time' => '',
+                'hr_translation' => '',
+                'name' => '',
+                'detail' => '',
+                'button_url' => '',
+                'button_text' => '',
+            ],
+            'party' => [
+                'active' => false,
+                'event' => '',
+                'icon' => '',
+                'order' => '',
+                'date' => '',
+                'time' => '',
+                'hr_translation' => '',
+                'name' => '',
+                'detail' => '',
+                'button_url' => '',
+                'button_text' => '',
+            ],
+            'dresscode' => [
+                'active' => false,
+                'event' => '',
+                'icon' => '',
+                'order' => '',
+                'name' => '',
+                'detail' => '',
+                'button_url' => '',
+                'button_text' => '',
+            ],
+        ]
     ];
     const HISTORY = [
         'name' => 'HISTORY',
         'display_name' => 'Historia', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::PLATINO->value
+        'plan' => PlanTypeEnum::PLATINO->value,
+            'icon' => '',
+            'image' => '',
+            'tittle' => '',
+            'text' => '',
+            'button_icon' => '',
+            'button_text' => '',
+            'button_url' => '',
     ];
     const INFO = [
         'name' => 'INFO',
         'display_name' => 'Info', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::CLÁSICO->value
+        'plan' => PlanTypeEnum::CLÁSICO->value,
+        'on_t_right' => true,
+        'icon' => '',
+        'image' => '',
+        'tittle' => '',
+        'text' => '',
+        'button_icon' => '',
+        'button_text' => '',
+        'button_url' => '',
     ];
     const HIGHLIGHTS = [
         'name' => 'HIGHLIGHTS',
         'display_name' => 'Destacado', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => 'default'
+        'plan' => 'default',
+        'icon' => '',
+        'image' => '',
+        'tittle' => '',
+        'text' => '',
+        'button_icon' => '',
+        'button_text' => '',
+        'button_url' => '',
     ];
     const INTERACTIVE = [
         'name' => 'INTERACTIVE',
         'display_name' => 'Interactivos', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::PLATINO->value
+        'plan' => PlanTypeEnum::PLATINO->value,
+        'interactives' => [
+            'spotify' => [
+                'active' => false,
+                'icon' => '',
+                'order' => '',
+                'tittle' => '',
+                'text' => '',
+                'button_icon' => '',
+                'button_text' => '',
+                'button_url' => '',
+            ],
+            'hashtag' => [
+                'active' => false,
+                'icon' => '',
+                'order' => '',
+                'tittle' => '',
+                'text' => '',
+                'button_icon' => '',
+                'button_text' => '',
+                'button_url' => '',
+            ],
+            'ig' => [
+                'active' => false,
+                'icon' => '',
+                'order' => '',
+                'tittle' => '',
+                'text' => '',
+                'button_icon' => '',
+                'button_text' => '',
+                'button_url' => '',
+            ],
+            'link' => [
+                'active' => false,
+                'icon' => '',
+                'order' => '',
+                'tittle' => '',
+                'text' => '',
+                'button_icon' => '',
+                'button_text' => '',
+                'button_url' => '',
+            ],
+        ]
     ];
     const VIDEO = [
         'name' => 'VIDEO',
         'display_name' => 'Video', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => 'default'
+        'plan' => 'default',
+        'icon' => '',
+        'pre_tittle' => '',
+        'tittle' => '',
+        'video_id' => '',
+        'type_video' => '',
+        'format' => '',
     ];
     const SUGGESTIONS = [
         'name' => 'SUGGESTIONS',
         'display_name' => 'Sugerencias', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::GOLD->value
+        'plan' => PlanTypeEnum::GOLD->value,
+        'pre_tittle' => '',
+        'tittle' => '',
+        'text' => '',
+        'icon' => '',
+        'suggestions' => []
     ];
     const GALERY = [
         'name' => 'GALERY',
         'display_name' => 'Galería', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::GOLD->value
+        'plan' => PlanTypeEnum::GOLD->value,
+        'tittle' => '',
+        'pre_tittle' => '',
+        'galery_images' => [],
     ];
     const GIFTS = [
         'name' => 'GIFTS',
         'display_name' => 'Regalos', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::CLÁSICO->value
+        'plan' => PlanTypeEnum::CLÁSICO->value,
+        'icon' => '',
+        'pre_tittle' => '',
+        'text' => '',
+        'background_image' => '',
+        'module_image' => '',
+        'button_icon' => '',
+        'button_text' => '',
+        'button_type' => '',
+        'button_url' => '',
+        'first_account' => [
+            'active' => '',
+            'tittle' => '',
+            'text' => '',
+            'data' => '',
+            'value' => '',
+        ],
+        'second_account' => [
+            'active' => '',
+            'tittle' => '',
+            'text' => '',
+            'button_url' => '',
+            'button_text' => '',
+            'value' => '',
+        ],
+        'box' => [
+            'active' => '',
+            'tittle' => '',
+            'text' => '',
+            'button_text' => '',
+            'button_url' => '',
+        ],
+        'list' => [
+            'active' => '',
+            'tittle' => '',
+            'text' => '',
+            'button_text' => '',
+            'button_url' => '',
+            'product_1' => '',
+            'product_url_1' => '',
+            'product_price_1' => '',
+            'product_image_1' => '',
+            'product_2' => '',
+            'product_url_2' => '',
+            'product_price_2' => '',
+            'product_image_2' => '',
+            'product_3' => '',
+            'product_url_3' => '',
+            'product_price_3' => '',
+            'product_image_3' => '',
+            'product_4' => '',
+            'product_url_4' => '',
+            'product_price_4' => '',
+            'product_image_4' => '',
+            'product_5' => '',
+            'product_url_5' => '',
+            'product_price_5' => '',
+            'product_image_5' => '',
+            'product_6' => '',
+            'product_url_6' => '',
+            'product_price_6' => '',
+            'product_image_6' => '',
+        ],
     ];
     const CONFIRMATION = [
         'name' => 'CONFIRMATION',
         'display_name' => 'Confirmación', 
         'fixed' => false, 
         'is_unique' => true, 
-        'plan' => PlanTypeEnum::PLATINO->value
-    ];
-    const FOOT = [
-        'name' => 'FOOT',
-        'display_name' => 'Foot', 
-        'fixed' => true, 
-        'is_unique' => true, 
-        'plan' => 'default'
+        'plan' => PlanTypeEnum::PLATINO->value,
+        'icon' => '',
+        'pre_tittle' => '',
+        'tittle' => '',
+        'text' => '',
+        'limit_date' => '',
+        'card_active' => false,
+        'card_tittle' => '',
+        'card_text' => '',
+        'card_button_text' => '',
+        'form_active' => false,
+        'form_button_text' => '',
+        'form_button_url' => '',
+        'form_text' => '',
+        'form_ill_attend' => '',
+        'form_ill_n_attend' => '',
+        'form_name' => '',
+        'form_email' => '',
+        'form_phone' => '',
+        'form_special_menu' => '',
+        'form_nothing' => '',
+        'form_menu1' => '',
+        'form_menu2' => '',
+        'form_menu3' => '',
+        'form_menu4' => '',
+        'form_menu5' => '',
+        'form_transfer' => '',
+        'form_option1' => '',
+        'form_option2' => '',
+        'form_option3' => '',
+        'form_option4' => '',
+        'form_companions' => '',
+        'form_comments' => '',
+        'form_thanks' => '',
+        'form_errors' => '',
     ];
 
     
@@ -243,7 +495,6 @@ final class ModuleTypeEnum
             'GALERY' => new Galery($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'GIFTS' => new Gifts($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'CONFIRMATION' => new Confirmation($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'FOOT' => new Foot($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
         };
 
         return Blade::renderComponent($form);
@@ -263,22 +514,95 @@ final class ModuleTypeEnum
                 $invitation->date,
                 $invitation->time,
                 $invitation->time_zone,
+                $invitation->duration,
                 $invitation->style->value,
                 $invitation->color,
-                $invitation->icon_type
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
             ),
-            'WELCOME' => new WelcomeModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'EVENTS' => new EventsModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'HISTORY' => new HistoryModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'INFO' => new InfoModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'HIGHLIGHTS' => new HighlightsModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'INTERACTIVE' => new InteractiveModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'VIDEO' => new VideoModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'SUGGESTIONS' => new SuggestionsModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'GALERY' => new GaleryModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'GIFTS' => new GiftsModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'CONFIRMATION' => new ConfirmationModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'FOOT' => new FootModule(self::getModuleFromArrayByName($invitation->modules, $name)),
+            'WELCOME' => new WelcomeModule(self::getModuleFromArrayByName(
+                $invitation->modules, $name), 
+                $invitation->icon_type,
+                $invitation->style->value,
+                $invitation->color,
+            ),
+            'EVENTS' => new EventsModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->icon_type,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'HISTORY' => new HistoryModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->icon_type,
+            ),
+            'INFO' => new InfoModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'HIGHLIGHTS' => new HighlightsModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'INTERACTIVE' => new InteractiveModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'VIDEO' => new VideoModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'SUGGESTIONS' => new SuggestionsModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'GALERY' => new GaleryModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'GIFTS' => new GiftsModule(
+                self::getModuleFromArrayByName($invitation->modules, $name),
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'CONFIRMATION' => new ConfirmationModule(
+                self::getModuleFromArrayByName($invitation->modules, $name), 
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
         };
 
         return Blade::renderComponent($module);
@@ -308,19 +632,19 @@ final class ModuleTypeEnum
                 ]
             ],
             'FLOAT_BUTTON' => [
-                'type_button' => 'required|string',
+                'type_button' => 'nullable|string',
                 'url_button' => 'required_unless:type_button,"Confirmar Asistencia"',
                 'icon_button' => 'required_unless:type_button,"Confirmar Asistencia"'
             ],
             'COVER' => [
-                'format' => 'required|string',
+                'format' => 'nullable|string',
                 'active_header' => 'boolean',
                 'active_logo' => 'boolean',
                 'active_central' => 'boolean',
-                'names' => 'required|string',
-                'tittle' => 'required|string',
-                'detail' => 'required|string',
-                'text_color_cover' => 'required|string',
+                'names' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'detail' => 'nullable|string',
+                'text_color_cover' => 'nullable|string',
                 'desktop_images' => ['array'
                     /*File::image()
                         ->types(['jpeg', 'png', 'jpg'])
@@ -353,42 +677,42 @@ final class ModuleTypeEnum
                 
             ],
             'GUEST' => [
-                'tittle' => 'required|string',
-                'icon' => 'required|string',
-                'signs' => 'required|string',
+                'tittle' => 'nullable|string',
+                'icon' => 'nullable|string',
+                'signs' => 'nullable|string',
             ],
             'SAVE_DATE' => [
-                'tittle' => 'required|string',
-                'icon' => 'required|string',
-                'text_button' => 'required|string',
+                'tittle' => 'nullable|string',
+                'icon' => 'nullable|string',
+                'text_button' => 'nullable|string',
                 'is_countdown' => 'boolean',
-                'days_tanslation' => 'required_if:is_countdown,1',
-                'hr_tanslation' => 'required_if:is_countdown,1',
-                'min_translation' => 'required_if:is_countdown,1',
-                'sec_translation' => 'required_if:is_countdown,1',
+                'days_tanslation' => 'nullable|string',
+                'hr_tanslation' => 'nullable|string',
+                'min_translation' => 'nullable|string',
+                'sec_translation' => 'nullable|string',
             ],
             'WELCOME' => [
-                'tittle' => 'required|string',
-                'icon' => 'required|string',
-                'text' => 'required|string',
+                'tittle' => 'nullable|string',
+                'icon' => 'nullable|string',
+                'text' => 'nullable|string',
                 'image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
-                    ->max(2048)
+                    ->max(4*1024)
                 ]
             ],
             'EVENTS' => [
                 'civil_active' => 'boolean',
-                'civil_event' => 'required_if:civil_active,1',
-                'civil_icon' => 'required_if:civil_active,1',
-                'civil_order' => 'required_if:civil_active,1',
-                'civil_date' => 'required_if:civil_active,1',
-                'civil_time' => 'required_if:civil_active,1',
-                'civil_hr_translation' => 'required_if:civil_active,1',
-                'civil_name' => 'required_if:civil_active,1',
-                'civil_detail' => 'required_if:civil_active,1',
-                'civil_button_url' => 'required_if:civil_active,1',
-                'civil_button_text' => 'required_if:civil_active,1',
+                'civil_event' => 'nullable|string',
+                'civil_icon' => 'nullable|string',
+                'civil_order' => 'nullable|string',
+                'civil_date' => 'nullable|string',
+                'civil_time' => 'nullable|string',
+                'civil_hr_translation' => 'nullable|string',
+                'civil_name' => 'nullable|string',
+                'civil_detail' => 'nullable|string',
+                'civil_button_url' => 'nullable|string',
+                'civil_button_text' => 'nullable|string',
                 'civil_image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -396,16 +720,16 @@ final class ModuleTypeEnum
                 ],
 
                 'ceremony_active' => 'boolean',
-                'ceremony_event' => 'required_if:ceremony_active,1',
-                'ceremony_icon' => 'required_if:ceremony_active,1',
-                'ceremony_order' => 'required_if:ceremony_active,1',
-                'ceremony_date' => 'required_if:ceremony_active,1',
-                'ceremony_time' => 'required_if:ceremony_active,1',
-                'ceremony_hr_translation' => 'required_if:ceremony_active,1',
-                'ceremony_name' => 'required_if:ceremony_active,1',
-                'ceremony_detail' => 'required_if:ceremony_active,1',
-                'ceremony_button_url' => 'required_if:ceremony_active,1',
-                'ceremony_button_text' => 'required_if:ceremony_active,1',
+                'ceremony_event' => 'nullable|string',
+                'ceremony_icon' => 'nullable|string',
+                'ceremony_order' => 'nullable|string',
+                'ceremony_date' => 'nullable|string',
+                'ceremony_time' => 'nullable|string',
+                'ceremony_hr_translation' => 'nullable|string',
+                'ceremony_name' => 'nullable|string',
+                'ceremony_detail' => 'nullable|string',
+                'ceremony_button_url' => 'nullable|string',
+                'ceremony_button_text' => 'nullable|string',
                 'ceremony_image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -413,16 +737,16 @@ final class ModuleTypeEnum
                 ],
 
                 'party_active' => 'boolean',
-                'party_event' => 'required_if:party_active,1',
-                'party_icon' => 'required_if:party_active,1',
-                'party_order' => 'required_if:party_active,1',
-                'party_date' => 'required_if:party_active,1',
-                'party_time' => 'required_if:party_active,1',
-                'party_hr_translation' => 'required_if:party_active,1',
-                'party_name' => 'required_if:party_active,1',
-                'party_detail' => 'required_if:party_active,1',
-                'party_button_url' => 'required_if:party_active,1',
-                'party_button_text' => 'required_if:party_active,1',
+                'party_event' => 'nullable|string',
+                'party_icon' => 'nullable|string',
+                'party_order' => 'nullable|string',
+                'party_date' => 'nullable|string',
+                'party_time' => 'nullable|string',
+                'party_hr_translation' => 'nullable|string',
+                'party_name' => 'nullable|string',
+                'party_detail' => 'nullable|string',
+                'party_button_url' => 'nullable|string',
+                'party_button_text' => 'nullable|string',
                 'party_image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -430,13 +754,13 @@ final class ModuleTypeEnum
                 ],
 
                 'dresscode_active' => 'boolean',
-                'dresscode_event' => 'required_if:dresscode_active,1',
-                'dresscode_icon' => 'required_if:dresscode_active,1',
-                'dresscode_order' => 'required_if:dresscode_active,1',
-                'dresscode_name' => 'required_if:dresscode_active,1',
-                'dresscode_detail' => 'required_if:dresscode_active,1',
-                'dresscode_button_url' => 'required_if:dresscode_active,1',
-                'dresscode_button_text' => 'required_if:dresscode_active,1',
+                'dresscode_event' => 'nullable|string',
+                'dresscode_icon' => 'nullable|string',
+                'dresscode_order' => 'nullable|string',
+                'dresscode_name' => 'nullable|string',
+                'dresscode_detail' => 'nullable|string',
+                'dresscode_button_url' => 'nullable|string',
+                'dresscode_button_text' => 'nullable|string',
                 'dresscode_image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -444,9 +768,9 @@ final class ModuleTypeEnum
                 ],
             ],
             'HISTORY' => [
-                'icon' => 'required|string',
-                'tittle' => 'required|string',
-                'text' => 'required|string',
+                'icon' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'text' => 'nullable|string',
                 /*'button_icon' => 'required|string',
                 'button_text' => 'required|string',
                 'button_url' => 'required|string',*/
@@ -457,12 +781,13 @@ final class ModuleTypeEnum
                 ],
             ],
             'INFO' => [
-                'icon' => 'required|string',
-                'tittle' => 'required|string',
-                'text' => 'required|string',
-                'button_icon' => 'required|string',
-                'button_text' => 'required|string',
-                'button_url' => 'required|string',
+                'icon' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'text' => 'nullable|string',
+                'button_icon' => 'nullable|string',
+                'button_text' => 'nullable|string',
+                'button_url' => 'nullable|string',
+                'on_t_right' => 'boolean',
                 'image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -470,12 +795,12 @@ final class ModuleTypeEnum
                 ],
             ],
             'HIGHLIGHTS' => [
-                'icon' => 'required|string',
-                'tittle' => 'required|string',
-                'text' => 'required|string',
-                'button_icon' => 'required|string',
-                'button_text' => 'required|string',
-                'button_url' => 'required|string',
+                'icon' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'text' => 'nullable|string',
+                'button_icon' => 'nullable|string',
+                'button_text' => 'nullable|string',
+                'button_url' => 'nullable|string',
                 'image' => [
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
@@ -483,49 +808,49 @@ final class ModuleTypeEnum
                 ],
             ],
             'INTERACTIVE' => [
-                'spotify_active' => 'boolean',
-                'spotify_icon' => 'string',
-                'spotify_order' => 'string',
-                'spotify_tittle' => 'string',
-                'spotify_text' => 'string',
-                'spotify_button_icon' => 'string',
-                'spotify_button_text' => 'string',
-                'spotify_button_url' => 'string',
+                'spotify_active' => 'nullable|boolean',
+                'spotify_icon' => 'nullable|string',
+                'spotify_order' => 'nullable|string',
+                'spotify_tittle' => 'nullable|string',
+                'spotify_text' => 'nullable|string',
+                'spotify_button_icon' => 'nullable|string',
+                'spotify_button_text' => 'nullable|string',
+                'spotify_button_url' => 'nullable|string',
 
-                'hastag_active' => 'boolean',
-                'hastag_icon' => 'string',
-                'hastag_order' => 'string',
-                'hastag_tittle' => 'string',
-                'hastag_text' => 'string',
-                'hastag_button_icon' => 'string',
-                'hastag_button_text' => 'string',
-                'hastag_button_url' => 'string',
+                'hastag_active' => 'nullable|boolean',
+                'hastag_icon' => 'nullable|string',
+                'hastag_order' => 'nullable|string',
+                'hastag_tittle' => 'nullable|string',
+                'hastag_text' => 'nullable|string',
+                'hastag_button_icon' => 'nullable|string',
+                'hastag_button_text' => 'nullable|string',
+                'hastag_button_url' => 'nullable|string',
 
-                'ig_active' => 'boolean',
-                'ig_icon' => 'string',
-                'ig_order' => 'string',
-                'ig_tittle' => 'string',
-                'ig_text' => 'string',
-                'ig_button_icon' => 'string',
-                'ig_button_text' => 'string',
-                'ig_button_url' => 'string',
+                'ig_active' => 'nullable|boolean',
+                'ig_icon' => 'nullable|string',
+                'ig_order' => 'nullable|string',
+                'ig_tittle' => 'nullable|string',
+                'ig_text' => 'nullable|string',
+                'ig_button_icon' => 'nullable|string',
+                'ig_button_text' => 'nullable|string',
+                'ig_button_url' => 'nullable|string',
 
-                'link_active' => 'boolean',
-                'link_icon' => 'string',
-                'link_order' => 'string',
-                'link_tittle' => 'string',
-                'link_text' => 'string',
-                'link_button_icon' => 'string',
-                'link_button_text' => 'string',
-                'link_button_url' => 'string',
+                'link_active' => 'nullable|boolean',
+                'link_icon' => 'nullable|string',
+                'link_order' => 'nullable|string',
+                'link_tittle' => 'nullable|string',
+                'link_text' => 'nullable|string',
+                'link_button_icon' => 'nullable|string',
+                'link_button_text' => 'nullable|string',
+                'link_button_url' => 'nullable|string',
             ],
             'VIDEO' => [
-                'icon' => 'string',
-                'pre_tittle' => 'string',
-                'tittle' => 'string',
-                'video_id' => 'string',
-                'type_video' => 'string',
-                'format' => 'string',
+                'icon' => 'nullable|string',
+                'pre_tittle' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'video_id' => 'nullable|string',
+                'type_video' => 'nullable|string',
+                'format' => 'nullable|string',
             ],
             'SUGGESTIONS' => [
                 'pre_tittle' => 'nullable|string',
@@ -571,8 +896,8 @@ final class ModuleTypeEnum
                 'second_account_active' => 'nullable|boolean',
                 'second_account_tittle' => 'nullable|string',
                 'second_account_text' => 'nullable|string',
-                'second_account_data' => 'nullable|string',
-                'second_account_value' => 'nullable|string',
+                'second_account_button_url' => 'nullable|string',
+                'second_account_button_text' => 'nullable|string',
                 'box_active' => 'nullable|boolean',
                 'box_tittle' => 'nullable|string',
                 'box_text' => 'nullable|string',
@@ -581,14 +906,91 @@ final class ModuleTypeEnum
                 'list_active' => 'nullable|boolean',
                 'list_tittle' => 'nullable|string',
                 'list_text' => 'nullable|string',
-                'list_button_text' => 'nullable|string',
-                'list_button_url' => 'nullable|string',
+                'list_product_1' => 'nullable|string',
+                'list_product_url_1' => 'nullable|string',
+                'list_product_price_1' => 'nullable|string',
+                'list_product_image_1' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_2' => 'nullable|string',
+                'list_product_url_2' => 'nullable|string',
+                'list_product_price_2' => 'nullable|string',
+                'list_product_image_2' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_3' => 'nullable|string',
+                'list_product_url_3' => 'nullable|string',
+                'list_product_price_3' => 'nullable|string',
+                'list_product_image_3' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_4' => 'nullable|string',
+                'list_product_url_4' => 'nullable|string',
+                'list_product_price_4' => 'nullable|string',
+                'list_product_image_4' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_5' => 'nullable|string',
+                'list_product_url_5' => 'nullable|string',
+                'list_product_price_5' => 'nullable|string',
+                'list_product_image_5' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
+                'list_product_6' => 'nullable|string',
+                'list_product_url_6' => 'nullable|string',
+                'list_product_price_6' => 'nullable|string',
+                'list_product_image_6' => [
+                    File::image()
+                    ->types(['jpeg', 'png', 'jpg'])
+                    ->max(2048)
+                ],
             ],
-            'CONFIRMATION' => [],
-            'FOOT' => [
-                'seller_name' => 'required|string',
-                'foot_text' => 'required|string',
-            ],
+            'CONFIRMATION' => [
+                'icon' => 'nullable|string',
+                'pre_tittle' => 'nullable|string',
+                'tittle' => 'nullable|string',
+                'text' => 'nullable|string',
+                'limit_date' => 'nullable|string',
+                'card_active' => 'nullable|boolean',
+                'card_tittle' => 'nullable|string',
+                'card_text' => 'nullable|string',
+                'card_button_text' => 'nullable|string',
+                'form_active' => 'nullable|boolean',
+                'form_button_text' => 'nullable|string',
+                'form_button_url' => 'nullable|string',
+                'form_text' => 'nullable|string',
+                'form_ill_attend' => 'nullable|string',
+                'form_ill_n_attend' => 'nullable|string',
+                'form_name' => 'nullable|string',
+                'form_email' => 'nullable|string',
+                'form_phone' => 'nullable|string',
+                'form_special_menu' => 'nullable|string',
+                'form_nothing' => 'nullable|string',
+                'form_menu1' => 'nullable|string',
+                'form_menu2' => 'nullable|string',
+                'form_menu3' => 'nullable|string',
+                'form_menu4' => 'nullable|string',
+                'form_menu5' => 'nullable|string',
+                'form_transfer' => 'nullable|string',
+                'form_option1' => 'nullable|string',
+                'form_option2' => 'nullable|string',
+                'form_option3' => 'nullable|string',
+                'form_option4' => 'nullable|string',
+                'form_companions' => 'nullable|string',
+                'form_comments' => 'nullable|string',
+                'form_thanks' => 'nullable|string',
+                'form_errors' => 'nullable|string',
+            ]
         };
 
         return $rules;
@@ -839,6 +1241,7 @@ final class ModuleTypeEnum
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
+                    'on_t_right' => $data['on_t_right'],
                     'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_url' => $data['button_url'],
@@ -970,10 +1373,48 @@ final class ModuleTypeEnum
                 });
 
                 if(isset($data['background_image'])) $invitation->addMedia($data['background_image'], self::GIFTS['name'].'/background', $invitation->path_name);
-                $invitation->refresh();
 
                 if(isset($data['module_image'])) $invitation->addMedia($data['module_image'], self::GIFTS['name'].'/module', $invitation->path_name);
+
+                if(isset($data['list_product_image_1'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_1')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_1'], self::GIFTS['name'].'/product_1', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_2'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_2')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_2'], self::GIFTS['name'].'/product_2', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_3'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_3')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_3'], self::GIFTS['name'].'/product_3', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_4'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_4')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_4'], self::GIFTS['name'].'/product_4', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_5'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_5')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_5'], self::GIFTS['name'].'/product_5', $invitation->path_name);
+                }
+                if(isset($data['list_product_image_6'])){ 
+                    $invitation->media(self::GIFTS['name'].'/product_6')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->addMedia($data['list_product_image_6'], self::GIFTS['name'].'/product_6', $invitation->path_name);
+                }
+
                 $invitation->refresh();
+
 
                 return $updateTask($modules, $name, [
                     'icon' => $data['icon'],
@@ -995,8 +1436,8 @@ final class ModuleTypeEnum
                         'active' => $data['second_account_active'],
                         'tittle' => $data['second_account_tittle'],
                         'text' => $data['second_account_text'],
-                        'data' => $data['second_account_data'],
-                        'value' => $data['second_account_value'],
+                        'button_url' => $data['second_account_button_url'],
+                        'button_text' => $data['second_account_button_text'],
                     ],
                     'box' => [
                         'active' => $data['box_active'],
@@ -1009,13 +1450,34 @@ final class ModuleTypeEnum
                         'active' => $data['list_active'],
                         'tittle' => $data['list_tittle'],
                         'text' => $data['list_text'],
-                        'button_text' => $data['list_button_text'],
-                        'button_url' => $data['list_button_url'],
+                        'product_1' => $data['list_product_1'],
+                        'product_url_1' => $data['list_product_url_1'],
+                        'product_price_1' => $data['list_product_price_1'],
+                        'product_image_1' => $invitation->media(self::GIFTS['name'].'/product_1')->first()?->getMediaUrl(),
+                        'product_2' => $data['list_product_2'],
+                        'product_url_2' => $data['list_product_url_2'],
+                        'product_price_2' => $data['list_product_price_2'],
+                        'product_image_2' => $invitation->media(self::GIFTS['name'].'/product_2')->first()?->getMediaUrl(),
+                        'product_3' => $data['list_product_3'],
+                        'product_url_3' => $data['list_product_url_3'],
+                        'product_price_3' => $data['list_product_price_3'],
+                        'product_image_3' => $invitation->media(self::GIFTS['name'].'/product_3')->first()?->getMediaUrl(),
+                        'product_4' => $data['list_product_4'],
+                        'product_url_4' => $data['list_product_url_4'],
+                        'product_price_4' => $data['list_product_price_4'],
+                        'product_image_4' => $invitation->media(self::GIFTS['name'].'/product_4')->first()?->getMediaUrl(),
+                        'product_5' => $data['list_product_5'],
+                        'product_url_5' => $data['list_product_url_5'],
+                        'product_price_5' => $data['list_product_price_5'],
+                        'product_image_5' => $invitation->media(self::GIFTS['name'].'/product_5')->first()?->getMediaUrl(),
+                        'product_6' => $data['list_product_6'],
+                        'product_url_6' => $data['list_product_url_6'],
+                        'product_price_6' => $data['list_product_price_6'],
+                        'product_image_6' => $invitation->media(self::GIFTS['name'].'/product_6')->first()?->getMediaUrl(),
                     ],
                 ]);
             })(),
-           // 'CONFIRMATION' => $updateTask($modules, $name, $data),
-           'FOOT' => $updateTask($modules, $name, $data),
+            'CONFIRMATION' => $updateTask($modules, $name, $data)
         };
 
         return $updatedModules;

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class SetConfigInvitationRequest extends FormRequest
 {
@@ -41,6 +42,10 @@ class SetConfigInvitationRequest extends FormRequest
             "plan" => [
                 Rule::in(PlanTypeEnum::values())
             ],
+            "seller" => [
+                'required',
+                Rule::exists('sellers', 'id')
+            ],
             "active" => "boolean",
 
             "date" => "Date|date_format:Y-m-d",
@@ -49,6 +54,11 @@ class SetConfigInvitationRequest extends FormRequest
             "duration" => "nullable|integer|min:0",
             "meta_title" => "nullable|string|max:255",
             "meta_description" => "nullable|string|max:255",
+            "meta_image" => [
+                File::image()
+                    ->types(['jpeg', 'png', 'jpg', 'svg'])
+                    ->max(2048)
+            ],
         ];
     }
 

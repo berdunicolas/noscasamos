@@ -20,6 +20,13 @@
             />
         </div>
         <div class="mb-3">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'on_t_right')" {{$module['on_t_right'] ? 'checked' : ''}}>
+                <input type="text" hidden name="on_t_right" id="on_t_right" value="{{$module['on_t_right'] ? 1 : 0}}">
+                <label class="form-check-label" for="switchCheckChecked">Info Derecha</label>
+            </div>
+        </div>
+        <div class="mb-3">
             <x-form.input
                 name="tittle"
                 label="Título"

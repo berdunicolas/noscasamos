@@ -8,8 +8,8 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <label class="form-check-label" for="switchCheckChecked">Spotify</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'spotify_active')" type="checkbox" role="switch" {{$module['spotify']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="spotify_active" id="spotify_active" value="{{$module['spotify']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'spotify_active')" type="checkbox" role="switch" {{$module['interactives']['spotify']['active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="spotify_active" id="spotify_active" value="{{$module['interactives']['spotify']['active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -22,7 +22,7 @@
                                     label="Icono"
                                     type="text"
                                     placeholder="fa-rings-wedding"
-                                    value="{{$module['spotify']['icon']}}"
+                                    value="{{$module['interactives']['spotify']['icon']}}"
                                 />
                             </div>
                             <div class="col-3">
@@ -31,7 +31,7 @@
                                     label="Orden"
                                     type="text"
                                     placeholder="1"
-                                    value="{{$module['spotify']['order']}}"
+                                    value="{{$module['interactives']['spotify']['order']}}"
                                 />
                             </div>
                         </div>
@@ -41,12 +41,12 @@
                                 label="Título"
                                 type="text"
                                 placeholder="Titulo"
-                                value="{{$module['spotify']['tittle']}}"
+                                value="{{$module['interactives']['spotify']['tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="spotify_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['spotify']['text']}}</textarea>
+                            <textarea name="spotify_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['interactives']['spotify']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -55,7 +55,7 @@
                                     label="Icono botón"
                                     type="text"
                                     placeholder="fa-square-arrow-up-right"
-                                    value="{{$module['spotify']['button_icon']}}"
+                                    value="{{$module['interactives']['spotify']['button_icon']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -65,7 +65,7 @@
                                         label="Texto botón"
                                         type="text"
                                         placeholder="Ver más"
-                                        value="{{$module['spotify']['button_text']}}"
+                                        value="{{$module['interactives']['spotify']['button_text']}}"
                                     />
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                 label="Url botton"
                                 type="text"
                                 placeholder="https://www.google.com"
-                                value="{{$module['spotify']['button_url']}}"
+                                value="{{$module['interactives']['spotify']['button_url']}}"
                             />
                         </div>
                     </div>
@@ -87,8 +87,8 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         <label class="form-check-label" for="switchCheckChecked">Hashtag</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'hashtag_active')" type="checkbox" role="switch" {{$module['hashtag']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="hashtag_active" id="hashtag_active" value="{{$module['hashtag']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'hashtag_active')" type="checkbox" role="switch" {{$module['interactives']['hashtag']['active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="hashtag_active" id="hashtag_active" value="{{$module['interactives']['hashtag']['active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -101,7 +101,7 @@
                                     label="Icono"
                                     type="text"
                                     placeholder="fa-rings-wedding"
-                                    value="{{$module['hashtag']['icon']}}"
+                                    value="{{$module['interactives']['hashtag']['icon']}}"
                                 />
                             </div>
                             <div class="col-3">
@@ -110,7 +110,7 @@
                                     label="Orden"
                                     type="text"
                                     placeholder="1"
-                                    value="{{$module['hashtag']['order']}}"
+                                    value="{{$module['interactives']['hashtag']['order']}}"
                                 />
                             </div>
                         </div>
@@ -120,12 +120,12 @@
                                 label="Título"
                                 type="text"
                                 placeholder="Titulo"
-                                value="{{$module['hashtag']['tittle']}}"
+                                value="{{$module['interactives']['hashtag']['tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="hashtag_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['hashtag']['text']}}</textarea>
+                            <textarea name="hashtag_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['interactives']['hashtag']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -134,7 +134,7 @@
                                     label="Icono botón"
                                     type="text"
                                     placeholder="fa-square-arrow-up-right"
-                                    value="{{$module['hashtag']['button_icon']}}"
+                                    value="{{$module['interactives']['hashtag']['button_icon']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -144,7 +144,7 @@
                                         label="Texto botón"
                                         type="text"
                                         placeholder="Ver más"
-                                        value="{{$module['hashtag']['button_text']}}"
+                                        value="{{$module['interactives']['hashtag']['button_text']}}"
                                     />
                                 </div>
                             </div>
@@ -155,7 +155,7 @@
                                 label="Url botton"
                                 type="text"
                                 placeholder="https://www.google.com"
-                                value="{{$module['hashtag']['button_url']}}"
+                                value="{{$module['interactives']['hashtag']['button_url']}}"
                             />
                         </div>
                     </div>
@@ -166,8 +166,8 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         <label class="form-check-label" for="switchCheckChecked">Instagram</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" type="checkbox" onchange="checkboxSwitch(this, 'ig_active')" role="switch" {{$module['ig']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="ig_active" id="ig_active" value="{{$module['ig']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" type="checkbox" onchange="checkboxSwitch(this, 'ig_active')" role="switch" {{$module['interactives']['ig']['active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="ig_active" id="ig_active" value="{{$module['interactives']['ig']['active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -180,7 +180,7 @@
                                     label="Icono"
                                     type="text"
                                     placeholder="fa-rings-wedding"
-                                    value="{{$module['ig']['icon']}}"
+                                    value="{{$module['interactives']['ig']['icon']}}"
                                 />
                             </div>
                             <div class="col-3">
@@ -189,7 +189,7 @@
                                     label="Orden"
                                     type="text"
                                     placeholder="1"
-                                    value="{{$module['ig']['order']}}"
+                                    value="{{$module['interactives']['ig']['order']}}"
                                 />
                             </div>
                         </div>
@@ -199,12 +199,12 @@
                                 label="Título"
                                 type="text"
                                 placeholder="Titulo"
-                                value="{{$module['ig']['tittle']}}"
+                                value="{{$module['interactives']['ig']['tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="ig_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['ig']['text']}}</textarea>
+                            <textarea name="ig_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['interactives']['ig']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -213,7 +213,7 @@
                                     label="Icono botón"
                                     type="text"
                                     placeholder="fa-square-arrow-up-right"
-                                    value="{{$module['ig']['button_icon']}}"
+                                    value="{{$module['interactives']['ig']['button_icon']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -223,7 +223,7 @@
                                         label="Texto botón"
                                         type="text"
                                         placeholder="Ver más"
-                                        value="{{$module['ig']['button_text']}}"
+                                        value="{{$module['interactives']['ig']['button_text']}}"
                                     />
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                                 label="Url botton"
                                 type="text"
                                 placeholder="https://www.google.com"
-                                value="{{$module['ig']['button_url']}}"
+                                value="{{$module['interactives']['ig']['button_url']}}"
                             />
                         </div>
                     </div>
@@ -245,8 +245,8 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                         <label class="form-check-label" for="switchCheckChecked">Link</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'link_active')" type="checkbox" role="switch" {{$module['link']['active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="link_active" id="link_active" value="{{$module['link']['active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'link_active')" type="checkbox" role="switch" {{$module['interactives']['link']['active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="link_active" id="link_active" value="{{$module['interactives']['link']['active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -259,7 +259,7 @@
                                     label="Icono"
                                     type="text"
                                     placeholder="fa-rings-wedding"
-                                    value="{{$module['link']['icon']}}"
+                                    value="{{$module['interactives']['link']['icon']}}"
                                 />
                             </div>
                             <div class="col-3">
@@ -268,7 +268,7 @@
                                     label="Orden"
                                     type="text"
                                     placeholder="1"
-                                    value="{{$module['link']['order']}}"
+                                    value="{{$module['interactives']['link']['order']}}"
                                 />
                             </div>
                         </div>
@@ -278,12 +278,12 @@
                                 label="Título"
                                 type="text"
                                 placeholder="Titulo"
-                                value="{{$module['link']['tittle']}}"
+                                value="{{$module['interactives']['link']['tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="link_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['link']['text']}}</textarea>
+                            <textarea name="link_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['interactives']['link']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -292,7 +292,7 @@
                                     label="Icono botón"
                                     type="text"
                                     placeholder="fa-square-arrow-up-right"
-                                    value="{{$module['link']['button_icon']}}"
+                                    value="{{$module['interactives']['link']['button_icon']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -302,7 +302,7 @@
                                         label="Texto botón"
                                         type="text"
                                         placeholder="Ver más"
-                                        value="{{$module['link']['button_text']}}"
+                                        value="{{$module['interactives']['link']['button_text']}}"
                                     />
                                 </div>
                             </div>
@@ -313,7 +313,7 @@
                                 label="Url botton"
                                 type="text"
                                 placeholder="https://www.google.com"
-                                value="{{$module['link']['button_url']}}"
+                                value="{{$module['interactives']['link']['button_url']}}"
                             />
                         </div>
                     </div>

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\File;
 
 class SetStyleInvitationRequest extends FormRequest
 {
@@ -34,12 +35,16 @@ class SetStyleInvitationRequest extends FormRequest
             "color" => "string|max:7",
             "icon_type" => "string",
             "background_color" => "string|max:7",
-            "spacing" => [
-                Rule::in(SpacingTypeEnum::values())
-            ],
+            "padding" => "nullable|string",
             "font" => [
-                Rule::in(FontTypeEnum::values())
+                Rule::in(FontTypeEnum::keys())
             ],
+            "frame_image" => [
+                File::image()
+                    ->types(['jpeg', 'png', 'jpg', 'svg'])
+                    ->max(4*1024)
+            ],
+
         ];
     }
 

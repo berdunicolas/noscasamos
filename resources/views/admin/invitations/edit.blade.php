@@ -41,8 +41,14 @@
                     <span class="me-1 badge border border-warning text-warning">No activo</span>    
                     @endif
 --}}
-                <span class="me-1 badge border border-warning text-warning">Vencido</span>    
-                <span class="me-1 badge border border-black text-black">noscasamos</span>    
+                @if ($invitation->date)
+                    @if ($invitation->validity)
+                        <span class="me-1 badge border text-bg-secondary">No vigente</span>
+                    @else
+                        <span class="me-1 badge border text-bg-info">Vigente</span>
+                    @endif
+                @endif
+                <span class="me-1 badge border border-black text-black">{{$invitation->seller->name}}</span>    
 {{--
                 @if ($invitation->createdBy)
                     <span class="me-3 badge border border-warning text-warning">{{$inviation->createdBy}}</span>    
@@ -165,7 +171,7 @@
                         </x-form.input-group>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-4">
+                        <div class="col-3">
                             <x-form.select id="config-form-input" name="event" label="Tipo de evento">
                                 @foreach ($eventTypes as $eventType)
                                     <x-form.select-option
@@ -176,7 +182,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <x-form.select id="config-form-input" name="plan" label="Plan">
                                 @foreach ($planTypes as $planType)
                                     <x-form.select-option
@@ -188,7 +194,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <x-form.select id="config-form-input" name="active" label="Estado">
                                 <x-form.select-option
                                     value="1"
@@ -200,6 +206,18 @@
                                     label="No activo"
                                     selected="{{($invitation->active) ? false : true}}"
                                 />
+                            </x-form.select>
+                        </div>
+                        <div class="col-3">
+                            <x-form.select id="config-form-input" name="seller" label="Seller">
+                                @foreach ($sellers as $seller)
+                                    <x-form.select-option
+                                        value="{{$seller->id}}"
+                                        label="{{$seller->name}}"
+                                        selected="{{($invitation->seller_id == $seller->id) ? true : false}}"
+                                    />
+                                    
+                                @endforeach
                             </x-form.select>
                         </div>
                     </div>
@@ -229,9 +247,9 @@
                             <x-form.select id="config-form-input" name="time_zone" label="Zona horaria">
                                 @foreach ($timezones as $timezone)
                                     <x-form.select-option
-                                        value="{{$timezone->timezone}}"
+                                        value="{{$timezone->carbon_format}}"
                                         label="{{$timezone->timezone}}"
-                                        selected="{{($invitation->time_zone == $timezone->timezone) ? true : false}}"
+                                        selected="{{($invitation->time_zone == $timezone->carbon_format) ? true : false}}"
                                     />
                                 @endforeach
                             </x-form.select>
@@ -326,22 +344,25 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-4">
-                            <x-form.select
+                        <div class="col-3">
+                            <x-form.input
                                 id="style-form-input"
-                                name="spacing"
-                                label="Espaciado"
-                            >
-                                @foreach ($spacingTypes as $spacingType)
-                                    <x-form.select-option
-                                        value="{{$spacingType}}"
-                                        label="{{$spacingType}}"
-                                        selected="{{$invitation->spacing?->value == $spacingType ? true : false}}"
-                                    />  
-                                @endforeach
-                            </x-form.select>
+                                name="padding"
+                                label="Relleno"
+                                placeholder="20px"
+                                type="text"
+                                value="{{$invitation->padding}}"
+                            />
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
+                            <x-form.input
+                                id="style-form-input"
+                                name="frame_image"
+                                label="Marco"
+                                type="file"
+                            />
+                        </div>
+                        <div class="col-3">
                             <x-form.select
                                 id="style-form-input"
                                 name="font"
@@ -356,7 +377,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             <x-form.select
                                 id="style-form-input"
                                 name="icon_type"

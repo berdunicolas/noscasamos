@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'guests' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -64,6 +68,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'guests' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Invitation::class
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

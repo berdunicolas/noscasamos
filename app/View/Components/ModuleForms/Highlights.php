@@ -18,15 +18,7 @@ class Highlights extends Component
         public int $invitationId,
         public array $module = [],
         public string $moduleName = ModuleTypeEnum::HIGHLIGHTS['name'],
-    ) {
-        $this->module['icon'] = $module['icon'] ?? '';
-        $this->module['image'] = $module['image'] ?? '';
-        $this->module['tittle'] = $module['tittle'] ?? '';
-        $this->module['text'] = $module['text'] ?? '';
-        $this->module['button_icon'] = $module['button_icon'] ?? '';
-        $this->module['button_text'] = $module['button_text'] ?? '';
-        $this->module['button_url'] = $module['button_url'] ?? '';
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

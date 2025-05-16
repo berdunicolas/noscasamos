@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInvitationRequest;
@@ -54,8 +55,8 @@ class InvitationApiController extends Controller
                 'date' => null,
                 'time_zone' => null,
                 'time' => null,
-                'seller_id' => null,
-                'duration' => null,
+                'seller_id' => $validatedData['seller'],
+                'duration' => 5,
                 'active' => true,
                 'created_by' => auth()->user()->id,
                 'meta_title' => null,
@@ -95,7 +96,8 @@ class InvitationApiController extends Controller
             $event->country_id = $country?->id;
             $event->country_division_id = $request->country_division;
             $event->save();
-
+            
+            $invitation->seller_id = $request->seller;
             $invitation->host_names = $request->host_names;
             $invitation->path_name = $request->path_name;
             $invitation->active = $request->active;
@@ -106,6 +108,14 @@ class InvitationApiController extends Controller
             $invitation->meta_title = $request->meta_title;
             $invitation->meta_description = $request->meta_description;
             $invitation->save();
+
+            if($request->meta_image){
+                $invitation->media('meta_img')->each(function ($media) {
+                    $media->delete();
+                });
+
+                $invitation->addMedia($request->meta_image, 'meta_img', $invitation->path_name);
+            }
             
             DB::commit();
 
@@ -128,9 +138,16 @@ class InvitationApiController extends Controller
             $invitation->color = $request->color;
             $invitation->icon_type = $request->icon_type;
             $invitation->background_color = $request->background_color;
-            $invitation->spacing = $request->spacing;
+            $invitation->padding = $request->padding;
             $invitation->font = $request->font;
             $invitation->save();
+
+            if($request->frame_image){
+                $invitation->media('frame_img')->each(function ($media) {
+                    $media->delete();
+                });
+                $invitation->addMedia($request->frame_image, 'frame_img', $invitation->path_name);
+            }
             
             DB::commit();
 
