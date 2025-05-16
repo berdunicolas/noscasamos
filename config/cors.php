@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://127.0.0.1:8000', 'https://admin.invita.ar'],
+    'allowed_origins' => ['http://127.0.0.1:8000', 'https://admin.invita.ar', 'https://invita.ar' ],
 
     'allowed_origins_patterns' => [],
 

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 if(config('app.env') == 'production'){
-    Route::domain(config('app.subdomain').config('app.url'))->group(function () {
+    Route::domain(config('app.subdomain_url'))->group(function () {
         Route::middleware('guest')->group(function () {
             Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
             Route::post('/login', [AuthenticatedSessionController::class, 'store']);
