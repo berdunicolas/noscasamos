@@ -1,14 +1,11 @@
 <?php
 
-use App\Enums\ModuleTypeEnum;
 use App\Http\Controllers\Admin\Invitation\InvitationController;
 use App\Http\Controllers\Admin\Seller\SellerController;
 use App\Http\Controllers\Admin\Settings\SettingsController;
 use App\Http\Controllers\Admin\User\RegisteredUserController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Middleware\EnsureCorrectAuthModel;
-use App\Models\Invitation;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,16 +62,33 @@ if(config('app.env') == 'production') {
     });
 }
 
+if(config('app.env') == 'production') {
+
+    Route::domain(config('app.url'))->group(function () {
+        Route::get('/{invitation:path_name}', [GuestController::class, 'index'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
+        Route::get('/{invitation:path_name}/invitados/login', [GuestController::class, 'loginForm'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
+        Route::post('/{invitation:path_name}/invitados/login', [GuestController::class, 'login'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
+        
+        
+        Route::middleware('auth', EnsureCorrectAuthModel::class.':guests')->group(function () {
+            Route::get('/{invitation:path_name}/invitados', [GuestController::class, 'guest'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests');
+            Route::post('/{invitation:path_name}/invitados/logout', [GuestController::class, 'logout'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.logout');
+        });
+    });
+
+} else {
+    Route::get('/{invitation:path_name}', [GuestController::class, 'index'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
+    Route::get('/{invitation:path_name}/invitados/login', [GuestController::class, 'loginForm'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
+    Route::post('/{invitation:path_name}/invitados/login', [GuestController::class, 'login'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
+    
+    
+    Route::middleware('auth', EnsureCorrectAuthModel::class.':guests')->group(function () {
+        Route::get('/{invitation:path_name}/invitados', [GuestController::class, 'guest'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests');
+        Route::post('/{invitation:path_name}/invitados/logout', [GuestController::class, 'logout'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.logout');
+    });
+}
 
 
-Route::get('/{invitation:path_name}', [GuestController::class, 'index'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
-Route::get('/{invitation:path_name}/invitados/login', [GuestController::class, 'loginForm'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
-Route::post('/{invitation:path_name}/invitados/login', [GuestController::class, 'login'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
 
-
-Route::middleware('auth', EnsureCorrectAuthModel::class.':guests')->group(function () {
-    Route::get('/{invitation:path_name}/invitados', [GuestController::class, 'guest'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests');
-    Route::post('/{invitation:path_name}/invitados/logout', [GuestController::class, 'logout'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.logout');
-});
 
 require __DIR__.'/auth.php';
