@@ -123,9 +123,14 @@ function saveInvitationChanges(e, form) {
     })
     .then(({statusCode, data}) => {
         if(statusCode === 201){
-            console.log(data);
+            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
         } else {
             console.error(data);
+            if(statusCode === 422){
+                mapErrorsToast(data.errors, data.message);
+            } else {
+                showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            }
         }
     })
     .catch(error => console.error('Error:', error));

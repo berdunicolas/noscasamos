@@ -201,14 +201,15 @@ class InvitationApiController extends Controller
 
     public function clone(Invitation $invitation){
 
-        $invitation = new Invitation($invitation->toArray());
-        $invitation->path_name = $invitation->path_name . '-clone';
-        $invitation->created_by = auth()->user()->id;
-        $invitation->save();
+        $newInvitation = new Invitation($invitation->toArray());
+        $newInvitation->path_name = $invitation->path_name . '-clone';
+        $newInvitation->password = $invitation->plain_token;
+        $newInvitation->created_by = auth()->user()->id;
+        $newInvitation->save();
 
         return response()->json([
             'message' => 'Invitation cloned successfully', 
-            'data' => new InvitationResource($invitation->refresh())
+            'data' => new InvitationResource($newInvitation->refresh())
         ], Response::HTTP_CREATED);
     }
 }

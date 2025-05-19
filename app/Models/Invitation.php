@@ -68,7 +68,7 @@ class Invitation extends Authenticatable
         'icon_type',
         'style',
         'font',
-        'paddin',
+        'padding',
         'color',
         'background_color',
         'modules',
