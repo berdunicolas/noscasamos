@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Welcome extends Component
 {
-    public string $id = ModuleTypeEnum::WELCOME['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::WELCOME['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

@@ -10,7 +10,7 @@ use Illuminate\View\Component;
 class Intro extends Component
 {
 
-    public string $id = ModuleTypeEnum::INTRO['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::INTRO['display_name'] . '-module-form';
     
     /**
      * Create a new component instance.

@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Video extends Component
 {
-    public string $id = ModuleTypeEnum::VIDEO['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::VIDEO['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

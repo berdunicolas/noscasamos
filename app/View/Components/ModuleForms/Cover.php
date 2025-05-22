@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Cover extends Component
 {
-    public string $id = ModuleTypeEnum::COVER['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::COVER['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

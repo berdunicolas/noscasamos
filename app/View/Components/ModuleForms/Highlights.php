@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Highlights extends Component
 {
-    public string $id = ModuleTypeEnum::HIGHLIGHTS['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::HIGHLIGHTS['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.
@@ -18,7 +18,11 @@ class Highlights extends Component
         public int $invitationId,
         public array $module = [],
         public string $moduleName = ModuleTypeEnum::HIGHLIGHTS['name'],
-    ) {}
+    ) {
+        if($this->module['display_name'] != ModuleTypeEnum::HIGHLIGHTS['display_name']){
+            $this->id = $this->module['display_name'] . '-module-form';
+        }
+    }
 
     /**
      * Get the view / contents that represent the component.

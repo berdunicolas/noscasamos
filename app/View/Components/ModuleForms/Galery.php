@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Galery extends Component
 {
-    public string $id = ModuleTypeEnum::GALERY['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::GALERY['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

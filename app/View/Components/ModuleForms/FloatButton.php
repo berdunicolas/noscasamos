@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class FloatButton extends Component
 {
-    public string $id = ModuleTypeEnum::FLOAT_BUTTON['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::FLOAT_BUTTON['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

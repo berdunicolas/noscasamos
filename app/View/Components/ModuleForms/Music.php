@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Music extends Component
 {
-    public string $id = ModuleTypeEnum::MUSIC['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::MUSIC['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

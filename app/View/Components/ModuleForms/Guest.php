@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Guest extends Component
 {
-    public string $id = ModuleTypeEnum::GUEST['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::GUEST['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

@@ -1,7 +1,7 @@
 <div id="{{$id}}" class="module-form visually-hidden">
-    <h4>Info</h4>
+    <h4>{{$module['display_name']}}</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName" :displayName="$module['display_name']">
         <div class="mb-3">
             <x-form.input
                 name="icon"

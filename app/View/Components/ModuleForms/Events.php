@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Events extends Component
 {
-    public string $id = ModuleTypeEnum::EVENTS['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::EVENTS['display_name'] . '-module-form';
     public array $events;
 
     /**

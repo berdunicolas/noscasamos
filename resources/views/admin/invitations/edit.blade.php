@@ -483,11 +483,11 @@
             </form>
             <div class="tab-form px-3 visually-hidden d-flex flex-row nowrap" id="modules-form">
                 <div class="w-25">
-                    <h4 class="py-2">Módulos<button type="button" class="ms-2 btn btn-white btn-sm"><i class="fa-light fa-plus"></i></button></h4>
+                    <h4 class="py-2">Módulos<button type="button" class="ms-2 btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#new-module-modal"><i class="fa-light fa-plus"></i></button></h4>
                     <div>
                         <ul id="invitation-modules" class="invitation-modules">
                             @foreach ($invitation->modules as $module)                                
-                                <li class="item-module shadow-sm mb-2 {{ $module['fixed'] ? 'fixed-module' : '' }}" data-module-id="{{ $module['name'] }}">
+                                <li class="item-module shadow-sm mb-2 {{ $module['fixed'] ? 'fixed-module' : '' }}" data-module-id="{{ $module['display_name'] }}">
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
                                             <i class="fa-light {{($module['fixed']) ? '' : 'fa-grip-dots-vertical'}} me-2"></i><b>{{$module['display_name']}}</b>
@@ -495,7 +495,8 @@
                                         @if (!$module['on_plan'])
                                             <button class="btn btn-sm btn-white" onclick="deleteModule()"><i class="fa-light fa-trash-can"></i></button>
                                         @endif
-                                        <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
+
+                                        <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['display_name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
                                         <div class="form-check form-switch form-check-reverse">
                                             <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" onchange="statusModuleSwitch(this, '{{ $module['name'] }}')" {{($module['active']) ? 'checked' : ''}}>
                                         </div>
@@ -517,20 +518,51 @@
 
     <div class="modal" id="save-changes-modal" tabindex="-1">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title"><i class="fa-light fa-triangle-exclamation me-2"></i>Cambios sin guardar</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fa-light fa-triangle-exclamation me-2"></i>Cambios sin guardar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Esta seguro de salir sin guardar los cambios?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" onclick="changeFormTab()" data-bs-dismiss="modal"><span class="mx-3">Salir</span></button>
+                </div>
             </div>
-            <div class="modal-body">
-              <p>¿Esta seguro de salir sin guardar los cambios?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-dark" onclick="changeFormTab()" data-bs-dismiss="modal"><span class="mx-3">Salir</span></button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
+
+    <div class="modal fade" id="new-module-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form method="POST" action="{{route('api.invitation.add-module', ['invitation' => $invitation->id])}}" onsubmit="newModule(event, this)">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir modulo</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <x-form.select
+                            id="module-select"
+                            name="new_module"
+                            label="Modulos disponibles"
+                        >
+                            @foreach ($availableModules as $available)
+                                <x-form.select-option
+                                    value="{{$available['name']}}"
+                                    label="{{$available['display_name']}}"
+                                />
+                            @endforeach
+                        </x-form.select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-dark"><span class="mx-1">Añadir</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script>
         window.INVITATION_MODULES_URL = "{{ route('api.invitation.modules', $invitation->id) }}";

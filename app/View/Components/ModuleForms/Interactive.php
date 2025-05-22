@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Interactive extends Component
 {
-    public string $id = ModuleTypeEnum::INTERACTIVE['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::INTERACTIVE['display_name'] . '-module-form';
     public array $interactives;
 
     /**

@@ -4,7 +4,7 @@ $modules = [];
 
 foreach($invitation->modules as $module) {
     if($module['active']){
-        $modules[] = App\Enums\ModuleTypeEnum::getModuleComponent($module['name'], $invitation);
+        $modules[] = App\Enums\ModuleTypeEnum::getModuleComponent($module, $invitation);
     }
 }
 
@@ -65,7 +65,6 @@ $tituloYBajada =  $invitation->tituloYBajada();
         <!-- ************************************************************************************************************
                             INVITACIÓN
         **************************************************************************************************************-->
-
 @foreach ($modules as $module)
 {!!$module!!}
 @endforeach

@@ -457,6 +457,27 @@ final class ModuleTypeEnum
         return array_filter(self::values());
     }
 
+    public static function availableModules(array $modules): array
+    {
+        $fullModules = self::goldModules();
+        $result = array_udiff($fullModules, $modules, function ($itemfull, $item) {
+            return strcmp($itemfull['name'], $item['name']);
+        });
+
+
+        $newModules = array_column($result, 'name');
+        $alwaysAvailable = [self::INFO, self::HIGHLIGHTS, self::HISTORY];
+
+        foreach ($alwaysAvailable as $item) {
+            if (!in_array($item['name'], $newModules)) {
+                $result[] = $item;
+                $newModules[] = $item['name'];
+            }
+        }
+
+        return $result;
+    }
+
     public static function fixedModules(): array
     {
         return array_filter(self::values(), fn($config) => $config['fixed'] === true);
@@ -476,7 +497,7 @@ final class ModuleTypeEnum
         };
     }
 
-    public static function getModuleForm(string $name, Invitation $invitation) {
+    public static function getModuleForm(string $name, Invitation $invitation, $displayName) {
         $form = match($name){
             'INTRO' => new Intro($invitation->id),
             'MUSIC' => new Music($invitation->id),
@@ -486,9 +507,9 @@ final class ModuleTypeEnum
             'SAVE_DATE' => new SaveDate($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'WELCOME' => new Welcome($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'EVENTS' => new Events($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'HISTORY' => new History($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'INFO' => new Info($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'HIGHLIGHTS' => new Highlights($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
+            'HISTORY' => new History($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name, $displayName)),
+            'INFO' => new Info($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name, $displayName)),
+            'HIGHLIGHTS' => new Highlights($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name, $displayName)),
             'INTERACTIVE' => new Interactive($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'VIDEO' => new Video($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'SUGGESTIONS' => new Suggestions($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
@@ -500,16 +521,16 @@ final class ModuleTypeEnum
         return Blade::renderComponent($form);
     }
 
-    public static function getModuleComponent(string $name, Invitation $invitation) {
+    public static function getModuleComponent(array $module, Invitation $invitation) {
 
-        $module = match($name){
-            'INTRO' => new IntroModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->style->value),
-            'MUSIC' => new MusicModule(self::getModuleFromArrayByName($invitation->modules, $name)),
-            'FLOAT_BUTTON' => new FloatButtonModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->color),
-            'COVER' => new CoverModule(self::getModuleFromArrayByName($invitation->modules, $name), $invitation->host_names, $invitation->meta_title, $invitation->color, $invitation->background_color),
-            'GUEST' => new GuestModule(self::getModuleFromArrayByName($invitation->modules, $name)),
+        $module = match($module['name']){
+            'INTRO' => new IntroModule($module, $invitation->style->value),
+            'MUSIC' => new MusicModule($module),
+            'FLOAT_BUTTON' => new FloatButtonModule($module, $invitation->color),
+            'COVER' => new CoverModule($module, $invitation->host_names, $invitation->meta_title, $invitation->color, $invitation->background_color),
+            'GUEST' => new GuestModule($module),
             'SAVE_DATE' => new SaveDateModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->meta_title,
                 $invitation->date,
                 $invitation->time,
@@ -521,14 +542,14 @@ final class ModuleTypeEnum
                 $invitation->frameImg(),
                 $invitation->padding,
             ),
-            'WELCOME' => new WelcomeModule(self::getModuleFromArrayByName(
-                $invitation->modules, $name), 
+            'WELCOME' => new WelcomeModule(
+                $module, 
                 $invitation->icon_type,
                 $invitation->style->value,
                 $invitation->color,
             ),
             'EVENTS' => new EventsModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->icon_type,
                 $invitation->style->value,
                 $invitation->color,
@@ -536,11 +557,11 @@ final class ModuleTypeEnum
                 $invitation->padding,
             ),
             'HISTORY' => new HistoryModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->icon_type,
             ),
             'INFO' => new InfoModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->style->value,
                 $invitation->color,
                 $invitation->icon_type,
@@ -548,7 +569,7 @@ final class ModuleTypeEnum
                 $invitation->padding,
             ),
             'HIGHLIGHTS' => new HighlightsModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->style->value,
                 $invitation->color,
                 $invitation->icon_type,
@@ -556,7 +577,7 @@ final class ModuleTypeEnum
                 $invitation->padding,
             ),
             'INTERACTIVE' => new InteractiveModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->style->value,
                 $invitation->color,
                 $invitation->icon_type,
@@ -564,7 +585,7 @@ final class ModuleTypeEnum
                 $invitation->padding,
             ),
             'VIDEO' => new VideoModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->style->value,
                 $invitation->color,
                 $invitation->icon_type,
@@ -572,7 +593,7 @@ final class ModuleTypeEnum
                 $invitation->padding,
             ),
             'SUGGESTIONS' => new SuggestionsModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->style->value,
                 $invitation->color,
                 $invitation->icon_type,
@@ -580,7 +601,7 @@ final class ModuleTypeEnum
                 $invitation->padding,
             ),
             'GALERY' => new GaleryModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->style->value,
                 $invitation->color,
                 $invitation->icon_type,
@@ -588,7 +609,7 @@ final class ModuleTypeEnum
                 $invitation->padding,
             ),
             'GIFTS' => new GiftsModule(
-                self::getModuleFromArrayByName($invitation->modules, $name),
+                $module,
                 $invitation->style->value,
                 $invitation->color,
                 $invitation->icon_type,
@@ -596,7 +617,7 @@ final class ModuleTypeEnum
                 $invitation->padding,
             ),
             'CONFIRMATION' => new ConfirmationModule(
-                self::getModuleFromArrayByName($invitation->modules, $name), 
+                $module, 
                 $invitation->path_name,
                 $invitation->style->value,
                 $invitation->color,
@@ -609,9 +630,21 @@ final class ModuleTypeEnum
         return Blade::renderComponent($module);
     }
 
-    public static function getModuleFromArrayByName(array $modules, string $name): array
+    public static function getModuleFromArrayByName(array $modules, string $name, ?string $displayName = null): array
     {
-        return array_values(array_filter($modules, fn($module) => $module['name'] === $name))[0];
+        return array_values(array_filter($modules, function ($module) use ($name, $displayName) {
+            if($displayName!==null){
+                if($module['name'] === $name && $displayName === $module['display_name']){
+                    return true;
+                }
+            } else {
+                if($module['name'] === $name){
+                    return true;
+                }
+            }
+
+            return false;
+        }))[0];
     }
 
     public static function getModuleRequestRules(string $name): array
@@ -997,15 +1030,23 @@ final class ModuleTypeEnum
         return $rules;
     }
 
-    public static function updateModuleHandle(Invitation $invitation, string $name, array $data): array
+    public static function updateModuleHandle(Invitation $invitation, string $name, array $data, ?string $displayName = null): array
     {
         $modules = $invitation->modules;
-        $updateTask = function ($modules, $name, $data): array{
+        $updateTask = function ($modules, $name, $data) use ($displayName): array{
             
             foreach($modules as $index => $item){
-                if($item['name'] == $name){
-                    $modules[$index] = array_merge($modules[$index], $data);
-                    break;
+
+                if($displayName === null){
+                    if($item['name'] == $name){
+                        $modules[$index] = array_merge($modules[$index], $data);
+                        break;
+                    }
+                } else {
+                    if($item['name'] == $name && $item['display_name'] == $displayName){
+                        $modules[$index] = array_merge($modules[$index], $data);
+                        break;
+                    }
                 }
             }
             return $modules;
@@ -1212,12 +1253,12 @@ final class ModuleTypeEnum
                 }
                 return $modules;
             })(),
-            'HISTORY' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media(self::HISTORY['name'])->each(function ($media) {
+            'HISTORY' => (function () use ($invitation, $modules, $name, $data, $updateTask, $displayName){
+                $invitation->media(self::HISTORY['name'])->where('file_path', 'like', '%'.$displayName.'%')->each(function ($media) {
                     $media->delete();
                 });
 
-                if(isset($data['image'])) $invitation->addMedia($data['image'], self::HISTORY['name'], $invitation->path_name);
+                if(isset($data['image'])) $invitation->addMedia($data['image'], self::HISTORY['name'], $invitation->path_name.'/'.$displayName);
                 $invitation->refresh();
 
                 return $updateTask($modules, $name, [
@@ -1227,15 +1268,15 @@ final class ModuleTypeEnum
                     /*'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_url' => $data['button_url'],*/
-                    'image' => $invitation->media(self::HISTORY['name'])->first()?->getMediaUrl()
+                    'image' => $invitation->media(self::HISTORY['name'])->where('file_path', 'like', '%'.$displayName.'%')->first()?->getMediaUrl()
                 ]);
             })(),
-            'INFO' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media(self::INFO['name'])->each(function ($media) {
+            'INFO' => (function () use ($invitation, $modules, $name, $data, $updateTask, $displayName){
+                $invitation->media(self::INFO['name'])->where('file_path', 'like', '%'.$displayName.'%')->each(function ($media) {
                     $media->delete();
                 });
 
-                if(isset($data['image'])) $invitation->addMedia($data['image'], self::INFO['name'], $invitation->path_name);
+                if(isset($data['image'])) $invitation->addMedia($data['image'], self::INFO['name'], $invitation->path_name.'/'.$displayName);
                 $invitation->refresh();
 
                 return $updateTask($modules, $name, [
@@ -1246,15 +1287,15 @@ final class ModuleTypeEnum
                     'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_url' => $data['button_url'],
-                    'image' => $invitation->media(self::INFO['name'])->first()?->getMediaUrl()
+                    'image' => $invitation->media(self::INFO['name'])->where('file_path', 'like', '%'.$displayName.'%')->first()?->getMediaUrl()
                 ]);
             })(),
-            'HIGHLIGHTS' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media(self::HIGHLIGHTS['name'])->each(function ($media) {
+            'HIGHLIGHTS' => (function () use ($invitation, $modules, $name, $data, $updateTask, $displayName){
+                $invitation->media(self::HIGHLIGHTS['name'])->where('file_path', 'like', '%'.$displayName.'%')->each(function ($media) {
                     $media->delete();
                 });
 
-                if(isset($data['image'])) $invitation->addMedia($data['image'], self::HIGHLIGHTS['name'], $invitation->path_name);
+                if(isset($data['image'])) $invitation->addMedia($data['image'], self::HIGHLIGHTS['name'], $invitation->path_name.'/'.$displayName);
                 $invitation->refresh();
 
                 return $updateTask($modules, $name, [
@@ -1264,7 +1305,7 @@ final class ModuleTypeEnum
                     'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_url' => $data['button_url'],
-                    'image' => $invitation->media(self::HIGHLIGHTS['name'])->first()?->getMediaUrl()
+                    'image' => $invitation->media(self::HIGHLIGHTS['name'])->where('file_path', 'like', '%'.$displayName.'%')->first()?->getMediaUrl()
                 ]);
             })(),
             'INTERACTIVE' => (function () use ($invitation, $modules, $name, $data, $updateTask){

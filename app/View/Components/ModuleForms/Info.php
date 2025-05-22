@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Info extends Component
 {
-    public string $id = ModuleTypeEnum::INFO['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::INFO['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.
@@ -18,7 +18,11 @@ class Info extends Component
         public int $invitationId,
         public array $module = [],
         public string $moduleName = ModuleTypeEnum::INFO['name'],
-    ) {}
+    ) {
+        if($this->module['display_name'] != ModuleTypeEnum::INFO['display_name']){
+            $this->id = $this->module['display_name'] . '-module-form';
+        }
+    }
 
     /**
      * Get the view / contents that represent the component.

@@ -18,7 +18,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Storage;
 
 class InvitationApiController extends Controller
 {
@@ -174,6 +174,15 @@ class InvitationApiController extends Controller
             if($invitation->event->invitations()->count() == 1){
                 $invitation->event->delete();
             }
+            $invitation->media()->each(function ($media) {
+                $media->delete();
+            });
+
+            $folderPath = "{$invitation->path_name}";
+            if (Storage::exists($folderPath)) {
+                Storage::deleteDirectory($folderPath);
+            }
+
             $invitation->delete();
             DB::commit();
 
