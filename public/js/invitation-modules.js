@@ -160,7 +160,6 @@ function newModule(e, form){
         if(statusCode === 201){
 
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
-            location.href = location.href;
         } else {
             if(statusCode === 422){
                 mapErrorsToast(data.errors, data.message);
@@ -171,6 +170,31 @@ function newModule(e, form){
     })
     .catch(error => console.error('Error:', error));
 
+}
+
+function deleteModule(button) {
+    const url = button.getAttribute('data-url');
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            //'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+        }
+        
+        const li = button.closest('li');
+        if (li) li.remove();
+        showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+    })
+    .catch(error => {
+        console.error(error);
+    });
 }
 
 

@@ -112,19 +112,24 @@ class InvitationModuleApiController extends Controller
 
         $modules = [];
 
-        foreach($invitation->modules as $item){
-            if($displayName === null){
-                if($item['name'] != $module){
-                    $modules[] = $item;
+        if($displayName === null){
+            foreach($invitation->modules as $item){
+                if($item['name'] == $module) continue;
+            
+                $modules[] = $item;
+            }
+        } else {
+            foreach($invitation->modules as $item){
+                if($item['name'] == $module && $item['display_name'] == $displayName) {
+                    continue;
                 }
-            } else {
-                if($item['name'] != $module && $item['display_name'] == $displayName){
-                    $modules[] = $item;
-                }
+                
+                $modules[] = $item;
             }
         }
-
+        
         $invitation->modules = $modules;
+        $invitation->save();
 
         return response()->json([
             'message' => 'Module ' . $module . ' deleted successfully.'

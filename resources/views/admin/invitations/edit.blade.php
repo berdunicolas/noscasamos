@@ -493,7 +493,7 @@
                                             <i class="fa-light {{($module['fixed']) ? '' : 'fa-grip-dots-vertical'}} me-2"></i><b>{{$module['display_name']}}</b>
                                         </div>
                                         @if (!$module['on_plan'])
-                                            <button class="btn btn-sm btn-white" onclick="deleteModule()"><i class="fa-light fa-trash-can"></i></button>
+                                            <button class="btn btn-sm btn-white" data-url="{{route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $module['name'], 'displayName' => $module['display_name']])}}" onclick="deleteModule(this)"><i class="fa-light fa-trash-can"></i></button>
                                         @endif
 
                                         <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['display_name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
