@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Suggestions extends Component
 {
-    public string $id = ModuleTypeEnum::SUGGESTIONS['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::SUGGESTIONS['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

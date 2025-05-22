@@ -5,10 +5,8 @@ use App\Http\Controllers\Api\SellerApiController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\InvitationModuleApiController;
-use App\View\Components\Modules\Example;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\View\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,8 +49,11 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
 
     Route::get('intivations/{invitation}/modules', [InvitationModuleApiController::class, 'getInvitationModules'])->name('invitation.modules');
     Route::patch('intivations/{invitation}/modules/change-order', [InvitationModuleApiController::class, 'changeModolesOrder'])->name('invitation.modules.change-order');
-    Route::patch('intivations/{invitation}/modules/{module}/change-status', [InvitationModuleApiController::class, 'changeModuleStatus'])->name('invitation.modules.change-order');
-    Route::patch('invitations/{invitation}/modules/{module}', [InvitationModuleApiController::class, 'updateModule'])->name('invitation.modules.update');
+    Route::patch('intivations/{invitation}/modules/{module}/change-status/{displayName?}', [InvitationModuleApiController::class, 'changeModuleStatus'])->name('invitation.modules.change-order');
+    Route::patch('invitations/{invitation}/modules/{module}/{displayName?}', [InvitationModuleApiController::class, 'updateModule'])->name('invitation.modules.update');
+    Route::get('invitations/{invitation}/modules/available-modules', [InvitationModuleApiController::class, 'availableModules'])->name('invitation.available-modules');
+    Route::delete('invitations/{invitation}/modules/{module}/delete-module/{displayName?}', [InvitationModuleApiController::class, 'deleteModule'])->name('invitation.delete-module');
+    Route::post('invitations/{invitation}/modules/add-module', [InvitationModuleApiController::class, 'addModule'])->name('invitation.add-module');
 });
 
 Route::post('/{invitation:path_name}/confirm-invitation', [GuestController::class, 'store'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('api.invitation.store');

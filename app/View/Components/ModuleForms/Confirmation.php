@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Confirmation extends Component
 {
-    public string $id = ModuleTypeEnum::CONFIRMATION['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::CONFIRMATION['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

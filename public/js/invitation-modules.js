@@ -91,7 +91,6 @@ function statusModuleSwitch(checkbox, module){
     .catch(error => console.error('Error:', error));
 }
 
-
 function showForm(element, name){
     //if(name + '-module-form' === actualForm) return;
 /*
@@ -139,6 +138,66 @@ function hideModuleForms() {
     });
 }
 
+function newModule(e, form){
+    e.preventDefault();
+    let formData = new FormData(form);
+
+    fetch(form.action, {
+        method: form.method,
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });
+    })
+    .then(async ({statusCode, data}) => {
+        if(statusCode === 201){
+
+            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+        } else {
+            if(statusCode === 422){
+                mapErrorsToast(data.errors, data.message);
+            } else {
+                showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            }
+        }
+    })
+    .catch(error => console.error('Error:', error));
+
+}
+
+function deleteModule(button) {
+    const url = button.getAttribute('data-url');
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            //'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+        }
+        
+        const li = button.closest('li');
+        if (li) li.remove();
+        showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+
 function sendModuleForm(e, form, name = ''){
     e.preventDefault();
     let formData = new FormData(form);
@@ -178,9 +237,13 @@ function sendModuleForm(e, form, name = ''){
     })
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
-            //location.reload();
+            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
         } else {
-            console.error(data);
+            if(statusCode === 422){
+                mapErrorsToast(data.errors, data.message);
+            } else {
+                showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            }
         }
     })
     .catch(error => console.error('Error:', error));
@@ -328,23 +391,4 @@ function eliminarImagen(index, btnElement, zoneName) {
     selectedFiles[zoneName][index] = null;
     btnElement.parentElement.remove();
 }
-/*
-function enviarFormulario(event) {
-    event.preventDefault();
 
-    const formData = new FormData();
-    selectedFiles.forEach(file => {
-        if (file) {
-            formData.append('images[]', file);
-        }
-    });
-
-    fetch('/ruta/a/tu/backend', {
-        method: 'POST',
-        body: formData
-    })
-    .then(resp => resp.json())
-    .then(data => console.log(data))
-    .catch(err => console.error(err));
-}
-*/

@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class Gifts extends Component
 {
-    public string $id = ModuleTypeEnum::GIFTS['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::GIFTS['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.

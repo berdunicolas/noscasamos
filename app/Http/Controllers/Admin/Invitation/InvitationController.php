@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Invitation;
 
 use App\Enums\EventTypeEnum;
 use App\Enums\FontTypeEnum;
+use App\Enums\ModuleTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\SpacingTypeEnum;
 use App\Enums\StyleTypeEnum;
@@ -46,6 +47,7 @@ class InvitationController extends Controller
         $spacingTypes = SpacingTypeEnum::values();
         $sellers = Seller::select('id', 'name')->get();
         $fontTypes = FontTypeEnum::values();
+        $availableModules = ModuleTypeEnum::availableModules($invitation->modules);
 
         return view('admin.invitations.edit', [
             'invitation' => $invitation, 
@@ -59,6 +61,7 @@ class InvitationController extends Controller
             'fontTypes' => $fontTypes,
             'sellers' => $sellers,
             'con' => $con,
+            'availableModules' => $availableModules,
         ]);
     }
 }

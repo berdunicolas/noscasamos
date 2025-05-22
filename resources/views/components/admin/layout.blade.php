@@ -18,14 +18,46 @@
 
 
 </head>
-<body class="h-100 d-flex">
-    <x-admin.nav-bar :selected="$navBarSelected" />
-    <main class="content">
-        {{ $slot }}
-    </main>
+<body class="h-100 ">
+    <div class="h-100 d-flex">
+        <x-admin.nav-bar :selected="$navBarSelected" />
+        <main class="content">
+            {{ $slot }}
+        </main>
+    </div>
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+        <!-- Position it: -->
+        <!-- - `.toast-container` for spacing between toasts -->
+        <!-- - `top-0` & `end-0` to position the toasts in the upper right corner -->
+        <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
+        <div class="toast-container bottom-50 end-0 p-3 pb-5" id="toast-containter">
+            <!-- Then put toasts within -->
+            <div
+                class="toast align-items-center text-bg-dark border-0"
+                id="toast-model"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+            >
+                <div class="d-flex">
+                    <div class="toast-body">
+                    </div>
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white me-2 m-auto"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"
+                    ></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     {{--
     <div class="h-100 d-flex">
     </div>--}}
+    <script src="{{ asset('js/toasts.js') }}"></script>
     @if ($datatable)
     <script src="{{ asset('inspinia/plugins/jquery/js/jquery.min.js') }}"></script>
 

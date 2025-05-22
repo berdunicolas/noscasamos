@@ -135,7 +135,7 @@ function renderDatatable(){
         })
         .then(async response => {
         
-            if (!response.ok) throw new Error("Error en la clonación");
+            if (!response.ok) showToast('<i class="fa-duotone fa-light fa-triangle-exclamation ms-3 me-2"></i>' + "<b>Error</b> en la clonación");
             
             return await response.json();
         })
@@ -143,6 +143,7 @@ function renderDatatable(){
             const parentRow = button.closest('tr');
 
             const newRow = datatable.row.add(data.data).draw().node();
+            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
         })
         .catch(err => {
             console.error(err);

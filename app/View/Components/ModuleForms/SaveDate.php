@@ -9,7 +9,7 @@ use Illuminate\View\Component;
 
 class SaveDate extends Component
 {
-    public string $id = ModuleTypeEnum::SAVE_DATE['name'] . '-module-form';
+    public string $id = ModuleTypeEnum::SAVE_DATE['display_name'] . '-module-form';
 
     /**
      * Create a new component instance.
