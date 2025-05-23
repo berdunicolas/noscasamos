@@ -1,5 +1,5 @@
 <div id="{{$id}}" class="module-form visually-hidden">
-    <h4>Info</h4>
+    <h4>Galeria</h4>
 
     <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
         <div class="mb-3">
@@ -8,7 +8,7 @@
                 label="Icono"
                 type="text"
                 placeholder="fa-heart"
-                value="{{$module['icon']}}"
+                value="{{$module['icon'] ?? $module['icon']}}"
             />
         </div>
         <div class="row mb-3">
