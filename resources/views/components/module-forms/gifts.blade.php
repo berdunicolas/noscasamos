@@ -142,8 +142,28 @@
                                     name="first_account_value"
                                     label="Valor de dato principal"
                                     type="text"
-                                    placeholder="0000000000000000000000"
+                                    placeholder="Copiar"
                                     value="{{$module['first_account']['value']}}"
+                                />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="first_account_copy_button_text"
+                                    label="Texto boton de copiar"
+                                    type="text"
+                                    placeholder="CBU"
+                                    value="{{$module['first_account']['copy_button_text']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <x-form.input
+                                    name="first_account_copy_message"
+                                    label="Mensaje de copiado"
+                                    type="text"
+                                    placeholder="Copiado"
+                                    value="{{$module['first_account']['copy_message']}}"
                                 />
                             </div>
                         </div>

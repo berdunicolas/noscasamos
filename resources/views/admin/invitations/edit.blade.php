@@ -539,7 +539,7 @@
                 <form method="POST" action="{{route('api.invitation.add-module', ['invitation' => $invitation->id])}}" onsubmit="newModule(event, this)">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir modulo</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" id="close-new-module-modal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <x-form.select

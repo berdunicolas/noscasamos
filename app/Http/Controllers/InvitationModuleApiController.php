@@ -133,7 +133,7 @@ class InvitationModuleApiController extends Controller
 
         return response()->json([
             'message' => 'Module ' . $module . ' deleted successfully.'
-        ]);
+        ], Response::HTTP_OK);
     }
 
     public function addModule(Invitation $invitation, Request $request) {
@@ -192,6 +192,6 @@ class InvitationModuleApiController extends Controller
 
         return response()->json([
             'message' => 'Module ' . $module . ' added successfully.'
-        ]);
+        ], Response::HTTP_CREATED);
     }
 }

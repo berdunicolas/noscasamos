@@ -1,5 +1,4 @@
 @php
-$icontype = "a"; // Tipo de icono a = Animado
 $trigger = "loop"; // Animación de icono
 $stroke = "light"; // Estilo de Icono = light regular bold
 
@@ -10,11 +9,11 @@ $galeriaicon = "wsaaegar";
 
 
 <section class="gallery" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} background-image: url('{{(!empty($marco)) ? $marco : ''}}'); background-repeat:repeat-x;">
-    @empty(!$galeriaicon)
-        @if($icontype==='a')
-            <lord-icon class="wow animate__animated animate__fadeInUp icon" data-wow-duration="1s" src="https://cdn.lordicon.com/{{$galeriaicon}}.json" trigger="{{$trigger}}" state="{{$galeriaicons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="Dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
+    @empty(!$module['icon'])
+        @if($icontype==='Animado')
+            <lord-icon class="wow animate__animated animate__fadeInUp icon" data-wow-duration="1s" src="https://cdn.lordicon.com/{{$module['icon']}}.json" trigger="{{$trigger}}" state="{{$galeriaicons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="Dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
         @else
-            <i class="fa-thin {{$galeriaiconf}} wow animate__animated animate__fadeInUp" data-wow-duration="1s"></i>
+            <i class="fa-thin {{$module['icon']}} wow animate__animated animate__fadeInUp" data-wow-duration="1s"></i>
         @endif
     @endempty
     <br/>
