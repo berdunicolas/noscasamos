@@ -141,6 +141,7 @@ function hideModuleForms() {
 function newModule(e, form){
     e.preventDefault();
     let formData = new FormData(form);
+    let closeModal = document.getElementById('close-new-module-modal');
 
     fetch(form.action, {
         method: form.method,
@@ -154,17 +155,17 @@ function newModule(e, form){
         const statusCode = response.status;
         const text = await response.text();
         const data = text ? JSON.parse(text) : {};
+        closeModal.click();
         return ({ statusCode, data });
     })
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
-
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
         } else {
             if(statusCode === 422){
                 mapErrorsToast(data.errors, data.message);
             } else {
-                showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+                showToast( '<i class="fa-duotone fa-light fa-triangle-exclamation ms-3 me-2"></i>' + data.message);
             }
         }
     })
@@ -183,14 +184,20 @@ function deleteModule(button) {
             'Accept': 'application/json',
         },
     })
-    .then(response => {
-        if (!response.ok) {
-            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
-        }
-        
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });
+    })
+    .then(async ({statusCode, data}) => {
         const li = button.closest('li');
-        if (li) li.remove();
-        showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+        if (statusCode === 200) {
+            if (li) li.remove();
+            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+        }else{
+            showToast( '<i class="fa-duotone fa-light fa-triangle-exclamation ms-3 me-2"></i>' + data.message);
+        }
     })
     .catch(error => {
         console.error(error);

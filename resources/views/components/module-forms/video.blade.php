@@ -2,15 +2,6 @@
     <h4>Video</h4>
 
     <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
-        <div class="mb-3">
-            <x-form.input
-                name="icon"
-                label="Icono"
-                type="text"
-                placeholder="fa-heart"
-                value="{{$module['icon']}}"
-            />
-        </div>
         <div class="row mb-3">
             <div class="col-6">
                 <x-form.input

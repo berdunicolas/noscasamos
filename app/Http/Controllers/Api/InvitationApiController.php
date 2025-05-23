@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
+use App\Enums\StyleTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInvitationRequest;
 use App\Http\Requests\SetConfigInvitationRequest;
@@ -65,7 +66,12 @@ class InvitationApiController extends Controller
                 'meta_description' => null,
                 'country_id' => null,
                 'country_division' => null,
-                'modules' => $plan->toArray()
+                'modules' => $plan->toArray(),
+                'color' => '#E2BF83',
+                'background_color' => '#F3F1ED',
+                'style' => StyleTypeEnum::LIGHT,
+                'font' => FontTypeEnum::deco,
+                'icon_type' => 'Animado',
             ]);
 
             DB::commit();
