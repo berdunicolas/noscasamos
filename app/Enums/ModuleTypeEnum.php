@@ -490,6 +490,18 @@ final class ModuleTypeEnum
         return (new \ReflectionClass(self::class))->getConstants();
     }
 
+    public static function syncModule(array $module): array 
+    {
+        $modulePattern = (new \ReflectionClass(self::class))->getConstant($module['name']);
+
+        foreach($modulePattern as $key => $item){
+            if(!isset($module[$key])){
+                $module[$key] = $item;
+            }
+        }
+        return $module;
+    }
+
     public static function getModulesByPlan(string $plan): array
     {
         return match($plan) {

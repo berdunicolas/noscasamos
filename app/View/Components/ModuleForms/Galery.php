@@ -18,7 +18,10 @@ class Galery extends Component
         public int $invitationId,
         public array $module = [],
         public string $moduleName = ModuleTypeEnum::GALERY['name'],
-    ) {}
+    ) {
+        $this->module = ModuleTypeEnum::syncModule($this->module);
+
+    }
 
     /**
      * Get the view / contents that represent the component.
