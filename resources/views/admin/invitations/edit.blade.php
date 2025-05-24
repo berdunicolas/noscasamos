@@ -566,6 +566,8 @@
 
     <script>
         window.INVITATION_MODULES_URL = "{{ route('api.invitation.modules', $invitation->id) }}";
+        window.COUNTRY_DIVISIONS = "{{ route('api.countries-divisions') }}";
+        window.VALIDATE_INVITATION = "{{ route('api.validate-invitation') }}";
     </script>
     <script src="{{ asset('inspinia/plugins/jquery/js/jquery.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/jquery-ui/js/jquery-ui.min.js') }}"></script>

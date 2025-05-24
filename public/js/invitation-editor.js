@@ -140,7 +140,7 @@ function loadCountryDivisions(){
     let country = document.getElementById('country-select').value;
     let countryDivisions = document.getElementById('country-division-select');
 
-    fetch("http://127.0.0.1:8000/api/country-divisions/" + country, {})
+    fetch(window.COUNTRY_DIVISIONS + "/" + country, {})
     .then(async response => {
         const statusCode = response.status;
         const text = await response.text();
@@ -173,7 +173,7 @@ function checkPathName(e){
         e.classList.remove('is-valid');
         return;
     }
-    fetch("http://127.0.0.1:8000/api/validate-invitation/" + pathName, {})
+    fetch(window.VALIDATE_INVITATION + "/" + pathName, {})
     .then(async response => {
         const statusCode = response.status;
         const text = await response.text();

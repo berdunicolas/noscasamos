@@ -32,7 +32,7 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::patch('invitations/{invitation}/change-status', [InvitationApiController::class, 'changeStatus'])->name('invitations.change-status');
     Route::get('invitations/{invitation}/clone', [InvitationApiController::class, 'clone'])->name('invitations.clone');
 
-    Route::get('validate-invitation/{path_name}', function($path_name){
+    Route::get('validate-invitation/{path_name?}', function($path_name = null){
         $invitation = \App\Models\Invitation::select('path_name')->where('path_name', $path_name)->count();
         if ($invitation > 0) {
             return response()->json([
@@ -45,7 +45,7 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
                 'status' => true
             ], 200);
         }
-    });
+    })->name('validate-invitation');
 
     Route::get('intivations/{invitation}/modules', [InvitationModuleApiController::class, 'getInvitationModules'])->name('invitation.modules');
     Route::patch('intivations/{invitation}/modules/change-order', [InvitationModuleApiController::class, 'changeModolesOrder'])->name('invitation.modules.change-order');
@@ -58,7 +58,7 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
 
 Route::post('/{invitation:path_name}/confirm-invitation', [GuestController::class, 'store'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('api.invitation.store');
 
-Route::get('/country-divisions/{code}', function ($code) {
+Route::get('/country-divisions/{code?}', function ($code = null) {
     $divisions = \App\Models\CountryDivision::select('id', 'state_name')->where('country_code', $code)->get();
 
     return response()->json([
