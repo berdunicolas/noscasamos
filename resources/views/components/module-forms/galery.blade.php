@@ -8,7 +8,7 @@
                 label="Icono"
                 type="text"
                 placeholder="fa-heart"
-                value="{{$module['icon'] ?? $module['icon']}}"
+                value="{{$module['icon']}}"
             />
         </div>
         <div class="row mb-3">
