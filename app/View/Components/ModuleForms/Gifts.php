@@ -18,7 +18,9 @@ class Gifts extends Component
         public int $invitationId,
         public array $module = [],
         public string $moduleName = ModuleTypeEnum::GIFTS['name'],
-    ) {}
+    ) {
+        $this->module = ModuleTypeEnum::syncModule($this->module);
+    }
 
     /**
      * Get the view / contents that represent the component.

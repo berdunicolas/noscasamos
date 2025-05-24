@@ -20,7 +20,6 @@ class Galery extends Component
         public string $moduleName = ModuleTypeEnum::GALERY['name'],
     ) {
         $this->module = ModuleTypeEnum::syncModule($this->module);
-
     }
 
     /**
