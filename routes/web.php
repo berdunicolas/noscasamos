@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Invitation\InvitationController;
+use App\Http\Controllers\Admin\MetricsController;
 use App\Http\Controllers\Admin\Seller\SellerController;
 use App\Http\Controllers\Admin\Settings\SettingsController;
 use App\Http\Controllers\Admin\User\RegisteredUserController;
@@ -37,6 +38,7 @@ if(config('app.env') == 'production') {
             Route::post('/sellers/{seller}', [SellerController::class, 'update'])->name('sellers.update');
             Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
             Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
+            Route::get('/metrics', [MetricsController::class, 'index'])->name('metrics.index');
             Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
             Route::post('/settings/invitations', [SettingsController::class, 'invitationsStore'])->name('settings.invitations.store');
         });
@@ -57,6 +59,7 @@ if(config('app.env') == 'production') {
         Route::post('/sellers/{seller}', [SellerController::class, 'update'])->name('sellers.update');
         Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
         Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
+        Route::get('/metrics', [MetricsController::class, 'index'])->name('metrics.index');
         Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('/settings/invitations', [SettingsController::class, 'invitationsStore'])->name('settings.invitations.store');
     });

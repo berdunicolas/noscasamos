@@ -37,6 +37,11 @@ class Event extends Model
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 
+    public function countryDivision(): BelongsTo
+    {
+        return $this->belongsTo(CountryDivision::class, 'country_division_id', 'id');
+    }
+
     public function invitations(): HasMany
     {
         return $this->hasMany(Invitation::class, 'event_id', 'id');

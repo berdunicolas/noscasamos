@@ -1,7 +1,7 @@
 @import url("bootstrap/bootstrap.css");
 
 html, body {
-    height: 100%;
+    height: 100% !important;
 }
 
 .bg-gradient-custom {

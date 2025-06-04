@@ -13,9 +13,9 @@
                 <span>{!! ($selected == 'invitations') ? '<i class="fa-solid fa-envelope-open me-2"></i>' : '<i class="fa-light fa-envelope-open me-2"></i>' !!}Invitaciones</span>
             </a>
         </li>
-        <li class="nav-item {{ ($selected == 'statistics') ? 'selected' : '' }}">
-            <a href="" class="nav-link text-dark btn btn-white rounded-0">
-                <span>{!! ($selected == 'statistics') ? '<i class="fa-solid fa-chart-mixed me-2"></i>' : '<i class="fa-light fa-chart-mixed me-2"></i>' !!}Estadisticas</span>
+        <li class="nav-item {{ ($selected == 'metrics') ? 'selected' : '' }}">
+            <a href="{{route('metrics.index')}}" class="nav-link text-dark btn btn-white rounded-0">
+                <span>{!! ($selected == 'metrics') ? '<i class="fa-solid fa-chart-mixed me-2"></i>' : '<i class="fa-light fa-chart-mixed me-2"></i>' !!}Estadisticas</span>
             </a>
         </li>
         <li class="nav-item {{ ($selected == 'users') ? 'selected' : '' }}">

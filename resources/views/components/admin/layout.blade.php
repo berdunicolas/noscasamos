@@ -16,6 +16,10 @@
         <link rel="stylesheet" href="{{ asset('inspinia/plugins/datatables/css/buttons.bootstrap5.min.css') }}">
     @endif
 
+    @foreach ($cssStyles as $style)
+        <link rel="stylesheet" href="{{ $style }}">
+    @endforeach
+
 
 </head>
 <body class="h-100 ">
@@ -83,6 +87,10 @@
 
     <script src="{{ asset('js/' . $dataTableName) }}"></script>
     @endif
+
+    @foreach ($jsScripts as $script)
+        <script src="{{ $script }}"></script>
+    @endforeach
 
 
 </body>
