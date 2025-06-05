@@ -1,4 +1,4 @@
-<nav class="navbar navbar-bg position-relative">
+<nav class="navbar navbar-bg">
     <div class="navbar-logo">
         <img src="{{asset('miscellaneous/Marca-Nos-Casamos.svg')}}" alt="noscasamos logo">
     </div>

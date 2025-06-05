@@ -1,13 +1,13 @@
 <x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true">
-    <div class="container-fluid" >
-        <header class="d-flex flex-row justify-items-between w-100" style="height: 105px">
-            <div>
-                <p style="font-size: 2em;" id="invitation-name" class="m-0">Ajustes</p>      
-            </div>
-        </header>
+    
+    <header class="d-flex flex-row align-items-center" style="height: 105px">
+        <div>
+            <p style="font-size: 2em;" id="invitation-name" class="m-0">Ajustes</p>      
+        </div>
+    </header>
 
         
-    </div>
+    
     <main class="d-flex flex-row">
         <nav class="navbar-secondary">
             <ul class="nav navbar-nav flex-column font-size-2" id="editor-nav-tab">
