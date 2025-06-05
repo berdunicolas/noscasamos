@@ -16,65 +16,6 @@
         </header>
         <div>
             <div>
-                {{--<div class="col-xxl-2 col-lg-12 p-2 d-flex justify-content-between flex-row flex-xxl-column">
-                    <div class="card shadow border-0">
-                        <div class="card-body text-end px-3">
-                            <div class="d-flex flex-row justify-content-between align-items-center">
-                                <div>
-                                    <h3 class="display-3">
-                                        <i class="fa-duotone fa-solid fa-lightbulb-on fa-sm" style="--fa-primary-color: #eef127; --fa-secondary-color: #eef127;"></i>
-                                    </h3>
-                                </div>
-                                <div>
-                                    <h6 class="display-6">
-                                        56
-                                    </h6>
-                                    <p class="m-0">
-                                        Invitaciones activas
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow border-0">
-                        <div class="card-body text-end px-3">
-                            <div class="d-flex flex-row justify-content-between align-items-center">
-                                <div>
-                                    <h3 class="display-3">
-                                        <i class="fa-duotone fa-solid fa-bolt-lightning" style="--fa-primary-color: #86aafe; --fa-secondary-color: #4e8bef; --fa-secondary-opacity: 0.7;"></i>
-                                    </h3>
-                                </div>
-                                <div>
-                                    <h6 class="display-6">
-                                        56
-                                    </h6>
-                                    <p class="m-0">
-                                        Invitaciones activas
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card shadow border-0">
-                        <div class="card-body text-end px-3">
-                            <div class="d-flex flex-row justify-content-between align-items-center">
-                                <div>
-                                    <h3 class="display-3">
-                                        <i class="fa-duotone fa-solid fa-arrow-trend-up" style="--fa-primary-color: #b68211; --fa-secondary-color: #b68211;"></i>
-                                    </h3>
-                                </div>
-                                <div>
-                                    <h6 class="display-6">
-                                        56
-                                    </h6>
-                                    <p class="m-0">
-                                        Invitaciones activas
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>--}}
                 <div class="p-2">
                     <div class="card shadow border-0">
                         <div class="card-body">

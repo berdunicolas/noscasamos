@@ -59,6 +59,7 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::get('metrics/created-invitations-graph', [MetricsApiController::class, 'createdInvitationsGraph'])->name('created-invitations-graph');
     Route::get('metrics/total-invitations-graph', [MetricsApiController::class, 'totalInvitationsGraph'])->name('total-invitations-graph');
     Route::get('metrics/country-invitations-graph', [MetricsApiController::class, 'countryInvitationsGraph'])->name('country-invitations-graph');
+    Route::get('metrics/active-invitations-graph', [MetricsApiController::class, 'activeInvitationsGraph'])->name('active-invitations-graph');
 });
 
 Route::post('/{invitation:path_name}/confirm-invitation', [GuestController::class, 'store'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('api.invitation.store');

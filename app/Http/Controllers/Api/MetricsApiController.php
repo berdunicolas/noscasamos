@@ -123,4 +123,14 @@ class MetricsApiController extends Controller
 
         return response()->json($data);
     }
+
+    public function activeInvitationsGraph(){
+        $data = Invitation::selectRaw("
+                COUNT(*) as total
+            ")
+            ->where('active', 1)
+            ->first();
+
+        return response()->json($data);
+    }
 }
