@@ -602,7 +602,6 @@ final class ModuleTypeEnum
                 $module,
                 $invitation->style->value,
                 $invitation->color,
-                $invitation->icon_type,
                 $invitation->frameImg(),
                 $invitation->padding,
             ),
@@ -893,7 +892,6 @@ final class ModuleTypeEnum
                 'link_button_url' => 'nullable|string',
             ],
             'VIDEO' => [
-                'icon' => 'nullable|string',
                 'pre_tittle' => 'nullable|string',
                 'tittle' => 'nullable|string',
                 'video_id' => 'nullable|string',
@@ -1384,7 +1382,6 @@ final class ModuleTypeEnum
                 return $modules;
             })(),
             'VIDEO' => $updateTask($modules, $name, [
-                'icon' => $data['icon'],
                 'pre_tittle' => $data['pre_tittle'],
                 'tittle' => $data['tittle'],
                 'video_id' => $data['video_id'],

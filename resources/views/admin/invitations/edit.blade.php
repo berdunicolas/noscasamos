@@ -1,16 +1,16 @@
-<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true">
+<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true" overflowHidden="true">
 
     {{--
     <header class="d-flex flex-row align-items-center" style="height: 105px">
         <p style="font-size: 2em;">Editor</p>             
     </header>--}}
-    <nav aria-label="breadcrumb">
+    <div aria-label="breadcrumb" style="height: 4vh">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('invitations.index')}}" class="link-dark">Invitaciones</a></li>
             <li class="breadcrumb-item active fw-bold text-black" aria-current="page">Editor</li>
         </ol>
-    </nav>
-    <header class="d-flex flex-row justify-items-between w-100" style="height: 105px">
+    </div>
+    <div class="d-flex flex-row justify-items-between w-100" style="height: 10vh">
         <div>
             <p style="font-size: 2em;" id="invitation-name" class="m-0">{{$invitation->event->name}}</p>      
             <span class="me-3"><i class="fa-light fa-hashtag"></i> {{$invitation->id}}</span>
@@ -137,11 +137,9 @@
                 </div>
             </div>
         </div>
+    </div>
 
-
-    </header>
-
-    <main class="d-flex flex-row overflow-hidden">
+    <div class="d-flex flex-row overflow-hidden pb-5" style="height: 84vh;">
         <nav class="navbar-secondary">
             <ul class="nav navbar-nav flex-column font-size-2" id="editor-nav-tab">
                 <li class="nav-item selected">
@@ -166,9 +164,9 @@
                 </li>
             </ul>
         </nav>
-        <div class="w-100 h-100">
-            <form action="{{route('api.invitations.set-config', $invitation->id)}}" onsubmit="saveInvitationChanges(event, this)">
-                <div class="tab-form px-3" id="configuration-form">
+        <div class="w-100 overflow-hidden">
+            <div class="tab-form px-3 h-100 overflow-auto" id="configuration-form">
+                <form action="{{route('api.invitations.set-config', $invitation->id)}}" onsubmit="saveInvitationChanges(event, this)">
                     <h4 class="py-2">Configuración de evento</h4>
                     <div class="row mb-3">
                         <div class="col-4">
@@ -379,10 +377,10 @@
                             </span>
                         </x-form.button>
                     </div>
-                </div>
-            </form>
-            <form action="{{route('api.invitations.set-style', $invitation->id)}}" onsubmit="saveInvitationChanges(event, this)">
-                <div class="tab-form px-3 visually-hidden" id="personalization-form">
+                </form>
+            </div>
+            <div class="tab-form px-3 h-100 overflow-auto visually-hidden" id="personalization-form">
+                <form action="{{route('api.invitations.set-style', $invitation->id)}}" onsubmit="saveInvitationChanges(event, this)">
                     <h4 class="py-2">Personalización</h4>
                     <div class="row mb-3">
                         <div class="col-4">
@@ -477,12 +475,12 @@
                             </span>
                         </x-form.button>
                     </div>
-                </div>
-            </form>
-            <div class="tab-form px-3 overflow-y-hidden visually-hidden d-flex flex-row nowrap" id="modules-form">
+                </form>
+            </div>
+            <div class="tab-form px-3 h-100 overflow-auto visually-hidden d-flex flex-row nowrap" id="modules-form">
                 <div class="w-25">
                     <h4 class="py-2">Módulos<button type="button" class="ms-2 btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#new-module-modal"><i class="fa-light fa-plus"></i></button></h4>
-                    <div class="overflow-y-auto">
+                    <div class="">
                         <ul id="invitation-modules" class="invitation-modules">
                             @foreach ($invitation->modules as $module)                                
                                 <li class="item-module shadow-sm mb-2 {{ $module['fixed'] ? 'fixed-module' : '' }}" data-module-id="{{ $module['display_name'] }}">
@@ -512,7 +510,7 @@
                 <h4 class="py-2">Logs</h4>
             </div>
         </div>
-    </main>
+    </div>
 
     <div class="modal" id="save-changes-modal" tabindex="-1">
         <div class="modal-dialog">

@@ -17,7 +17,7 @@
     <header class="d-flex flex-row justify-content-between align-items-center" style="height: 105px">
         <p style="font-size: 2em;">Dashboard</p>
         <div class="p-2 d-flex flex-row justify-content-end">
-            <div class="shadow border-0 ms-3 p-2">
+            <div class="shadow border-0 rounded-3 ms-3 p-2">
                 <div class="text-end px-3 inline-block">
                     <div class="d-flex flex-row justify-content-between align-items-center">
                         <div class="me-4">
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="shadow border-0 ms-3">
-                <button class="btn btn-dark p-2 rounded-0" data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
+                <button class="btn btn-dark rounded-3 p-2" data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
                     <div class="text-end px-3 inline-block">
                         <div class="d-flex flex-row justify-content-between align-items-center">
                             <div class="me-4">

@@ -25,7 +25,7 @@
 <body>
     <div class="d-flex">
         <x-admin.nav-bar :selected="$navBarSelected" />
-        <main class="content container-fluid">
+        <main class="content {{($overflowHidden) ? 'overflow-hidden h-100' : ''}}">
             {{ $slot }}
         </main>
     </div>
