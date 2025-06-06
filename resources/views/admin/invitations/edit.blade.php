@@ -10,9 +10,9 @@
             <li class="breadcrumb-item active fw-bold text-black" aria-current="page">Editor</li>
         </ol>
     </div>
-    <div class="d-flex flex-row justify-items-between w-100" style="height: 10vh">
+    <div class="d-flex flex-row justify-items-between w-100" style="height: 12vh">
         <div>
-            <p style="font-size: 2em;" id="invitation-name" class="m-0">{{$invitation->event->name}}</p>      
+            <h5 class="display-5">{{$invitation->event->name}}</h5>    
             <span class="me-3"><i class="fa-light fa-hashtag"></i> {{$invitation->id}}</span>
             <span class="me-3"><i class="fa-light fa-calendar"></i> {{($invitation->date) ? $invitation->date : 'Sin Fecha' }}</span>
             
@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div class="d-flex flex-row overflow-hidden pb-5" style="height: 84vh;">
+    <div class="d-flex flex-row overflow-hidden pb-5" style="height: 82vh;">
         <nav class="navbar-secondary">
             <ul class="nav navbar-nav flex-column font-size-2" id="editor-nav-tab">
                 <li class="nav-item selected">

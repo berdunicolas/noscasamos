@@ -12,7 +12,7 @@
     >
 
     <header class="d-flex flex-row align-items-center" style="height: 105px">
-        <p style="font-size: 2em;">Estadisticas</p>             
+        <h5 class="display-5">Estadisticas</h5>          
     </header>
     <div>
         <div class="p-2">

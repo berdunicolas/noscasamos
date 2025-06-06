@@ -2,7 +2,7 @@
     
     <header class="d-flex flex-row align-items-center" style="height: 105px">
         <div>
-            <p style="font-size: 2em;" id="invitation-name" class="m-0">Ajustes</p>      
+            <h5 class="display-5">Ajustes</h5>
         </div>
     </header>
 

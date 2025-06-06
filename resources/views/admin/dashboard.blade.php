@@ -9,13 +9,9 @@
         asset('js/invitations-datatable.js')
     ]"
     >
-    {{--<h1>Dashboard</h1>
-    <p>Resumen de cantidad de invitaciones Activas / Inactivas</p>
-    <p>Acceso directo a crear nueva invitación</p>--}}
-
-
+    
     <header class="d-flex flex-row justify-content-between align-items-center" style="height: 105px">
-        <p style="font-size: 2em;">Dashboard</p>
+        <h5 class="display-5">Dashboard</h5>
         <div class="p-2 d-flex flex-row justify-content-end">
             <div class="shadow border-0 rounded-3 ms-3 p-2">
                 <div class="text-end px-3 inline-block">
