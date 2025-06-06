@@ -12,7 +12,7 @@
     <ul class="nav navbar-nav flex-column pt-2 font-size-2">
         <li class="nav-item {{ ($selected == 'dashboard') ? 'selected' : '' }}">
             <a href="{{route('dashboard')}}" class="nav-link text-dark btn btn-white rounded-0">
-                <span>{!! ($selected == 'dashboard') ? '<i class="fa-solid fa-house me-2">' : '<i class="fa-light fa-house me-2"></i>' !!}<span class="text-nav-link">Dashboard</span></span>
+                <span>{!! ($selected == 'dashboard') ? '<i class="fa-solid fa-house me-2"></i>' : '<i class="fa-light fa-house me-2"></i>' !!}<span class="text-nav-link">Dashboard</span></span>
             </a>
         </li>
         <li class="nav-item {{ ($selected == 'invitations') ? 'selected' : '' }}">
