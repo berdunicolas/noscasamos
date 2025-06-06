@@ -16,21 +16,25 @@
         <link rel="stylesheet" href="{{ asset('inspinia/plugins/datatables/css/buttons.bootstrap5.min.css') }}">
     @endif
 
+    @foreach ($cssStyles as $style)
+        <link rel="stylesheet" href="{{ $style }}">
+    @endforeach
+
 
 </head>
-<body class="h-100 ">
-    <div class="h-100 d-flex">
+<body>
+    <div class="d-flex">
         <x-admin.nav-bar :selected="$navBarSelected" />
-        <main class="content">
+        <main class="content {{($overflowHidden) ? 'overflow-hidden h-100' : ''}}">
             {{ $slot }}
         </main>
     </div>
-    <div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div aria-live="polite" aria-atomic="true" class="position-absolute">
         <!-- Position it: -->
         <!-- - `.toast-container` for spacing between toasts -->
         <!-- - `top-0` & `end-0` to position the toasts in the upper right corner -->
         <!-- - `.p-3` to prevent the toasts from sticking to the edge of the container  -->
-        <div class="toast-container bottom-50 end-0 p-3 pb-5" id="toast-containter">
+        <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-containter">
             <!-- Then put toasts within -->
             <div
                 class="toast align-items-center text-bg-dark border-0"
@@ -83,6 +87,10 @@
 
     <script src="{{ asset('js/' . $dataTableName) }}"></script>
     @endif
+
+    @foreach ($jsScripts as $script)
+        <script src="{{ $script }}"></script>
+    @endforeach
 
 
 </body>

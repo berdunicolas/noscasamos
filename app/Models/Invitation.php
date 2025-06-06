@@ -6,12 +6,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Casts\TimeFormatCast;
 use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
-use App\Enums\SpacingTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Traits\HasMedia;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Invitation extends Authenticatable

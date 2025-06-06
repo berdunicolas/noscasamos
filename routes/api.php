@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\InvitationApiController;
+use App\Http\Controllers\Api\MetricsApiController;
 use App\Http\Controllers\Api\SellerApiController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Guest\GuestController;
@@ -54,6 +55,11 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::get('invitations/{invitation}/modules/available-modules', [InvitationModuleApiController::class, 'availableModules'])->name('invitation.available-modules');
     Route::delete('invitations/{invitation}/modules/{module}/delete-module/{displayName?}', [InvitationModuleApiController::class, 'deleteModule'])->name('invitation.delete-module');
     Route::post('invitations/{invitation}/modules/add-module', [InvitationModuleApiController::class, 'addModule'])->name('invitation.add-module');
+    
+    Route::get('metrics/created-invitations-graph', [MetricsApiController::class, 'createdInvitationsGraph'])->name('created-invitations-graph');
+    Route::get('metrics/total-invitations-graph', [MetricsApiController::class, 'totalInvitationsGraph'])->name('total-invitations-graph');
+    Route::get('metrics/country-invitations-graph', [MetricsApiController::class, 'countryInvitationsGraph'])->name('country-invitations-graph');
+    Route::get('metrics/active-invitations-graph', [MetricsApiController::class, 'activeInvitationsGraph'])->name('active-invitations-graph');
 });
 
 Route::post('/{invitation:path_name}/confirm-invitation', [GuestController::class, 'store'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('api.invitation.store');

@@ -14,6 +14,7 @@ class InputGroup extends Component
     public function __construct(
         public string $label = '',
         public string $labelFor = '',
+        public string $classes = '',
         public array $errors = [],
     ) {}
 

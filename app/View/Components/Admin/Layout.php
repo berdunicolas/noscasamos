@@ -15,6 +15,9 @@ class Layout extends Component
         public string $navBarSelected,
         public bool $datatable = false,
         public string $dataTableName = '',
+        public array $cssStyles = [],
+        public array $jsScripts = [],
+        public bool $overflowHidden = false,
     ) {}
 
     /**

@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\Invitation\InvitationController;
+use App\Http\Controllers\Admin\MetricsController;
 use App\Http\Controllers\Admin\Seller\SellerController;
 use App\Http\Controllers\Admin\Settings\SettingsController;
 use App\Http\Controllers\Admin\User\RegisteredUserController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Middleware\EnsureCorrectAuthModel;
+use App\Models\Invitation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +27,15 @@ if(config('app.env') == 'production') {
     
         Route::middleware('auth', EnsureCorrectAuthModel::class.':web')->group(function () {
             Route::get('/', function () {
-                return view('admin.dashboard');
+                $years = Invitation::select(DB::raw("DATE_FORMAT(date, '%Y') as year"))
+                    ->where('date', '!=', null)
+                    ->groupBy('year')
+                    ->orderBy('year', 'desc')
+                    ->get();
+
+                return view('admin.dashboard', [
+                    'years' => $years
+                ]);
             })->name('dashboard');
     
             Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
@@ -37,6 +47,7 @@ if(config('app.env') == 'production') {
             Route::post('/sellers/{seller}', [SellerController::class, 'update'])->name('sellers.update');
             Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
             Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
+            Route::get('/metrics', [MetricsController::class, 'index'])->name('metrics.index');
             Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
             Route::post('/settings/invitations', [SettingsController::class, 'invitationsStore'])->name('settings.invitations.store');
         });
@@ -45,7 +56,15 @@ if(config('app.env') == 'production') {
 } else {
     Route::middleware('auth', EnsureCorrectAuthModel::class.':web')->group(function () {
         Route::get('/', function () {
-            return view('admin.dashboard');
+            $years = Invitation::select(DB::raw("DATE_FORMAT(date, '%Y') as year"))
+                ->where('date', '!=', null)
+                ->groupBy('year')
+                ->orderBy('year', 'desc')
+                ->get();
+
+            return view('admin.dashboard', [
+                'years' => $years
+            ]);
         })->name('dashboard');
 
         Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
@@ -57,6 +76,7 @@ if(config('app.env') == 'production') {
         Route::post('/sellers/{seller}', [SellerController::class, 'update'])->name('sellers.update');
         Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
         Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
+        Route::get('/metrics', [MetricsController::class, 'index'])->name('metrics.index');
         Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
         Route::post('/settings/invitations', [SettingsController::class, 'invitationsStore'])->name('settings.invitations.store');
     });
