@@ -44,10 +44,10 @@ async function updateAudioInput(input) {
     const urlAudio = input.dataset.url;
 
     if (!urlAudio) return;
-
+    
     try {
         const blob = await fetchMediaAsBlob(urlAudio);
-
+        
         const file = new File([blob], "preview.mp4", { type: blob.type });
 
         // Crear un DataTransfer para simular la carga del archivo
@@ -56,7 +56,7 @@ async function updateAudioInput(input) {
 
         // Asignar el archivo al input
         input.files = dataTransfer.files;
-        videoPreview(input);
+        audioPreview(input, false);
     } catch (error) {
         console.error('Error al convertir audio a blob:', error);
     }
@@ -545,17 +545,19 @@ function deleteVideoFromInput(id){
 
 
 // music
-function audioPreview(audioInput) {
+function audioPreview(audioInput, play=true) {
     const file = audioInput.files[0];
     const id = audioInput.id;
     if (!file) return;
-
+    
     const audio = document.getElementById(id + '_preview');
     audio.src = URL.createObjectURL(file);
-
-    audio.onloadedmetadata = function () {
-        audio.play();
-    };
+    
+    if(play){
+        audio.onloadedmetadata = function () {
+            audio.play();
+        };
+    }
 }
 
 function deleteAudioFromInput(id){

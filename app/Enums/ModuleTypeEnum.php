@@ -674,9 +674,9 @@ final class ModuleTypeEnum
             ],
             'MUSIC' => [
                 'song' => [
-                    'required',
+                    'nullable',
                     File::types(['mp3', 'mp4', 'mpeg', 'mpga', 'wav'])
-                        ->max(7*1024)
+                        ->max(10240)
                 ]
             ],
             'FLOAT_BUTTON' => [
@@ -1116,11 +1116,13 @@ final class ModuleTypeEnum
                     $media->delete();
                 });
 
-                $invitation->addMedia($data['song'], self::MUSIC['name'], $invitation->path_name);
-                $invitation->refresh();
+                if(isset($data['song'])){
+                    $invitation->addMedia($data['song'], self::MUSIC['name'], $invitation->path_name);
+                    $invitation->refresh();
+                }
 
                 return $updateTask($modules, $name, [
-                    'song' => $invitation->media(self::MUSIC['name'])->first()->getMediaUrl()
+                    'song' => $invitation->media(self::MUSIC['name'])->first()?->getMediaUrl()
                 ]);
             })(),
             'FLOAT_BUTTON' => $updateTask($modules, $name, [
