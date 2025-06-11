@@ -574,6 +574,8 @@
             'stamp_image': null,
             'images_desktop_cover': [],
             'images_mobile_cover': [],
+            'design_desktop_cover': null,
+            'design_mobile_cover': null,
             'logo_cover': null,
             'central_image_cover': null,
             'welcome_image': null,

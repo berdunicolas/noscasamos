@@ -224,9 +224,9 @@
             <div class="slider">
                 <div class="image">
                     @if (isMobile())
-                        <img src="{{asset("boda/images/designm.jpg")}}"/>
+                        <img src="{{$module['mobile_design']}}"/>
                     @else
-                        <img src="{{asset("boda/images/design.jpg")}}"/>
+                        <img src="{{$module['desktop_design']}}"/>
                     @endif
                 </div>
             </div>
@@ -256,9 +256,9 @@
             <div class="slider">
                 <div class="image">
                     @if (isMobile())
-                        <img src="{{asset("boda/images/designm.jpg")}}"/>
+                        <img src="{{$module['mobile_design']}}"/>
                     @else
-                        <img src="{{asset("boda/images/design.jpg")}}"/>
+                        <img src="{{$module['desktop_design']}}"/>
                     @endif
                 </div>
             </div>

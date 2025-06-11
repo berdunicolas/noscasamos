@@ -256,6 +256,12 @@ function sendModuleForm(e, form, name = ''){
                     formData.append('mobile_images[]', file);
                 }
             });
+            if(selectedFiles['design_desktop_cover']){
+                formData.append('desktop_design', selectedFiles['design_desktop_cover']);
+            }
+            if(selectedFiles['design_mobile_cover']){
+                formData.append('mobile_design', selectedFiles['design_mobile_cover']);
+            }
             if(selectedFiles['logo_cover']){
                 formData.append('logo_cover', selectedFiles['logo_cover']);
             }
@@ -386,16 +392,19 @@ function changeFloatButton(select) {
 
 function changeCoverFormat(select) {
     let imagesInpusDiv = document.getElementById('images_format_inputs');
+    let designInpustDiv = document.getElementById('design_format_inputs');
     let videoInpustDiv = document.getElementById('video_format_inputs');
     let desktopImagesInput = document.getElementById('desktop_images');
     let mobileImagesInput = document.getElementById('mobile_images');
+    let desktopDesignInput = document.getElementById('desktop_design');
+    let mobileDesignInput = document.getElementById('mobile_design');
     let desktopVideoInput = document.getElementById('desktop_video');
     let mobileVideoInput = document.getElementById('mobile_video');
 
 
-
     if (select.value === 'Imagenes' || select.value === 'Imagenes con marco') {
         imagesInpusDiv.classList.remove('d-none');
+        designInpustDiv.classList.add('d-none');
         videoInpustDiv.classList.add('d-none');
 
         desktopImagesInput.attributes.remove('disabled');
@@ -404,25 +413,35 @@ function changeCoverFormat(select) {
         desktopVideoInput.attributes.add('disabled', 'disabled');
         mobileVideoInput.attributes.add('disabled', 'disabled');
 
+        desktopDesignInput.attributes.add('disabled', 'disabled');
+        mobileDesignInput.attributes.add('disabled', 'disabled');
+
     } else if(select.value === 'Video' || select.value === 'Video centrado') {
         imagesInpusDiv.classList.add('d-none');
+        designInpustDiv.classList.add('d-none');
         videoInpustDiv.classList.remove('d-none');
         
         desktopVideoInput.attributes.remove('disabled');
         mobileVideoInput.attributes.remove('disabled');
 
+        desktopDesignInput.attributes.add('disabled', 'disabled');
+        mobileDesignInput.attributes.add('disabled', 'disabled');
+
         desktopImagesInput.attributes.add('disabled', 'disabled');
         mobileImagesInput.attributes.add('disabled', 'disabled');
     } else {
+        designInpustDiv.classList.remove('d-none');
         imagesInpusDiv.classList.add('d-none');
         videoInpustDiv.classList.add('d-none');
+
+        desktopDesignInput.attributes.remove('disabled');
+        mobileDesignInput.attributes.remove('disabled');
         
         desktopVideoInput.attributes.add('disabled', 'disabled');
         mobileVideoInput.attributes.add('disabled', 'disabled');
 
         desktopImagesInput.attributes.add('disabled', 'disabled');
         mobileImagesInput.attributes.add('disabled', 'disabled');
-
     }
 }
 

@@ -41,7 +41,7 @@
             </x-form.select>
         </div>
 
-        <div id="images_format_inputs" class="{{ str_contains('Video centrado', $module['format']) ? 'd-none' : '' }}">
+        <div id="images_format_inputs" class="{{ str_contains('Imagenes con marco', $module['format']) ? '' : 'd-none' }}">
             <div class="mb-3">
                 <x-form.upload-zone label="Imágenes desktop" zoneName="images_desktop_cover" :isMultiple=true>
                     @foreach ($module['desktop_images'] as $key => $image)
@@ -73,7 +73,37 @@
                 </p>
             </div>
         </div>
-        <div id="video_format_inputs" class="{{ str_contains('Imagenes con marco', $module['format']) ? 'd-none' : '' }}">
+        <div id="design_format_inputs" class="{{ str_contains('Diseño con marco', $module['format']) ? '' : 'd-none' }}">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <x-form.upload-zone label="Diseño desktop" zoneName="design_desktop_cover" :isMultiple=false>
+                        @if($module['desktop_design'])
+                            <div class="preview-item">
+                                <img src="{{$module['desktop_design']}}" alt="preview">
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'design_desktop_cover')">×</button>
+                            </div>
+                        @endif
+                    </x-form.upload-zone>
+                    <p class="selectedFilesUpdater" hidden>
+                        @json( ['design_desktop_cover', $module['desktop_design']])
+                    </p>
+                </div>
+                <div class="col-6">
+                    <x-form.upload-zone label="Diseño mobile" zoneName="design_mobile_cover" :isMultiple=false>
+                        @if($module['mobile_design'])
+                            <div class="preview-item">
+                                <img src="{{$module['mobile_design']}}" alt="preview">
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'design_mobile_cover')">×</button>
+                            </div>
+                        @endif
+                    </x-form.upload-zone>
+                    <p class="selectedFilesUpdater" hidden>
+                        @json( ['design_mobile_cover', $module['mobile_design']])
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="video_format_inputs" class="{{ str_contains('Video centrado', $module['format']) ? '' : 'd-none' }}">
             <div class="row mb-3">
                 <div class="col-6">
                     <x-form.input

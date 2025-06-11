@@ -33,6 +33,8 @@ class Invitation extends Authenticatable
         ModuleTypeEnum::COVER['name'],
         ModuleTypeEnum::COVER['name'].'/desktop_images',
         ModuleTypeEnum::COVER['name'].'/mobile_images',
+        ModuleTypeEnum::COVER['name'].'/desktop_design',
+        ModuleTypeEnum::COVER['name'].'/mobile_design',
         ModuleTypeEnum::COVER['name'].'/desktop_video',
         ModuleTypeEnum::COVER['name'].'/mobile_video',
         ModuleTypeEnum::COVER['name'].'/logo_cover',

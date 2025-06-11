@@ -86,6 +86,8 @@ final class ModuleTypeEnum
         'text_color_cover' => '#E2BF83',
         'desktop_images' => [],
         'mobile_images' => [],
+        'desktop_design' => '',
+        'mobile_design' => '',
         'desktop_video' => '',
         'mobile_video' => '',
         'logo_cover' => '',
@@ -702,6 +704,18 @@ final class ModuleTypeEnum
                         ->types(['jpeg', 'png', 'jpg'])
                         ->max(2*2048)*/
                 ],
+                'desktop_design' => [
+                    'nullable',
+                    File::image()
+                        ->types(['jpeg', 'png', 'jpg'])
+                        ->max(2048)
+                ],
+                'mobile_design' => [
+                    'nullable',
+                    File::image()
+                        ->types(['jpeg', 'png', 'jpg'])
+                        ->max(2048)
+                ],
                 'desktop_video' => [
                     File::types(['mp4', 'mov', 'avi'])
                         ->max(7*1024)
@@ -1135,7 +1149,19 @@ final class ModuleTypeEnum
                             $invitation->addMedia($image, self::COVER['name'].'/mobile_images', $invitation->path_name);
                         }                    
                     }
-                }else if($data['format'] == 'Video' || $data['format'] == 'Video centrado'){
+
+                }elseif($data['format'] == 'Diseño' || $data['format'] == 'Diseño con marco'){
+                    $invitation->media(self::COVER['name'].'/desktop_design')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->media(self::COVER['name'].'/mobile_design')->each(function ($media) {
+                        $media->delete();
+                    });
+
+                    if(isset($data['desktop_design'])) $invitation->addMedia($data['desktop_design'], self::COVER['name'].'/desktop_design', $invitation->path_name);
+                    if(isset($data['mobile_design'])) $invitation->addMedia($data['mobile_design'], self::COVER['name'].'/mobile_design', $invitation->path_name);
+
+                }elseif($data['format'] == 'Video' || $data['format'] == 'Video centrado'){
                     $invitation->media(self::COVER['name'].'/desktop_video')->each(function ($media) {
                         $media->delete();
                     });
@@ -1167,6 +1193,8 @@ final class ModuleTypeEnum
                     })->toArray(),
                     'desktop_video' => $invitation->media(self::COVER['name'].'/desktop_video')->first()?->getMediaUrl(),
                     'mobile_video' => $invitation->media(self::COVER['name'].'/mobile_video')->first()?->getMediaUrl(),
+                    'desktop_design' => $invitation->media(self::COVER['name'].'/desktop_design')->first()?->getMediaUrl(),
+                    'mobile_design' => $invitation->media(self::COVER['name'].'/mobile_design')->first()?->getMediaUrl(),
                     'logo_cover' => $invitation->media(self::COVER['name'].'/logo_cover')->first()?->getMediaUrl(),
                     'central_image_cover' => $invitation->media(self::COVER['name'].'/central_image_cover')->first()?->getMediaUrl(),
                     'active_header' => $data['active_header'],
