@@ -2,26 +2,27 @@
     <h4>Bienvenida</h4>
 
     <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
-
-        <div class="row mb-3">
-            <div class="col-6">
-                <x-form.input
-                    name="icon"
-                    label="Icono botón"
-                    type="text"
-                    placeholder="fa-calendar-check"
-                    value="{{$module['icon']}}"
-                />
-            </div>
-            <div class="col-6">
-                <div class="mb-3">
-                    <x-form.input
-                        name="image"
-                        label="Imagen"
-                        type="file"
-                    />
-                </div>
-            </div>
+        <div class="mb-3">
+            <x-form.input
+                name="icon"
+                label="Icono botón"
+                type="text"
+                placeholder="fa-calendar-check"
+                value="{{$module['icon']}}"
+            />
+        </div>
+        <div class="mb-3">
+            <x-form.upload-zone label="Imagen" zoneName="welcome_image" :isMultiple=false>
+                @if($module['image'])
+                    <div class="preview-item">
+                        <img src="{{$module['image']}}" alt="preview">
+                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'welcome_image')">×</button>
+                    </div>
+                @endif
+            </x-form.upload-zone>
+            <p class="selectedFilesUpdater" hidden>
+                @json( ['welcome_image', $module['image']])
+            </p>
         </div>
         <div class="mb-3">
             <x-form.input

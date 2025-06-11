@@ -39,11 +39,7 @@ class SetStyleInvitationRequest extends FormRequest
             "font" => [
                 Rule::in(FontTypeEnum::keys())
             ],
-            "frame_image" => [
-                File::image()
-                    ->types(['jpeg', 'png', 'jpg', 'svg'])
-                    ->max(4*1024)
-            ],
+            "frame_image" => 'nullable',
 
         ];
     }
