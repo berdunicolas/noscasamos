@@ -106,20 +106,25 @@
         <div id="video_format_inputs" class="{{ str_contains('Video centrado', $module['format']) ? '' : 'd-none' }}">
             <div class="row mb-3">
                 <div class="col-6">
-                    <x-form.input
-                        id="desktop_video"
-                        name="desktop_video"
-                        label="Video desktop"
-                        type="file"
-                    />
+                    <label for="desktop_video">Video desktop</label>
+                    <div class="input-group mb-3">
+                        <input type="file" id="desktop_video" onchange="videoPreview(this)" name="desktop_video" data-url="{{$module['desktop_video']}}" accept="video/*" class="form-control videoInput">
+                        <button class="btn btn-outline-danger" onclick="deleteVideoFromInput('desktop_video')" type="button" id="button-addon2"><i class="fa-light fa-xmark"></i></button>
+                    </div>
+                    <div class="mt-2">
+                        <video id="desktop_video_preview" height="0" class="m-2" video muted playsinline></video>
+                    </div>
                 </div>
                 <div class="col-6">
-                    <x-form.input
-                        id="mobile_video"
-                        name="mobile_video"
-                        label="Video movile"
-                        type="file"
-                    />
+                    <label for="mobile_video">Video movile</label>
+                    
+                    <div class="input-group mb-3">
+                        <input type="file" id="mobile_video" onchange="videoPreview(this)" name="mobile_video" data-url="{{$module['mobile_video']}}" accept="video/*" class="form-control videoInput">
+                        <button class="btn btn-outline-danger" onclick="deleteVideoFromInput('mobile_video')" type="button" id="button-addon2"><i class="fa-light fa-xmark"></i></button>
+                    </div>
+                    <div class="mt-2">
+                        <video id="mobile_video_preview" height="0" class="m-2" video muted playsinline></video>
+                    </div>
                 </div>
             </div>
         </div>

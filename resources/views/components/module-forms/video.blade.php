@@ -27,17 +27,20 @@
         <div class="row mb-3">
             <div class="col-4">
                 <x-form.input
+                    id="video_id"
                     name="video_id"
                     label="ID de video"
                     type="text"
                     placeholder="kejhsefg"
                     value="{{$module['video_id']}}"
+                    extraAttributes="onchange=changeVideoId(this)"
                 />
             </div>
             <div class="col-4">
                 <x-form.select
                     name="type_video"
                     label="Tipo de video"
+                    extraAttributes="onchange=changePlayerFrame(this)"
                 >
                     <x-form.select-option
                         value="Youtube"
@@ -55,6 +58,7 @@
                 <x-form.select
                     name="format"
                     label="Formato"
+                    extraAttributes="onchange=changePlayerDirection(this)"
                 >
                     <x-form.select-option
                         value="Horizontal"
@@ -69,6 +73,17 @@
                 </x-form.select>
             </div>
         </div>
+
+        <section class="video p-4">
+            <div class="videoPlayer {{($module['format'] == 'Horizontal') ? 'h' : 'v'}}" id="player">
+                <div class="player" id="youtube-player" style="background-color:none;" {{(strtolower($module['type_video']) == "youtube") ? '' : 'hidden' }}>
+                    <iframe src="https://www.youtube-nocookie.com/embed/{{$module['video_id']}}?si=7CQt0gnEV97CNWwW&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen  style="border-radius:8px;"></iframe>
+                </div>
+                <div class="player" id="vimeo-player" {{(strtolower($module['type_video']) == "vimeo") ? '' : 'hidden'}}>
+                    <iframe src="https://player.vimeo.com/video/{{$module['video_id']}}?h=b86574a207&autoplay=1&color=A2AE8C&title=0&byline=0&portrait=0" width="640" height="1138" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen  style="border-radius:8px;"></iframe>
+                </div>
+            </div>
+        </section>
         
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">

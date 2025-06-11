@@ -520,7 +520,7 @@ final class ModuleTypeEnum
     public static function getModuleForm(string $name, Invitation $invitation, $displayName) {
         $form = match($name){
             'INTRO' => new Intro($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'MUSIC' => new Music($invitation->id),
+            'MUSIC' => new Music($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'FLOAT_BUTTON' => new FloatButton($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'COVER' => new Cover($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name), $invitation->host_names),
             'GUEST' => new Guest($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
@@ -718,11 +718,11 @@ final class ModuleTypeEnum
                 ],
                 'desktop_video' => [
                     File::types(['mp4', 'mov', 'avi'])
-                        ->max(7*1024)
+                        ->max(61440)
                 ],
                 'mobile_video' => [
                     File::types(['mp4', 'mov', 'avi'])
-                        ->max(7*1024)
+                        ->max(61440)
                 ],
                 'logo_cover' => [
                     'nullable',

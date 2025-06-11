@@ -16,6 +16,7 @@ class Music extends Component
      */
     public function __construct(
         public int $invitationId,
+        public array $module,
         public string $moduleName = ModuleTypeEnum::MUSIC['name'],
     ) {}
 

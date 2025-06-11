@@ -1,4 +1,4 @@
-async function fetchImageAsBlob(url) {
+async function fetchMediaAsBlob(url) {
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`Error al descargar la imagen: ${url}`);
@@ -7,17 +7,58 @@ async function fetchImageAsBlob(url) {
 }
 
 async function uptateSelectedFiles(name, data) {
-    console.log(name);
     if (!data) return;
 
-    
     const urls = Array.isArray(data) ? data : [data];
     
     try {
-        const blobs = await Promise.all(urls.map(fetchImageAsBlob));
+        const blobs = await Promise.all(urls.map(fetchMediaAsBlob));
         selectedFiles[name] = blobs.length === 1 ? blobs[0] : blobs;
     } catch (error) {
         console.error('Error al convertir imágenes a blob:', error);
+    }
+}
+
+async function updateVideoInput(input) {
+    const urlVideo = input.dataset.url;
+
+    if (!urlVideo) return;
+
+    try {
+        const blob = await fetchMediaAsBlob(urlVideo);
+
+        const file = new File([blob], "preview.mp4", { type: blob.type });
+
+        // Crear un DataTransfer para simular la carga del archivo
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+
+        // Asignar el archivo al input
+        input.files = dataTransfer.files;
+        videoPreview(input);
+    } catch (error) {
+        console.error('Error al convertir video a blob:', error);
+    }
+}
+async function updateAudioInput(input) {
+    const urlAudio = input.dataset.url;
+
+    if (!urlAudio) return;
+
+    try {
+        const blob = await fetchMediaAsBlob(urlAudio);
+
+        const file = new File([blob], "preview.mp4", { type: blob.type });
+
+        // Crear un DataTransfer para simular la carga del archivo
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+
+        // Asignar el archivo al input
+        input.files = dataTransfer.files;
+        videoPreview(input);
+    } catch (error) {
+        console.error('Error al convertir audio a blob:', error);
     }
 }
 
@@ -50,6 +91,17 @@ $(document).ready(function () {
                 files = JSON.parse(files.innerHTML);
                 uptateSelectedFiles(files[0], files[1]);
             });
+
+            let videoInputs = document.getElementsByClassName('videoInput');
+            Array.from(videoInputs).map(function (input) {
+                updateVideoInput(input);
+            });
+
+            let audioInputs = document.getElementsByClassName('audioInput');
+            Array.from(audioInputs).map(function (input) {
+                updateAudioInput(input);
+            });
+
         } else {
             console.error(data);
         }
@@ -455,9 +507,116 @@ function updatetext_color_coverColor() {
 }
 
 
+function videoPreview(videoInput) {
+    const file = videoInput.files[0];
+    const id = videoInput.id;
+    if (!file) return;
+
+    const video = document.getElementById(id + '_preview');
+    video.src = URL.createObjectURL(file);
+    video.muted = true;
+    video.playsInline = true;
+
+    video.onloadedmetadata = function () {
+        video.style.width = 'auto';
+        video.style.height = 'auto';
+        video.style.maxWidth = '200px';
+        video.style.maxHeight = '200px';
+        video.currentTime = 0;
+        video.play();
+    };
+
+    // Cada vez que el tiempo supera 1 segundo, lo reinicia
+    video.ontimeupdate = function () {
+        if (video.currentTime >= 4) {
+            video.currentTime = 0;
+            video.play(); // Asegura que siga reproduciendo
+        }
+    };
+}
+
+function deleteVideoFromInput(id){
+    document.getElementById(id).value = '';
+    const videoPreview = document.getElementById(id + '_preview');
+    videoPreview.src = null;
+    videoPreview.style.width = '0px';
+    videoPreview.style.height = '0px';
+}
+
+
+// music
+function audioPreview(audioInput) {
+    const file = audioInput.files[0];
+    const id = audioInput.id;
+    if (!file) return;
+
+    const audio = document.getElementById(id + '_preview');
+    audio.src = URL.createObjectURL(file);
+
+    audio.onloadedmetadata = function () {
+        audio.play();
+    };
+}
+
+function deleteAudioFromInput(id){
+    document.getElementById(id).value = '';
+    const audioPreview = document.getElementById(id + '_preview');
+    audioPreview.src = null;
+}
+
 // save the date
 
 function checkboxSwitch(checkbox, inputId) {
     let input = document.getElementById(inputId);
     input.value = checkbox.checked ? 1 : 0;
+}
+
+
+// video
+
+function changePlayerDirection(select){
+    const player = document.getElementById('player');
+
+    player.classList.remove((select.value == 'Horizontal') ? 'v' : 'h');
+    player.classList.add((select.value == 'Horizontal') ? 'h' : 'v');
+}
+
+function changePlayerFrame(select){
+    const youtubePlayer = document.getElementById('youtube-player');
+    const vimeoPlayer = document.getElementById('vimeo-player');
+    const videoId = document.getElementById('video_id');
+
+    if(select.value == 'Vimeo'){
+        youtubePlayer.querySelector('iframe').src='';
+        writteSrlFrame('vimeo', videoId.value);
+
+        vimeoPlayer.removeAttribute('hidden');
+        youtubePlayer.setAttribute('hidden', 'hidden');
+    }else{
+        vimeoPlayer.querySelector('iframe').src='';
+        writteSrlFrame('ytube', videoId.value);
+
+        youtubePlayer.removeAttribute('hidden');
+        vimeoPlayer.setAttribute('hidden', 'hidden');
+    }
+}
+
+function changeVideoId(input){
+    writteSrlFrame('ytube', input.value);
+    writteSrlFrame('vimeo', input.value);
+}   
+
+function writteSrlFrame(frame, id){
+    const youtubeFrame = document.getElementById('youtube-player').querySelector('iframe');
+    const vimeoFrame = document.getElementById('vimeo-player').querySelector('iframe');
+
+    if(frame == 'ytube'){
+        youtubeFrame.src = 'https://www.youtube-nocookie.com/embed/';
+        youtubeFrame.src += id;
+        youtubeFrame.src += '?si=7CQt0gnEV97CNWwW&amp;controls=0';
+    }else{
+        vimeoFrame.src = 'https://player.vimeo.com/video/';
+        vimeoFrame.src += id;
+        vimeoFrame.src += '?h=b86574a207&autoplay=1&color=A2AE8C&title=0&byline=0&portrait=0';
+    }
 }
