@@ -1,3 +1,26 @@
+async function fetchImageAsBlob(url) {
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Error al descargar la imagen: ${url}`);
+    }
+    return await response.blob();
+}
+
+async function uptateSelectedFiles(name, data) {
+    console.log(name);
+    if (!data) return;
+
+    
+    const urls = Array.isArray(data) ? data : [data];
+    
+    try {
+        const blobs = await Promise.all(urls.map(fetchImageAsBlob));
+        selectedFiles[name] = blobs.length === 1 ? blobs[0] : blobs;
+    } catch (error) {
+        console.error('Error al convertir imágenes a blob:', error);
+    }
+}
+
 $(document).ready(function () {
 
     fetch(window.INVITATION_MODULES_URL, {
@@ -20,6 +43,13 @@ $(document).ready(function () {
             let moduleForms = document.getElementById('module-form');
             data = data.join('');
             moduleForms.innerHTML = data;
+
+            let selectedFilesUpdaters = document.getElementsByClassName('selectedFilesUpdater');
+            
+            Array.from(selectedFilesUpdaters).map(function (files) {
+                files = JSON.parse(files.innerHTML);
+                uptateSelectedFiles(files[0], files[1]);
+            });
         } else {
             console.error(data);
         }
@@ -209,23 +239,99 @@ function sendModuleForm(e, form, name = ''){
     e.preventDefault();
     let formData = new FormData(form);
 
-    if(name == 'COVER'){
-        selectedFiles['images_desktop_cover'].forEach(file => {
-            if (file) {
-                formData.append('desktop_images[]', file);
+    switch(name){
+        case 'INTRO':
+            if(selectedFiles['stamp_image']){
+                formData.append('stamp_image', selectedFiles['stamp_image'])
             }
-        });
-        selectedFiles['images_mobile_cover'].forEach(file => {
-            if (file) {
-                formData.append('mobile_images[]', file);
+            break;
+        case 'COVER':
+            selectedFiles['images_desktop_cover'].forEach(file => {
+                if (file) {
+                    formData.append('desktop_images[]', file);
+                }
+            });
+            selectedFiles['images_mobile_cover'].forEach(file => {
+                if (file) {
+                    formData.append('mobile_images[]', file);
+                }
+            });
+            if(selectedFiles['logo_cover']){
+                formData.append('logo_cover', selectedFiles['logo_cover']);
             }
-        });
-    }else if(name == 'GALERY'){
-        selectedFiles['galery_images'].forEach(file => {
-            if (file) {
-                formData.append('galery_images[]', file);
+            if(selectedFiles['central_image_cover']){
+                formData.append('central_image_cover', selectedFiles['central_image_cover']);
             }
-        });
+            break;
+        case 'WELCOME':
+            if(selectedFiles['welcome_image']){
+                formData.append('image', selectedFiles['welcome_image']);
+            }
+            break;
+        case 'EVENTS':
+            if(selectedFiles['civil_image']){
+                formData.append('civil_image', selectedFiles['civil_image']);
+            }
+            if(selectedFiles['ceremony_image']){
+                formData.append('ceremony_image', selectedFiles['ceremony_image']);
+            }
+            if(selectedFiles['party_image']){
+                formData.append('party_image', selectedFiles['party_image']);
+            }
+            if(selectedFiles['dresscode_image']){
+                formData.append('dresscode_image', selectedFiles['dresscode_image']);
+            }
+            break;
+        case 'HISTORY':
+            if(selectedFiles['history_image']){
+                formData.append('image', selectedFiles['history_image']);
+            }
+            break;
+        case 'INFO':
+            if(selectedFiles['info_image']){
+                formData.append('image', selectedFiles['info_image']);
+            }
+            break;
+        case 'HIGHLIGHTS':
+            if(selectedFiles['highlights_image']){
+                formData.append('image', selectedFiles['highlights_image']);
+            }
+            break;
+        
+        case 'GALERY':
+            selectedFiles['galery_images'].forEach(file => {
+                if (file) {
+                    formData.append('galery_images[]', file);
+                }
+            });
+            break;
+
+        case 'GIFTS':
+            if(selectedFiles['gift_background_image']){
+                formData.append('background_image', selectedFiles['gift_background_image']);
+            }
+            if(selectedFiles['gift_module_image']){
+                formData.append('module_image', selectedFiles['gift_module_image']);
+            }
+            if(selectedFiles['list_product_image_1']){
+                formData.append('list_product_image_1', selectedFiles['list_product_image_1']);
+            }
+            if(selectedFiles['list_product_image_2']){
+                formData.append('list_product_image_2', selectedFiles['list_product_image_2']);
+            }
+            if(selectedFiles['list_product_image_3']){
+                formData.append('list_product_image_3', selectedFiles['list_product_image_3']);
+            }
+            if(selectedFiles['list_product_image_4']){
+                formData.append('list_product_image_4', selectedFiles['list_product_image_4']);
+            }
+            if(selectedFiles['list_product_image_5']){
+                formData.append('list_product_image_5', selectedFiles['list_product_image_5']);
+            }
+            if(selectedFiles['list_product_image_6']){
+                formData.append('list_product_image_6', selectedFiles['list_product_image_6']);
+            }
+            break;
     }
 
     fetch(form.action, {
@@ -336,66 +442,3 @@ function checkboxSwitch(checkbox, inputId) {
     let input = document.getElementById(inputId);
     input.value = checkbox.checked ? 1 : 0;
 }
-
-
-
-// images handle
-
-let selectedFiles = {
-    'images_desktop_cover': [],
-    'images_mobile_cover': [],
-    'galery_images': [],
-};
-
-function abrirSelector(id) {
-    document.getElementById(id).click();
-}
-
-function manejarSeleccion(input, zoneName) {
-    const files = input.files;
-    procesarArchivos(files, zoneName);
-    input.value = ''; // Para permitir volver a seleccionar el mismo archivo
-}
-
-function manejarDragOver(event, id) {
-    event.preventDefault();
-    document.getElementById(id).classList.add('dragover');
-}
-
-function manejarDragLeave(event, id) {
-    document.getElementById(id).classList.remove('dragover');
-}
-
-function manejarDrop(event, id, zoneName) {
-    event.preventDefault();
-    document.getElementById(id).classList.remove('dragover');
-    const files = event.dataTransfer.files;
-    procesarArchivos(files, zoneName);
-}
-
-function procesarArchivos(files, zoneName) {
-    for (let file of files) {
-        if (!file.type.startsWith('image/')) continue;
-
-        selectedFiles[zoneName].push(file);
-        const index = selectedFiles[zoneName].length - 1;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const div = document.createElement('div');
-            div.classList.add('preview-item');
-            div.innerHTML = `
-                <img src="${e.target.result}" alt="preview">
-                <button type="button" class="remove-btn" onclick="eliminarImagen(${index}, this, '${zoneName}')">&times;</button>
-            `;
-            document.getElementById('preview-container-'+zoneName).appendChild(div);
-        };
-        reader.readAsDataURL(file);
-    }
-}
-
-function eliminarImagen(index, btnElement, zoneName) {
-    selectedFiles[zoneName][index] = null;
-    btnElement.parentElement.remove();
-}
-

@@ -87,11 +87,18 @@
                             <textarea name="civil_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['events']['civil']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <x-form.input
-                                name="civil_image"
-                                label="Imagen"
-                                type="file"
-                            />
+                            <x-form.upload-zone label="Imagen" zoneName="civil_image" :isMultiple=false>
+                                @if($events['civil']['image'])
+                                    <div class="preview-item">
+                                        <img src="{{$events['civil']['image']}}" alt="preview">
+                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'civil_image')">×</button>
+                                    </div>
+                                @endif
+                            
+                            </x-form.upload-zone>
+                            <p class="selectedFilesUpdater" hidden>
+                                @json( ['civil_image', $events['civil']['image']])
+                            </p>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -202,11 +209,18 @@
                             <textarea name="ceremony_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['events']['ceremony']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <x-form.input
-                                name="ceremony_image"
-                                label="Imagen"
-                                type="file"
-                            />
+                            <x-form.upload-zone label="Imagen" zoneName="ceremony_image" :isMultiple=false>
+                                @if($events['ceremony']['image'])
+                                    <div class="preview-item">
+                                        <img src="{{$events['ceremony']['image']}}" alt="preview">
+                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'ceremony_image')">×</button>
+                                    </div>
+                                @endif
+                            
+                            </x-form.upload-zone>
+                            <p class="selectedFilesUpdater" hidden>
+                                @json( ['ceremony_image', $events['ceremony']['image']])
+                            </p>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -317,11 +331,18 @@
                             <textarea name="party_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['events']['party']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <x-form.input
-                                name="party_image"
-                                label="Imagen"
-                                type="file"
-                            />
+                            <x-form.upload-zone label="Imagen" zoneName="party_image" :isMultiple=false>
+                                @if($events['party']['image'])
+                                    <div class="preview-item">
+                                        <img src="{{$events['party']['image']}}" alt="preview">
+                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'party_image')">×</button>
+                                    </div>
+                                @endif
+                            
+                            </x-form.upload-zone>
+                            <p class="selectedFilesUpdater" hidden>
+                                @json( ['party_image', $events['party']['image']])
+                            </p>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -403,11 +424,18 @@
                             <textarea name="dresscode_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['events']['dresscode']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <x-form.input
-                                name="dresscode_image"
-                                label="Imagen"
-                                type="file"
-                            />
+                            <x-form.upload-zone label="Imagen" zoneName="dresscode_image" :isMultiple=false>
+                                @if($events['dresscode']['image'])
+                                    <div class="preview-item">
+                                        <img src="{{$events['dresscode']['image']}}" alt="preview">
+                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'dresscode_image')">×</button>
+                                    </div>
+                                @endif
+                            
+                            </x-form.upload-zone>
+                            <p class="selectedFilesUpdater" hidden>
+                                @json( ['dresscode_image', $events['dresscode']['image']])
+                            </p>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">

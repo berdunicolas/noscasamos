@@ -43,10 +43,34 @@
 
         <div id="images_format_inputs" class="{{ str_contains('Video centrado', $module['format']) ? 'd-none' : '' }}">
             <div class="mb-3">
-                <x-form.upload-zone label="Imágenes desktop" zoneName="images_desktop_cover" />
+                <x-form.upload-zone label="Imágenes desktop" zoneName="images_desktop_cover" :isMultiple=true>
+                    @foreach ($module['desktop_images'] as $key => $image)
+                        @if($image)
+                            <div class="preview-item">
+                                <img src="{{$image}}" alt="preview">
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'images_desktop_cover', {{$key}})">×</button>
+                            </div>
+                        @endif
+                    @endforeach
+                </x-form.upload-zone>
+                <p class="selectedFilesUpdater" hidden>
+                    @json( ['images_desktop_cover', $module['desktop_images']])
+                </p>
             </div>
             <div class="mb-3">
-                <x-form.upload-zone label="Imágenes mobile" zoneName="images_mobile_cover" />
+                <x-form.upload-zone label="Imágenes mobile" zoneName="images_mobile_cover" :isMultiple=true>
+                    @foreach ($module['mobile_images'] as $key => $image)
+                        @if($image)
+                            <div class="preview-item">
+                                <img src="{{$image}}" alt="preview">
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'images_mobile_cover', {{$key}})">×</button>
+                            </div>
+                        @endif
+                    @endforeach
+                </x-form.upload-zone>
+                <p class="selectedFilesUpdater" hidden>
+                    @json( ['images_mobile_cover', $module['mobile_images']])
+                </p>
             </div>
         </div>
         <div id="video_format_inputs" class="{{ str_contains('Imagenes con marco', $module['format']) ? 'd-none' : '' }}">
@@ -127,18 +151,30 @@
 
         <div class="row mb-3">
             <div class="col-6">
-                <x-form.input
-                    name="logo_cover"
-                    label="Logotipo"
-                    type="file"
-                />
+                <x-form.upload-zone label="Logotipo" zoneName="logo_cover" :isMultiple=false>
+                    @if($module['logo_cover'])
+                        <div class="preview-item">
+                            <img src="{{$module['logo_cover']}}" alt="preview">
+                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'logo_cover')">×</button>
+                        </div>
+                    @endif
+                </x-form.upload-zone>
+                <p class="selectedFilesUpdater" hidden>
+                    @json( ['logo_cover', $module['logo_cover']])
+                </p>
             </div>
             <div class="col-6">
-                <x-form.input
-                    name="central_image_cover"
-                    label="Imagen central"
-                    type="file"
-                />
+                <x-form.upload-zone label="Imagen central" zoneName="central_image_cover" :isMultiple=false>
+                    @if($module['central_image_cover'])
+                        <div class="preview-item">
+                            <img src="{{$module['central_image_cover']}}" alt="preview">
+                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'central_image_cover')">×</button>
+                        </div>
+                    @endif
+                </x-form.upload-zone>
+                <p class="selectedFilesUpdater" hidden>
+                    @json( ['central_image_cover', $module['central_image_cover']])
+                </p>
             </div>
         </div>
 

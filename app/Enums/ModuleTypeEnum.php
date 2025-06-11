@@ -146,6 +146,7 @@ final class ModuleTypeEnum
                 'detail' => '',
                 'button_url' => '',
                 'button_text' => 'Cómo llegar',
+                'image' => '',
             ],
             'ceremony' => [
                 'active' => false,
@@ -159,6 +160,7 @@ final class ModuleTypeEnum
                 'detail' => '',
                 'button_url' => '',
                 'button_text' => 'Cómo llegar',
+                'image' => '',
             ],
             'party' => [
                 'active' => false,
@@ -172,6 +174,7 @@ final class ModuleTypeEnum
                 'detail' => '',
                 'button_url' => '',
                 'button_text' => 'Cómo llegar',
+                'image' => '',
             ],
             'dresscode' => [
                 'active' => false,
@@ -182,6 +185,7 @@ final class ModuleTypeEnum
                 'detail' => '',
                 'button_url' => '',
                 'button_text' => '',
+                'image' => '',
             ],
         ]
     ];
@@ -513,7 +517,7 @@ final class ModuleTypeEnum
 
     public static function getModuleForm(string $name, Invitation $invitation, $displayName) {
         $form = match($name){
-            'INTRO' => new Intro($invitation->id),
+            'INTRO' => new Intro($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'MUSIC' => new Music($invitation->id),
             'FLOAT_BUTTON' => new FloatButton($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'COVER' => new Cover($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name), $invitation->host_names),
@@ -664,12 +668,7 @@ final class ModuleTypeEnum
     {
         $rules = match($name){
             'INTRO' => [
-                'stamp_image' => [
-                    'required',
-                    File::image()
-                        ->types(['jpeg', 'png', 'jpg', 'svg'])
-                        ->max(2048)
-                ],
+                'stamp_image' => 'nullable'
             ],
             'MUSIC' => [
                 'song' => [
@@ -704,24 +703,25 @@ final class ModuleTypeEnum
                         ->max(2*2048)*/
                 ],
                 'desktop_video' => [
-                        File::types(['mp4', 'mov', 'avi'])
-                            ->max(7*1024)
-                    ],
+                    File::types(['mp4', 'mov', 'avi'])
+                        ->max(7*1024)
+                ],
                 'mobile_video' => [
                     File::types(['mp4', 'mov', 'avi'])
                         ->max(7*1024)
                 ],
                 'logo_cover' => [
+                    'nullable',
                     File::image()
                         ->types(['jpeg', 'png', 'jpg'])
                         ->max(2048)
                 ],
                 'central_image_cover' => [
+                    'nullable',
                     File::image()
                         ->types(['jpeg', 'png', 'jpg'])
                         ->max(2048)
                 ]
-                
             ],
             'GUEST' => [
                 'tittle' => 'nullable|string',
@@ -742,11 +742,7 @@ final class ModuleTypeEnum
                 'tittle' => 'nullable|string',
                 'icon' => 'nullable|string',
                 'text' => 'nullable|string',
-                'image' => [
-                    File::image()
-                    ->types(['jpeg', 'png', 'jpg'])
-                    ->max(4*1024)
-                ]
+                'image' => 'nullable'
             ],
             'EVENTS' => [
                 'civil_active' => 'boolean',
@@ -761,6 +757,7 @@ final class ModuleTypeEnum
                 'civil_button_url' => 'nullable|string',
                 'civil_button_text' => 'nullable|string',
                 'civil_image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -778,6 +775,7 @@ final class ModuleTypeEnum
                 'ceremony_button_url' => 'nullable|string',
                 'ceremony_button_text' => 'nullable|string',
                 'ceremony_image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -795,6 +793,7 @@ final class ModuleTypeEnum
                 'party_button_url' => 'nullable|string',
                 'party_button_text' => 'nullable|string',
                 'party_image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -809,6 +808,7 @@ final class ModuleTypeEnum
                 'dresscode_button_url' => 'nullable|string',
                 'dresscode_button_text' => 'nullable|string',
                 'dresscode_image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -822,6 +822,7 @@ final class ModuleTypeEnum
                 'button_text' => 'required|string',
                 'button_url' => 'required|string',*/
                 'image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -836,6 +837,7 @@ final class ModuleTypeEnum
                 'button_url' => 'nullable|string',
                 'on_t_right' => 'boolean',
                 'image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -849,6 +851,7 @@ final class ModuleTypeEnum
                 'button_text' => 'nullable|string',
                 'button_url' => 'nullable|string',
                 'image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -916,17 +919,19 @@ final class ModuleTypeEnum
                 'icon' => 'nullable|string',
                 'pre_tittle' => 'nullable|string',
                 'tittle' => 'nullable|string',
-                'galery_images' => 'array'
+                'galery_images' => 'nullable|array'
             ],
             'GIFTS' => [
                 'icon' => 'nullable|string',
                 'pre_tittle' => 'nullable|string',
                 'background_image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
                 ],
                 'module_image' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -959,6 +964,7 @@ final class ModuleTypeEnum
                 'list_product_url_1' => 'nullable|string',
                 'list_product_price_1' => 'nullable|string',
                 'list_product_image_1' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -967,6 +973,7 @@ final class ModuleTypeEnum
                 'list_product_url_2' => 'nullable|string',
                 'list_product_price_2' => 'nullable|string',
                 'list_product_image_2' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -975,6 +982,7 @@ final class ModuleTypeEnum
                 'list_product_url_3' => 'nullable|string',
                 'list_product_price_3' => 'nullable|string',
                 'list_product_image_3' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -983,6 +991,7 @@ final class ModuleTypeEnum
                 'list_product_url_4' => 'nullable|string',
                 'list_product_price_4' => 'nullable|string',
                 'list_product_image_4' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -991,6 +1000,7 @@ final class ModuleTypeEnum
                 'list_product_url_5' => 'nullable|string',
                 'list_product_price_5' => 'nullable|string',
                 'list_product_image_5' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -999,6 +1009,7 @@ final class ModuleTypeEnum
                 'list_product_url_6' => 'nullable|string',
                 'list_product_price_6' => 'nullable|string',
                 'list_product_image_6' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
@@ -1069,15 +1080,21 @@ final class ModuleTypeEnum
 
         $updatedModules = match($name){
             'INTRO' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media(self::INTRO['name'])->each(function ($media) {
-                    $media->delete();
-                });
-
-                $invitation->addMedia($data['stamp_image'], self::INTRO['name'], $invitation->path_name);
-                $invitation->refresh();
+                if(!isset($data['stamp_image'])){
+                    $invitation->media(self::INTRO['name'])->each(function ($media) {
+                        $media->delete();
+                    });
+                }elseif(!is_string($data['stamp_image'])){
+                    $invitation->media(self::INTRO['name'])->each(function ($media) {
+                        $media->delete();
+                    });
+    
+                    $invitation->addMedia($data['stamp_image'], self::INTRO['name'], $invitation->path_name);
+                    $invitation->refresh();
+                }
 
                 return $updateTask($modules, $name, [
-                    'stamp_image' => $invitation->media(self::INTRO['name'])->first()->getMediaUrl()
+                    'stamp_image' => $invitation->media(self::INTRO['name'])->first()?->getMediaUrl()
                 ]);
             })(),
            'MUSIC' => (function () use ($invitation, $modules, $name, $data, $updateTask){
@@ -1181,14 +1198,16 @@ final class ModuleTypeEnum
                     $media->delete();
                 });
 
-                $invitation->addMedia($data['image'], self::WELCOME['name'], $invitation->path_name);
-                $invitation->refresh();
+                if(isset($data['image'])){
+                    $invitation->addMedia($data['image'], self::WELCOME['name'], $invitation->path_name);
+                    $invitation->refresh();
+                }
 
                 return $updateTask($modules, $name, [
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
-                    'image' => $invitation->media(self::WELCOME['name'])->first()->getMediaUrl()
+                    'image' => $invitation->media(self::WELCOME['name'])->first()?->getMediaUrl()
                 ]);
             })(),
             'EVENTS' => (function () use ($invitation, $modules, $name, $data, $updateTask){
@@ -1408,8 +1427,11 @@ final class ModuleTypeEnum
                 $invitation->media(self::GALERY['name'])->each(function ($media) {
                     $media->delete();
                 });
-                foreach($data['galery_images'] as $image){
-                    $invitation->addMedia($image, self::GALERY['name'], $invitation->path_name);
+
+                if(isset($data['galery_images'])){
+                    foreach($data['galery_images'] as $image){
+                        $invitation->addMedia($image, self::GALERY['name'], $invitation->path_name);
+                    }
                 }
  
                 return $updateTask($modules, $name, [
@@ -1433,40 +1455,41 @@ final class ModuleTypeEnum
 
                 if(isset($data['module_image'])) $invitation->addMedia($data['module_image'], self::GIFTS['name'].'/module', $invitation->path_name);
 
+                $invitation->media(self::GIFTS['name'].'/product_1')->each(function ($media) {
+                    $media->delete();
+                });
+                $invitation->media(self::GIFTS['name'].'/product_2')->each(function ($media) {
+                    $media->delete();
+                });
+                $invitation->media(self::GIFTS['name'].'/product_3')->each(function ($media) {
+                    $media->delete();
+                });
+                $invitation->media(self::GIFTS['name'].'/product_4')->each(function ($media) {
+                    $media->delete();
+                });
+                $invitation->media(self::GIFTS['name'].'/product_5')->each(function ($media) {
+                    $media->delete();
+                });
+                $invitation->media(self::GIFTS['name'].'/product_6')->each(function ($media) {
+                    $media->delete();
+                });
+
                 if(isset($data['list_product_image_1'])){ 
-                    $invitation->media(self::GIFTS['name'].'/product_1')->each(function ($media) {
-                        $media->delete();
-                    });
                     $invitation->addMedia($data['list_product_image_1'], self::GIFTS['name'].'/product_1', $invitation->path_name);
                 }
-                if(isset($data['list_product_image_2'])){ 
-                    $invitation->media(self::GIFTS['name'].'/product_2')->each(function ($media) {
-                        $media->delete();
-                    });
+                if(isset($data['list_product_image_2'])){  
                     $invitation->addMedia($data['list_product_image_2'], self::GIFTS['name'].'/product_2', $invitation->path_name);
                 }
                 if(isset($data['list_product_image_3'])){ 
-                    $invitation->media(self::GIFTS['name'].'/product_3')->each(function ($media) {
-                        $media->delete();
-                    });
                     $invitation->addMedia($data['list_product_image_3'], self::GIFTS['name'].'/product_3', $invitation->path_name);
                 }
                 if(isset($data['list_product_image_4'])){ 
-                    $invitation->media(self::GIFTS['name'].'/product_4')->each(function ($media) {
-                        $media->delete();
-                    });
                     $invitation->addMedia($data['list_product_image_4'], self::GIFTS['name'].'/product_4', $invitation->path_name);
                 }
                 if(isset($data['list_product_image_5'])){ 
-                    $invitation->media(self::GIFTS['name'].'/product_5')->each(function ($media) {
-                        $media->delete();
-                    });
                     $invitation->addMedia($data['list_product_image_5'], self::GIFTS['name'].'/product_5', $invitation->path_name);
                 }
                 if(isset($data['list_product_image_6'])){ 
-                    $invitation->media(self::GIFTS['name'].'/product_6')->each(function ($media) {
-                        $media->delete();
-                    });
                     $invitation->addMedia($data['list_product_image_6'], self::GIFTS['name'].'/product_6', $invitation->path_name);
                 }
 

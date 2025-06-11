@@ -5,7 +5,7 @@
     <ul class="nav navbar-nav flex-column mb-4 font-size-2">
         <li class="nav-item">
             <a class="btn btn-secondary w-100 py-3 border-0 btn rounded-0" onclick="toggleSidebar(this)">
-                <span><i class="fa-light fa-chevrons-right me-2"></i><span class="text-nav-link">Colapsar menu</span></span>
+                <span><i class="fa-light fa-chevrons-left me-2"></i><span class="text-nav-link">Colapsar menu</span></span>
             </a>
         </li>
     </ul>

@@ -1,4 +1,14 @@
-<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true" overflowHidden="true">
+<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true" overflowHidden="true"
+    :jsScripts="[
+        asset('inspinia/plugins/jquery/js/jquery.min.js'),
+        asset('inspinia/plugins/jquery-ui/js/jquery-ui.min.js'),
+
+        asset('js/upload-zone.js'),
+    
+        asset('js/invitation-editor.js'),
+        asset('js/invitation-modules.js'),
+    ]"
+>
 
     {{--
     <header class="d-flex flex-row align-items-center" style="height: 105px">
@@ -359,16 +369,6 @@
                                 :errors="(array) $errors->get('meta_description')"
                             />
                         </div>
-                        <div class="col-4">
-                            <x-form.input
-                                id="config-form-input"
-                                name="meta_image"
-                                label="Meta imagen"
-                                type="file"
-
-                                :errors="(array) $errors->get('meta_image')"
-                            />
-                        </div>
                     </div>
                     <div class="d-flex flex-row justify-content-end mt-5">
                         <x-form.button id="save-config-btn" type="submit" classes="btn btn-dark" disabled="true">
@@ -416,7 +416,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-3">
+                        <div class="col-4">
                             <x-form.input
                                 id="style-form-input"
                                 name="padding"
@@ -426,15 +426,7 @@
                                 value="{{$invitation->padding}}"
                             />
                         </div>
-                        <div class="col-3">
-                            <x-form.input
-                                id="style-form-input"
-                                name="frame_image"
-                                label="Marco"
-                                type="file"
-                            />
-                        </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <x-form.select
                                 id="style-form-input"
                                 name="font"
@@ -449,7 +441,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <x-form.select
                                 id="style-form-input"
                                 name="icon_type"
@@ -468,6 +460,14 @@
                             </x-form.select>
                         </div>
                     </div>
+                    <x-form.upload-zone label="Marco" zoneName="frame_image" :isMultiple=false>
+                        @if($invitation->media('frame_img')->first())
+                            <div class="preview-item">
+                                <img src="{{$invitation->media('frame_img')->first()?->getMediaUrl()}}" alt="preview">
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'frame_image', null)">×</button>
+                            </div>
+                        @endif
+                    </x-form.upload-zone>
                     <div class="d-flex flex-row justify-content-end mt-5">
                         <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark" disabled="true">
                             <span class="mx-3">
@@ -564,10 +564,36 @@
         window.INVITATION_MODULES_URL = "{{ route('api.invitation.modules', $invitation->id) }}";
         window.COUNTRY_DIVISIONS = "{{ route('api.countries-divisions') }}";
         window.VALIDATE_INVITATION = "{{ route('api.validate-invitation') }}";
-    </script>
-    <script src="{{ asset('inspinia/plugins/jquery/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('inspinia/plugins/jquery-ui/js/jquery-ui.min.js') }}"></script>
 
-    <script src="{{asset('js/invitation-editor.js')}}"></script>
-    <script src="{{asset('js/invitation-modules.js')}}"></script>
+        let selectedFiles = {
+            @if ($invitation->media('frame_img')->first())
+            'frame_image': "{{$invitation->media('frame_img')->first()->getMediaUrl()}}",
+            @else
+            'frame_image': null,
+            @endif
+            'stamp_image': null,
+            'images_desktop_cover': [],
+            'images_mobile_cover': [],
+            'logo_cover': null,
+            'central_image_cover': null,
+            'welcome_image': null,
+            'civil_image': null,
+            'ceremony_image': null,
+            'party_image': null,
+            'dresscode_image': null,
+            'history': null,
+            'info': null,
+            'highlights_image': null,
+            'galery_images': [],
+            'gift_background_image': null,
+            'gift_module_image': null,
+            'list_product_image_1' : null,
+            'list_product_image_2' : null,
+            'list_product_image_3' : null,
+            'list_product_image_4' : null,
+            'list_product_image_5' : null,
+            'list_product_image_6' : null,
+        };
+    </script>
+
 </x-admin.layout>

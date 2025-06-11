@@ -30,21 +30,31 @@
         </div>
         <div class="row mb-3">
             <div class="col-6">
-                <x-form.input
-                    name="background_image"
-                    label="Imagen de fondo"
-                    type="file"
-                    value="{{$module['background_image']}}"
-                />
+                <x-form.upload-zone label="Imagen de fondo" zoneName="gift_background_image" :isMultiple=false>
+                    @if($module['background_image'])
+                        <div class="preview-item">
+                            <img src="{{$module['background_image']}}" alt="preview">
+                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'gift_background_image')">×</button>
+                        </div>
+                    @endif
+                </x-form.upload-zone>
+                <p class="selectedFilesUpdater" hidden>
+                    @json( ['gift_background_image', $module['background_image']])
+                </p>
             </div>
             <div class="col-6">
                 <div class="mb-3">
-                    <x-form.input
-                        name="module_image"
-                        label="Imagen de módulo"
-                        type="file"
-                        value="{{$module['module_image']}}"
-                    />
+                    <x-form.upload-zone label="Imagen de módulo" zoneName="gift_module_image" :isMultiple=false>
+                        @if($module['module_image'])
+                            <div class="preview-item">
+                                <img src="{{$module['module_image']}}" alt="preview">
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'gift_module_image')">×</button>
+                            </div>
+                        @endif
+                    </x-form.upload-zone>
+                    <p class="selectedFilesUpdater" hidden>
+                        @json( ['gift_module_image', $module['module_image']])
+                    </p>
                 </div>
             </div>
         </div>
@@ -294,7 +304,7 @@
                         <div>
                             <h5 class="mt-4">Producto 1</h5>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_1"
                                         label="Producto"
@@ -303,7 +313,7 @@
                                         value="{{$module['list']['product_1']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_url_1"
                                         label="Link de producto"
@@ -312,9 +322,7 @@
                                         value="{{$module['list']['product_url_1']}}"
                                     />
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_price_1"
                                         label="Precio"
@@ -323,20 +331,25 @@
                                         value="{{$module['list']['product_price_1']}}"
                                     />
                                 </div>
-                                <div class="col-6">
-                                    <x-form.input
-                                        name="list_product_image_1"
-                                        label="Imagen"
-                                        type="file"
-                                        value="{{$module['list']['product_image_1']}}"
-                                    />
-                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_1" :isMultiple=false>
+                                    @if($module['list']['product_image_1'])
+                                        <div class="preview-item">
+                                            <img src="{{$module['list']['product_image_1']}}" alt="preview">
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_1')">×</button>
+                                        </div>
+                                    @endif
+                                </x-form.upload-zone>
+                                <p class="selectedFilesUpdater" hidden>
+                                    @json( ['list_product_image_1', $module['list']['product_image_1']])
+                                </p>
                             </div>
                         </div>
                         <div>
                             <h5 class="mt-4">Producto 2</h5>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_2"
                                         label="Producto"
@@ -345,7 +358,7 @@
                                         value="{{$module['list']['product_2']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_url_2"
                                         label="Link de producto"
@@ -354,9 +367,7 @@
                                         value="{{$module['list']['product_url_2']}}"
                                     />
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_price_2"
                                         label="Precio"
@@ -365,20 +376,25 @@
                                         value="{{$module['list']['product_price_2']}}"
                                     />
                                 </div>
-                                <div class="col-6">
-                                    <x-form.input
-                                        name="list_product_image_2"
-                                        label="Imagen"
-                                        type="file"
-                                        value="{{$module['list']['product_image_2']}}"
-                                    />
-                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_2" :isMultiple=false>
+                                    @if($module['list']['product_image_2'])
+                                        <div class="preview-item">
+                                            <img src="{{$module['list']['product_image_2']}}" alt="preview">
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_2')">×</button>
+                                        </div>
+                                    @endif
+                                </x-form.upload-zone>
+                                <p class="selectedFilesUpdater" hidden>
+                                    @json( ['list_product_image_2', $module['list']['product_image_2']])
+                                </p>
                             </div>
                         </div>
                         <div>
                             <h5 class="mt-4">Producto 3</h5>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_3"
                                         label="Producto"
@@ -387,7 +403,7 @@
                                         value="{{$module['list']['product_3']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_url_3"
                                         label="Link de producto"
@@ -396,9 +412,7 @@
                                         value="{{$module['list']['product_url_3']}}"
                                     />
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_price_3"
                                         label="Precio"
@@ -407,20 +421,25 @@
                                         value="{{$module['list']['product_price_3']}}"
                                     />
                                 </div>
-                                <div class="col-6">
-                                    <x-form.input
-                                        name="list_product_image_3"
-                                        label="Imagen"
-                                        type="file"
-                                        value="{{$module['list']['product_image_3']}}"
-                                    />
-                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_3" :isMultiple=false>
+                                    @if($module['list']['product_image_3'])
+                                        <div class="preview-item">
+                                            <img src="{{$module['list']['product_image_3']}}" alt="preview">
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_3')">×</button>
+                                        </div>
+                                    @endif
+                                </x-form.upload-zone>
+                                <p class="selectedFilesUpdater" hidden>
+                                    @json( ['list_product_image_3', $module['list']['product_image_3']])
+                                </p>
                             </div>
                         </div>
                         <div>
                             <h5 class="mt-4">Producto 4</h5>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_4"
                                         label="Producto"
@@ -429,7 +448,7 @@
                                         value="{{$module['list']['product_4']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_url_4"
                                         label="Link de producto"
@@ -438,9 +457,7 @@
                                         value="{{$module['list']['product_url_4']}}"
                                     />
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_price_4"
                                         label="Precio"
@@ -449,20 +466,25 @@
                                         value="{{$module['list']['product_price_4']}}"
                                     />
                                 </div>
-                                <div class="col-6">
-                                    <x-form.input
-                                        name="list_product_image_4"
-                                        label="Imagen"
-                                        type="file"
-                                        value="{{$module['list']['product_image_4']}}"
-                                    />
-                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_4" :isMultiple=false>
+                                    @if($module['list']['product_image_4'])
+                                        <div class="preview-item">
+                                            <img src="{{$module['list']['product_image_4']}}" alt="preview">
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_4')">×</button>
+                                        </div>
+                                    @endif
+                                </x-form.upload-zone>
+                                <p class="selectedFilesUpdater" hidden>
+                                    @json( ['list_product_image_4', $module['list']['product_image_4']])
+                                </p>
                             </div>
                         </div>
                         <div>
                             <h5 class="mt-4">Producto 5</h5>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_5"
                                         label="Producto"
@@ -471,7 +493,7 @@
                                         value="{{$module['list']['product_5']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_url_5"
                                         label="Link de producto"
@@ -480,9 +502,7 @@
                                         value="{{$module['list']['product_url_5']}}"
                                     />
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_price_5"
                                         label="Precio"
@@ -491,20 +511,25 @@
                                         value="{{$module['list']['product_price_5']}}"
                                     />
                                 </div>
-                                <div class="col-6">
-                                    <x-form.input
-                                        name="list_product_image_5"
-                                        label="Imagen"
-                                        type="file"
-                                        value="{{$module['list']['product_image_5']}}"
-                                    />
-                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_5" :isMultiple=false>
+                                    @if($module['list']['product_image_5'])
+                                        <div class="preview-item">
+                                            <img src="{{$module['list']['product_image_5']}}" alt="preview">
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_5')">×</button>
+                                        </div>
+                                    @endif
+                                </x-form.upload-zone>
+                                <p class="selectedFilesUpdater" hidden>
+                                    @json( ['list_product_image_5', $module['list']['product_image_5']])
+                                </p>
                             </div>
                         </div>
                         <div>
                             <h5 class="mt-4">Producto 6</h5>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_6"
                                         label="Producto"
@@ -513,7 +538,7 @@
                                         value="{{$module['list']['product_6']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_url_6"
                                         label="Link de producto"
@@ -522,9 +547,7 @@
                                         value="{{$module['list']['product_url_6']}}"
                                     />
                                 </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <x-form.input
                                         name="list_product_price_6"
                                         label="Precio"
@@ -533,14 +556,19 @@
                                         value="{{$module['list']['product_price_6']}}"
                                     />
                                 </div>
-                                <div class="col-6">
-                                    <x-form.input
-                                        name="list_product_image_6"
-                                        label="Imagen"
-                                        type="file"
-                                        value="{{$module['list']['product_image_6']}}"
-                                    />
-                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_6" :isMultiple=false>
+                                    @if($module['list']['product_image_6'])
+                                        <div class="preview-item">
+                                            <img src="{{$module['list']['product_image_6']}}" alt="preview">
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_6')">×</button>
+                                        </div>
+                                    @endif
+                                </x-form.upload-zone>
+                                <p class="selectedFilesUpdater" hidden>
+                                    @json( ['list_product_image_6', $module['list']['product_image_6']])
+                                </p>
                             </div>
                         </div>
                     </div>

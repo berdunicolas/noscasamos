@@ -32,7 +32,19 @@
             </div>
         </div>
         <div class="mb-3">
-            <x-form.upload-zone label="Fotos" zoneName="galery_images" />
+            <x-form.upload-zone label="Fotos" zoneName="galery_images" :isMultiple=true>
+                @foreach ($module['galery_images'] as $key => $image)
+                    @if($image)
+                        <div class="preview-item">
+                            <img src="{{$image}}" alt="preview">
+                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'galery_images', {{$key}})">×</button>
+                        </div>
+                    @endif
+                @endforeach
+            </x-form.upload-zone>
+            <p class="selectedFilesUpdater" hidden>
+                @json( ['galery_images', $module['galery_images']])
+            </p>
         </div>
         
         <div class="d-flex flex-row justify-content-end mt-5">

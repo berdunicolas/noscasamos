@@ -12,12 +12,17 @@
             />
         </div>
         <div class="mb-3">
-            <x-form.input
-                name="image"
-                label="Imagen"
-                type="file"
-                value="{{$module['image']}}"
-            />
+            <x-form.upload-zone label="Imagen" zoneName="info_image" :isMultiple=false>
+                @if($module['image'])
+                    <div class="preview-item">
+                        <img src="{{$module['image']}}" alt="preview">
+                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'info_image')">×</button>
+                    </div>
+                @endif
+            </x-form.upload-zone>
+            <p class="selectedFilesUpdater" hidden>
+                @json( ['info_image', $module['image']])
+            </p>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">

@@ -150,7 +150,12 @@ class InvitationApiController extends Controller
             $invitation->font = $request->font;
             $invitation->save();
 
-            if($request->frame_image){
+
+            if(!isset($request->frame_image)){
+                $invitation->media('frame_img')->each(function ($media) {
+                    $media->delete();
+                });
+            }elseif(!is_string($request->frame_image)){
                 $invitation->media('frame_img')->each(function ($media) {
                     $media->delete();
                 });
