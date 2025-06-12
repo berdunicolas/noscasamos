@@ -66,6 +66,7 @@
         const minimalLogo = document.getElementById('minimal-logo');
 
         sidebar.classList.toggle('collapsed');
+        localStorage.setItem('sidebar-collapsed', sidebar.classList.contains('collapsed'));
 
         toggle = toggle.children[0].children[0];
 
@@ -75,5 +76,12 @@
             toggle.classList.replace('fa-chevrons-left', 'fa-chevrons-right');
         }
 
+    }
+
+    const sidebar = document.getElementById('navbar'); 
+
+    // Restaurar estado
+    if (localStorage.getItem('sidebar-collapsed') === 'true') {
+        sidebar.classList.add('collapsed');
     }
 </script>
