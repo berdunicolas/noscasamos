@@ -14,7 +14,7 @@
     <body class="bg-light d-flex justify-content-center align-items-center">
         <div class="d-flex flex-col pt-6 card border-0 shadow rounded-4" style="width: 25rem">
             <div class="bg-dark p-5 text-center rounded-top-4">                
-                <img src="{{asset('miscellaneous/Marca-Nos-Casamos.svg')}}" alt="noscasamos logo">
+                <img src="{{asset('miscellaneous/sec-logo.svg')}}" class="img-fluid" alt="noscasamos logo">
             </div>
             <div class="mx-5 mt-4 mb-3">
                 <form method="POST" action="{{ route('login') }}">
