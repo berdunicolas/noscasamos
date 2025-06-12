@@ -1,6 +1,7 @@
 <nav class="navbar navbar-bg" id="navbar">
-    <div class="navbar-logo" id="logo">
-        <img src="{{asset('miscellaneous/Marca-Nos-Casamos.svg')}}" alt="noscasamos logo">
+    <div class="navbar-logo w-100" id="logo">
+        <img src="{{asset('miscellaneous/sec-logo.svg')}}" class="logo" alt="noscasamos logo">
+        <img src="{{asset('miscellaneous/sec-minimalist-logo.svg')}}" class="minimalist-logo" alt="noscasamos logo">
     </div>
     <ul class="nav navbar-nav flex-column mb-4 font-size-2">
         <li class="nav-item">

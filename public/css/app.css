@@ -39,12 +39,30 @@ body > * {
     width: 60px;
 }
 
-.navbar .navbar-logo>img {
+.navbar .navbar-logo{
+    position: relative;
+}
+
+.navbar .navbar-logo>.logo {
+    width: 70%;
+    height: 100%;
+    position: absolute;
     opacity: 1;
     transition: opacity 0.3s ease;
 }
-.navbar.collapsed .navbar-logo>img {
+.navbar.collapsed .navbar-logo>.logo {
     opacity: 0;
+}
+
+.navbar .navbar-logo>.minimalist-logo {
+    width: 70%;
+    height: 100%;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.navbar.collapsed .navbar-logo>.minimalist-logo {
+    opacity: 1;
 }
 
 .navbar .nav-item{
