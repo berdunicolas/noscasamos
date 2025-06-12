@@ -86,6 +86,8 @@ final class ModuleTypeEnum
         'text_color_cover' => '#E2BF83',
         'desktop_images' => [],
         'mobile_images' => [],
+        'desktop_design' => '',
+        'mobile_design' => '',
         'desktop_video' => '',
         'mobile_video' => '',
         'logo_cover' => '',
@@ -518,7 +520,7 @@ final class ModuleTypeEnum
     public static function getModuleForm(string $name, Invitation $invitation, $displayName) {
         $form = match($name){
             'INTRO' => new Intro($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
-            'MUSIC' => new Music($invitation->id),
+            'MUSIC' => new Music($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'FLOAT_BUTTON' => new FloatButton($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
             'COVER' => new Cover($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name), $invitation->host_names),
             'GUEST' => new Guest($invitation->id, self::getModuleFromArrayByName($invitation->modules, $name)),
@@ -672,9 +674,9 @@ final class ModuleTypeEnum
             ],
             'MUSIC' => [
                 'song' => [
-                    'required',
+                    'nullable',
                     File::types(['mp3', 'mp4', 'mpeg', 'mpga', 'wav'])
-                        ->max(7*1024)
+                        ->max(10240)
                 ]
             ],
             'FLOAT_BUTTON' => [
@@ -702,13 +704,25 @@ final class ModuleTypeEnum
                         ->types(['jpeg', 'png', 'jpg'])
                         ->max(2*2048)*/
                 ],
+                'desktop_design' => [
+                    'nullable',
+                    File::image()
+                        ->types(['jpeg', 'png', 'jpg'])
+                        ->max(2048)
+                ],
+                'mobile_design' => [
+                    'nullable',
+                    File::image()
+                        ->types(['jpeg', 'png', 'jpg'])
+                        ->max(2048)
+                ],
                 'desktop_video' => [
                     File::types(['mp4', 'mov', 'avi'])
-                        ->max(7*1024)
+                        ->max(61440)
                 ],
                 'mobile_video' => [
                     File::types(['mp4', 'mov', 'avi'])
-                        ->max(7*1024)
+                        ->max(61440)
                 ],
                 'logo_cover' => [
                     'nullable',
@@ -1102,11 +1116,13 @@ final class ModuleTypeEnum
                     $media->delete();
                 });
 
-                $invitation->addMedia($data['song'], self::MUSIC['name'], $invitation->path_name);
-                $invitation->refresh();
+                if(isset($data['song'])){
+                    $invitation->addMedia($data['song'], self::MUSIC['name'], $invitation->path_name);
+                    $invitation->refresh();
+                }
 
                 return $updateTask($modules, $name, [
-                    'song' => $invitation->media(self::MUSIC['name'])->first()->getMediaUrl()
+                    'song' => $invitation->media(self::MUSIC['name'])->first()?->getMediaUrl()
                 ]);
             })(),
             'FLOAT_BUTTON' => $updateTask($modules, $name, [
@@ -1135,7 +1151,19 @@ final class ModuleTypeEnum
                             $invitation->addMedia($image, self::COVER['name'].'/mobile_images', $invitation->path_name);
                         }                    
                     }
-                }else if($data['format'] == 'Video' || $data['format'] == 'Video centrado'){
+
+                }elseif($data['format'] == 'Diseño' || $data['format'] == 'Diseño con marco'){
+                    $invitation->media(self::COVER['name'].'/desktop_design')->each(function ($media) {
+                        $media->delete();
+                    });
+                    $invitation->media(self::COVER['name'].'/mobile_design')->each(function ($media) {
+                        $media->delete();
+                    });
+
+                    if(isset($data['desktop_design'])) $invitation->addMedia($data['desktop_design'], self::COVER['name'].'/desktop_design', $invitation->path_name);
+                    if(isset($data['mobile_design'])) $invitation->addMedia($data['mobile_design'], self::COVER['name'].'/mobile_design', $invitation->path_name);
+
+                }elseif($data['format'] == 'Video' || $data['format'] == 'Video centrado'){
                     $invitation->media(self::COVER['name'].'/desktop_video')->each(function ($media) {
                         $media->delete();
                     });
@@ -1167,6 +1195,8 @@ final class ModuleTypeEnum
                     })->toArray(),
                     'desktop_video' => $invitation->media(self::COVER['name'].'/desktop_video')->first()?->getMediaUrl(),
                     'mobile_video' => $invitation->media(self::COVER['name'].'/mobile_video')->first()?->getMediaUrl(),
+                    'desktop_design' => $invitation->media(self::COVER['name'].'/desktop_design')->first()?->getMediaUrl(),
+                    'mobile_design' => $invitation->media(self::COVER['name'].'/mobile_design')->first()?->getMediaUrl(),
                     'logo_cover' => $invitation->media(self::COVER['name'].'/logo_cover')->first()?->getMediaUrl(),
                     'central_image_cover' => $invitation->media(self::COVER['name'].'/central_image_cover')->first()?->getMediaUrl(),
                     'active_header' => $data['active_header'],

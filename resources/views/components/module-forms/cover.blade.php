@@ -41,7 +41,7 @@
             </x-form.select>
         </div>
 
-        <div id="images_format_inputs" class="{{ str_contains('Video centrado', $module['format']) ? 'd-none' : '' }}">
+        <div id="images_format_inputs" class="{{ str_contains('Imagenes con marco', $module['format']) ? '' : 'd-none' }}">
             <div class="mb-3">
                 <x-form.upload-zone label="Imágenes desktop" zoneName="images_desktop_cover" :isMultiple=true>
                     @foreach ($module['desktop_images'] as $key => $image)
@@ -73,23 +73,58 @@
                 </p>
             </div>
         </div>
-        <div id="video_format_inputs" class="{{ str_contains('Imagenes con marco', $module['format']) ? 'd-none' : '' }}">
+        <div id="design_format_inputs" class="{{ str_contains('Diseño con marco', $module['format']) ? '' : 'd-none' }}">
             <div class="row mb-3">
                 <div class="col-6">
-                    <x-form.input
-                        id="desktop_video"
-                        name="desktop_video"
-                        label="Video desktop"
-                        type="file"
-                    />
+                    <x-form.upload-zone label="Diseño desktop" zoneName="design_desktop_cover" :isMultiple=false>
+                        @if($module['desktop_design'])
+                            <div class="preview-item">
+                                <img src="{{$module['desktop_design']}}" alt="preview">
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'design_desktop_cover')">×</button>
+                            </div>
+                        @endif
+                    </x-form.upload-zone>
+                    <p class="selectedFilesUpdater" hidden>
+                        @json( ['design_desktop_cover', $module['desktop_design']])
+                    </p>
                 </div>
                 <div class="col-6">
-                    <x-form.input
-                        id="mobile_video"
-                        name="mobile_video"
-                        label="Video movile"
-                        type="file"
-                    />
+                    <x-form.upload-zone label="Diseño mobile" zoneName="design_mobile_cover" :isMultiple=false>
+                        @if($module['mobile_design'])
+                            <div class="preview-item">
+                                <img src="{{$module['mobile_design']}}" alt="preview">
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'design_mobile_cover')">×</button>
+                            </div>
+                        @endif
+                    </x-form.upload-zone>
+                    <p class="selectedFilesUpdater" hidden>
+                        @json( ['design_mobile_cover', $module['mobile_design']])
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="video_format_inputs" class="{{ str_contains('Video centrado', $module['format']) ? '' : 'd-none' }}">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="desktop_video">Video desktop</label>
+                    <div class="input-group mb-3">
+                        <input type="file" id="desktop_video" onchange="videoPreview(this)" name="desktop_video" data-url="{{$module['desktop_video']}}" accept="video/*" class="form-control videoInput">
+                        <button class="btn btn-outline-danger" onclick="deleteVideoFromInput('desktop_video')" type="button" id="button-addon2"><i class="fa-light fa-xmark"></i></button>
+                    </div>
+                    <div class="mt-2">
+                        <video id="desktop_video_preview" height="0" class="m-2" video muted playsinline></video>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <label for="mobile_video">Video movile</label>
+                    
+                    <div class="input-group mb-3">
+                        <input type="file" id="mobile_video" onchange="videoPreview(this)" name="mobile_video" data-url="{{$module['mobile_video']}}" accept="video/*" class="form-control videoInput">
+                        <button class="btn btn-outline-danger" onclick="deleteVideoFromInput('mobile_video')" type="button" id="button-addon2"><i class="fa-light fa-xmark"></i></button>
+                    </div>
+                    <div class="mt-2">
+                        <video id="mobile_video_preview" height="0" class="m-2" video muted playsinline></video>
+                    </div>
                 </div>
             </div>
         </div>
