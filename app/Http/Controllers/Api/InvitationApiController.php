@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
+use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
+use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInvitationRequest;
 use App\Http\Requests\SetConfigInvitationRequest;
@@ -13,7 +15,6 @@ use App\Http\Resources\InvitationResource;
 use App\Models\Country;
 use App\Models\Event;
 use App\Models\Invitation;
-use App\Models\Plan;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,12 +34,6 @@ class InvitationApiController extends Controller
     public function store(StoreInvitationRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
-        $plan = collect(ModuleTypeEnum::getModulesByPlan($validatedData['plan']))->map(function ($item) {
-            $item['on_plan'] = true;
-            $item['active'] = true;
-
-            return $item;
-        });
 
         try {
             DB::beginTransaction();
@@ -66,13 +61,30 @@ class InvitationApiController extends Controller
                 'meta_description' => null,
                 'country_id' => null,
                 'country_division' => null,
-                'modules' => $plan->toArray(),
                 'color' => '#E2BF83',
                 'background_color' => '#F3F1ED',
                 'style' => StyleTypeEnum::LIGHT,
                 'font' => FontTypeEnum::deco,
                 'icon_type' => 'Animado',
             ]);
+
+            $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::from($validatedData['plan'])))->map(function ($handler) {
+                $name = ModuleTypeEnum::getDisplayName($handler::TYPE);
+                $trimName = str_replace(' ', '_', strtolower($name));
+
+                return [
+                    'type' => $handler::TYPE,
+                    'name' => $trimName,
+                    'display_name' => $name,
+                    'active' => true,
+                    'on_plan' => true,
+                    'data' => $handler::DATA,
+                    'media_collections' => $handler::getMediaCollections($trimName),
+                ];
+            });
+
+            
+            $invitation->modules()->createMany($modules->toArray());
 
             DB::commit();
     

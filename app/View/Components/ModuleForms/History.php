@@ -3,26 +3,19 @@
 namespace App\View\Components\ModuleForms;
 
 use App\Enums\ModuleTypeEnum;
+use App\Models\InvitationModule;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class History extends Component
 {
-    public string $id = ModuleTypeEnum::HISTORY['display_name'] . '-module-form';
-
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public int $invitationId,
-        public array $module = [],
-        public string $moduleName = ModuleTypeEnum::HISTORY['name'],
-    ) {
-        if($this->module['display_name'] != ModuleTypeEnum::HISTORY['display_name']){
-            $this->id = $this->module['display_name'] . '-module-form';
-        }
-    }
+        public InvitationModule $module
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

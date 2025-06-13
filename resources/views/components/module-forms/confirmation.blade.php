@@ -1,7 +1,7 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Confirmación</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="row mb-3">
             <div class="col-6">
                 <x-form.input
@@ -9,7 +9,7 @@
                     label="Icono"
                     type="text"
                     placeholder="fa-gift"
-                    value="{{$module['icon']}}"
+                    value="{{$module->data['icon']}}"
                 />
             </div>
             <div class="col-6">
@@ -19,7 +19,7 @@
                         label="Antetitulo"
                         type="text"
                         placeholder="RSVP"
-                        value="{{$module['pre_tittle']}}"
+                        value="{{$module->data['pre_tittle']}}"
                     />
                 </div>
             </div>
@@ -30,18 +30,18 @@
                 label="Titulo"
                 type="text"
                 placeholder="Confirmar asistencia"
-                value="{{$module['tittle']}}"
+                value="{{$module->data['tittle']}}"
             />
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-            <textarea name="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['text']}}</textarea>
+            <textarea name="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>
         <div class="mb-3">
             <x-form.input
                 name="limit_date"
                 label="Limite de confirmación"
-                value="{{$module['limit_date']}}"
+                value="{{$module->data['limit_date']}}"
                 placeholder="Tenés tiempo hasta el 20 de Marzo."
             />
         </div>
@@ -52,8 +52,8 @@
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <label class="form-check-label" for="switchCheckChecked">Valor tarjeta</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'card_active')" type="checkbox" role="switch" {{$module['card_active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="card_active" id="card_active" value="{{$module['card_active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'card_active')" type="checkbox" role="switch" {{$module->data['card_active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="card_active" id="card_active" value="{{$module->data['card_active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -65,12 +65,12 @@
                                 label="Titulo"
                                 type="text"
                                 placeholder="Valor de tarjeta"
-                                value="{{$module['card_tittle']}}"
+                                value="{{$module->data['card_tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="card_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['card_text']}}</textarea>
+                            <textarea name="card_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['card_text']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.input
@@ -78,7 +78,7 @@
                                 label="Texto boton"
                                 type="text"
                                 placeholder="Cómo abonar"
-                                value="{{$module['card_button_text']}}"
+                                value="{{$module->data['card_button_text']}}"
                             />
                         </div>
                     </div>
@@ -89,8 +89,8 @@
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                         <label class="form-check-label" for="switchCheckChecked">Formulario</label>
                         <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'form_active')" type="checkbox" role="switch" {{$module['form_active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="form_active" id="form_active" value="{{$module['form_active'] ? 1 : 0}}">
+                            <input class="form-check-input" onchange="checkboxSwitch(this, 'form_active')" type="checkbox" role="switch" {{$module->data['form_active'] ? 'checked' : ''}}>
+                            <input type="text" hidden name="form_active" id="form_active" value="{{$module->data['form_active'] ? 1 : 0}}">
                         </div>
                     </button>
                 </h2>
@@ -103,7 +103,7 @@
                                     label="Texto boton"
                                     type="text"
                                     placeholder="Confirmár asistencia"
-                                    value="{{$module['form_button_text']}}"
+                                    value="{{$module->data['form_button_text']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -112,13 +112,13 @@
                                     label="Link boton"
                                     type="text"
                                     placeholder="forms.google.com"
-                                    value="{{$module['form_button_url']}}"
+                                    value="{{$module->data['form_button_url']}}"
                                 />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="form_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['form_text']}}</textarea>
+                            <textarea name="form_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['form_text']}}</textarea>
                         </div>
 
                         <div class="row mb-3">
@@ -128,7 +128,7 @@
                                     label="Asistiré"
                                     type="text"
                                     placeholder="Asistiré"
-                                    value="{{$module['form_ill_attend']}}"
+                                    value="{{$module->data['form_ill_attend']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -137,7 +137,7 @@
                                     label="No asistiré"
                                     type="text"
                                     placeholder="No asistiré"
-                                    value="{{$module['form_ill_n_attend']}}"
+                                    value="{{$module->data['form_ill_n_attend']}}"
                                 />
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                                 label="Nombre"
                                 type="text"
                                 placeholder="Apellido y nombre"
-                                value="{{$module['form_name']}}"
+                                value="{{$module->data['form_name']}}"
                             />
                         </div>
                         <div class="row mb-3">
@@ -157,7 +157,7 @@
                                     label="Email"
                                     type="text"
                                     placeholder="Correo electronico"
-                                    value="{{$module['form_email']}}"
+                                    value="{{$module->data['form_email']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -166,7 +166,7 @@
                                     label="Teléfono"
                                     type="text"
                                     placeholder="Teléfono"
-                                    value="{{$module['form_phone']}}"
+                                    value="{{$module->data['form_phone']}}"
                                 />
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                                 label="Menu especial"
                                 type="text"
                                 placeholder="¿Necesitas un menu especial?"
-                                value="{{$module['form_special_menu']}}"
+                                value="{{$module->data['form_special_menu']}}"
                             />
                         </div>
                         <div class="row mb-3">
@@ -186,7 +186,7 @@
                                     label="Ninguno"
                                     type="text"
                                     placeholder="Ninguno"
-                                    value="{{$module['form_nothing']}}"
+                                    value="{{$module->data['form_nothing']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -195,7 +195,7 @@
                                     label="Menu 1"
                                     type="text"
                                     placeholder="Celiaco"
-                                    value="{{$module['form_menu1']}}"
+                                    value="{{$module->data['form_menu1']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -204,7 +204,7 @@
                                     label="Menu 2"
                                     type="text"
                                     placeholder="Vegetariano"
-                                    value="{{$module['form_menu2']}}"
+                                    value="{{$module->data['form_menu2']}}"
                                 />
                             </div>
                         </div>
@@ -215,7 +215,7 @@
                                     label="Menu 3"
                                     type="text"
                                     placeholder="Vegano"
-                                    value="{{$module['form_menu3']}}"
+                                    value="{{$module->data['form_menu3']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -224,7 +224,7 @@
                                     label="Menu 4"
                                     type="text"
                                     placeholder="Diabetico"
-                                    value="{{$module['form_menu4']}}"
+                                    value="{{$module->data['form_menu4']}}"
                                 />
                             </div>
                             <div class="col-4">
@@ -233,7 +233,7 @@
                                     label="Menu 5"
                                     type="text"
                                     placeholder="Kosher"
-                                    value="{{$module['form_menu5']}}"
+                                    value="{{$module->data['form_menu5']}}"
                                 />
                             </div>
                         </div>
@@ -244,7 +244,7 @@
                                 label="Traslado"
                                 type="text"
                                 placeholder="¿Necesitas traslado?"
-                                value="{{$module['form_transfer']}}"
+                                value="{{$module->data['form_transfer']}}"
                             />
                         </div>
                         <div class="row mb-3">
@@ -254,7 +254,7 @@
                                     label="Opción 1"
                                     type="text"
                                     placeholder="No, voy por mis medios"
-                                    value="{{$module['form_option1']}}"
+                                    value="{{$module->data['form_option1']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -263,7 +263,7 @@
                                     label="Opción 2"
                                     type="text"
                                     placeholder="Si, necesito traslado"
-                                    value="{{$module['form_option2']}}"
+                                    value="{{$module->data['form_option2']}}"
                                 />
                             </div>
                         </div>
@@ -273,7 +273,7 @@
                                     name="form_option3"
                                     label="Opción 3"
                                     type="text"
-                                    value="{{$module['form_option3']}}"
+                                    value="{{$module->data['form_option3']}}"
                                 />
                             </div>
                             <div class="col-6">
@@ -281,7 +281,7 @@
                                     name="form_option4"
                                     label="Opción 4"
                                     type="text"
-                                    value="{{$module['form_option4']}}"
+                                    value="{{$module->data['form_option4']}}"
                                 />
                             </div>
                         </div>
@@ -292,7 +292,7 @@
                                 label="Acompañantes"
                                 type="text"
                                 placeholder="Nombre y apellido de acompañantes (si corresponde)"
-                                value="{{$module['form_companions']}}"
+                                value="{{$module->data['form_companions']}}"
                             />
                         </div>
                         <div class="mb-3">
@@ -301,7 +301,7 @@
                                 label="Comentarios"
                                 type="text"
                                 placeholder="Comentarios o mensajes"
-                                value="{{$module['form_comments']}}"
+                                value="{{$module->data['form_comments']}}"
                             />
                         </div>
                         <div class="mb-3">
@@ -310,7 +310,7 @@
                                 label="Errores de formulario"
                                 type="text"
                                 placeholder="Por favor completa todos los campos"
-                                value="{{$module['form_errors']}}"
+                                value="{{$module->data['form_errors']}}"
                             />
                         </div>
                         <div class="mb-3">
@@ -319,7 +319,7 @@
                                 label="Gracias"
                                 type="text"
                                 placeholder="¡Gracias por confirmar asistencia!"
-                                value="{{$module['form_thanks']}}"
+                                value="{{$module->data['form_thanks']}}"
                             />
                         </div>
                     </div>

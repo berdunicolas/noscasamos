@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ModuleTypeEnum;
+use App\Handlers\ModuleHandler;
 use App\Http\Requests\UpdateModuleRequest;
 use App\Models\Invitation;
+use App\Models\InvitationModule;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,7 +17,7 @@ class InvitationModuleApiController extends Controller
     // Retornara todos los modulos de una invitacion
     public function getInvitationModules(Invitation $invitation) {
         foreach($invitation->modules as $module){
-            $modules[] = ModuleTypeEnum::getModuleForm($module['name'], $invitation, $module['display_name']);
+            $modules[] = ModuleHandler::getModuleForm($module);
         }
     
         return response()->json($modules);
@@ -55,41 +57,22 @@ class InvitationModuleApiController extends Controller
         return response()->json(['message' => 'Order of invitation modules changed successfully'], Response::HTTP_CREATED);
     }
 
-    public function changeModuleStatus(Request $request, Invitation $invitation, string $module, ?string $displayName = null){
-        $modules = $invitation->modules;
+    public function changeModuleStatus(Request $request, Invitation $invitation, InvitationModule $module){
 
-        foreach($modules as $index => $invitationModule){
-            if($displayName === null){
-                if($module == $invitationModule['name']){
-                    $modules[$index]['active'] = $request['active'];
-                    break;
-                }
-            } else {
-                if($module == $invitationModule['name'] && $displayName == $invitationModule['display_name']){
-                    $modules[$index]['active'] = $request['active'];
-                    break;
-                }
-            }
-        }
-        $invitation->modules = $modules;
-        $invitation->save();
+            $module->active = $request['active'];
+            $module->save();
         
         return response()->json(['message' => 'Invitation module activation changed successfully'], Response::HTTP_CREATED);
     }
 
-    public function updateModule(UpdateModuleRequest $request, Invitation $invitation, string $module, ?string $displayName = null) {
+    public function updateModule(UpdateModuleRequest $request, Invitation $invitation, InvitationModule $module) {
         $validatedData = $request->validated();
 
         try {
             DB::beginTransaction();
 
-            $invitation->modules = ModuleTypeEnum::updateModuleHandle(
-                $invitation,
-                $module,
-                $validatedData,
-                $displayName
-            );
-            $invitation->save();
+            $module->data = ModuleHandler::updateModuleHandle($module, $validatedData);
+            $module->save();
 
             DB::commit();
             return response()->json(['message' => 'Module ' . $module . ' updated successfully.'], Response::HTTP_CREATED);
@@ -108,28 +91,8 @@ class InvitationModuleApiController extends Controller
         return response()->json($modules);
     }
 
-    public function deleteModule(Invitation $invitation, $module, $displayName = null) {
-
-        $modules = [];
-
-        if($displayName === null){
-            foreach($invitation->modules as $item){
-                if($item['name'] == $module) continue;
-            
-                $modules[] = $item;
-            }
-        } else {
-            foreach($invitation->modules as $item){
-                if($item['name'] == $module && $item['display_name'] == $displayName) {
-                    continue;
-                }
-                
-                $modules[] = $item;
-            }
-        }
-        
-        $invitation->modules = $modules;
-        $invitation->save();
+    public function deleteModule(Invitation $invitation, InvitationModule $module) {
+        $module->delete();
 
         return response()->json([
             'message' => 'Module ' . $module . ' deleted successfully.'

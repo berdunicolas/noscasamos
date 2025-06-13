@@ -11,6 +11,7 @@ use App\Traits\HasMedia;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Invitation extends Authenticatable
 {
@@ -19,35 +20,6 @@ class Invitation extends Authenticatable
     protected $customMediaCollections = [
         'meta_img',
         'frame_img',
-        ModuleTypeEnum::HIGHLIGHTS['name'],
-        ModuleTypeEnum::EVENTS['name'].'/civil',
-        ModuleTypeEnum::EVENTS['name'].'/ceremony',
-        ModuleTypeEnum::EVENTS['name'].'/party',
-        ModuleTypeEnum::EVENTS['name'].'/dresscode',
-        ModuleTypeEnum::SUGGESTIONS['name'],
-        ModuleTypeEnum::HISTORY['name'],
-        ModuleTypeEnum::INFO['name'],
-        ModuleTypeEnum::GALERY['name'],
-        ModuleTypeEnum::INTRO['name'],
-        ModuleTypeEnum::MUSIC['name'],
-        ModuleTypeEnum::COVER['name'],
-        ModuleTypeEnum::COVER['name'].'/desktop_images',
-        ModuleTypeEnum::COVER['name'].'/mobile_images',
-        ModuleTypeEnum::COVER['name'].'/desktop_design',
-        ModuleTypeEnum::COVER['name'].'/mobile_design',
-        ModuleTypeEnum::COVER['name'].'/desktop_video',
-        ModuleTypeEnum::COVER['name'].'/mobile_video',
-        ModuleTypeEnum::COVER['name'].'/logo_cover',
-        ModuleTypeEnum::COVER['name'].'/central_image_cover',
-        ModuleTypeEnum::GIFTS['name'].'/background',
-        ModuleTypeEnum::GIFTS['name'].'/module',
-        ModuleTypeEnum::GIFTS['name'].'/product_1',
-        ModuleTypeEnum::GIFTS['name'].'/product_2',
-        ModuleTypeEnum::GIFTS['name'].'/product_3',
-        ModuleTypeEnum::GIFTS['name'].'/product_4',
-        ModuleTypeEnum::GIFTS['name'].'/product_5',
-        ModuleTypeEnum::GIFTS['name'].'/product_6',
-        ModuleTypeEnum::WELCOME['name'],
     ];
 
     protected $fillable = [
@@ -71,7 +43,6 @@ class Invitation extends Authenticatable
         'padding',
         'color',
         'background_color',
-        'modules',
     ];
 
     protected $hidden = [
@@ -83,10 +54,14 @@ class Invitation extends Authenticatable
         'style' => StyleTypeEnum::class,
         //'spacing' => SpacingTypeEnum::class,
         'active' => 'boolean',
-        'modules' => 'array',
         'time' => TimeFormatCast::class,
         'password' => 'hashed',
     ];
+
+    public function modules(): HasMany
+    {
+        return $this->hasMany(InvitationModule::class, 'invitation_id', 'id');
+    }
 
     public function createdBy(): BelongsTo
     {

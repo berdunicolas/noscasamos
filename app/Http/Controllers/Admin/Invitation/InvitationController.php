@@ -8,6 +8,7 @@ use App\Enums\ModuleTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\SpacingTypeEnum;
 use App\Enums\StyleTypeEnum;
+use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\CountryDivision;
@@ -31,12 +32,10 @@ class InvitationController extends Controller
      */
     public function edit(Invitation $invitation): View
     {
-        $invitation->load('event');
+        $invitation->load(['event']);
         $invitation->event->load('country');
 
-
         $con = Guest::where('invitation_id', $invitation->id)->orderBy('created_at', 'desc')->get();
-
 
         $countries = Country::where('active', 1)->get();
         $CountryDivision = CountryDivision::where('country_code', $invitation->event->country?->code)->get();
@@ -47,7 +46,12 @@ class InvitationController extends Controller
         $spacingTypes = SpacingTypeEnum::values();
         $sellers = Seller::select('id', 'name')->get();
         $fontTypes = FontTypeEnum::values();
-        $availableModules = ModuleTypeEnum::availableModules($invitation->modules);
+        $availableModules = ModuleHandler::availableModules($invitation->modules->map(function ($module) {
+            return [
+                'type' => $module->type,
+                'display_name' => $module->display_name,
+            ];
+        })->toArray());
 
         return view('admin.invitations.edit', [
             'invitation' => $invitation, 

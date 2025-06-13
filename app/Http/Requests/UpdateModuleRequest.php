@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\ModuleTypeEnum;
+use App\Handlers\ModuleHandler;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -24,7 +24,7 @@ class UpdateModuleRequest extends FormRequest
      */
     public function rules(): array
     {
-        return ModuleTypeEnum::getModuleRequestRules($this->route('module'));
+        return ModuleHandler::getModuleRequestRules($this->route('module'));
     }
 
     protected function failedValidation(Validator $validator)

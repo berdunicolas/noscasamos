@@ -1,33 +1,33 @@
-<div id="{{$id}}" class="module-form visually-hidden">
-    <h4>{{$module['display_name']}}</h4>
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
+    <h4>{{$module->display_name}}</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName" :displayName="$module['display_name']">
+    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.input
                 name="icon"
                 label="Icono"
                 type="text"
                 placeholder="fa-heart"
-                value="{{$module['icon']}}"
+                value="{{$module->data['icon']}}"
             />
         </div>
         <div class="mb-3">
             <x-form.upload-zone label="Imagen" zoneName="info_image" :isMultiple=false>
-                @if($module['image'])
+                @if($module->data['image'])
                     <div class="preview-item">
-                        <img src="{{$module['image']}}" alt="preview">
+                        <img src="{{$module->data['image']}}" alt="preview">
                         <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'info_image')">×</button>
                     </div>
                 @endif
             </x-form.upload-zone>
             <p class="selectedFilesUpdater" hidden>
-                @json( ['info_image', $module['image']])
+                @json( ['info_image', $module->data['image']])
             </p>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'on_t_right')" {{$module['on_t_right'] ? 'checked' : ''}}>
-                <input type="text" hidden name="on_t_right" id="on_t_right" value="{{$module['on_t_right'] ? 1 : 0}}">
+                <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'on_t_right')" {{$module->data['on_t_right'] ? 'checked' : ''}}>
+                <input type="text" hidden name="on_t_right" id="on_t_right" value="{{$module->data['on_t_right'] ? 1 : 0}}">
                 <label class="form-check-label" for="switchCheckChecked">Info Derecha</label>
             </div>
         </div>
@@ -37,12 +37,12 @@
                 label="Título"
                 type="text"
                 placeholder="Titulo"
-                value="{{$module['tittle']}}"
+                value="{{$module->data['tittle']}}"
             />
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-            <textarea name="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['text']}}</textarea>
+            <textarea name="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>
         <div class="row mb-3">
             <div class="col-6">
@@ -51,7 +51,7 @@
                     label="Icono botón"
                     type="text"
                     placeholder="fa-square-arrow-up-right"
-                    value="{{$module['button_icon']}}"
+                    value="{{$module->data['button_icon']}}"
                 />
             </div>
             <div class="col-6">
@@ -61,7 +61,7 @@
                         label="Texto botón"
                         type="text"
                         placeholder="Ver más"
-                        value="{{$module['button_text']}}"
+                        value="{{$module->data['button_text']}}"
                     />
                 </div>
             </div>
@@ -72,7 +72,7 @@
                 label="Url botton"
                 type="text"
                 placeholder="https://www.google.com"
-                value="{{$module['button_url']}}"
+                value="{{$module->data['button_url']}}"
             />
         </div>
         

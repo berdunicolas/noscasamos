@@ -1,7 +1,7 @@
 <div id="{{$id}}" class="module-form visually-hidden">
     <h4>Foot</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.select
                 name="seller_name"

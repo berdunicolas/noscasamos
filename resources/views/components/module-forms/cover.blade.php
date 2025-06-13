@@ -1,7 +1,7 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Portada</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.select
                 name="format"
@@ -11,40 +11,40 @@
                 <x-form.select-option
                     value="Imagenes"
                     label="Imagenes"
-                    selected="{{ ($module['format'] ==  'Imagenes') ? true : false }}"
+                    selected="{{ ($module->data['format'] ==  'Imagenes') ? true : false }}"
                 />
                 <x-form.select-option
                     value="Imagenes con marco"
                     label="Imagenes con marco"
-                    selected="{{ ($module['format'] == 'Imagenes con marco') ? true : false }}"
+                    selected="{{ ($module->data['format'] == 'Imagenes con marco') ? true : false }}"
                 />
                 <x-form.select-option
                     value="Diseño"
                     label="Diseño"
-                    selected="{{ ($module['format'] == 'Diseño') ? true : false }}"
+                    selected="{{ ($module->data['format'] == 'Diseño') ? true : false }}"
                 />
                 <x-form.select-option
                     value="Diseño con marco"
                     label="Diseño con marco"
-                    selected="{{ ($module['format'] == 'Diseño con marco') ? true : false }}"
+                    selected="{{ ($module->data['format'] == 'Diseño con marco') ? true : false }}"
                 />
                 <x-form.select-option
                     value="Video"
                     label="Video"
-                    selected="{{ ($module['format'] == 'Video') ? true : false }}"
+                    selected="{{ ($module->data['format'] == 'Video') ? true : false }}"
                 />
                 <x-form.select-option
                     value="Video centrado"
                     label="Video centrado"
-                    selected="{{ ($module['format'] == 'Video centrado') ? true : false }}"
+                    selected="{{ ($module->data['format'] == 'Video centrado') ? true : false }}"
                 />
             </x-form.select>
         </div>
 
-        <div id="images_format_inputs" class="{{ str_contains('Imagenes con marco', $module['format']) ? '' : 'd-none' }}">
+        <div id="images_format_inputs" class="{{ str_contains('Imagenes con marco', $module->data['format']) ? '' : 'd-none' }}">
             <div class="mb-3">
                 <x-form.upload-zone label="Imágenes desktop" zoneName="images_desktop_cover" :isMultiple=true>
-                    @foreach ($module['desktop_images'] as $key => $image)
+                    @foreach ($module->data['desktop_images'] as $key => $image)
                         @if($image)
                             <div class="preview-item">
                                 <img src="{{$image}}" alt="preview">
@@ -54,12 +54,12 @@
                     @endforeach
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['images_desktop_cover', $module['desktop_images']])
+                    @json( ['images_desktop_cover', $module->data['desktop_images']])
                 </p>
             </div>
             <div class="mb-3">
                 <x-form.upload-zone label="Imágenes mobile" zoneName="images_mobile_cover" :isMultiple=true>
-                    @foreach ($module['mobile_images'] as $key => $image)
+                    @foreach ($module->data['mobile_images'] as $key => $image)
                         @if($image)
                             <div class="preview-item">
                                 <img src="{{$image}}" alt="preview">
@@ -69,46 +69,46 @@
                     @endforeach
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['images_mobile_cover', $module['mobile_images']])
+                    @json( ['images_mobile_cover', $module->data['mobile_images']])
                 </p>
             </div>
         </div>
-        <div id="design_format_inputs" class="{{ str_contains('Diseño con marco', $module['format']) ? '' : 'd-none' }}">
+        <div id="design_format_inputs" class="{{ str_contains('Diseño con marco', $module->data['format']) ? '' : 'd-none' }}">
             <div class="row mb-3">
                 <div class="col-6">
                     <x-form.upload-zone label="Diseño desktop" zoneName="design_desktop_cover" :isMultiple=false>
-                        @if($module['desktop_design'])
+                        @if($module->data['desktop_design'])
                             <div class="preview-item">
-                                <img src="{{$module['desktop_design']}}" alt="preview">
+                                <img src="{{$module->data['desktop_design']}}" alt="preview">
                                 <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'design_desktop_cover')">×</button>
                             </div>
                         @endif
                     </x-form.upload-zone>
                     <p class="selectedFilesUpdater" hidden>
-                        @json( ['design_desktop_cover', $module['desktop_design']])
+                        @json( ['design_desktop_cover', $module->data['desktop_design']])
                     </p>
                 </div>
                 <div class="col-6">
                     <x-form.upload-zone label="Diseño mobile" zoneName="design_mobile_cover" :isMultiple=false>
-                        @if($module['mobile_design'])
+                        @if($module->data['mobile_design'])
                             <div class="preview-item">
-                                <img src="{{$module['mobile_design']}}" alt="preview">
+                                <img src="{{$module->data['mobile_design']}}" alt="preview">
                                 <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'design_mobile_cover')">×</button>
                             </div>
                         @endif
                     </x-form.upload-zone>
                     <p class="selectedFilesUpdater" hidden>
-                        @json( ['design_mobile_cover', $module['mobile_design']])
+                        @json( ['design_mobile_cover', $module->data['mobile_design']])
                     </p>
                 </div>
             </div>
         </div>
-        <div id="video_format_inputs" class="{{ str_contains('Video centrado', $module['format']) ? '' : 'd-none' }}">
+        <div id="video_format_inputs" class="{{ str_contains('Video centrado', $module->data['format']) ? '' : 'd-none' }}">
             <div class="row mb-3">
                 <div class="col-6">
                     <label for="desktop_video">Video desktop</label>
                     <div class="input-group mb-3">
-                        <input type="file" id="desktop_video" onchange="videoPreview(this)" name="desktop_video" data-url="{{$module['desktop_video']}}" accept="video/*" class="form-control videoInput">
+                        <input type="file" id="desktop_video" onchange="videoPreview(this)" name="desktop_video" data-url="{{$module->data['desktop_video']}}" accept="video/*" class="form-control videoInput">
                         <button class="btn btn-outline-danger" onclick="deleteVideoFromInput('desktop_video')" type="button" id="button-addon2"><i class="fa-light fa-xmark"></i></button>
                     </div>
                     <div class="mt-2">
@@ -119,7 +119,7 @@
                     <label for="mobile_video">Video movile</label>
                     
                     <div class="input-group mb-3">
-                        <input type="file" id="mobile_video" onchange="videoPreview(this)" name="mobile_video" data-url="{{$module['mobile_video']}}" accept="video/*" class="form-control videoInput">
+                        <input type="file" id="mobile_video" onchange="videoPreview(this)" name="mobile_video" data-url="{{$module->data['mobile_video']}}" accept="video/*" class="form-control videoInput">
                         <button class="btn btn-outline-danger" onclick="deleteVideoFromInput('mobile_video')" type="button" id="button-addon2"><i class="fa-light fa-xmark"></i></button>
                     </div>
                     <div class="mt-2">
@@ -130,18 +130,18 @@
         </div>
         <div class="row mt-4 mb-3">
             <div class="ms-2 col-3 form-check form-switch">
-                <input class="form-check-input" onchange="checkboxSwitch(this, 'active_header')" type="checkbox" role="switch" {{$module['active_header'] ? 'checked' : ''}}>
-                <input type="text" hidden name="active_header" id="active_header" value="{{$module['active_header'] ? 1 : 0}}">
+                <input class="form-check-input" onchange="checkboxSwitch(this, 'active_header')" type="checkbox" role="switch" {{$module->data['active_header'] ? 'checked' : ''}}>
+                <input type="text" hidden name="active_header" id="active_header" value="{{$module->data['active_header'] ? 1 : 0}}">
                 <label class="form-check-label" for="switchCheckChecked">Usar cabecera</label>
             </div>
             <div class="col-3 form-check form-switch">
-                <input class="form-check-input" onchange="checkboxSwitch(this, 'active_logo')" type="checkbox" role="switch" {{$module['active_logo'] ? 'checked' : ''}}>
-                <input type="text" hidden name="active_logo" id="active_logo" value="{{$module['active_logo'] ? 1 : 0}}">
+                <input class="form-check-input" onchange="checkboxSwitch(this, 'active_logo')" type="checkbox" role="switch" {{$module->data['active_logo'] ? 'checked' : ''}}>
+                <input type="text" hidden name="active_logo" id="active_logo" value="{{$module->data['active_logo'] ? 1 : 0}}">
                 <label class="form-check-label" for="switchCheckChecked">Usar logotipo</label>
             </div>
             <div class="col-4 form-check form-switch">
-                <input class="form-check-input" onchange="checkboxSwitch(this, 'active_central')" type="checkbox" role="switch" {{$module['active_central'] ? 'checked' : ''}}>
-                <input type="text" hidden name="active_central" id="active_central" value="{{$module['active_central'] ? 1 : 0}}">
+                <input class="form-check-input" onchange="checkboxSwitch(this, 'active_central')" type="checkbox" role="switch" {{$module->data['active_central'] ? 'checked' : ''}}>
+                <input type="text" hidden name="active_central" id="active_central" value="{{$module->data['active_central'] ? 1 : 0}}">
                 <label class="form-check-label" for="switchCheckChecked">Usar imagen central</label>
             </div>
         </div>
@@ -152,7 +152,7 @@
                 <x-form.input
                     name="names"
                     label="Nombres"
-                    value="{{ $module['names'] }}"
+                    value="{{ $module->data['names'] }}"
                     placeholder="Juan & Micaela"
                 />
             </div>
@@ -161,7 +161,7 @@
                     id="text-color-cover"
                     name="text_color_cover"
                     label="Color texto"
-                    value="{{$module['text_color_cover']}}"
+                    value="{{$module->data['text_color_cover']}}"
                 />
             </div>
         </div>
@@ -170,7 +170,7 @@
                 <x-form.input
                     name="tittle"
                     label="Titulo"
-                    value="{{ $module['tittle'] }}"
+                    value="{{ $module->data['tittle'] }}"
                     placeholder="¡Nos Casamos!"
                 />
             </div>
@@ -178,7 +178,7 @@
                 <x-form.input
                     name="detail"
                     label="Bajada"
-                    value="{{ $module['detail'] }}"
+                    value="{{ $module->data['detail'] }}"
                     placeholder="Y queremos compartirlo con vos"
                 />
             </div>
@@ -187,28 +187,28 @@
         <div class="row mb-3">
             <div class="col-6">
                 <x-form.upload-zone label="Logotipo" zoneName="logo_cover" :isMultiple=false>
-                    @if($module['logo_cover'])
+                    @if($module->data['logo_cover'])
                         <div class="preview-item">
-                            <img src="{{$module['logo_cover']}}" alt="preview">
+                            <img src="{{$module->data['logo_cover']}}" alt="preview">
                             <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'logo_cover')">×</button>
                         </div>
                     @endif
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['logo_cover', $module['logo_cover']])
+                    @json( ['logo_cover', $module->data['logo_cover']])
                 </p>
             </div>
             <div class="col-6">
                 <x-form.upload-zone label="Imagen central" zoneName="central_image_cover" :isMultiple=false>
-                    @if($module['central_image_cover'])
+                    @if($module->data['central_image_cover'])
                         <div class="preview-item">
-                            <img src="{{$module['central_image_cover']}}" alt="preview">
+                            <img src="{{$module->data['central_image_cover']}}" alt="preview">
                             <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'central_image_cover')">×</button>
                         </div>
                     @endif
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['central_image_cover', $module['central_image_cover']])
+                    @json( ['central_image_cover', $module->data['central_image_cover']])
                 </p>
             </div>
         </div>

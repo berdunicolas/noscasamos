@@ -1,7 +1,7 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Sugerencias</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="row mb-3">
             <div class="col-6">
                 <x-form.input
@@ -9,7 +9,7 @@
                     label="Ante título"
                     type="text"
                     placeholder="Sugerencias"
-                    value="{{$module['pre_tittle']}}"
+                    value="{{$module->data['pre_tittle']}}"
                 />
             </div>
             <div class="col-6">
@@ -18,13 +18,13 @@
                     label="Título"
                     type="text"
                     placeholder="Alojamientos"
-                    value="{{$module['tittle']}}"
+                    value="{{$module->data['tittle']}}"
                 />
             </div>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-            <textarea name="text" placeholder="¿Estas de visita en la ciudad?<br>Te recomendamos algunos lugares para hospedarte." class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module['text']}}</textarea>
+            <textarea name="text" placeholder="¿Estas de visita en la ciudad?<br>Te recomendamos algunos lugares para hospedarte." class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>
         <div class="mb-3">
             <x-form.input
@@ -32,10 +32,10 @@
                 label="Icono"
                 type="text"
                 placeholder="fa-heart"
-                value="{{$module['icon']}}"
+                value="{{$module->data['icon']}}"
             />
         </div>
-        @foreach ($module['suggestions'] as $key => $suggestion)            
+        @foreach ($suggestions as $key => $suggestion)            
             <div class="row mb-3">
                 <div class="col-6">
                     <x-form.input

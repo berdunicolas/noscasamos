@@ -2,26 +2,19 @@
 
 namespace App\View\Components\ModuleForms;
 
-use App\Enums\ModuleTypeEnum;
+use App\Models\InvitationModule;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Interactive extends Component
 {
-    public string $id = ModuleTypeEnum::INTERACTIVE['display_name'] . '-module-form';
-    public array $interactives;
-
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public int $invitationId,
-        public array $module = [],
-        public string $moduleName = ModuleTypeEnum::INTERACTIVE['name'],
-    ) {
-        $this->interactives = $module['interactives'];
-    }
+        public InvitationModule $module
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

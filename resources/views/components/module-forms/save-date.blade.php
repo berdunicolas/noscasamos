@@ -1,14 +1,14 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Información del invitado</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.input
                 name="tittle"
                 label="Titulo"
                 type="text"
                 placeholder="Agendá la fecha"
-                value="{{$module['tittle']}}"
+                value="{{$module->data['tittle']}}"
             />
         </div>
         <div class="row mb-3">
@@ -18,7 +18,7 @@
                     label="Icono botón"
                     type="text"
                     placeholder="fa-calendar-check"
-                    value="{{$module['icon']}}"
+                    value="{{$module->data['icon']}}"
                 />
             </div>
             <div class="col-6">
@@ -27,14 +27,14 @@
                     label="Texto botón"
                     type="text"
                     placeholder="Agendar fecha"
-                    value="{{$module['text_button']}}"
+                    value="{{$module->data['text_button']}}"
                 />
             </div>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'is_countdown')" {{$module['is_countdown'] ? 'checked' : ''}}>
-                <input type="text" hidden name="is_countdown" id="is_countdown" value="{{$module['is_countdown'] ? 1 : 0}}">
+                <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'is_countdown')" {{$module->data['is_countdown'] ? 'checked' : ''}}>
+                <input type="text" hidden name="is_countdown" id="is_countdown" value="{{$module->data['is_countdown'] ? 1 : 0}}">
                 <label class="form-check-label" for="switchCheckChecked">Cuenta regresiva</label>
             </div>
         </div>
@@ -45,7 +45,7 @@
                     label="Días"
                     type="text"
                     placeholder="DÍAS"
-                    value="{{$module['days_tanslation']}}"
+                    value="{{$module->data['days_tanslation']}}"
                 />
             </div>
             <div class="col-3">
@@ -54,7 +54,7 @@
                     label="Hs"
                     type="text"
                     placeholder="HS"
-                    value="{{$module['hr_tanslation']}}"
+                    value="{{$module->data['hr_tanslation']}}"
                 />
             </div>
             <div class="col-3">
@@ -63,7 +63,7 @@
                     label="Min"
                     type="text"
                     placeholder="MIN"
-                    value="{{$module['min_translation']}}"
+                    value="{{$module->data['min_translation']}}"
                 />
             </div>
             <div class="col-3">
@@ -72,7 +72,7 @@
                     label="Seg"
                     type="text"
                     placeholder="SEG"
-                    value="{{$module['sec_translation']}}"
+                    value="{{$module->data['sec_translation']}}"
                 />
             </div>
         </div>

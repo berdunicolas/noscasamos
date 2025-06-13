@@ -489,10 +489,10 @@
                                             <i class="fa-light {{($module['fixed']) ? '' : 'fa-grip-dots-vertical'}} me-2"></i><b>{{$module['display_name']}}</b>
                                         </div>
                                         @if (!$module['on_plan'])
-                                            <button class="btn btn-sm btn-white" data-url="{{route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $module['name'], 'displayName' => $module['display_name']])}}" onclick="deleteModule(this)"><i class="fa-light fa-trash-can"></i></button>
+                                            <button class="btn btn-sm btn-white" data-url="{{route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $module['name']])}}" onclick="deleteModule(this)"><i class="fa-light fa-trash-can"></i></button>
                                         @endif
 
-                                        <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['display_name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
+                                        <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
                                         <div class="form-check form-switch form-check-reverse">
                                             <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" onchange="statusModuleSwitch(this, '{{ $module['name'] }}')" {{($module['active']) ? 'checked' : ''}}>
                                         </div>
@@ -545,7 +545,7 @@
                         >
                             @foreach ($availableModules as $available)
                                 <x-form.select-option
-                                    value="{{$available['name']}}"
+                                    value="{{$available['type']}}"
                                     label="{{$available['display_name']}}"
                                 />
                             @endforeach

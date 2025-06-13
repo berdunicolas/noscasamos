@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Handlers;
+
+use App\Enums\ModuleTypeEnum;
+use App\Enums\PlanTypeEnum;
+
+class MusicModuleHandler extends GenericModuleHandler{
+    const TYPE = ModuleTypeEnum::MUSIC;
+    const FIXED =  true;
+    const IS_UNIQUE = true;
+    const PLAN = PlanTypeEnum::GOLD->value;
+
+    const DATA = [
+        'song' => ''
+    ];
+
+    static function getMediaCollections(string $name): array{
+        return [
+            $name,
+        ];
+    }
+}
