@@ -109,8 +109,8 @@ class Invitation extends Authenticatable
 
     public function tituloYBajada(): array 
     {
-        $module = ModuleTypeEnum::getModuleFromArrayByName($this->modules, ModuleTypeEnum::COVER['name']);
-        return ['titulo' => $module['tittle'], 'bajada' => $module['detail']];
+        $cover = $this->modules()->where('type', ModuleTypeEnum::COVER->value)->first();
+        return ['titulo' => $cover->data['tittle'], 'bajada' => $cover->data['detail']];
     }
 
     public function metaImg(): string{

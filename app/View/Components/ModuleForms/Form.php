@@ -14,6 +14,8 @@ class Form extends Component
     public function __construct(
         public int $invitationId,
         public int $moduleId,
+        public string $moduleType = '',
+        public string $moduleName = '',
     ) {}
 
     /**

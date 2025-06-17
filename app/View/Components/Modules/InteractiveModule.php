@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Modules;
 
+use App\Models\InvitationModule;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -14,7 +15,7 @@ class InteractiveModule extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public array $module,
+        public InvitationModule $module,
         public ?string $style,
         public ?string $color,
         public ?string $icontype,
@@ -22,7 +23,7 @@ class InteractiveModule extends Component
         public ?string $padding,
     )
     {
-        $this->interactives = $module['interactives'];
+        $this->interactives = $module->data;
     }
 
     /**

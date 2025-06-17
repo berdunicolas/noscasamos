@@ -1,9 +1,9 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Intro animada</h4>
 
-    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id" inputName="stamp_image">
         <div class="mb-3">
-            <x-form.upload-zone label="Imagen sello sobre" zoneName="stamp_image" :isMultiple=false>
+            <x-form.upload-zone label="Imagen sello sobre" :zoneOwner="$module->name" zoneName="stamp_image" :isMultiple=false>
                 @if($module->data['stamp_image'])
                     <div class="preview-item">
                         <img src="{{$module->data['stamp_image']}}" alt="preview">
@@ -12,7 +12,7 @@
                 @endif
             </x-form.upload-zone>
             <p class="selectedFilesUpdater" hidden>
-                @json( ['stamp_image', $module->data['stamp_image']])
+                @json( [ $module->name => ['stamp_image' => $module->data['stamp_image']]])
             </p>
         </div>
         <div class="d-flex flex-row justify-content-end mt-5">

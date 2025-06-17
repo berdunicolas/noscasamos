@@ -14,6 +14,7 @@ class UploadZone extends Component
     public function __construct(
         public string $label = '',
         public string $zoneName = '',
+        public string $zoneOwner = "",
         public bool $isMultiple = true,
     ){}
 

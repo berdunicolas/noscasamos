@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function() {
     let saveChangesBtn = document.getElementById('save-style-btn');
-    document.querySelectorAll("#style-form-input, #color-picker, #background_color-picker, #image-input-frame_image").forEach(function(element) {
+    document.querySelectorAll("#style-form-input, #color-picker, #background_color-picker, #image-input-invitationframe_image").forEach(function(element) {
         element.addEventListener("change", function() {
             saveChangesBtn.removeAttribute("disabled");
             configFormChanges = true;
@@ -99,12 +99,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function saveInvitationChanges(e, form) {
     e.preventDefault();
-    //let form = document.getElementById('invitation-editor-form');
     let formData = new FormData(form);
     let data = Object.fromEntries(formData.entries());
 
-    if(selectedFiles['frame_image']){
-        formData.append('frame_image', selectedFiles['frame_image']);
+    if(selectedFiles['invitation']['frame_image']){
+        formData.append('frame_image', selectedFiles['invitation']['frame_image']);
     }
     formData.append('_method', 'PATCH');
 

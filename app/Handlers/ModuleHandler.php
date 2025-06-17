@@ -2,28 +2,63 @@
 
 namespace App\Handlers;
 
-use App\Enums\ModuleTypeEnum;
+use App\Models\Invitation;
 use App\Enums\PlanTypeEnum;
+use App\Enums\ModuleTypeEnum;
 use App\Models\InvitationModule;
-use App\View\Components\ModuleForms\Confirmation;
-use App\View\Components\ModuleForms\Cover;
-use App\View\Components\ModuleForms\Events;
-use App\View\Components\ModuleForms\FloatButton;
-use App\View\Components\ModuleForms\Galery;
-use App\View\Components\ModuleForms\Gifts;
-use App\View\Components\ModuleForms\Guest;
-use App\View\Components\ModuleForms\Highlights;
-use App\View\Components\ModuleForms\History;
-use App\View\Components\ModuleForms\Info;
-use App\View\Components\ModuleForms\Interactive;
-use App\View\Components\ModuleForms\Intro;
-use App\View\Components\ModuleForms\Music;
-use App\View\Components\ModuleForms\SaveDate;
-use App\View\Components\ModuleForms\Suggestions;
-use App\View\Components\ModuleForms\Video;
-use App\View\Components\ModuleForms\Welcome;
+use App\Handlers\InfoModuleHandler;
+use App\Handlers\CoverModuleHandler;
+use App\Handlers\GiftsModuleHandler;
+use App\Handlers\GuestModuleHandler;
+use App\Handlers\IntroModuleHandler;
+use App\Handlers\MusicModuleHandler;
+use App\Handlers\VideoModuleHandler;
+use App\Handlers\EventsModuleHandler;
+use App\Handlers\GaleryModuleHandler;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Validation\Rules\File;
+use App\Handlers\HistoryModuleHandler;
+use App\Handlers\WelcomeModuleHandler;
+use App\Handlers\SaveDateModuleHandler;
+use App\Handlers\HighlightsModuleHandler;
+use App\View\Components\ModuleForms\Info;
+use App\Handlers\FloatButtonModuleHandler;
+use App\Handlers\InteractiveModuleHandler;
+use App\Handlers\SuggestionsModuleHandler;
+use App\View\Components\ModuleForms\Cover;
+use App\View\Components\ModuleForms\Gifts;
+use App\View\Components\ModuleForms\Guest;
+use App\View\Components\ModuleForms\Intro;
+use App\View\Components\ModuleForms\Music;
+use App\View\Components\ModuleForms\Video;
+use App\Handlers\ConfirmationModuleHandler;
+use App\View\Components\ModuleForms\Events;
+use App\View\Components\ModuleForms\Galery;
+use App\View\Components\Modules\InfoModule;
+use App\View\Components\ModuleForms\History;
+use App\View\Components\ModuleForms\Welcome;
+use App\View\Components\Modules\CoverModule;
+use App\View\Components\Modules\GiftsModule;
+use App\View\Components\Modules\GuestModule;
+use App\View\Components\Modules\IntroModule;
+use App\View\Components\Modules\MusicModule;
+use App\View\Components\Modules\VideoModule;
+use App\View\Components\ModuleForms\SaveDate;
+use App\View\Components\Modules\EventsModule;
+use App\View\Components\Modules\GaleryModule;
+use App\View\Components\Modules\HistoryModule;
+use App\View\Components\Modules\WelcomeModule;
+use App\View\Components\ModuleForms\Highlights;
+use App\View\Components\Modules\SaveDateModule;
+use App\View\Components\ModuleForms\FloatButton;
+use App\View\Components\ModuleForms\Interactive;
+use App\View\Components\ModuleForms\Suggestions;
+use App\View\Components\ModuleForms\Confirmation;
+use App\View\Components\Modules\HighlightsModule;
+use App\View\Components\Modules\FloatButtonModule;
+use App\View\Components\Modules\InteractiveModule;
+use App\View\Components\Modules\SuggestionsModule;
+use App\View\Components\Modules\ConfirmationModule;
 
 class ModuleHandler {
 
@@ -59,15 +94,19 @@ class ModuleHandler {
     {
         $fullModules = ModuleTypeEnum::typesAndDisplayNames();
 
-        $result = array_udiff($fullModules, $modules, function ($itemfull, $item) {
-            return $itemfull['type'] === $item['type'];
-        });
+        $result = [];
+
+        foreach($fullModules as $module){
+            if(!in_array($module, $modules)){
+                $result[] = $module;
+            }
+        }
 
         $newModules = array_column($result, 'type');
         $alwaysAvailable = [
-            ['type' => ModuleTypeEnum::INFO->value, 'display_name' => ModuleTypeEnum::getDisplayName(ModuleTypeEnum::INFO)],
-            ['type' => ModuleTypeEnum::HIGHLIGHTS->value, 'display_name' => ModuleTypeEnum::getDisplayName(ModuleTypeEnum::HIGHLIGHTS)],
-            ['type' => ModuleTypeEnum::HISTORY->value, 'display_name' => ModuleTypeEnum::getDisplayName(ModuleTypeEnum::HISTORY)],
+            ['type' => ModuleTypeEnum::INFO, 'display_name' => ModuleTypeEnum::getDisplayName(ModuleTypeEnum::INFO)],
+            ['type' => ModuleTypeEnum::HIGHLIGHTS, 'display_name' => ModuleTypeEnum::getDisplayName(ModuleTypeEnum::HIGHLIGHTS)],
+            ['type' => ModuleTypeEnum::HISTORY, 'display_name' => ModuleTypeEnum::getDisplayName(ModuleTypeEnum::HISTORY)],
         ];
 
         foreach ($alwaysAvailable as $item) {
@@ -76,7 +115,6 @@ class ModuleHandler {
                 $newModules[] = $item['type'];
             }
         }
-
         return $result;
     }
 
@@ -124,12 +162,124 @@ class ModuleHandler {
         return Blade::renderComponent($form);
     }
 
+    public static function getModuleComponent(InvitationModule $module, Invitation $invitation) {
+
+        $module = match($module->type->value){
+            'INTRO' => new IntroModule($module, $invitation->style->value),
+            'MUSIC' => new MusicModule($module),
+            'FLOAT_BUTTON' => new FloatButtonModule($module, $invitation->color),
+            'COVER' => new CoverModule($module, $invitation->host_names, $invitation->meta_title, $invitation->color, $invitation->background_color),
+            'GUEST' => new GuestModule($module),
+            'SAVE_DATE' => new SaveDateModule(
+                $module,
+                $invitation->meta_title,
+                $invitation->date,
+                $invitation->time,
+                $invitation->time_zone,
+                $invitation->duration,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'WELCOME' => new WelcomeModule(
+                $module, 
+                $invitation->icon_type,
+                $invitation->style->value,
+                $invitation->color,
+            ),
+            'EVENTS' => new EventsModule(
+                $module,
+                $invitation->icon_type,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'HISTORY' => new HistoryModule(
+                $module,
+                $invitation->icon_type,
+            ),
+            'INFO' => new InfoModule(
+                $module,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'HIGHLIGHTS' => new HighlightsModule(
+                $module,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'INTERACTIVE' => new InteractiveModule(
+                $module,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'VIDEO' => new VideoModule(
+                $module,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'SUGGESTIONS' => new SuggestionsModule(
+                $module,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'GALERY' => new GaleryModule(
+                $module,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'GIFTS' => new GiftsModule(
+                $module,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+            'CONFIRMATION' => new ConfirmationModule(
+                $module, 
+                $invitation->path_name,
+                $invitation->style->value,
+                $invitation->color,
+                $invitation->icon_type,
+                $invitation->frameImg(),
+                $invitation->padding,
+            ),
+        };
+
+        return Blade::renderComponent($module);
+    }
 
     public static function getModuleRequestRules(InvitationModule $module): array
     {
         $rules = match($module->type->value){
             'INTRO' => [
-                'stamp_image' => 'nullable'
+                'stamp_image' => [
+                    'nullable',
+                    File::image()
+                        ->types(['jpeg', 'png', 'jpg'])
+                        ->max(2048)
+                ]
             ],
             'MUSIC' => [
                 'song' => [
@@ -530,131 +680,79 @@ class ModuleHandler {
     }
     
 
-    // RESOLVER ASUNTO DE MEDIA 
     public static function updateModuleHandle(InvitationModule $module, array $data): array
     {
-        return match($module->type->value){
-            'INTRO' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                if(!isset($data['stamp_image'])){
-                    $invitation->media(self::INTRO['name'])->each(function ($media) {
-                        $media->delete();
-                    });
-                }elseif(!is_string($data['stamp_image'])){
-                    $invitation->media(self::INTRO['name'])->each(function ($media) {
-                        $media->delete();
-                    });
-    
-                    $invitation->addMedia($data['stamp_image'], self::INTRO['name'], $invitation->path_name);
-                    $invitation->refresh();
-                }
-
-                return $updateTask($modules, $name, [
-                    'stamp_image' => $invitation->media(self::INTRO['name'])->first()?->getMediaUrl()
-                ]);
-            })(),
-           'MUSIC' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media(self::MUSIC['name'])->each(function ($media) {
+        $updateMediaTask = function (array $collections, array $data) use ($module) {
+            foreach($collections as $key => $collection){
+                $module->media($collection)->each(function ($media) {
                     $media->delete();
                 });
 
-                if(isset($data['song'])){
-                    $invitation->addMedia($data['song'], self::MUSIC['name'], $invitation->path_name);
-                    $invitation->refresh();
+                if(isset($data[$key])){
+                    if(is_array($data[$key])){
+                        foreach($data[$key] as $media){
+                            $module->addMedia($media, $collection);
+                        }
+                    }else{
+                        $module->addMedia($data[$key], $collection);
+                    }
+                    $module->refresh();
                 }
+            }
+        };
 
-                return $updateTask($modules, $name, [
-                    'song' => $invitation->media(self::MUSIC['name'])->first()?->getMediaUrl()
-                ]);
+        return match($module->type->value){
+            'INTRO' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
+
+                return [
+                    'stamp_image' => $module->media($module->media_collections['stamp_image'])->first()?->getMediaUrl()
+                ];
             })(),
-            'FLOAT_BUTTON' => $updateTask($modules, $name, [
+           'MUSIC' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
+
+                return [
+                    'song' => $module->media($module->media_collections['song'])->first()?->getMediaUrl()
+                ];
+            })(),
+            'FLOAT_BUTTON' => [
                 'type_button' => $data['type_button'],
                 'url_button' => $data['url_button'],
                 'icon_button' => $data['icon_button']
-            ]),
-           'COVER' => (function () use ($invitation, $modules, $name, $data, $updateTask){
+            ],
+           'COVER' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
 
-               
-               if($data['format'] == 'Imagenes' || $data['format'] == 'Imagenes con marco'){
-                    $invitation->media(self::COVER['name'].'/desktop_images')->each(function ($media) {
-                        $media->delete();
-                    });
-                    $invitation->media(self::COVER['name'].'/mobile_images')->each(function ($media) {
-                        $media->delete();
-                    });
-
-                    if(isset($data['desktop_images'])){
-                        foreach($data['desktop_images'] as $image){
-                            $invitation->addMedia($image, self::COVER['name'].'/desktop_images', $invitation->path_name);
-                        }
-                    }
-                    if(isset($data['mobile_images'])){
-                        foreach($data['mobile_images'] as $image){
-                            $invitation->addMedia($image, self::COVER['name'].'/mobile_images', $invitation->path_name);
-                        }                    
-                    }
-
-                }elseif($data['format'] == 'Diseño' || $data['format'] == 'Diseño con marco'){
-                    $invitation->media(self::COVER['name'].'/desktop_design')->each(function ($media) {
-                        $media->delete();
-                    });
-                    $invitation->media(self::COVER['name'].'/mobile_design')->each(function ($media) {
-                        $media->delete();
-                    });
-
-                    if(isset($data['desktop_design'])) $invitation->addMedia($data['desktop_design'], self::COVER['name'].'/desktop_design', $invitation->path_name);
-                    if(isset($data['mobile_design'])) $invitation->addMedia($data['mobile_design'], self::COVER['name'].'/mobile_design', $invitation->path_name);
-
-                }elseif($data['format'] == 'Video' || $data['format'] == 'Video centrado'){
-                    $invitation->media(self::COVER['name'].'/desktop_video')->each(function ($media) {
-                        $media->delete();
-                    });
-                    $invitation->media(self::COVER['name'].'/mobile_video')->each(function ($media) {
-                        $media->delete();
-                    });
-
-                    if(isset($data['desktop_video'])) $invitation->addMedia($data['desktop_video'], self::COVER['name'].'/desktop_video', $invitation->path_name);
-                    if(isset($data['mobile_video'])) $invitation->addMedia($data['mobile_video'], self::COVER['name'].'/mobile_video', $invitation->path_name);
-                }
-
-                $invitation->media(self::COVER['name'].'/logo_cover')->each(function ($media) {
-                    $media->delete();
-                });
-                $invitation->media(self::COVER['name'].'/central_image_cover')->each(function ($media) {
-                    $media->delete();
-                });
-
-                if(isset($data['logo_cover'])) $invitation->addMedia($data['logo_cover'], self::COVER['name'].'/logo_cover', $invitation->path_name);
-                if(isset($data['central_image_cover'])) $invitation->addMedia($data['central_image_cover'], self::COVER['name'].'/central_image_cover', $invitation->path_name);
-                $invitation->refresh();
-
-                return $updateTask($modules, $name, [
-                    'desktop_images' => $invitation->media(self::COVER['name'].'/desktop_images')->get()?->map(function ($media) {
+                return [
+                    'desktop_images' => $module->media($module->media_collections['desktop_images'])->get()?->map(function ($media) {
                         return $media->getMediaUrl();
                     })->toArray(),
-                    'mobile_images' => $invitation->media(self::COVER['name'].'/mobile_images')->get()?->map(function ($media) {
+                    'mobile_images' => $module->media($module->media_collections['mobile_images'])->get()?->map(function ($media) {
                         return $media->getMediaUrl();
                     })->toArray(),
-                    'desktop_video' => $invitation->media(self::COVER['name'].'/desktop_video')->first()?->getMediaUrl(),
-                    'mobile_video' => $invitation->media(self::COVER['name'].'/mobile_video')->first()?->getMediaUrl(),
-                    'desktop_design' => $invitation->media(self::COVER['name'].'/desktop_design')->first()?->getMediaUrl(),
-                    'mobile_design' => $invitation->media(self::COVER['name'].'/mobile_design')->first()?->getMediaUrl(),
-                    'logo_cover' => $invitation->media(self::COVER['name'].'/logo_cover')->first()?->getMediaUrl(),
-                    'central_image_cover' => $invitation->media(self::COVER['name'].'/central_image_cover')->first()?->getMediaUrl(),
+                    'desktop_video' => $module->media($module->media_collections['desktop_video'])->first()?->getMediaUrl(),
+                    'mobile_video' => $module->media($module->media_collections['mobile_video'])->first()?->getMediaUrl(),
+                    'desktop_design' => $module->media($module->media_collections['desktop_design'])->first()?->getMediaUrl(),
+                    'mobile_design' => $module->media($module->media_collections['mobile_design'])->first()?->getMediaUrl(),
+                    'logo_cover' => $module->media($module->media_collections['logo_cover'])->first()?->getMediaUrl(),
+                    'central_image_cover' => $module->media($module->media_collections['central_image_cover'])->first()?->getMediaUrl(),
                     'active_header' => $data['active_header'],
                     'active_logo' => $data['active_logo'],
+                    'active_central' => $data['active_central'],
                     'format' => $data['format'],
                     'names' => $data['names'],
                     'tittle' => $data['tittle'],
                     'detail' => $data['detail'],
                     'text_color_cover' => $data['text_color_cover'],
-                ]);
+                ];
             })(),
-            'GUEST' => $updateTask($modules, $name, [
+            'GUEST' => [
                 'tittle' => $data['tittle'],
                 'icon' => $data['icon'],
                 'signs' => $data['signs']
-            ]),
-            'SAVE_DATE' => $updateTask($modules, $name, [
+            ],
+            'SAVE_DATE' => [
                 'tittle' => $data['tittle'],
                 'icon' => $data['icon'],
                 'text_button' => $data['text_button'],
@@ -663,128 +761,93 @@ class ModuleHandler {
                 'hr_tanslation' => $data['hr_tanslation'],
                 'min_translation' => $data['min_translation'],
                 'sec_translation' => $data['sec_translation']
-            ]),
-            'WELCOME' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media(self::WELCOME['name'])->each(function ($media) {
-                    $media->delete();
-                });
+            ],
+            'WELCOME' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
 
-                if(isset($data['image'])){
-                    $invitation->addMedia($data['image'], self::WELCOME['name'], $invitation->path_name);
-                    $invitation->refresh();
-                }
-
-                return $updateTask($modules, $name, [
+                return [
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
-                    'image' => $invitation->media(self::WELCOME['name'])->first()?->getMediaUrl()
-                ]);
+                    'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
+                ];
             })(),
-            'EVENTS' => (function () use ($invitation, $modules, $name, $data, $updateTask){
+            'EVENTS' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
 
-                $invitation->media()->where('collection_name', 'like', self::EVENTS['name'].'%')->each(function ($media) {
-                    $media->delete();
-                });
-                
-                if(isset($data['civil_image'])) $invitation->addMedia($data['civil_image'], self::EVENTS['name'].'/civil', $invitation->path_name);
-                if(isset($data['ceremony_image'])) $invitation->addMedia($data['ceremony_image'], self::EVENTS['name'].'/ceremony', $invitation->path_name);
-                if(isset($data['party_image'])) $invitation->addMedia($data['party_image'], self::EVENTS['name'].'/party', $invitation->path_name);
-                if(isset($data['dresscode_image'])) $invitation->addMedia($data['dresscode_image'], self::EVENTS['name'].'/dresscode', $invitation->path_name);
-                $invitation->refresh();
-                
-                $module = [
+                $moduleData = [
                     'civil' => [],
                     'ceremony' => [],
                     'party' => [],
                     'dresscode' => [],
                 ]; 
 
-                $module['civil']['active'] = $data['civil_active'] ?? false;
-                $module['civil']['event'] = $data['civil_event'] ?? '';
-                $module['civil']['icon'] = $data['civil_icon'] ?? '';
-                $module['civil']['order'] = $data['civil_order'] ?? '';
-                $module['civil']['date'] = $data['civil_date'] ?? '';
-                $module['civil']['time'] = $data['civil_time'] ?? '';
-                $module['civil']['hr_translation'] = $data['civil_hr_translation'] ?? '';
-                $module['civil']['name'] = $data['civil_name'] ?? '';
-                $module['civil']['detail'] = $data['civil_detail'] ?? '';
-                $module['civil']['button_url'] = $data['civil_button_url'] ?? '';
-                $module['civil']['button_text'] = $data['civil_button_text'] ?? '';
-                $module['civil']['image'] = $invitation->media(self::EVENTS['name'].'/civil')->first()?->getMediaUrl();
-                $module['ceremony']['active'] = $data['ceremony_active'] ?? false;
-                $module['ceremony']['event'] = $data['ceremony_event'] ?? '';
-                $module['ceremony']['icon'] = $data['ceremony_icon'] ?? '';
-                $module['ceremony']['order'] = $data['ceremony_order'] ?? '';
-                $module['ceremony']['date'] = $data['ceremony_date'] ?? '';
-                $module['ceremony']['time'] = $data['ceremony_time'] ?? '';
-                $module['ceremony']['hr_translation'] = $data['ceremony_hr_translation'] ?? '';
-                $module['ceremony']['name'] = $data['ceremony_name'] ?? '';
-                $module['ceremony']['detail'] = $data['ceremony_detail'] ?? '';
-                $module['ceremony']['button_url'] = $data['ceremony_button_url'] ?? '';
-                $module['ceremony']['button_text'] = $data['ceremony_button_text'] ?? '';
-                $module['ceremony']['image'] = $invitation->media(self::EVENTS['name'].'/ceremony')->first()?->getMediaUrl();
-                $module['party']['active'] = $data['party_active'] ?? false;
-                $module['party']['event'] = $data['party_event'] ?? '';
-                $module['party']['icon'] = $data['party_icon'] ?? '';
-                $module['party']['order'] = $data['party_order'] ?? '';
-                $module['party']['date'] = $data['party_date'] ?? '';
-                $module['party']['time'] = $data['party_time'] ?? '';
-                $module['party']['hr_translation'] = $data['party_hr_translation'] ?? '';
-                $module['party']['name'] = $data['party_name'] ?? '';
-                $module['party']['detail'] = $data['party_detail'] ?? '';
-                $module['party']['button_url'] = $data['party_button_url'] ?? '';
-                $module['party']['button_text'] = $data['party_button_text'] ?? '';
-                $module['party']['image'] = $invitation->media(self::EVENTS['name'].'/party')->first()?->getMediaUrl();
-                $module['dresscode']['active'] = $data['dresscode_active'] ?? false;
-                $module['dresscode']['event'] = $data['dresscode_event'] ?? '';
-                $module['dresscode']['icon'] = $data['dresscode_icon'] ?? '';
-                $module['dresscode']['order'] = $data['dresscode_order'] ?? '';
-                $module['dresscode']['name'] = $data['dresscode_name'] ?? '';
-                $module['dresscode']['detail'] = $data['dresscode_detail'] ?? '';
-                $module['dresscode']['button_url'] = $data['dresscode_button_url'] ?? '';
-                $module['dresscode']['button_text'] = $data['dresscode_button_text'] ?? '';
-                $module['dresscode']['image'] = $invitation->media(self::EVENTS['name'].'/dresscode')->first()?->getMediaUrl();
+                $moduleData['civil']['active'] = $data['civil_active'] ?? false;
+                $moduleData['civil']['event'] = $data['civil_event'] ?? '';
+                $moduleData['civil']['icon'] = $data['civil_icon'] ?? '';
+                $moduleData['civil']['order'] = $data['civil_order'] ?? '';
+                $moduleData['civil']['date'] = $data['civil_date'] ?? '';
+                $moduleData['civil']['time'] = $data['civil_time'] ?? '';
+                $moduleData['civil']['hr_translation'] = $data['civil_hr_translation'] ?? '';
+                $moduleData['civil']['name'] = $data['civil_name'] ?? '';
+                $moduleData['civil']['detail'] = $data['civil_detail'] ?? '';
+                $moduleData['civil']['button_url'] = $data['civil_button_url'] ?? '';
+                $moduleData['civil']['button_text'] = $data['civil_button_text'] ?? '';
+                $moduleData['civil']['image'] = $module->media($module->media_collections['civil_image'])->first()?->getMediaUrl();
+                $moduleData['ceremony']['active'] = $data['ceremony_active'] ?? false;
+                $moduleData['ceremony']['event'] = $data['ceremony_event'] ?? '';
+                $moduleData['ceremony']['icon'] = $data['ceremony_icon'] ?? '';
+                $moduleData['ceremony']['order'] = $data['ceremony_order'] ?? '';
+                $moduleData['ceremony']['date'] = $data['ceremony_date'] ?? '';
+                $moduleData['ceremony']['time'] = $data['ceremony_time'] ?? '';
+                $moduleData['ceremony']['hr_translation'] = $data['ceremony_hr_translation'] ?? '';
+                $moduleData['ceremony']['name'] = $data['ceremony_name'] ?? '';
+                $moduleData['ceremony']['detail'] = $data['ceremony_detail'] ?? '';
+                $moduleData['ceremony']['button_url'] = $data['ceremony_button_url'] ?? '';
+                $moduleData['ceremony']['button_text'] = $data['ceremony_button_text'] ?? '';
+                $moduleData['ceremony']['image'] = $module->media($module->media_collections['ceremony_image'])->first()?->getMediaUrl();
+                $moduleData['party']['active'] = $data['party_active'] ?? false;
+                $moduleData['party']['event'] = $data['party_event'] ?? '';
+                $moduleData['party']['icon'] = $data['party_icon'] ?? '';
+                $moduleData['party']['order'] = $data['party_order'] ?? '';
+                $moduleData['party']['date'] = $data['party_date'] ?? '';
+                $moduleData['party']['time'] = $data['party_time'] ?? '';
+                $moduleData['party']['hr_translation'] = $data['party_hr_translation'] ?? '';
+                $moduleData['party']['name'] = $data['party_name'] ?? '';
+                $moduleData['party']['detail'] = $data['party_detail'] ?? '';
+                $moduleData['party']['button_url'] = $data['party_button_url'] ?? '';
+                $moduleData['party']['button_text'] = $data['party_button_text'] ?? '';
+                $moduleData['party']['image'] = $module->media($module->media_collections['party_image'])->first()?->getMediaUrl();
+                $moduleData['dresscode']['active'] = $data['dresscode_active'] ?? false;
+                $moduleData['dresscode']['event'] = $data['dresscode_event'] ?? '';
+                $moduleData['dresscode']['icon'] = $data['dresscode_icon'] ?? '';
+                $moduleData['dresscode']['order'] = $data['dresscode_order'] ?? '';
+                $moduleData['dresscode']['name'] = $data['dresscode_name'] ?? '';
+                $moduleData['dresscode']['detail'] = $data['dresscode_detail'] ?? '';
+                $moduleData['dresscode']['button_url'] = $data['dresscode_button_url'] ?? '';
+                $moduleData['dresscode']['button_text'] = $data['dresscode_button_text'] ?? '';
+                $moduleData['dresscode']['image'] = $module->media($module->media_collections['dresscode_image'])->first()?->getMediaUrl();
 
-                uasort($module, function ($a, $b) {
+                uasort($moduleData, function ($a, $b) {
                     return ($a['order'] ?? PHP_INT_MAX) <=> ($b['order'] ?? PHP_INT_MAX);
                 });
-                            
-                foreach($modules as $index => $item){
-                    if($item['name'] == $name){
-                        $modules[$index]['events'] = $module;
-                        break;
-                    }
-                }
-                return $modules;
+
+                return $moduleData;
             })(),
-            'HISTORY' => (function () use ($invitation, $modules, $name, $data, $updateTask, $displayName){
-                $invitation->media(self::HISTORY['name'])->where('file_path', 'like', '%'.$displayName.'%')->each(function ($media) {
-                    $media->delete();
-                });
+            'HISTORY' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
 
-                if(isset($data['image'])) $invitation->addMedia($data['image'], self::HISTORY['name'], $invitation->path_name.'/'.$displayName);
-                $invitation->refresh();
-
-                return $updateTask($modules, $name, [
+                return [
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
-                    /*'button_icon' => $data['button_icon'],
-                    'button_text' => $data['button_text'],
-                    'button_url' => $data['button_url'],*/
-                    'image' => $invitation->media(self::HISTORY['name'])->where('file_path', 'like', '%'.$displayName.'%')->first()?->getMediaUrl()
-                ]);
+                    'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
+                ];
             })(),
-            'INFO' => (function () use ($invitation, $modules, $name, $data, $updateTask, $displayName){
-                $invitation->media(self::INFO['name'])->where('file_path', 'like', '%'.$displayName.'%')->each(function ($media) {
-                    $media->delete();
-                });
+            'INFO' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
 
-                if(isset($data['image'])) $invitation->addMedia($data['image'], self::INFO['name'], $invitation->path_name.'/'.$displayName);
-                $invitation->refresh();
-
-                return $updateTask($modules, $name, [
+                return [
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
@@ -792,93 +855,83 @@ class ModuleHandler {
                     'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_url' => $data['button_url'],
-                    'image' => $invitation->media(self::INFO['name'])->where('file_path', 'like', '%'.$displayName.'%')->first()?->getMediaUrl()
-                ]);
+                    'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
+                ];
             })(),
-            'HIGHLIGHTS' => (function () use ($invitation, $modules, $name, $data, $updateTask, $displayName){
-                $invitation->media(self::HIGHLIGHTS['name'])->where('file_path', 'like', '%'.$displayName.'%')->each(function ($media) {
-                    $media->delete();
-                });
+            'HIGHLIGHTS' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
 
-                if(isset($data['image'])) $invitation->addMedia($data['image'], self::HIGHLIGHTS['name'], $invitation->path_name.'/'.$displayName);
-                $invitation->refresh();
-
-                return $updateTask($modules, $name, [
+                return [
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
                     'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_url' => $data['button_url'],
-                    'image' => $invitation->media(self::HIGHLIGHTS['name'])->where('file_path', 'like', '%'.$displayName.'%')->first()?->getMediaUrl()
-                ]);
+                    'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
+                ];
             })(),
-            'INTERACTIVE' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                
-                $module = [
+            'INTERACTIVE' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
+
+                $moduleData = [
                     'spotify' => [],
                     'hashtag' => [],
                     'ig' => [],
                     'link' => [],
                 ]; 
 
-                $module['spotify']['active'] = $data['spotify_active'] ?? false;
-                $module['spotify']['icon'] = $data['spotify_icon'] ?? '';
-                $module['spotify']['order'] = $data['spotify_order'] ?? '';
-                $module['spotify']['tittle'] = $data['spotify_tittle'] ?? '';
-                $module['spotify']['text'] = $data['spotify_text'] ?? '';
-                $module['spotify']['button_icon'] = $data['spotify_button_icon'] ?? '';
-                $module['spotify']['button_text'] = $data['spotify_button_text'] ?? '';
-                $module['spotify']['button_url'] = $data['spotify_button_url'] ?? '';
+                $moduleData['spotify']['active'] = $data['spotify_active'] ?? false;
+                $moduleData['spotify']['icon'] = $data['spotify_icon'] ?? '';
+                $moduleData['spotify']['order'] = $data['spotify_order'] ?? '';
+                $moduleData['spotify']['tittle'] = $data['spotify_tittle'] ?? '';
+                $moduleData['spotify']['text'] = $data['spotify_text'] ?? '';
+                $moduleData['spotify']['button_icon'] = $data['spotify_button_icon'] ?? '';
+                $moduleData['spotify']['button_text'] = $data['spotify_button_text'] ?? '';
+                $moduleData['spotify']['button_url'] = $data['spotify_button_url'] ?? '';
 
-                $module['hashtag']['active'] = $data['hashtag_active'] ?? false;
-                $module['hashtag']['icon'] = $data['hashtag_icon'] ?? '';
-                $module['hashtag']['order'] = $data['hashtag_order'] ?? '';
-                $module['hashtag']['tittle'] = $data['hashtag_tittle'] ?? '';
-                $module['hashtag']['text'] = $data['hashtag_text'] ?? '';
-                $module['hashtag']['button_icon'] = $data['hashtag_button_icon'] ?? '';
-                $module['hashtag']['button_text'] = $data['hashtag_button_text'] ?? '';
-                $module['hashtag']['button_url'] = $data['hashtag_button_url'] ?? '';
+                $moduleData['hashtag']['active'] = $data['hashtag_active'] ?? false;
+                $moduleData['hashtag']['icon'] = $data['hashtag_icon'] ?? '';
+                $moduleData['hashtag']['order'] = $data['hashtag_order'] ?? '';
+                $moduleData['hashtag']['tittle'] = $data['hashtag_tittle'] ?? '';
+                $moduleData['hashtag']['text'] = $data['hashtag_text'] ?? '';
+                $moduleData['hashtag']['button_icon'] = $data['hashtag_button_icon'] ?? '';
+                $moduleData['hashtag']['button_text'] = $data['hashtag_button_text'] ?? '';
+                $moduleData['hashtag']['button_url'] = $data['hashtag_button_url'] ?? '';
 
-                $module['ig']['active'] = $data['ig_active'] ?? false;
-                $module['ig']['icon'] = $data['ig_icon'] ?? '';
-                $module['ig']['order'] = $data['ig_order'] ?? '';
-                $module['ig']['tittle'] = $data['ig_tittle'] ?? '';
-                $module['ig']['text'] = $data['ig_text'] ?? '';
-                $module['ig']['button_icon'] = $data['ig_button_icon'] ?? '';
-                $module['ig']['button_text'] = $data['ig_button_text'] ?? '';
-                $module['ig']['button_url'] = $data['ig_button_url'] ?? '';
+                $moduleData['ig']['active'] = $data['ig_active'] ?? false;
+                $moduleData['ig']['icon'] = $data['ig_icon'] ?? '';
+                $moduleData['ig']['order'] = $data['ig_order'] ?? '';
+                $moduleData['ig']['tittle'] = $data['ig_tittle'] ?? '';
+                $moduleData['ig']['text'] = $data['ig_text'] ?? '';
+                $moduleData['ig']['button_icon'] = $data['ig_button_icon'] ?? '';
+                $moduleData['ig']['button_text'] = $data['ig_button_text'] ?? '';
+                $moduleData['ig']['button_url'] = $data['ig_button_url'] ?? '';
 
-                $module['link']['active'] = $data['link_active'] ?? false;
-                $module['link']['icon'] = $data['link_icon'] ?? '';
-                $module['link']['order'] = $data['link_order'] ?? '';
-                $module['link']['tittle'] = $data['link_tittle'] ?? '';
-                $module['link']['text'] = $data['link_text'] ?? '';
-                $module['link']['button_icon'] = $data['link_button_icon'] ?? '';
-                $module['link']['button_text'] = $data['link_button_text'] ?? '';
-                $module['link']['button_url'] = $data['link_button_url'] ?? '';
+                $moduleData['link']['active'] = $data['link_active'] ?? false;
+                $moduleData['link']['icon'] = $data['link_icon'] ?? '';
+                $moduleData['link']['order'] = $data['link_order'] ?? '';
+                $moduleData['link']['tittle'] = $data['link_tittle'] ?? '';
+                $moduleData['link']['text'] = $data['link_text'] ?? '';
+                $moduleData['link']['button_icon'] = $data['link_button_icon'] ?? '';
+                $moduleData['link']['button_text'] = $data['link_button_text'] ?? '';
+                $moduleData['link']['button_url'] = $data['link_button_url'] ?? '';
 
 
-                uasort($module, function ($a, $b) {
+                uasort($moduleData, function ($a, $b) {
                     return ($a['order'] ?? PHP_INT_MAX) <=> ($b['order'] ?? PHP_INT_MAX);
                 });
-                            
-                foreach($modules as $index => $item){
-                    if($item['name'] == $name){
-                        $modules[$index]['interactives'] = $module;
-                        break;
-                    }
-                }
-                return $modules;
+
+                return $moduleData;
             })(),
-            'VIDEO' => $updateTask($modules, $name, [
+            'VIDEO' => [
                 'pre_tittle' => $data['pre_tittle'],
                 'tittle' => $data['tittle'],
                 'video_id' => $data['video_id'],
                 'type_video' => $data['type_video'],
                 'format' => $data['format'],
-            ]),
-            'SUGGESTIONS' => $updateTask($modules, $name, [
+            ],
+            'SUGGESTIONS' => [
                 'pre_tittle' => $data['pre_tittle'],
                 'tittle' => $data['tittle'],
                 'text' => $data['text'],
@@ -893,85 +946,29 @@ class ModuleHandler {
                     ['suggestion_7' => $data['suggestion_7'], 'link_7' => $data['link_7']],
                     ['suggestion_8' => $data['suggestion_8'], 'link_8' => $data['link_8']],
                 ]
-            ]),
-            'GALERY' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media(self::GALERY['name'])->each(function ($media) {
-                    $media->delete();
-                });
-
-                if(isset($data['galery_images'])){
-                    foreach($data['galery_images'] as $image){
-                        $invitation->addMedia($image, self::GALERY['name'], $invitation->path_name);
-                    }
-                }
+            ],
+            'GALERY' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
  
-                return $updateTask($modules, $name, [
-                    'galery_images' => $invitation->media(self::GALERY['name'])->get()?->map(function ($media) {
+                return [
+                    'galery_images' => $module->media($module->media_collections['galery_images'])->get()?->map(function ($media) {
                         return $media->getMediaUrl();
                     })->toArray(),
                     'pre_tittle' => $data['pre_tittle'],
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon']
-                ]);
+                ];
              })(),
-            'GIFTS' => (function () use ($invitation, $modules, $name, $data, $updateTask){
-                $invitation->media(self::GIFTS['name'].'/background')->each(function ($media) {
-                    $media->delete();
-                });
-                $invitation->media(self::GIFTS['name'].'/module')->each(function ($media) {
-                    $media->delete();
-                });
-
-                if(isset($data['background_image'])) $invitation->addMedia($data['background_image'], self::GIFTS['name'].'/background', $invitation->path_name);
-
-                if(isset($data['module_image'])) $invitation->addMedia($data['module_image'], self::GIFTS['name'].'/module', $invitation->path_name);
-
-                $invitation->media(self::GIFTS['name'].'/product_1')->each(function ($media) {
-                    $media->delete();
-                });
-                $invitation->media(self::GIFTS['name'].'/product_2')->each(function ($media) {
-                    $media->delete();
-                });
-                $invitation->media(self::GIFTS['name'].'/product_3')->each(function ($media) {
-                    $media->delete();
-                });
-                $invitation->media(self::GIFTS['name'].'/product_4')->each(function ($media) {
-                    $media->delete();
-                });
-                $invitation->media(self::GIFTS['name'].'/product_5')->each(function ($media) {
-                    $media->delete();
-                });
-                $invitation->media(self::GIFTS['name'].'/product_6')->each(function ($media) {
-                    $media->delete();
-                });
-
-                if(isset($data['list_product_image_1'])){ 
-                    $invitation->addMedia($data['list_product_image_1'], self::GIFTS['name'].'/product_1', $invitation->path_name);
-                }
-                if(isset($data['list_product_image_2'])){  
-                    $invitation->addMedia($data['list_product_image_2'], self::GIFTS['name'].'/product_2', $invitation->path_name);
-                }
-                if(isset($data['list_product_image_3'])){ 
-                    $invitation->addMedia($data['list_product_image_3'], self::GIFTS['name'].'/product_3', $invitation->path_name);
-                }
-                if(isset($data['list_product_image_4'])){ 
-                    $invitation->addMedia($data['list_product_image_4'], self::GIFTS['name'].'/product_4', $invitation->path_name);
-                }
-                if(isset($data['list_product_image_5'])){ 
-                    $invitation->addMedia($data['list_product_image_5'], self::GIFTS['name'].'/product_5', $invitation->path_name);
-                }
-                if(isset($data['list_product_image_6'])){ 
-                    $invitation->addMedia($data['list_product_image_6'], self::GIFTS['name'].'/product_6', $invitation->path_name);
-                }
-
-                $invitation->refresh();
+            'GIFTS' => (function () use ($module, $updateMediaTask, $data){
+                $updateMediaTask($module->media_collections, $data);
 
 
-                return $updateTask($modules, $name, [
+                return [
                     'icon' => $data['icon'],
                     'pre_tittle' => $data['pre_tittle'],
-                    'background_image' => $invitation->media(self::GIFTS['name'].'/background')->first()?->getMediaUrl(),
-                    'module_image' => $invitation->media(self::GIFTS['name'].'/module')->first()?->getMediaUrl(),
+                    'text' => $data['text'],
+                    'background_image' => $module->media($module->media_collections['background_image'])->first()?->getMediaUrl(),
+                    'module_image' => $module->media($module->media_collections['module_image'])->first()?->getMediaUrl(),
                     'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_type' => $data['button_type'],
@@ -1006,31 +1003,31 @@ class ModuleHandler {
                         'product_1' => $data['list_product_1'],
                         'product_url_1' => $data['list_product_url_1'],
                         'product_price_1' => $data['list_product_price_1'],
-                        'product_image_1' => $invitation->media(self::GIFTS['name'].'/product_1')->first()?->getMediaUrl(),
+                        'product_image_1' => $module->media($module->media_collections['list_product_image_1'])->first()?->getMediaUrl(),
                         'product_2' => $data['list_product_2'],
                         'product_url_2' => $data['list_product_url_2'],
                         'product_price_2' => $data['list_product_price_2'],
-                        'product_image_2' => $invitation->media(self::GIFTS['name'].'/product_2')->first()?->getMediaUrl(),
+                        'product_image_2' => $module->media($module->media_collections['list_product_image_2'])->first()?->getMediaUrl(),
                         'product_3' => $data['list_product_3'],
                         'product_url_3' => $data['list_product_url_3'],
                         'product_price_3' => $data['list_product_price_3'],
-                        'product_image_3' => $invitation->media(self::GIFTS['name'].'/product_3')->first()?->getMediaUrl(),
+                        'product_image_3' => $module->media($module->media_collections['list_product_image_3'])->first()?->getMediaUrl(),
                         'product_4' => $data['list_product_4'],
                         'product_url_4' => $data['list_product_url_4'],
                         'product_price_4' => $data['list_product_price_4'],
-                        'product_image_4' => $invitation->media(self::GIFTS['name'].'/product_4')->first()?->getMediaUrl(),
+                        'product_image_4' => $module->media($module->media_collections['list_product_image_4'])->first()?->getMediaUrl(),
                         'product_5' => $data['list_product_5'],
                         'product_url_5' => $data['list_product_url_5'],
                         'product_price_5' => $data['list_product_price_5'],
-                        'product_image_5' => $invitation->media(self::GIFTS['name'].'/product_5')->first()?->getMediaUrl(),
+                        'product_image_5' => $module->media($module->media_collections['list_product_image_5'])->first()?->getMediaUrl(),
                         'product_6' => $data['list_product_6'],
                         'product_url_6' => $data['list_product_url_6'],
                         'product_price_6' => $data['list_product_price_6'],
-                        'product_image_6' => $invitation->media(self::GIFTS['name'].'/product_6')->first()?->getMediaUrl(),
+                        'product_image_6' => $module->media($module->media_collections['list_product_image_6'])->first()?->getMediaUrl(),
                     ],
-                ]);
+                ];
             })(),
-            'CONFIRMATION' => $updateTask($modules, $name, $data)
+            'CONFIRMATION' => $data
         };
     }
 }

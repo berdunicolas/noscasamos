@@ -18,10 +18,4 @@ class SuggestionsModuleHandler extends GenericModuleHandler{
         'icon' => 'kjeyqivm',
         'suggestions' => []
     ];
-
-    static function getMediaCollections(string $name): array{
-        return [
-            $name,
-        ];
-    }
 }

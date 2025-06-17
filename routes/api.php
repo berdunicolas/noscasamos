@@ -49,7 +49,7 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     })->name('validate-invitation');
 
     Route::get('intivations/{invitation}/modules', [InvitationModuleApiController::class, 'getInvitationModules'])->name('invitation.modules');
-    Route::patch('intivations/{invitation}/modules/change-order', [InvitationModuleApiController::class, 'changeModolesOrder'])->name('invitation.modules.change-order');
+    Route::patch('intivations/{invitation}/modules/change-order', [InvitationModuleApiController::class, 'changeModulesOrder'])->name('invitation.modules.change-order');
     Route::patch('intivations/{invitation}/modules/{module}/change-status', [InvitationModuleApiController::class, 'changeModuleStatus'])->name('invitation.modules.change-status');
     Route::patch('invitations/{invitation}/modules/{module}', [InvitationModuleApiController::class, 'updateModule'])->name('invitation.modules.update');
     Route::get('invitations/{invitation}/modules/available-modules', [InvitationModuleApiController::class, 'availableModules'])->name('invitation.available-modules');

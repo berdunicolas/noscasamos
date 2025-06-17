@@ -15,9 +15,9 @@ class MusicModuleHandler extends GenericModuleHandler{
         'song' => ''
     ];
 
-    static function getMediaCollections(string $name): array{
+    static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
         return [
-            $name,
+            'song' => $rootFolder . '/' . $moduleFolder . '/song',
         ];
     }
 }

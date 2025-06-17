@@ -17,9 +17,9 @@ class WelcomeModuleHandler extends GenericModuleHandler{
         'image' => '',
     ];
 
-    static function getMediaCollections(string $name): array{
+    static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
         return [
-            $name,
+            'image' => $rootFolder . '/' . $moduleFolder . '/image',
         ];
     }
 }

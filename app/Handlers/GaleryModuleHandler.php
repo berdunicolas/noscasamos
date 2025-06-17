@@ -18,9 +18,9 @@ class GaleryModuleHandler extends GenericModuleHandler{
         'galery_images' => [],
     ];
 
-    static function getMediaCollections(string $name): array{
+    static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
         return [
-            $name,
+            'galery_images' => $rootFolder . '/' . $moduleFolder . '/galery_images',
         ];
     }
 }

@@ -53,6 +53,8 @@ class InvitationController extends Controller
             ];
         })->toArray());
 
+        $modules = $invitation->modules()->orderBy('index')->get();
+
         return view('admin.invitations.edit', [
             'invitation' => $invitation, 
             'countries' => $countries, 
@@ -66,6 +68,7 @@ class InvitationController extends Controller
             'sellers' => $sellers,
             'con' => $con,
             'availableModules' => $availableModules,
+            'modules' => $modules,
         ]);
     }
 }

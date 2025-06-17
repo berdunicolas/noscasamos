@@ -78,16 +78,16 @@ class GiftsModuleHandler extends GenericModuleHandler{
         ],
     ];
 
-    static function getMediaCollections(string $name): array{
+    static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
         return [
-            $name . '/background',
-            $name . '/module',
-            $name . '/product_1',
-            $name . '/product_2',
-            $name . '/product_3',
-            $name . '/product_4',
-            $name . '/product_5',
-            $name . '/product_6',
+            'background_image' => $rootFolder . '/' . $moduleFolder . '/background_image',
+            'module_image' => $rootFolder . '/' . $moduleFolder . '/module_image',
+            'list_product_image_1' => $rootFolder . '/' . $moduleFolder . '/list_product_image_1',
+            'list_product_image_2' => $rootFolder . '/' . $moduleFolder . '/list_product_image_2',
+            'list_product_image_3' => $rootFolder . '/' . $moduleFolder . '/list_product_image_3',
+            'list_product_image_4' => $rootFolder . '/' . $moduleFolder . '/list_product_image_4',
+            'list_product_image_5' => $rootFolder . '/' . $moduleFolder . '/list_product_image_5',
+            'list_product_image_6' => $rootFolder . '/' . $moduleFolder . '/list_product_image_6',
         ];
     }
 }

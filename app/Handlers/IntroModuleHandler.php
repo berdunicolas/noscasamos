@@ -15,9 +15,9 @@ class IntroModuleHandler extends GenericModuleHandler{
         'stamp_image' => ''
     ];
 
-    static function getMediaCollections(string $name): array{
+    static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
         return [
-            $name,
+            'stamp_image' => $rootFolder . '/' . $moduleFolder . '/stamp_image',
         ];
     }
 }

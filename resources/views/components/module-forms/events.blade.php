@@ -1,7 +1,6 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Eventos</h4>
-
-    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="accordion accordion-flush" id="accordionExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -87,7 +86,7 @@
                             <textarea name="civil_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['civil']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <x-form.upload-zone label="Imagen" zoneName="civil_image" :isMultiple=false>
+                            <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="civil_image" :isMultiple=false>
                                 @if($events['civil']['image'])
                                     <div class="preview-item">
                                         <img src="{{$events['civil']['image']}}" alt="preview">
@@ -97,7 +96,7 @@
                             
                             </x-form.upload-zone>
                             <p class="selectedFilesUpdater" hidden>
-                                @json( ['civil_image', $events['civil']['image']])
+                                @json( [$module->name => ['civil_image' => $events['civil']['image']]])
                             </p>
                         </div>
                         <div class="row mb-3">
@@ -209,7 +208,7 @@
                             <textarea name="ceremony_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['ceremony']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <x-form.upload-zone label="Imagen" zoneName="ceremony_image" :isMultiple=false>
+                            <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="ceremony_image" :isMultiple=false>
                                 @if($events['ceremony']['image'])
                                     <div class="preview-item">
                                         <img src="{{$events['ceremony']['image']}}" alt="preview">
@@ -219,7 +218,7 @@
                             
                             </x-form.upload-zone>
                             <p class="selectedFilesUpdater" hidden>
-                                @json( ['ceremony_image', $events['ceremony']['image']])
+                                @json( [$module->name => ['ceremony_image' => $events['ceremony']['image']]])
                             </p>
                         </div>
                         <div class="row mb-3">
@@ -331,7 +330,7 @@
                             <textarea name="party_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['party']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <x-form.upload-zone label="Imagen" zoneName="party_image" :isMultiple=false>
+                            <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="party_image" :isMultiple=false>
                                 @if($events['party']['image'])
                                     <div class="preview-item">
                                         <img src="{{$events['party']['image']}}" alt="preview">
@@ -341,7 +340,7 @@
                             
                             </x-form.upload-zone>
                             <p class="selectedFilesUpdater" hidden>
-                                @json( ['party_image', $events['party']['image']])
+                                @json( [$module->name => ['party_image' => $events['party']['image']]])
                             </p>
                         </div>
                         <div class="row mb-3">
@@ -424,7 +423,7 @@
                             <textarea name="dresscode_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['dresscode']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
-                            <x-form.upload-zone label="Imagen" zoneName="dresscode_image" :isMultiple=false>
+                            <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="dresscode_image" :isMultiple=false>
                                 @if($events['dresscode']['image'])
                                     <div class="preview-item">
                                         <img src="{{$events['dresscode']['image']}}" alt="preview">
@@ -434,7 +433,7 @@
                             
                             </x-form.upload-zone>
                             <p class="selectedFilesUpdater" hidden>
-                                @json( ['dresscode_image', $events['dresscode']['image']])
+                                @json( [$module->name => ['dresscode_image' => $events['dresscode']['image']]])
                             </p>
                         </div>
                         <div class="row mb-3">

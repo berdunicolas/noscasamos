@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Información del invitado</h4>
 
-    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.input
                 name="tittle"

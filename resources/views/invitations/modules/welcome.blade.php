@@ -15,26 +15,26 @@ $bienvenidamarco = $marco;
 
 <section class="content wow animate__animated animate__fadeInUp">
     <div class="info">    
-        @empty(!$module["tittle"])
+        @empty(!$module->data["tittle"])
             <div class="text">
-                @empty(!$module['text'])
+                @empty(!$module->data['text'])
                     @if($icontype==='Animado')
-                        <lord-icon src="https://cdn.lordicon.com/{{$module['icon']}}.json" trigger="{{$trigger}}" state="{{$bienvenidaicons}}" stroke="{{$stroke}}" delay="500" colors="primary:{{($style=="dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
+                        <lord-icon src="https://cdn.lordicon.com/{{$module->data['icon']}}.json" trigger="{{$trigger}}" state="{{$bienvenidaicons}}" stroke="{{$stroke}}" delay="500" colors="primary:{{($style=="dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
                     @else
-                        <i class="fa-thin {{$module['icon']}}"></i>
+                        <i class="fa-thin {{$module->data['icon']}}"></i>
                     @endif
                 @endempty
-                @empty(!$module['tittle'])
-                    <h2>{{$module['tittle']}}</h2>
+                @empty(!$module->data['tittle'])
+                    <h2>{{$module->data['tittle']}}</h2>
                 @endempty
-                <p>{!!$module['text']!!}</p>
+                <p>{!!$module->data['text']!!}</p>
                 <!--                    <a href="#">Ver más</a>-->
             </div>
         @endempty
 
-        @empty(!$module['image'])
+        @empty(!$module->data['image'])
             <div class="image">
-                <img src="{{$module['image']}}" alt="{{$module['tittle']}}"/>
+                <img src="{{$module->data['image']}}" alt="{{$module->data['tittle']}}"/>
             </div>
         @endempty
     </div>

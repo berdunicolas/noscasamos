@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Portada</h4>
 
-    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.select
                 name="format"
@@ -43,7 +43,7 @@
 
         <div id="images_format_inputs" class="{{ str_contains('Imagenes con marco', $module->data['format']) ? '' : 'd-none' }}">
             <div class="mb-3">
-                <x-form.upload-zone label="Imágenes desktop" zoneName="images_desktop_cover" :isMultiple=true>
+                <x-form.upload-zone label="Imágenes desktop" :zoneOwner="$module->name" zoneName="images_desktop_cover" :isMultiple=true>
                     @foreach ($module->data['desktop_images'] as $key => $image)
                         @if($image)
                             <div class="preview-item">
@@ -54,11 +54,11 @@
                     @endforeach
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['images_desktop_cover', $module->data['desktop_images']])
+                    @json( [$module->name => ['images_desktop_cover' => $module->data['desktop_images']]])
                 </p>
             </div>
             <div class="mb-3">
-                <x-form.upload-zone label="Imágenes mobile" zoneName="images_mobile_cover" :isMultiple=true>
+                <x-form.upload-zone label="Imágenes mobile" :zoneOwner="$module->name" zoneName="images_mobile_cover" :isMultiple=true>
                     @foreach ($module->data['mobile_images'] as $key => $image)
                         @if($image)
                             <div class="preview-item">
@@ -69,14 +69,14 @@
                     @endforeach
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['images_mobile_cover', $module->data['mobile_images']])
+                    @json( [$module->name => ['images_mobile_cover' => $module->data['mobile_images']]])
                 </p>
             </div>
         </div>
         <div id="design_format_inputs" class="{{ str_contains('Diseño con marco', $module->data['format']) ? '' : 'd-none' }}">
             <div class="row mb-3">
                 <div class="col-6">
-                    <x-form.upload-zone label="Diseño desktop" zoneName="design_desktop_cover" :isMultiple=false>
+                    <x-form.upload-zone label="Diseño desktop" :zoneOwner="$module->name" zoneName="design_desktop_cover" :isMultiple=false>
                         @if($module->data['desktop_design'])
                             <div class="preview-item">
                                 <img src="{{$module->data['desktop_design']}}" alt="preview">
@@ -85,11 +85,11 @@
                         @endif
                     </x-form.upload-zone>
                     <p class="selectedFilesUpdater" hidden>
-                        @json( ['design_desktop_cover', $module->data['desktop_design']])
+                        @json( [$module->name => ['design_desktop_cover' => $module->data['desktop_design']]])
                     </p>
                 </div>
                 <div class="col-6">
-                    <x-form.upload-zone label="Diseño mobile" zoneName="design_mobile_cover" :isMultiple=false>
+                    <x-form.upload-zone label="Diseño mobile" :zoneOwner="$module->name" zoneName="design_mobile_cover" :isMultiple=false>
                         @if($module->data['mobile_design'])
                             <div class="preview-item">
                                 <img src="{{$module->data['mobile_design']}}" alt="preview">
@@ -98,7 +98,7 @@
                         @endif
                     </x-form.upload-zone>
                     <p class="selectedFilesUpdater" hidden>
-                        @json( ['design_mobile_cover', $module->data['mobile_design']])
+                        @json( [$module->name => ['design_mobile_cover' => $module->data['mobile_design']]])
                     </p>
                 </div>
             </div>
@@ -186,7 +186,7 @@
 
         <div class="row mb-3">
             <div class="col-6">
-                <x-form.upload-zone label="Logotipo" zoneName="logo_cover" :isMultiple=false>
+                <x-form.upload-zone label="Logotipo" :zoneOwner="$module->name" zoneName="logo_cover" :isMultiple=false>
                     @if($module->data['logo_cover'])
                         <div class="preview-item">
                             <img src="{{$module->data['logo_cover']}}" alt="preview">
@@ -195,11 +195,11 @@
                     @endif
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['logo_cover', $module->data['logo_cover']])
+                    @json( [$module->name => ['logo_cover' => $module->data['logo_cover']]])
                 </p>
             </div>
             <div class="col-6">
-                <x-form.upload-zone label="Imagen central" zoneName="central_image_cover" :isMultiple=false>
+                <x-form.upload-zone label="Imagen central" :zoneOwner="$module->name" zoneName="central_image_cover" :isMultiple=false>
                     @if($module->data['central_image_cover'])
                         <div class="preview-item">
                             <img src="{{$module->data['central_image_cover']}}" alt="preview">
@@ -208,7 +208,7 @@
                     @endif
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['central_image_cover', $module->data['central_image_cover']])
+                    @json( [$module->name => ['central_image_cover' => $module->data['central_image_cover']]])
                 </p>
             </div>
         </div>

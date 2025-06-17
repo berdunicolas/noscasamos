@@ -66,12 +66,12 @@ class EventsModuleHandler extends GenericModuleHandler{
         ],
     ];
 
-    static function getMediaCollections(string $name): array{
+    static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
         return [
-            $name . '/civil',
-            $name . '/ceremony',
-            $name . '/party',
-            $name . '/dresscode',
+            'civil_image' => $rootFolder . '/' . $moduleFolder . '/civil_image',
+            'ceremony_image' => $rootFolder . '/' . $moduleFolder . '/ceremony_image',
+            'party_image' => $rootFolder . '/' . $moduleFolder . '/party_image',
+            'dresscode_image' => $rootFolder . '/' . $moduleFolder . '/dresscode_image',
         ];
     }
 }

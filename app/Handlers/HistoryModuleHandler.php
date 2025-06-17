@@ -21,9 +21,9 @@ class HistoryModuleHandler extends GenericModuleHandler{
         'button_url' => '',
     ];
 
-    static function getMediaCollections(string $name): array{
+    static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
         return [
-            $name,
+            'image' => $rootFolder . '/' . $moduleFolder . '/image',
         ];
     }
 }

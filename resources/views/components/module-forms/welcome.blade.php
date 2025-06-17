@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Bienvenida</h4>
 
-    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.input
                 name="icon"
@@ -12,7 +12,7 @@
             />
         </div>
         <div class="mb-3">
-            <x-form.upload-zone label="Imagen" zoneName="welcome_image" :isMultiple=false>
+            <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="welcome_image" :isMultiple=false>
                 @if($module->data['image'])
                     <div class="preview-item">
                         <img src="{{$module->data['image']}}" alt="preview">
@@ -21,7 +21,7 @@
                 @endif
             </x-form.upload-zone>
             <p class="selectedFilesUpdater" hidden>
-                @json( ['welcome_image', $module->data['image']])
+                @json( [$module->name => ['welcome_image' => $module->data['image']]])
             </p>
         </div>
         <div class="mb-3">

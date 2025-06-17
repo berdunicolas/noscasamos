@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Regalos</h4>
 
-    <x-module-forms.form :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="row mb-3">
             <div class="col-6">
                 <x-form.input
@@ -30,7 +30,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-6">
-                <x-form.upload-zone label="Imagen de fondo" zoneName="gift_background_image" :isMultiple=false>
+                <x-form.upload-zone label="Imagen de fondo" :zoneOwner="$module->name" zoneName="gift_background_image" :isMultiple=false>
                     @if($module->data['background_image'])
                         <div class="preview-item">
                             <img src="{{$module->data['background_image']}}" alt="preview">
@@ -39,12 +39,12 @@
                     @endif
                 </x-form.upload-zone>
                 <p class="selectedFilesUpdater" hidden>
-                    @json( ['gift_background_image', $module->data['background_image']])
+                    @json( [$module->name => ['gift_background_image' => $module->data['background_image']]])
                 </p>
             </div>
             <div class="col-6">
                 <div class="mb-3">
-                    <x-form.upload-zone label="Imagen de módulo" zoneName="gift_module_image" :isMultiple=false>
+                    <x-form.upload-zone label="Imagen de módulo" :zoneOwner="$module->name" zoneName="gift_module_image" :isMultiple=false>
                         @if($module->data['module_image'])
                             <div class="preview-item">
                                 <img src="{{$module->data['module_image']}}" alt="preview">
@@ -53,7 +53,7 @@
                         @endif
                     </x-form.upload-zone>
                     <p class="selectedFilesUpdater" hidden>
-                        @json( ['gift_module_image', $module->data['module_image']])
+                        @json( [$module->name => ['gift_module_image' => $module->data['module_image']]])
                     </p>
                 </div>
             </div>
@@ -333,7 +333,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_1" :isMultiple=false>
+                                <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_1" :isMultiple=false>
                                     @if($module->data['list']['product_image_1'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_1']}}" alt="preview">
@@ -342,7 +342,7 @@
                                     @endif
                                 </x-form.upload-zone>
                                 <p class="selectedFilesUpdater" hidden>
-                                    @json( ['list_product_image_1', $module->data['list']['product_image_1']])
+                                    @json( [$module->name => ['list_product_image_1' => $module->data['list']['product_image_1']]])
                                 </p>
                             </div>
                         </div>
@@ -378,7 +378,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_2" :isMultiple=false>
+                                <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_2" :isMultiple=false>
                                     @if($module->data['list']['product_image_2'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_2']}}" alt="preview">
@@ -387,7 +387,7 @@
                                     @endif
                                 </x-form.upload-zone>
                                 <p class="selectedFilesUpdater" hidden>
-                                    @json( ['list_product_image_2', $module->data['list']['product_image_2']])
+                                    @json( [$module->name => ['list_product_image_2' => $module->data['list']['product_image_2']]])
                                 </p>
                             </div>
                         </div>
@@ -423,7 +423,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_3" :isMultiple=false>
+                                <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_3" :isMultiple=false>
                                     @if($module->data['list']['product_image_3'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_3']}}" alt="preview">
@@ -432,7 +432,7 @@
                                     @endif
                                 </x-form.upload-zone>
                                 <p class="selectedFilesUpdater" hidden>
-                                    @json( ['list_product_image_3', $module->data['list']['product_image_3']])
+                                    @json( [$module->name => ['list_product_image_3' => $module->data['list']['product_image_3']]])
                                 </p>
                             </div>
                         </div>
@@ -468,7 +468,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_4" :isMultiple=false>
+                                <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_4" :isMultiple=false>
                                     @if($module->data['list']['product_image_4'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_4']}}" alt="preview">
@@ -477,7 +477,7 @@
                                     @endif
                                 </x-form.upload-zone>
                                 <p class="selectedFilesUpdater" hidden>
-                                    @json( ['list_product_image_4', $module->data['list']['product_image_4']])
+                                    @json( [$module->name => ['list_product_image_4' => $module->data['list']['product_image_4']]])
                                 </p>
                             </div>
                         </div>
@@ -513,7 +513,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_5" :isMultiple=false>
+                                <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_5" :isMultiple=false>
                                     @if($module->data['list']['product_image_5'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_5']}}" alt="preview">
@@ -522,7 +522,7 @@
                                     @endif
                                 </x-form.upload-zone>
                                 <p class="selectedFilesUpdater" hidden>
-                                    @json( ['list_product_image_5', $module->data['list']['product_image_5']])
+                                    @json( [$module->name => ['list_product_image_5' => $module->data['list']['product_image_5']]])
                                 </p>
                             </div>
                         </div>
@@ -558,7 +558,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <x-form.upload-zone label="Imagen" zoneName="list_product_image_6" :isMultiple=false>
+                                <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_6" :isMultiple=false>
                                     @if($module->data['list']['product_image_6'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_6']}}" alt="preview">
@@ -567,7 +567,7 @@
                                     @endif
                                 </x-form.upload-zone>
                                 <p class="selectedFilesUpdater" hidden>
-                                    @json( ['list_product_image_6', $module->data['list']['product_image_6']])
+                                    @json( [$module->name => ['list_product_image_6' => $module->data['list']['product_image_6']]])
                                 </p>
                             </div>
                         </div>

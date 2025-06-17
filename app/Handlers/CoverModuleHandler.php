@@ -31,16 +31,16 @@ class CoverModuleHandler extends GenericModuleHandler{
         'central_image_cover' => '',
     ];
 
-    static function getMediaCollections(string $name): array{
+    static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
         return [
-            $name . '/desktop_images',
-            $name . '/mobile_images',
-            $name . '/desktop_design',
-            $name . '/mobile_design',
-            $name . '/desktop_video',
-            $name . '/mobile_video',
-            $name . '/logo_cover',
-            $name . '/central_image_cover',
+            'desktop_images' => $rootFolder . '/' . $moduleFolder . '/desktop_images',
+            'mobile_images' => $rootFolder . '/' . $moduleFolder . '/mobile_images',
+            'desktop_design' => $rootFolder . '/' . $moduleFolder . '/desktop_design',
+            'mobile_design' => $rootFolder . '/' . $moduleFolder . '/mobile_design',
+            'desktop_video' => $rootFolder . '/' . $moduleFolder . '/desktop_video',
+            'mobile_video' => $rootFolder . '/' . $moduleFolder . '/mobile_video',
+            'logo_cover' => $rootFolder . '/' . $moduleFolder . '/logo_cover',
+            'central_image_cover' => $rootFolder . '/' . $moduleFolder . '/central_image_cover',
         ];
     }
 }
