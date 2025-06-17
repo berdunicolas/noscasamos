@@ -2,17 +2,19 @@
 
 namespace App\View\Components\Modules;
 
+use App\Models\InvitationModule;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class SuggestionsModule extends Component
 {
+    public array $suggestions = [];
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public array $module,
+        public InvitationModule $module,
         public ?string $style,
         public ?string $color,
         public ?string $icontype,
@@ -20,12 +22,12 @@ class SuggestionsModule extends Component
         public ?string $padding,
     )
     {
-        if(empty($module['suggestions'])){
+        if(empty($module->data['suggestions'])){
             for ($i=1; $i <= 8; $i++) { 
-                $this->module['suggestions'][] = ['suggestion_' . $i => '', 'link_' . $i => ''];
+                $suggestions[] = ['suggestion_' . $i => '', 'link_' . $i => ''];
             }
         }else{
-            $this->module['suggestions'] = $module['suggestions'];
+            $suggestions = $module->data['suggestions'];
         }
     }
 

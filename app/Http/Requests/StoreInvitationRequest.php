@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\PlanTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,7 +26,9 @@ class StoreInvitationRequest extends FormRequest
         return [
             'name' => 'required|string|unique:events,name',
             'event' => 'required|string',
-            'plan' => 'required|string',
+            'plan' => [
+                Rule::enum(PlanTypeEnum::class)
+            ],
             'seller' => [
                 'required',
                 Rule::exists('sellers', 'id')

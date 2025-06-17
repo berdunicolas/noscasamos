@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Modules;
 
+use App\Models\InvitationModule;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -10,13 +11,6 @@ use Illuminate\View\Component;
 
 class SaveDateModule extends Component
 {
-    /*
-    public string $day;
-    public string $month;
-    public string $monthName;
-    public string $year;
-    public string $hour;
-    */
     public string $fullDateTime = '';
     public string $dateTittle = '';
     public string $fechali = '';
@@ -27,7 +21,7 @@ class SaveDateModule extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public array $module,
+        public InvitationModule $module,
         public ?string $nombres,
         public ?string $date,
         public ?string $time,

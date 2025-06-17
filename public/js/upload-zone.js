@@ -2,9 +2,9 @@ function abrirSelector(id) {
     document.getElementById(id).click();
 }
 
-function manejarSeleccion(input, zoneName, isMultiple) {
+function manejarSeleccion(input, zoneOwner, zoneName, isMultiple) {
     const files = input.files;
-    procesarArchivos(files, zoneName, isMultiple);
+    procesarArchivos(files, zoneOwner, zoneName, isMultiple);
     input.value = ''; // Para permitir volver a seleccionar el mismo archivo
 }
 
@@ -17,28 +17,28 @@ function manejarDragLeave(event, id) {
     document.getElementById(id).classList.remove('dragover');
 }
 
-function manejarDrop(event, id, zoneName, isMultiple) {
+function manejarDrop(event, zoneOwner, id, zoneName, isMultiple) {
     event.preventDefault();
     let zoneElement = document.getElementById(id);
     zoneElement.classList.remove('dragover');
 
     const files = event.dataTransfer.files;
-    procesarArchivos(files, zoneName, isMultiple);
+    procesarArchivos(files, zoneOwner, zoneName, isMultiple);
 }
 
-function procesarArchivos(files, zoneName, isMultiple) {
+function procesarArchivos(files, zoneOwner, zoneName, isMultiple) {
     for (let file of files) {
         if (!file.type.startsWith('image/')) continue;
 
         let index = null;
 
         if(isMultiple){
-            selectedFiles[zoneName].push(file);
+            selectedFiles[zoneOwner][zoneName].push(file);
 
-            index = selectedFiles[zoneName].length - 1;
+            index = selectedFiles[zoneOwner][zoneName].length - 1;
 
         }else{
-            selectedFiles[zoneName] = file;
+            selectedFiles[zoneOwner][zoneName] = file;
         }
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -46,9 +46,9 @@ function procesarArchivos(files, zoneName, isMultiple) {
             div.classList.add('preview-item');
             div.innerHTML = `
                 <img src="${e.target.result}" alt="preview">
-                <button type="button" class="remove-btn" onclick="eliminarImagen(this, '${zoneName}', ${index})">&times;</button>
+                <button type="button" class="remove-btn" onclick="eliminarImagen(this, '${zoneOwner}', '${zoneName}', ${index})">&times;</button>
             `;
-            let previewContainer = document.getElementById('preview-container-'+zoneName);
+            let previewContainer = document.getElementById('preview-container-'+zoneOwner+zoneName);
             if(!isMultiple){
                 previewContainer.innerHTML = '';
             }
@@ -59,14 +59,14 @@ function procesarArchivos(files, zoneName, isMultiple) {
     }
 }
 
-function eliminarImagen(btnElement, zoneName, index=null) {
+function eliminarImagen(btnElement, zoneOwner, zoneName, index=null) {
     if(index === null){
-        selectedFiles[zoneName] = null;
+        selectedFiles[zoneOwner][zoneName] = null;
     }else{
-        selectedFiles[zoneName][index] = null;
+        selectedFiles[zoneOwner][zoneName][index] = null;
     }
 
-    let input = document.getElementById('image-input-'+zoneName);
+    let input = document.getElementById('image-input-'+ zoneOwner +zoneName);
     const event = new Event('change', { bubbles: true });
     input.dispatchEvent(event);
     

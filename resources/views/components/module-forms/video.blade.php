@@ -1,7 +1,7 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Video</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="row mb-3">
             <div class="col-6">
                 <x-form.input
@@ -9,7 +9,7 @@
                     label="Antetitulo"
                     type="text"
                     placeholder="Video"
-                    value="{{$module['pre_tittle']}}"
+                    value="{{$module->data['pre_tittle']}}"
                 />
             </div>
             <div class="col-6">
@@ -19,7 +19,7 @@
                         label="Título"
                         type="text"
                         placeholder="El momento del si."
-                        value="{{$module['tittle']}}"
+                        value="{{$module->data['tittle']}}"
                     />
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     label="ID de video"
                     type="text"
                     placeholder="kejhsefg"
-                    value="{{$module['video_id']}}"
+                    value="{{$module->data['video_id']}}"
                     extraAttributes="onchange=changeVideoId(this)"
                 />
             </div>
@@ -45,12 +45,12 @@
                     <x-form.select-option
                         value="Youtube"
                         label="Youtube"
-                        selected="{{ ($module['type_video'] ==  'Youtube') ? true : false }}"
+                        selected="{{ ($module->data['type_video'] ==  'Youtube') ? true : false }}"
                     />
                     <x-form.select-option
                         value="Vimeo"
                         label="Vimeo"
-                        selected="{{ ($module['type_video'] ==  'Vimeo') ? true : false }}"
+                        selected="{{ ($module->data['type_video'] ==  'Vimeo') ? true : false }}"
                     />
                 </x-form.select>
             </div>
@@ -63,24 +63,24 @@
                     <x-form.select-option
                         value="Horizontal"
                         label="Horizontal"
-                        selected="{{ ($module['format'] ==  'Horizontal') ? true : false }}"
+                        selected="{{ ($module->data['format'] ==  'Horizontal') ? true : false }}"
                     />
                     <x-form.select-option
                         value="Vertical"
                         label="Vertical"
-                        selected="{{ ($module['format'] ==  'Vertical') ? true : false }}"
+                        selected="{{ ($module->data['format'] ==  'Vertical') ? true : false }}"
                     />
                 </x-form.select>
             </div>
         </div>
 
         <section class="video p-4">
-            <div class="videoPlayer {{($module['format'] == 'Horizontal') ? 'h' : 'v'}}" id="player">
-                <div class="player" id="youtube-player" style="background-color:none;" {{(strtolower($module['type_video']) == "youtube") ? '' : 'hidden' }}>
-                    <iframe src="https://www.youtube-nocookie.com/embed/{{$module['video_id']}}?si=7CQt0gnEV97CNWwW&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen  style="border-radius:8px;"></iframe>
+            <div class="videoPlayer {{($module->data['format'] == 'Horizontal') ? 'h' : 'v'}}" id="player">
+                <div class="player" id="youtube-player" style="background-color:none;" {{(strtolower($module->data['type_video']) == "youtube") ? '' : 'hidden' }}>
+                    <iframe src="https://www.youtube-nocookie.com/embed/{{$module->data['video_id']}}?si=7CQt0gnEV97CNWwW&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen  style="border-radius:8px;"></iframe>
                 </div>
-                <div class="player" id="vimeo-player" {{(strtolower($module['type_video']) == "vimeo") ? '' : 'hidden'}}>
-                    <iframe src="https://player.vimeo.com/video/{{$module['video_id']}}?h=b86574a207&autoplay=1&color=A2AE8C&title=0&byline=0&portrait=0" width="640" height="1138" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen  style="border-radius:8px;"></iframe>
+                <div class="player" id="vimeo-player" {{(strtolower($module->data['type_video']) == "vimeo") ? '' : 'hidden'}}>
+                    <iframe src="https://player.vimeo.com/video/{{$module->data['video_id']}}?h=b86574a207&autoplay=1&color=A2AE8C&title=0&byline=0&portrait=0" width="640" height="1138" frameborder="0" allow="fullscreen; picture-in-picture" allowfullscreen  style="border-radius:8px;"></iframe>
                 </div>
             </div>
         </section>

@@ -3,9 +3,7 @@
 $modules = [];
 
 foreach($invitation->modules as $module) {
-    if($module['active']){
-        $modules[] = App\Enums\ModuleTypeEnum::getModuleComponent($module, $invitation);
-    }
+    $modules[] = App\Handlers\ModuleHandler::getModuleComponent($module, $invitation);
 }
 
 $tituloYBajada =  $invitation->tituloYBajada();

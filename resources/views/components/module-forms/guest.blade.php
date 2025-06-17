@@ -1,14 +1,14 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Información del invitado</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.input
                 name="tittle"
                 label="Titulo"
                 type="text"
                 placeholder="Invitación"
-                value="{{$module['tittle']}}"
+                value="{{$module->data['tittle']}}"
             />
         </div>
         <div class="row mb-3">
@@ -18,7 +18,7 @@
                     label="Icono"
                     type="text"
                     placeholder="fa-envelope-open-text"
-                    value="{{$module['icon']}}"
+                    value="{{$module->data['icon']}}"
                 />
             </div>
             <div class="col-6">
@@ -27,7 +27,7 @@
                     label="Indicaciones de personas"
                     type="text"
                     placeholder="Personas / Pases"
-                    value="{{$module['signs']}}"
+                    value="{{$module->data['signs']}}"
                 />
             </div>
         </div>

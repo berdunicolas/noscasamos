@@ -6,14 +6,32 @@ async function fetchMediaAsBlob(url) {
     return await response.blob();
 }
 
-async function uptateSelectedFiles(name, data) {
+async function uptateSelectedFiles(field) {
+    const objTarget = Object.keys(field)[0];
+    const data = field[objTarget];
+
+    if(selectedFiles[objTarget] === undefined) selectedFiles[objTarget] = {};
+
+    try {
+        for (const [key, value] of Object.entries(data)) {
+            if(selectedFiles[objTarget][key] === undefined) selectedFiles[objTarget][key] = Array.isArray(value) ? [] : null;
+
+            pushInSelectedFiles(objTarget, key, value);
+        }
+    } catch (error) {
+        console.error('Error al actualizar selected files:', error);
+    }
+}
+
+async function pushInSelectedFiles(objTarget, key, data) {
+
     if (!data) return;
 
     const urls = Array.isArray(data) ? data : [data];
     
     try {
         const blobs = await Promise.all(urls.map(fetchMediaAsBlob));
-        selectedFiles[name] = blobs.length === 1 ? blobs[0] : blobs;
+        selectedFiles[objTarget][key] = blobs.length === 1 ? blobs[0] : blobs;
     } catch (error) {
         console.error('Error al convertir imágenes a blob:', error);
     }
@@ -27,7 +45,7 @@ async function updateVideoInput(input) {
     try {
         const blob = await fetchMediaAsBlob(urlVideo);
 
-        const file = new File([blob], "preview.mp4", { type: blob.type });
+        const file = new File([blob], blob.name, { type: blob.type });
 
         // Crear un DataTransfer para simular la carga del archivo
         const dataTransfer = new DataTransfer();
@@ -48,7 +66,7 @@ async function updateAudioInput(input) {
     try {
         const blob = await fetchMediaAsBlob(urlAudio);
         
-        const file = new File([blob], "preview.mp4", { type: blob.type });
+        const file = new File([blob], blob.name, { type: blob.type });
 
         // Crear un DataTransfer para simular la carga del archivo
         const dataTransfer = new DataTransfer();
@@ -87,9 +105,9 @@ $(document).ready(function () {
 
             let selectedFilesUpdaters = document.getElementsByClassName('selectedFilesUpdater');
             
-            Array.from(selectedFilesUpdaters).map(function (files) {
-                files = JSON.parse(files.innerHTML);
-                uptateSelectedFiles(files[0], files[1]);
+            Array.from(selectedFilesUpdaters).map(function (field) {
+                field = JSON.parse(field.innerHTML);
+                uptateSelectedFiles(field);
             });
 
             let videoInputs = document.getElementsByClassName('videoInput');
@@ -287,77 +305,77 @@ function deleteModule(button) {
 }
 
 
-function sendModuleForm(e, form, name = ''){
+function sendModuleForm(e, form, type = '', name = ''){
     e.preventDefault();
     let formData = new FormData(form);
 
-    switch(name){
+    switch(type){
         case 'INTRO':
-            if(selectedFiles['stamp_image']){
-                formData.append('stamp_image', selectedFiles['stamp_image'])
+            if(selectedFiles[name]['stamp_image']){
+                formData.append('stamp_image', selectedFiles[name]['stamp_image'])
             }
             break;
         case 'COVER':
-            selectedFiles['images_desktop_cover'].forEach(file => {
+            selectedFiles[name]['images_desktop_cover'].forEach(file => {
                 if (file) {
                     formData.append('desktop_images[]', file);
                 }
             });
-            selectedFiles['images_mobile_cover'].forEach(file => {
+            selectedFiles[name]['images_mobile_cover'].forEach(file => {
                 if (file) {
                     formData.append('mobile_images[]', file);
                 }
             });
-            if(selectedFiles['design_desktop_cover']){
-                formData.append('desktop_design', selectedFiles['design_desktop_cover']);
+            if(selectedFiles[name]['design_desktop_cover']){
+                formData.append('desktop_design', selectedFiles[name]['design_desktop_cover']);
             }
-            if(selectedFiles['design_mobile_cover']){
-                formData.append('mobile_design', selectedFiles['design_mobile_cover']);
+            if(selectedFiles[name]['design_mobile_cover']){
+                formData.append('mobile_design', selectedFiles[name]['design_mobile_cover']);
             }
-            if(selectedFiles['logo_cover']){
-                formData.append('logo_cover', selectedFiles['logo_cover']);
+            if(selectedFiles[name]['logo_cover']){
+                formData.append('logo_cover', selectedFiles[name]['logo_cover']);
             }
-            if(selectedFiles['central_image_cover']){
-                formData.append('central_image_cover', selectedFiles['central_image_cover']);
+            if(selectedFiles[name]['central_image_cover']){
+                formData.append('central_image_cover', selectedFiles[name]['central_image_cover']);
             }
             break;
         case 'WELCOME':
-            if(selectedFiles['welcome_image']){
-                formData.append('image', selectedFiles['welcome_image']);
+            if(selectedFiles[name]['welcome_image']){
+                formData.append('image', selectedFiles[name]['welcome_image']);
             }
             break;
         case 'EVENTS':
-            if(selectedFiles['civil_image']){
-                formData.append('civil_image', selectedFiles['civil_image']);
+            if(selectedFiles[name]['civil_image']){
+                formData.append('civil_image', selectedFiles[name]['civil_image']);
             }
-            if(selectedFiles['ceremony_image']){
-                formData.append('ceremony_image', selectedFiles['ceremony_image']);
+            if(selectedFiles[name]['ceremony_image']){
+                formData.append('ceremony_image', selectedFiles[name]['ceremony_image']);
             }
-            if(selectedFiles['party_image']){
-                formData.append('party_image', selectedFiles['party_image']);
+            if(selectedFiles[name]['party_image']){
+                formData.append('party_image', selectedFiles[name]['party_image']);
             }
-            if(selectedFiles['dresscode_image']){
-                formData.append('dresscode_image', selectedFiles['dresscode_image']);
+            if(selectedFiles[name]['dresscode_image']){
+                formData.append('dresscode_image', selectedFiles[name]['dresscode_image']);
             }
             break;
         case 'HISTORY':
-            if(selectedFiles['history_image']){
-                formData.append('image', selectedFiles['history_image']);
+            if(selectedFiles[name]['history_image']){
+                formData.append('image', selectedFiles[name]['history_image']);
             }
             break;
         case 'INFO':
-            if(selectedFiles['info_image']){
-                formData.append('image', selectedFiles['info_image']);
+            if(selectedFiles[name]['info_image']){
+                formData.append('image', selectedFiles[name]['info_image']);
             }
             break;
         case 'HIGHLIGHTS':
-            if(selectedFiles['highlights_image']){
-                formData.append('image', selectedFiles['highlights_image']);
+            if(selectedFiles[name]['highlights_image']){
+                formData.append('image', selectedFiles[name]['highlights_image']);
             }
             break;
         
         case 'GALERY':
-            selectedFiles['galery_images'].forEach(file => {
+            selectedFiles[name]['galery_images'].forEach(file => {
                 if (file) {
                     formData.append('galery_images[]', file);
                 }
@@ -365,31 +383,32 @@ function sendModuleForm(e, form, name = ''){
             break;
 
         case 'GIFTS':
-            if(selectedFiles['gift_background_image']){
-                formData.append('background_image', selectedFiles['gift_background_image']);
+            if(selectedFiles[name]['gift_background_image']){
+                formData.append('background_image', selectedFiles[name]['gift_background_image']);
             }
-            if(selectedFiles['gift_module_image']){
-                formData.append('module_image', selectedFiles['gift_module_image']);
+            if(selectedFiles[name]['gift_module_image']){
+                formData.append('module_image', selectedFiles[name]['gift_module_image']);
             }
-            if(selectedFiles['list_product_image_1']){
-                formData.append('list_product_image_1', selectedFiles['list_product_image_1']);
+            if(selectedFiles[name]['list_product_image_1']){
+                formData.append('list_product_image_1', selectedFiles[name]['list_product_image_1']);
             }
-            if(selectedFiles['list_product_image_2']){
-                formData.append('list_product_image_2', selectedFiles['list_product_image_2']);
+            if(selectedFiles[name]['list_product_image_2']){
+                formData.append('list_product_image_2', selectedFiles[name]['list_product_image_2']);
             }
-            if(selectedFiles['list_product_image_3']){
-                formData.append('list_product_image_3', selectedFiles['list_product_image_3']);
+            if(selectedFiles[name]['list_product_image_3']){
+                formData.append('list_product_image_3', selectedFiles[name]['list_product_image_3']);
             }
-            if(selectedFiles['list_product_image_4']){
-                formData.append('list_product_image_4', selectedFiles['list_product_image_4']);
+            if(selectedFiles[name]['list_product_image_4']){
+                formData.append('list_product_image_4', selectedFiles[name]['list_product_image_4']);
             }
-            if(selectedFiles['list_product_image_5']){
-                formData.append('list_product_image_5', selectedFiles['list_product_image_5']);
+            if(selectedFiles[name]['list_product_image_5']){
+                formData.append('list_product_image_5', selectedFiles[name]['list_product_image_5']);
             }
-            if(selectedFiles['list_product_image_6']){
-                formData.append('list_product_image_6', selectedFiles['list_product_image_6']);
+            if(selectedFiles[name]['list_product_image_6']){
+                formData.append('list_product_image_6', selectedFiles[name]['list_product_image_6']);
             }
             break;
+            default:
     }
 
     fetch(form.action, {

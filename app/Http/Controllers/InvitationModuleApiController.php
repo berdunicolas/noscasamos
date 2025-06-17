@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ModuleTypeEnum;
+use App\Handlers\ModuleHandler;
 use App\Http\Requests\UpdateModuleRequest;
 use App\Models\Invitation;
+use App\Models\InvitationModule;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,84 +17,51 @@ class InvitationModuleApiController extends Controller
     // Retornara todos los modulos de una invitacion
     public function getInvitationModules(Invitation $invitation) {
         foreach($invitation->modules as $module){
-            $modules[] = ModuleTypeEnum::getModuleForm($module['name'], $invitation, $module['display_name']);
+            $modules[] = ModuleHandler::getModuleForm($module);
         }
     
         return response()->json($modules);
     }
 
-    // Busca un modulo por su nombre 
-    public function getModuleByName(string $module) {
-        return;
-    }
-
-    //  Añade un modulo nuevo una invitacion
-    public function addModuleInInvitation(Invitation $invitation, string $module) {
-        return;
-    }
-
     // Cambia el orden de los modulos
     // Recibe un array ordenado de los modulos y luego ordena los modulos de la invitacion
-    public function changeModolesOrder(Invitation $invitation, Request $request) {
+    public function changeModulesOrder(Invitation $invitation, Request $request) {
 
         $order = $request['order'];
-        $modules = $invitation->modules;
-
-        $newOrder = [];
+        $modules = $invitation->modules()->get();
 
         foreach($order as $index => $item) {
             foreach($modules as $module){
-                if($item == $module['display_name']){
-                    $newOrder[] = $module;
+                if($item == $module->display_name){
+                    $module->index = $index;
+                    $module->save();
                     break;
                 }
             }
         }
-
-        $invitation->modules = $newOrder;
-        $invitation->save();
 
         return response()->json(['message' => 'Order of invitation modules changed successfully'], Response::HTTP_CREATED);
     }
 
-    public function changeModuleStatus(Request $request, Invitation $invitation, string $module, ?string $displayName = null){
-        $modules = $invitation->modules;
+    public function changeModuleStatus(Request $request, Invitation $invitation, InvitationModule $module){
 
-        foreach($modules as $index => $invitationModule){
-            if($displayName === null){
-                if($module == $invitationModule['name']){
-                    $modules[$index]['active'] = $request['active'];
-                    break;
-                }
-            } else {
-                if($module == $invitationModule['name'] && $displayName == $invitationModule['display_name']){
-                    $modules[$index]['active'] = $request['active'];
-                    break;
-                }
-            }
-        }
-        $invitation->modules = $modules;
-        $invitation->save();
+        $module->active = $request['active'];
+        $module->save();
         
         return response()->json(['message' => 'Invitation module activation changed successfully'], Response::HTTP_CREATED);
     }
 
-    public function updateModule(UpdateModuleRequest $request, Invitation $invitation, string $module, ?string $displayName = null) {
+    public function updateModule(UpdateModuleRequest $request, Invitation $invitation, InvitationModule $module) {
         $validatedData = $request->validated();
 
         try {
             DB::beginTransaction();
 
-            $invitation->modules = ModuleTypeEnum::updateModuleHandle(
-                $invitation,
-                $module,
-                $validatedData,
-                $displayName
-            );
-            $invitation->save();
+            $module->data = ModuleHandler::updateModuleHandle($module, $validatedData);
+            $module->save();
 
             DB::commit();
-            return response()->json(['message' => 'Module ' . $module . ' updated successfully.'], Response::HTTP_CREATED);
+            return response()->json(['message' => 'Module ' . $module->display_name . ' updated successfully.'], Response::HTTP_CREATED);
         } catch (Exception $e) {
             DB::rollBack();
             if (config('app.debug')) {
@@ -108,90 +77,91 @@ class InvitationModuleApiController extends Controller
         return response()->json($modules);
     }
 
-    public function deleteModule(Invitation $invitation, $module, $displayName = null) {
-
-        $modules = [];
-
-        if($displayName === null){
-            foreach($invitation->modules as $item){
-                if($item['name'] == $module) continue;
-            
-                $modules[] = $item;
-            }
-        } else {
-            foreach($invitation->modules as $item){
-                if($item['name'] == $module && $item['display_name'] == $displayName) {
-                    continue;
-                }
-                
-                $modules[] = $item;
-            }
-        }
-        
-        $invitation->modules = $modules;
-        $invitation->save();
+    public function deleteModule(Invitation $invitation, InvitationModule $module) {
+        $module->delete();
 
         return response()->json([
-            'message' => 'Module ' . $module . ' deleted successfully.'
+            'message' => 'Module ' . $module->display_name . ' deleted successfully.'
         ], Response::HTTP_OK);
     }
 
     public function addModule(Invitation $invitation, Request $request) {
-        $modules = $invitation->modules;
         $module = $request->new_module;
+        $nextIndex = $invitation->modules()->max('index') + 1;
+        $newModule = null;
 
         if (in_array($module, [
-            ModuleTypeEnum::INFO['name'],
-            ModuleTypeEnum::HIGHLIGHTS['name'],
-            ModuleTypeEnum::HISTORY['name']
+            ModuleTypeEnum::INFO->value,
+            ModuleTypeEnum::HIGHLIGHTS->value,
+            ModuleTypeEnum::HISTORY->value
         ])) {
             // Filtramos los módulos existentes con el mismo nombre base
-            $settedModules = array_filter($modules, function ($item) use ($module) {
-                return $item['name'] === $module;
-            });
+            $settedModules = $invitation->modules()->where('type', $module)->get();
 
             // Obtenemos el módulo base
-            $newModule = ModuleTypeEnum::getModuleFromArrayByName(ModuleTypeEnum::values(), $module);
+            $baseModule = constant('App\Handlers\ModuleHandler::'.$module);
 
             // Generar display_name incremental
-            $baseName = $newModule['display_name']; // ej: "Info"
+            $baseName = ModuleTypeEnum::getDisplayName($baseModule::TYPE); // ej: "Info"
             $nextNumber = 1;
 
             foreach ($settedModules as $setted) {
                 // Coincidencia exacta (ej. "Info")
-                if (strcasecmp($setted['display_name'], $baseName) === 0) {
+                if (strcasecmp($setted->display_name, $baseName) === 0) {
                     $nextNumber = max($nextNumber, 2);
                 }
 
                 // Coincidencia con número (ej. "Info 2", "info 3")
-                if (preg_match('/^' . preg_quote($baseName, '/') . '\s*(\d+)$/i', $setted['display_name'], $matches)) {
+                if (preg_match('/^' . preg_quote($baseName, '/') . '\s*(\d+)$/i', $setted->display_name, $matches)) {
                     $nextNumber = max($nextNumber, ((int) $matches[1]) + 1);
                 }
             }
+            $baseName .= ($nextNumber > 1 ? ' ' . $nextNumber : '');
+            $trimName = str_replace(' ', '_', strtolower($baseName));
 
-            // Setear el nuevo display_name
-            $newModule['display_name'] = $baseName . ($nextNumber > 1 ? ' ' . $nextNumber : '');
-            $newModule['on_plan'] = false;
-            $newModule['active'] = true;
+            $newModule = new InvitationModule([
+                'type' => $baseModule::TYPE,
+                'name' => $trimName,
+                'display_name' => $baseName,
+                'active' => false,
+                'on_plan' => false,
+                'data' => $baseModule::DATA,
+                'media_collections' => $baseModule::getMediaCollections($invitation->id, $trimName),
+                'index' => $nextIndex,
+            ]);
 
-            $modules[] = $newModule;
+            $newModule = $invitation->modules()->create($newModule->toArray());
+
         } else {
-            foreach($modules as $item){
-                if($item['name'] == $module){
-                    return response()->json(['message' => 'The module ' . $module . ' already exists.'], Response::HTTP_CONFLICT);
-                }
+            if($invitation->modules()->where('type', $module)->exists()){
+                return response()->json(['message' => 'The module ' . $module . ' already exists.'], Response::HTTP_CONFLICT);
             }
-            $newModule = ModuleTypeEnum::getModuleFromArrayByName(ModuleTypeEnum::values(), $module);
-            $newModule['on_plan'] = false;
-            $newModule['active'] = true;
-            $modules[] = $newModule;
+
+            $baseModule = constant('App\Handlers\ModuleHandler::'.$module);
+            $baseName = ModuleTypeEnum::getDisplayName($baseModule::TYPE);
+            $trimName = str_replace(' ', '_', strtolower($baseName));
+
+            $newModule = new InvitationModule([
+                'type' => $baseModule::TYPE,
+                'name' => $trimName,
+                'display_name' => $baseName,
+                'active' => false,
+                'on_plan' => false,
+                'data' => $baseModule::DATA,
+                'media_collections' => $baseModule::getMediaCollections($invitation->id, $trimName),
+                'index' => $nextIndex,
+            ]);
+
+            $newModule = $invitation->modules()->create($newModule->toArray());
         }
 
-        $invitation->modules = $modules;
         $invitation->save();
 
+        $newModule->deleteUrl = route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $newModule->id]);
+
         return response()->json([
-            'message' => 'Module ' . $module . ' added successfully.'
+            'message' => 'Module ' . $module . ' added successfully.',
+            'data' => $newModule
         ], Response::HTTP_CREATED);
     }
 }

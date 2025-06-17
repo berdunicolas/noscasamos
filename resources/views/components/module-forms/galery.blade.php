@@ -1,14 +1,14 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Galeria</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.input
                 name="icon"
                 label="Icono"
                 type="text"
                 placeholder="fa-heart"
-                value="{{$module['icon']}}"
+                value="{{$module->data['icon']}}"
             />
         </div>
         <div class="row mb-3">
@@ -18,7 +18,7 @@
                     label="Antetitulo"
                     type="text"
                     placeholder="Galeria"
-                    value="{{$module['pre_tittle']}}"
+                    value="{{$module->data['pre_tittle']}}"
                 />
             </div>
             <div class="col-6">
@@ -27,13 +27,13 @@
                     label="Titulo"
                     type="text"
                     placeholder="Nuestros momentos"
-                    value="{{$module['tittle']}}"
+                    value="{{$module->data['tittle']}}"
                 />
             </div>
         </div>
         <div class="mb-3">
-            <x-form.upload-zone label="Fotos" zoneName="galery_images" :isMultiple=true>
-                @foreach ($module['galery_images'] as $key => $image)
+            <x-form.upload-zone label="Fotos" :zoneOwner="$module->name" zoneName="galery_images" :isMultiple=true>
+                @foreach ($module->data['galery_images'] as $key => $image)
                     @if($image)
                         <div class="preview-item">
                             <img src="{{$image}}" alt="preview">
@@ -43,7 +43,7 @@
                 @endforeach
             </x-form.upload-zone>
             <p class="selectedFilesUpdater" hidden>
-                @json( ['galery_images', $module['galery_images']])
+                @json( [$module->name => ['galery_images' => $module->data['galery_images']]])
             </p>
         </div>
         

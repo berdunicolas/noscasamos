@@ -1,11 +1,11 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Musica</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <label for="song">Musica</label>
             <div class="input-group mb-3">
-                <input type="file" id="song" onchange="audioPreview(this)" name="song" data-url="{{$module['song']}}" accept="audio/*" class="form-control audioInput">
+                <input type="file" id="song" onchange="audioPreview(this)" name="song" data-url="{{$module->data['song']}}" accept="audio/*" class="form-control audioInput">
                 <button class="btn btn-outline-danger" onclick="deleteAudioFromInput('song')" type="button" id="button-addon2"><i class="fa-light fa-xmark"></i></button>
             </div>
             <div class="mt-2">

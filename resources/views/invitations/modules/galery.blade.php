@@ -9,25 +9,25 @@ $galeriaicon = "wsaaegar";
 
 
 <section class="gallery" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} background-image: url('{{(!empty($marco)) ? $marco : ''}}'); background-repeat:repeat-x;">
-    @empty(!$module['icon'])
+    @empty(!$module->data['icon'])
         @if($icontype==='Animado')
-            <lord-icon class="wow animate__animated animate__fadeInUp icon" data-wow-duration="1s" src="https://cdn.lordicon.com/{{$module['icon']}}.json" trigger="{{$trigger}}" state="{{$galeriaicons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="Dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
+            <lord-icon class="wow animate__animated animate__fadeInUp icon" data-wow-duration="1s" src="https://cdn.lordicon.com/{{$module->data['icon']}}.json" trigger="{{$trigger}}" state="{{$galeriaicons}}" stroke="{{$stroke}}" delay="300" colors="primary:{{($style=="Dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
         @else
-            <i class="fa-thin {{$module['icon']}} wow animate__animated animate__fadeInUp" data-wow-duration="1s"></i>
+            <i class="fa-thin {{$module->data['icon']}} wow animate__animated animate__fadeInUp" data-wow-duration="1s"></i>
         @endif
     @endempty
     <br/>
-    @empty(!$module['pre_tittle'])
-        <span class="wow animate__animated animate__fadeInUp" data-wow-duration="1s">{{$module['pre_tittle']}}</span>
+    @empty(!$module->data['pre_tittle'])
+        <span class="wow animate__animated animate__fadeInUp" data-wow-duration="1s">{{$module->data['pre_tittle']}}</span>
     @endempty
-    @empty(!$module['tittle'])
-        <h2 class="wow animate__animated animate__fadeInUp" data-wow-duration="1s">{{$module['tittle']}}></h2>
+    @empty(!$module->data['tittle'])
+        <h2 class="wow animate__animated animate__fadeInUp" data-wow-duration="1s">{{$module->data['tittle']}}></h2>
     @endempty
     <div class="wall">
         @php
             $num = 1;
         @endphp
-        @foreach ($module['galery_images'] as $key => $image)
+        @foreach ($module->data['galery_images'] as $key => $image)
             <div class="image wow animate__animated animate__fadeInUp" data-wow-duration="1s"><img onclick="openModal(); currentSlide('{{$num++}}')" src="{{$image}}" border="0" /></div>
         @endforeach
     </div>
@@ -35,7 +35,7 @@ $galeriaicon = "wsaaegar";
         <span class="close" onclick="closeModal()"><i class="fa-thin fa-times"></i></span>
         <div class="modal-content">
             
-            @foreach($module['galery_images'] as $image)
+            @foreach($module->data['galery_images'] as $image)
                 <div class="mySlides"><img src="{{$image}}" border="0" /></div>
             @endforeach
             

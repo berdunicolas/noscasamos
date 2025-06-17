@@ -9,11 +9,6 @@
         asset('js/invitation-modules.js'),
     ]"
 >
-
-    {{--
-    <header class="d-flex flex-row align-items-center" style="height: 105px">
-        <p style="font-size: 2em;">Editor</p>             
-    </header>--}}
     <div aria-label="breadcrumb" style="height: 4vh">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{route('invitations.index')}}" class="link-dark">Invitaciones</a></li>
@@ -460,7 +455,7 @@
                             </x-form.select>
                         </div>
                     </div>
-                    <x-form.upload-zone label="Marco" zoneName="frame_image" :isMultiple=false>
+                    <x-form.upload-zone label="Marco" zoneOwner="invitation" zoneName="frame_image" :isMultiple=false>
                         @if($invitation->media('frame_img')->first())
                             <div class="preview-item">
                                 <img src="{{$invitation->media('frame_img')->first()?->getMediaUrl()}}" alt="preview">
@@ -482,19 +477,19 @@
                     <h4 class="py-2">Módulos<button type="button" class="ms-2 btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#new-module-modal"><i class="fa-light fa-plus"></i></button></h4>
                     <div class="">
                         <ul id="invitation-modules" class="invitation-modules">
-                            @foreach ($invitation->modules as $module)                                
+                            @foreach ($modules as $module)                                
                                 <li class="item-module shadow-sm mb-2 {{ $module['fixed'] ? 'fixed-module' : '' }}" data-module-id="{{ $module['display_name'] }}">
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
                                             <i class="fa-light {{($module['fixed']) ? '' : 'fa-grip-dots-vertical'}} me-2"></i><b>{{$module['display_name']}}</b>
                                         </div>
                                         @if (!$module['on_plan'])
-                                            <button class="btn btn-sm btn-white" data-url="{{route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $module['name'], 'displayName' => $module['display_name']])}}" onclick="deleteModule(this)"><i class="fa-light fa-trash-can"></i></button>
+                                            <button class="btn btn-sm btn-white" data-url="{{route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $module->id])}}" onclick="deleteModule(this)"><i class="fa-light fa-trash-can"></i></button>
                                         @endif
 
-                                        <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['display_name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
+                                        <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
                                         <div class="form-check form-switch form-check-reverse">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" onchange="statusModuleSwitch(this, '{{ $module['name'] }}')" {{($module['active']) ? 'checked' : ''}}>
+                                            <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" onchange="statusModuleSwitch(this, '{{ $module['id'] }}')" {{($module['active']) ? 'checked' : ''}}>
                                         </div>
                                     </div>
                                 </li>
@@ -545,7 +540,7 @@
                         >
                             @foreach ($availableModules as $available)
                                 <x-form.select-option
-                                    value="{{$available['name']}}"
+                                    value="{{$available['type']}}"
                                     label="{{$available['display_name']}}"
                                 />
                             @endforeach
@@ -566,35 +561,9 @@
         window.VALIDATE_INVITATION = "{{ route('api.validate-invitation') }}";
 
         let selectedFiles = {
-            @if ($invitation->media('frame_img')->first())
-            'frame_image': "{{$invitation->media('frame_img')->first()->getMediaUrl()}}",
-            @else
-            'frame_image': null,
-            @endif
-            'stamp_image': null,
-            'images_desktop_cover': [],
-            'images_mobile_cover': [],
-            'design_desktop_cover': null,
-            'design_mobile_cover': null,
-            'logo_cover': null,
-            'central_image_cover': null,
-            'welcome_image': null,
-            'civil_image': null,
-            'ceremony_image': null,
-            'party_image': null,
-            'dresscode_image': null,
-            'history': null,
-            'info': null,
-            'highlights_image': null,
-            'galery_images': [],
-            'gift_background_image': null,
-            'gift_module_image': null,
-            'list_product_image_1' : null,
-            'list_product_image_2' : null,
-            'list_product_image_3' : null,
-            'list_product_image_4' : null,
-            'list_product_image_5' : null,
-            'list_product_image_6' : null,
+            invitation: {
+                frame_image: null
+            }
         };
     </script>
 

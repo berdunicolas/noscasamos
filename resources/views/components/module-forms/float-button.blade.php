@@ -1,7 +1,7 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Botón Flotante</h4>
 
-    <x-module-forms.form :invitationId="$invitationId" :moduleName="$moduleName">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
             <x-form.select
                 name="type_button"
@@ -11,12 +11,12 @@
                 <x-form.select-option
                     value="Confirmar Asistencia"
                     label="Confirmar Asistencia"
-                    selected="{{ ($module['type_button'] ==  'Confirmar Asistencia') ? true : false }}"
+                    selected="{{ ($module->data['type_button'] ==  'Confirmar Asistencia') ? true : false }}"
                 />
                 <x-form.select-option
                     value="Link Personalizado"
                     label="Link Personalizado"
-                    selected="{{ ($module['type_button'] ==  'Link Personalizado') ? true : false }}"
+                    selected="{{ ($module->data['type_button'] ==  'Link Personalizado') ? true : false }}"
                 />
             </x-form.select>
         </div>
@@ -25,7 +25,7 @@
             <x-form.input
                 name="icon_button"
                 label="Icono"
-                value="{{ $module['icon_button'] }}"
+                value="{{ $module->data['icon_button'] }}"
                 placeholder="clipboard-list-check"                
             />
         </div>
@@ -33,7 +33,7 @@
             <x-form.input
                 name="url_button"
                 label="URL"
-                value="{{ $module['url_button'] }}"
+                value="{{ $module->data['url_button'] }}"
                 placeholder="https://www.google.com"                
             />
         </div>

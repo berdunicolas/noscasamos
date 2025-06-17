@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
+use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
+use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreInvitationRequest;
 use App\Http\Requests\SetConfigInvitationRequest;
@@ -13,7 +15,6 @@ use App\Http\Resources\InvitationResource;
 use App\Models\Country;
 use App\Models\Event;
 use App\Models\Invitation;
-use App\Models\Plan;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,12 +34,6 @@ class InvitationApiController extends Controller
     public function store(StoreInvitationRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
-        $plan = collect(ModuleTypeEnum::getModulesByPlan($validatedData['plan']))->map(function ($item) {
-            $item['on_plan'] = true;
-            $item['active'] = true;
-
-            return $item;
-        });
 
         try {
             DB::beginTransaction();
@@ -51,11 +46,12 @@ class InvitationApiController extends Controller
 
             $token = randomToken();
             $invitation = Invitation::create([
-                'path_name' => $validatedData['name'],
+                'host_names' => $validatedData['name'],
+                'path_name' => str_replace(' ', '', strtolower($validatedData['name'])),
                 'event_id' => $newEvent->id,
                 'date' => null,
                 'time_zone' => null,
-                'time' => null,
+                'time' => '20:00:00',
                 'seller_id' => $validatedData['seller'],
                 'password' => $token,
                 'plain_token' => $token,
@@ -66,13 +62,32 @@ class InvitationApiController extends Controller
                 'meta_description' => null,
                 'country_id' => null,
                 'country_division' => null,
-                'modules' => $plan->toArray(),
                 'color' => '#E2BF83',
                 'background_color' => '#F3F1ED',
                 'style' => StyleTypeEnum::LIGHT,
                 'font' => FontTypeEnum::deco,
                 'icon_type' => 'Animado',
             ]);
+
+            $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::from($validatedData['plan'])))
+                ->values()
+                ->map(function ($handler, $index) use ($invitation) {
+                    $name = ModuleTypeEnum::getDisplayName($handler::TYPE);
+                    $trimName = str_replace(' ', '_', strtolower($name));
+
+                    return [
+                        'type' => $handler::TYPE,
+                        'name' => $trimName,
+                        'display_name' => $name,
+                        'active' => false,
+                        'on_plan' => true,
+                        'data' => $handler::DATA,
+                        'media_collections' => $handler::getMediaCollections($invitation->id, $trimName),
+                        'index' => $index,
+                    ];
+                });
+   
+            $invitation->modules()->createMany($modules->toArray());
 
             DB::commit();
     
@@ -122,7 +137,7 @@ class InvitationApiController extends Controller
                     $media->delete();
                 });
 
-                $invitation->addMedia($request->meta_image, 'meta_img', $invitation->path_name);
+                $invitation->addMedia($request->meta_image, 'meta_img', $invitation->id);
             }
             
             DB::commit();
@@ -159,9 +174,9 @@ class InvitationApiController extends Controller
                 $invitation->media('frame_img')->each(function ($media) {
                     $media->delete();
                 });
-                $invitation->addMedia($request->frame_image, 'frame_img', $invitation->path_name);
+                $invitation->addMedia($request->frame_image, 'frame_img', $invitation->id);
             }
-            
+        
             DB::commit();
 
             return response()->json(['message' => 'Invitation style set successfully'], Response::HTTP_CREATED);
@@ -174,27 +189,35 @@ class InvitationApiController extends Controller
         }
     }
 
-    public function destroy($id){
-        $invitation = Invitation::find($id);
-
+    public function destroy(Invitation $invitation): JsonResponse{
         try {
             DB::beginTransaction();
 
-            $invitation->load('event');
-
-            if($invitation->event->invitations()->count() == 1){
-                $invitation->event->delete();
-            }
-            $invitation->media()->each(function ($media) {
+            $invitation?->media()?->each(function ($media) {
                 $media->delete();
             });
 
-            $folderPath = "{$invitation->path_name}";
+            $invitation?->modules()->each(function ($module) {
+                $module?->media()?->each(function ($media) {
+                    $media->delete();
+                });
+                $module->delete();
+            });
+
+            $folderPath = "{$invitation->id}";
             if (Storage::exists($folderPath)) {
                 Storage::deleteDirectory($folderPath);
             }
 
+            $invitation->load('event');
+            $event = $invitation->event;
+
+            if($event->invitations()->count() == 1){
+                $event->delete();
+            }
+
             $invitation->delete();
+
             DB::commit();
 
             return response()->json(['message' => 'Invitation deleted successfully'], Response::HTTP_OK);
@@ -221,15 +244,54 @@ class InvitationApiController extends Controller
 
     public function clone(Invitation $invitation){
 
-        $newInvitation = new Invitation($invitation->toArray());
-        $newInvitation->path_name = $invitation->path_name . '-clone';
-        $newInvitation->password = $invitation->plain_token;
-        $newInvitation->created_by = auth()->user()->id;
-        $newInvitation->save();
+        DB::beginTransaction();
+        try {
+            $newInvitation = new Invitation($invitation->toArray());
+            $newInvitation->path_name = $invitation->path_name . '-clone';
+            $newInvitation->password = $invitation->plain_token;
+            $newInvitation->created_by = auth()->user()->id;
+            $newInvitation->save();
 
-        return response()->json([
-            'message' => 'Invitation cloned successfully', 
-            'data' => new InvitationResource($newInvitation->refresh())
-        ], Response::HTTP_CREATED);
+            $modules = $invitation->modules()->get();
+            $modules->each(function ($module) use ($newInvitation) {
+                $handler = constant('App\Handlers\ModuleHandler::' . $module->type->value);
+
+                $newModule = new \App\Models\InvitationModule([
+                    'type' => $module->type,
+                    'name' => $module->name,
+                    'display_name' => $module->display_name,
+                    'active' => $module->active,
+                    'on_plan' => $module->on_plan,
+                    'data' => $module->data,
+                    'media_collections' => $handler::getMediaCollections($newInvitation->id, $module->name),
+                    'index' => $module->index,
+                ]);
+
+                $newModule = $newInvitation->modules()->create($newModule->toArray());
+
+                $handler::cloneMedia($module, $newModule);
+                $newModule->save();
+            });
+
+            $invitation->media()->get()->each(function ($media) use ($newInvitation) {
+                $file = $media->getFile();
+                if ($file) {
+                    $newInvitation->addMedia($file, $media->collection_name, $newInvitation->id);
+                }
+            });
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Invitation cloned successfully', 
+                'data' => new InvitationResource($newInvitation->refresh())
+            ], Response::HTTP_CREATED);
+        } catch (Exception $e) {
+            DB::rollBack();
+            if (config('app.debug')) {
+                return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+            return response()->json(['message' => 'Error cloning invitation'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

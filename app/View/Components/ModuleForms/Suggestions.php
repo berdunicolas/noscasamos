@@ -2,29 +2,26 @@
 
 namespace App\View\Components\ModuleForms;
 
-use App\Enums\ModuleTypeEnum;
+use App\Models\InvitationModule;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Suggestions extends Component
 {
-    public string $id = ModuleTypeEnum::SUGGESTIONS['display_name'] . '-module-form';
-
+    public array $suggestions = [];
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public int $invitationId,
-        public array $module,
-        public string $moduleName = ModuleTypeEnum::SUGGESTIONS['name'],
+        public InvitationModule $module
     ) {
-        if(empty($module['suggestions'])){
+        if(empty($module->data['suggestions'])){
             for ($i=1; $i <= 8; $i++) { 
-                $this->module['suggestions'][] = ['suggestion_' . $i => '', 'link_' . $i => ''];
+                $this->suggestions[] = ['suggestion_' . $i => '', 'link_' . $i => ''];
             }
         }else{
-            $this->module['suggestions'] = $module['suggestions'];
+            $this->suggestions = $module->data['suggestions'];
         }
     }
 

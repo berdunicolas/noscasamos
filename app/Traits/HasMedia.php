@@ -28,6 +28,7 @@ trait HasMedia
      */
     protected static function bootHasMedia()
     {
+        
         static::addGlobalScope('withMedia', function ($query) {
             $query->with('media');
         });
