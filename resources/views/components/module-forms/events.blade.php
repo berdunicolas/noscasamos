@@ -20,7 +20,7 @@
                                     name="civil_event"
                                     label="Evento"
                                     type="text"
-                                    placeholder="Civil"
+                                    
                                     value="{{$events['civil']['event']}}"
                                 />
                             </div>
@@ -29,7 +29,7 @@
                                     name="civil_icon"
                                     label="Icono"
                                     type="text"
-                                    placeholder="fa-rings-wedding"
+                                    
                                     value="{{$events['civil']['icon']}}"
                                 />
                             </div>
@@ -38,7 +38,7 @@
                                     name="civil_order"
                                     label="Orden"
                                     type="text"
-                                    placeholder="1"
+                                    
                                     value="{{$events['civil']['order']}}"
                                 />
                             </div>
@@ -49,7 +49,7 @@
                                     name="civil_date"
                                     label="Fecha"
                                     type="date"
-                                    placeholder="29/12/2025"
+                                    
                                     value="{{$events['civil']['date']}}"
                                 />
                             </div>
@@ -58,7 +58,7 @@
                                     name="civil_time"
                                     label="Hora"
                                     type="time"
-                                    placeholder="20:00"
+                                    
                                     value="{{$events['civil']['time']}}"
                                 />
                             </div>
@@ -67,7 +67,7 @@
                                     name="civil_hr_translation"
                                     label="Hs texto"
                                     type="text"
-                                    placeholder="Horas"
+                                    
                                     value="{{$events['civil']['hr_translation']}}"
                                 />
                             </div>
@@ -77,13 +77,13 @@
                                 name="civil_name"
                                 label="Nombre"
                                 type="text"
-                                placeholder="Registro civil de Palermo"
+                                
                                 value="{{$events['civil']['name']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="civil_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['civil']['detail']}}</textarea>
+                            <textarea name="civil_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['civil']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="civil_image" :isMultiple=false>
@@ -105,7 +105,7 @@
                                     name="civil_button_url"
                                     label="Url botón"
                                     type="text"
-                                    placeholder="https://www.google.com"
+                                    
                                     value="{{$events['civil']['button_url']}}"
                                 />
                             </div>
@@ -115,7 +115,7 @@
                                         name="civil_button_text"
                                         label="Texto botón"
                                         type="text"
-                                        placeholder="Ver más"
+                                        
                                         value="{{$events['civil']['button_text']}}"
                                     />
                                 </div>
@@ -142,7 +142,7 @@
                                     name="ceremony_event"
                                     label="Evento"
                                     type="text"
-                                    placeholder="Ceremonia"
+                                    
                                     value="{{$events['ceremony']['event']}}"
                                 />
                             </div>
@@ -151,7 +151,7 @@
                                     name="ceremony_icon"
                                     label="Icono"
                                     type="text"
-                                    placeholder="fa-rings-wedding"
+                                    
                                     value="{{$events['ceremony']['icon']}}"
                                 />
                             </div>
@@ -160,7 +160,7 @@
                                     name="ceremony_order"
                                     label="Orden"
                                     type="text"
-                                    placeholder="1"
+                                    
                                     value="{{$events['ceremony']['order']}}"
                                 />
                             </div>
@@ -171,7 +171,7 @@
                                     name="ceremony_date"
                                     label="Fecha"
                                     type="date"
-                                    placeholder="29/12/2025"
+                                    
                                     value="{{$events['ceremony']['date']}}"
                                 />
                             </div>
@@ -180,7 +180,7 @@
                                     name="ceremony_time"
                                     label="Hora"
                                     type="time"
-                                    placeholder="20:00"
+                                    
                                     value="{{$events['ceremony']['time']}}"
                                 />
                             </div>
@@ -189,7 +189,7 @@
                                     name="ceremony_hr_translation"
                                     label="Hs texto"
                                     type="text"
-                                    placeholder="Horas"
+                                    
                                     value="{{$events['ceremony']['hr_translation']}}"
                                 />
                             </div>
@@ -199,13 +199,13 @@
                                 name="ceremony_name"
                                 label="Nombre"
                                 type="text"
-                                placeholder="Parroquia San Benito"
+                                
                                 value="{{$events['ceremony']['name']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="ceremony_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['ceremony']['detail']}}</textarea>
+                            <textarea name="ceremony_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['ceremony']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="ceremony_image" :isMultiple=false>
@@ -227,7 +227,7 @@
                                     name="ceremony_button_url"
                                     label="Url botón"
                                     type="text"
-                                    placeholder="https://www.google.com"
+                                    
                                     value="{{$events['ceremony']['button_url']}}"
                                 />
                             </div>
@@ -237,7 +237,7 @@
                                         name="ceremony_button_text"
                                         label="Texto botón"
                                         type="text"
-                                        placeholder="Ver más"
+                                        
                                         value="{{$events['ceremony']['button_text']}}"
                                     />
                                 </div>
@@ -264,7 +264,7 @@
                                     name="party_event"
                                     label="Evento"
                                     type="text"
-                                    placeholder="Fiesta"
+                                    
                                     value="{{$events['party']['event']}}"
                                 />
                             </div>
@@ -273,7 +273,7 @@
                                     name="party_icon"
                                     label="Icono"
                                     type="text"
-                                    placeholder="fa-rings-wedding"
+                                    
                                     value="{{$events['party']['icon']}}"
                                 />
                             </div>
@@ -282,7 +282,7 @@
                                     name="party_order"
                                     label="Orden"
                                     type="text"
-                                    placeholder="1"
+                                    
                                     value="{{$events['party']['order']}}"
                                 />
                             </div>
@@ -293,7 +293,7 @@
                                     name="party_date"
                                     label="Fecha"
                                     type="date"
-                                    placeholder="29/12/2025"
+                                    
                                     value="{{$events['party']['date']}}"
                                 />
                             </div>
@@ -302,7 +302,7 @@
                                     name="party_time"
                                     label="Hora"
                                     type="time"
-                                    placeholder="20:00"
+                                    
                                     value="{{$events['party']['time']}}"
                                 />
                             </div>
@@ -311,7 +311,7 @@
                                     name="party_hr_translation"
                                     label="Hs texto"
                                     type="text"
-                                    placeholder="Horas"
+                                    
                                     value="{{$events['party']['hr_translation']}}"
                                 />
                             </div>
@@ -321,13 +321,13 @@
                                 name="party_name"
                                 label="Nombre"
                                 type="text"
-                                placeholder="Parroquia San Benito"
+                                
                                 value="{{$events['party']['name']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="party_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['party']['detail']}}</textarea>
+                            <textarea name="party_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['party']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="party_image" :isMultiple=false>
@@ -349,7 +349,7 @@
                                     name="party_button_url"
                                     label="Url botón"
                                     type="text"
-                                    placeholder="https://www.google.com"
+                                    
                                     value="{{$events['party']['button_url']}}"
                                 />
                             </div>
@@ -359,7 +359,7 @@
                                         name="party_button_text"
                                         label="Texto botón"
                                         type="text"
-                                        placeholder="Ver más"
+                                        
                                         value="{{$events['party']['button_text']}}"
                                     />
                                 </div>
@@ -386,7 +386,7 @@
                                     name="dresscode_event"
                                     label="Evento"
                                     type="text"
-                                    placeholder="Dresscode"
+                                    
                                     value="{{$events['dresscode']['event']}}"
                                 />
                             </div>
@@ -395,7 +395,7 @@
                                     name="dresscode_icon"
                                     label="Icono"
                                     type="text"
-                                    placeholder="fa-rings-wedding"
+                                    
                                     value="{{$events['dresscode']['icon']}}"
                                 />
                             </div>
@@ -404,7 +404,7 @@
                                     name="dresscode_order"
                                     label="Orden"
                                     type="text"
-                                    placeholder="1"
+                                    
                                     value="{{$events['dresscode']['order']}}"
                                 />
                             </div>
@@ -414,13 +414,13 @@
                                 name="dresscode_name"
                                 label="Nombre"
                                 type="text"
-                                placeholder="Parroquia San Benito"
+                                
                                 value="{{$events['dresscode']['name']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="dresscode_detail" placeholder="Belgrano 550, S.M. de Tucumán" class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['dresscode']['detail']}}</textarea>
+                            <textarea name="dresscode_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['dresscode']['detail']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="dresscode_image" :isMultiple=false>
@@ -442,7 +442,7 @@
                                     name="dresscode_button_url"
                                     label="Url botón"
                                     type="text"
-                                    placeholder="https://www.google.com"
+                                    
                                     value="{{$events['dresscode']['button_url']}}"
                                 />
                             </div>
@@ -452,7 +452,7 @@
                                         name="dresscode_button_text"
                                         label="Texto botón"
                                         type="text"
-                                        placeholder="Ver más"
+                                        
                                         value="{{$events['dresscode']['button_text']}}"
                                     />
                                 </div>

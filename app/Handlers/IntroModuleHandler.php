@@ -7,6 +7,7 @@ use App\Enums\PlanTypeEnum;
 
 class IntroModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::INTRO;
+    const ACTIVE = false;
     const FIXED =  true;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::CLÁSICO->value;

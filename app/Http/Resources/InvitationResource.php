@@ -23,7 +23,7 @@ class InvitationResource extends JsonResource
             'seller_id' => $this->seller_id,
             'seller_name' => $this->seller->name,
             'plan' => $this->event->plan,
-            'validity' => $this->isExpired(),
+            'validity' => $this->stillValid(),
             'date' => $this->date,
             'time' => $this->time,
             'time_zone' => $this->time_zone,

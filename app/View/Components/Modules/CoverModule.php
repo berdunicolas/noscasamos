@@ -14,13 +14,11 @@ class CoverModule extends Component
      */
     public function __construct(
         public InvitationModule $module,
-        public ?string $nombres,
+        public ?string $hostNames,
         public ?string $principalColor,
         public ?string $backgroundColor,
 
-    ) {
-        $this->module['names'] = (isset($this->module['names'])) ? $module['names'] : $nombres;
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

@@ -29,7 +29,7 @@
             <form id="login-form" class="login-form" name="form1" method="post" action="{{route('invitation.guests.login', ['invitation' => $invitation->path_name])}}">
                 @csrf
 
-                <input id="password" name="password" type="password" placeholder="*****"/><br/>
+                <input id="password" name="password" type="password" /><br/>
                 <button name="submit" type="submit" value="Ingresar">Ingresar</button>
 
                 @foreach ((array) $errors->get('password') as $password)

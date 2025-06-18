@@ -48,7 +48,7 @@
                         name="password"
                         label="Contraseña"
                         type="password"
-                        placeholder="************"
+                        
 
                         :errors="(array) $errors->get('password')"
                     />
@@ -59,7 +59,7 @@
                         name="password_confirmation"
                         label="Confirmar contraseña"
                         type="password"
-                        placeholder="************"
+                        
 
                         :errors="(array) $errors->get('password_confirmation')"
                     />

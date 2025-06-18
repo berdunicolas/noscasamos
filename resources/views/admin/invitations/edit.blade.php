@@ -180,7 +180,7 @@
                                 name="host_names"
                                 label="Nombre de anfitriones"
                                 type="text"
-                                placeholder="Juan y Micaela"
+                                
                                 value="{{$invitation->host_names}}"
                                 {{--:errors="(array) $errors->get('meta_title')"--}}
                             />
@@ -241,7 +241,7 @@
                             <x-form.input
                                 id="config-form-input"
                                 name="path_name"
-                                placeholder="MarYJulian"
+                                
                                 value="{{$invitation->path_name}}"
                                 extraAttributes="onChange=checkPathName(this) data-original-pathname={{$invitation->path_name}}"
                             />
@@ -416,7 +416,7 @@
                                 id="style-form-input"
                                 name="padding"
                                 label="Relleno"
-                                placeholder="20px"
+                                
                                 type="text"
                                 value="{{$invitation->padding}}"
                             />

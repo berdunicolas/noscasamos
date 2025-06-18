@@ -15,9 +15,9 @@ $bienvenidamarco = $marco;
 
 <section class="content wow animate__animated animate__fadeInUp">
     <div class="info">    
-        @empty(!$module->data["tittle"])
+        @empty(!$module->data["text"])
             <div class="text">
-                @empty(!$module->data['text'])
+                @empty(!$module->data['icon'])
                     @if($icontype==='Animado')
                         <lord-icon src="https://cdn.lordicon.com/{{$module->data['icon']}}.json" trigger="{{$trigger}}" state="{{$bienvenidaicons}}" stroke="{{$stroke}}" delay="500" colors="primary:{{($style=="dark") ? '#fff' : '#666'}},secondary:{{$color}}" style="width:70px;height:70px"></lord-icon>
                     @else
@@ -25,7 +25,7 @@ $bienvenidamarco = $marco;
                     @endif
                 @endempty
                 @empty(!$module->data['tittle'])
-                    <h2>{{$module->data['tittle']}}</h2>
+                    <h2>{!!$module->data['tittle']!!}</h2>
                 @endempty
                 <p>{!!$module->data['text']!!}</p>
                 <!--                    <a href="#">Ver más</a>-->

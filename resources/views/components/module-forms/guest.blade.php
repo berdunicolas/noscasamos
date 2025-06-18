@@ -7,7 +7,7 @@
                 name="tittle"
                 label="Titulo"
                 type="text"
-                placeholder="Invitación"
+                
                 value="{{$module->data['tittle']}}"
             />
         </div>
@@ -17,7 +17,7 @@
                     name="icon"
                     label="Icono"
                     type="text"
-                    placeholder="fa-envelope-open-text"
+                    
                     value="{{$module->data['icon']}}"
                 />
             </div>
@@ -26,7 +26,7 @@
                     name="signs"
                     label="Indicaciones de personas"
                     type="text"
-                    placeholder="Personas / Pases"
+                    
                     value="{{$module->data['signs']}}"
                 />
             </div>

@@ -12,7 +12,7 @@
                         <x-form.input
                             name="name"
                             label="Nombre de evento"
-                            placeholder="Juan y Maria"
+                            
                             :errors="(array) $errors->get('name')"
                         />
                     </div>

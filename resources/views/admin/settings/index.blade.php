@@ -29,7 +29,7 @@
 
                             <x-form.input
                                 name="valid_time"
-                                placeholder="30"
+                                
                                 value="{{$settings->value}}"
                             />
                             <span class="input-group-text" id="basic-addon3"> dias.</span>

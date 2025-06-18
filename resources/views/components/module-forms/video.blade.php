@@ -8,7 +8,7 @@
                     name="pre_tittle"
                     label="Antetitulo"
                     type="text"
-                    placeholder="Video"
+                    
                     value="{{$module->data['pre_tittle']}}"
                 />
             </div>
@@ -18,7 +18,7 @@
                         name="tittle"
                         label="Título"
                         type="text"
-                        placeholder="El momento del si."
+                        
                         value="{{$module->data['tittle']}}"
                     />
                 </div>
@@ -31,7 +31,7 @@
                     name="video_id"
                     label="ID de video"
                     type="text"
-                    placeholder="kejhsefg"
+                    
                     value="{{$module->data['video_id']}}"
                     extraAttributes="onchange=changeVideoId(this)"
                 />

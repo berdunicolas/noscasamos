@@ -7,6 +7,7 @@ use App\Enums\PlanTypeEnum;
 
 class SuggestionsModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::SUGGESTIONS;
+    const ACTIVE = false;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::GOLD->value;

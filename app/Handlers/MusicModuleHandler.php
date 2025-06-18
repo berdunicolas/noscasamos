@@ -7,6 +7,7 @@ use App\Enums\PlanTypeEnum;
 
 class MusicModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::MUSIC;
+    const ACTIVE = false;
     const FIXED =  true;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::GOLD->value;

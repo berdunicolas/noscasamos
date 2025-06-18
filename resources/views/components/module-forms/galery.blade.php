@@ -7,7 +7,7 @@
                 name="icon"
                 label="Icono"
                 type="text"
-                placeholder="fa-heart"
+                
                 value="{{$module->data['icon']}}"
             />
         </div>
@@ -17,7 +17,7 @@
                     name="pre_tittle"
                     label="Antetitulo"
                     type="text"
-                    placeholder="Galeria"
+                    
                     value="{{$module->data['pre_tittle']}}"
                 />
             </div>
@@ -26,7 +26,7 @@
                     name="tittle"
                     label="Titulo"
                     type="text"
-                    placeholder="Nuestros momentos"
+                    
                     value="{{$module->data['tittle']}}"
                 />
             </div>

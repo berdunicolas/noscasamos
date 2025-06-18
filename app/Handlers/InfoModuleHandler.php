@@ -7,6 +7,7 @@ use App\Enums\PlanTypeEnum;
 
 class InfoModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::INFO;
+    const ACTIVE = false;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::CLÁSICO->value;

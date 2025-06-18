@@ -7,7 +7,7 @@
                 name="tittle"
                 label="Titulo"
                 type="text"
-                placeholder="Agendá la fecha"
+                
                 value="{{$module->data['tittle']}}"
             />
         </div>
@@ -17,7 +17,7 @@
                     name="icon"
                     label="Icono botón"
                     type="text"
-                    placeholder="fa-calendar-check"
+                    
                     value="{{$module->data['icon']}}"
                 />
             </div>
@@ -26,7 +26,7 @@
                     name="text_button"
                     label="Texto botón"
                     type="text"
-                    placeholder="Agendar fecha"
+                    
                     value="{{$module->data['text_button']}}"
                 />
             </div>
@@ -44,7 +44,7 @@
                     name="days_tanslation"
                     label="Días"
                     type="text"
-                    placeholder="DÍAS"
+                    
                     value="{{$module->data['days_tanslation']}}"
                 />
             </div>
@@ -53,7 +53,7 @@
                     name="hr_tanslation"
                     label="Hs"
                     type="text"
-                    placeholder="HS"
+                    
                     value="{{$module->data['hr_tanslation']}}"
                 />
             </div>
@@ -62,7 +62,7 @@
                     name="min_translation"
                     label="Min"
                     type="text"
-                    placeholder="MIN"
+                    
                     value="{{$module->data['min_translation']}}"
                 />
             </div>
@@ -71,7 +71,7 @@
                     name="sec_translation"
                     label="Seg"
                     type="text"
-                    placeholder="SEG"
+                    
                     value="{{$module->data['sec_translation']}}"
                 />
             </div>

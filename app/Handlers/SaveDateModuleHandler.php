@@ -7,6 +7,7 @@ use App\Enums\PlanTypeEnum;
 
 class SaveDateModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::SAVE_DATE;
+    const ACTIVE = true;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::CLÁSICO->value;

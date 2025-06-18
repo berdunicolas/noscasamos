@@ -14,6 +14,7 @@ class Cover extends Component
      */
     public function __construct(
         public InvitationModule $module,
+        public string $hostNames,
     ) {}
 
     /**

@@ -21,7 +21,7 @@
                                     name="spotify_icon"
                                     label="Icono"
                                     type="text"
-                                    placeholder="fa-rings-wedding"
+                                    
                                     value="{{$module->data['spotify']['icon']}}"
                                 />
                             </div>
@@ -30,7 +30,7 @@
                                     name="spotify_order"
                                     label="Orden"
                                     type="text"
-                                    placeholder="1"
+                                    
                                     value="{{$module->data['spotify']['order']}}"
                                 />
                             </div>
@@ -40,13 +40,13 @@
                                 name="spotify_tittle"
                                 label="Título"
                                 type="text"
-                                placeholder="Titulo"
+                                
                                 value="{{$module->data['spotify']['tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="spotify_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['spotify']['text']}}</textarea>
+                            <textarea name="spotify_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['spotify']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -54,7 +54,7 @@
                                     name="spotify_button_icon"
                                     label="Icono botón"
                                     type="text"
-                                    placeholder="fa-square-arrow-up-right"
+                                    
                                     value="{{$module->data['spotify']['button_icon']}}"
                                 />
                             </div>
@@ -64,7 +64,7 @@
                                         name="spotify_button_text"
                                         label="Texto botón"
                                         type="text"
-                                        placeholder="Ver más"
+                                        
                                         value="{{$module->data['spotify']['button_text']}}"
                                     />
                                 </div>
@@ -75,7 +75,7 @@
                                 name="spotify_button_url"
                                 label="Url botton"
                                 type="text"
-                                placeholder="https://www.google.com"
+                                
                                 value="{{$module->data['spotify']['button_url']}}"
                             />
                         </div>
@@ -100,7 +100,7 @@
                                     name="hashtag_icon"
                                     label="Icono"
                                     type="text"
-                                    placeholder="fa-rings-wedding"
+                                    
                                     value="{{$module->data['hashtag']['icon']}}"
                                 />
                             </div>
@@ -109,7 +109,7 @@
                                     name="hashtag_order"
                                     label="Orden"
                                     type="text"
-                                    placeholder="1"
+                                    
                                     value="{{$module->data['hashtag']['order']}}"
                                 />
                             </div>
@@ -119,13 +119,13 @@
                                 name="hashtag_tittle"
                                 label="Título"
                                 type="text"
-                                placeholder="Titulo"
+                                
                                 value="{{$module->data['hashtag']['tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="hashtag_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['hashtag']['text']}}</textarea>
+                            <textarea name="hashtag_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['hashtag']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -133,7 +133,7 @@
                                     name="hashtag_button_icon"
                                     label="Icono botón"
                                     type="text"
-                                    placeholder="fa-square-arrow-up-right"
+                                    
                                     value="{{$module->data['hashtag']['button_icon']}}"
                                 />
                             </div>
@@ -143,7 +143,7 @@
                                         name="hashtag_button_text"
                                         label="Texto botón"
                                         type="text"
-                                        placeholder="Ver más"
+                                        
                                         value="{{$module->data['hashtag']['button_text']}}"
                                     />
                                 </div>
@@ -154,7 +154,7 @@
                                 name="hashtag_button_url"
                                 label="Url botton"
                                 type="text"
-                                placeholder="https://www.google.com"
+                                
                                 value="{{$module->data['hashtag']['button_url']}}"
                             />
                         </div>
@@ -179,7 +179,7 @@
                                     name="ig_icon"
                                     label="Icono"
                                     type="text"
-                                    placeholder="fa-rings-wedding"
+                                    
                                     value="{{$module->data['ig']['icon']}}"
                                 />
                             </div>
@@ -188,7 +188,7 @@
                                     name="ig_order"
                                     label="Orden"
                                     type="text"
-                                    placeholder="1"
+                                    
                                     value="{{$module->data['ig']['order']}}"
                                 />
                             </div>
@@ -198,13 +198,13 @@
                                 name="ig_tittle"
                                 label="Título"
                                 type="text"
-                                placeholder="Titulo"
+                                
                                 value="{{$module->data['ig']['tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="ig_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['ig']['text']}}</textarea>
+                            <textarea name="ig_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['ig']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -212,7 +212,7 @@
                                     name="ig_button_icon"
                                     label="Icono botón"
                                     type="text"
-                                    placeholder="fa-square-arrow-up-right"
+                                    
                                     value="{{$module->data['ig']['button_icon']}}"
                                 />
                             </div>
@@ -222,7 +222,7 @@
                                         name="ig_button_text"
                                         label="Texto botón"
                                         type="text"
-                                        placeholder="Ver más"
+                                        
                                         value="{{$module->data['ig']['button_text']}}"
                                     />
                                 </div>
@@ -233,7 +233,7 @@
                                 name="ig_button_url"
                                 label="Url botton"
                                 type="text"
-                                placeholder="https://www.google.com"
+                                
                                 value="{{$module->data['ig']['button_url']}}"
                             />
                         </div>
@@ -258,7 +258,7 @@
                                     name="link_icon"
                                     label="Icono"
                                     type="text"
-                                    placeholder="fa-rings-wedding"
+                                    
                                     value="{{$module->data['link']['icon']}}"
                                 />
                             </div>
@@ -267,7 +267,7 @@
                                     name="link_order"
                                     label="Orden"
                                     type="text"
-                                    placeholder="1"
+                                    
                                     value="{{$module->data['link']['order']}}"
                                 />
                             </div>
@@ -277,13 +277,13 @@
                                 name="link_tittle"
                                 label="Título"
                                 type="text"
-                                placeholder="Titulo"
+                                
                                 value="{{$module->data['link']['tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="link_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['link']['text']}}</textarea>
+                            <textarea name="link_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['link']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -291,7 +291,7 @@
                                     name="link_button_icon"
                                     label="Icono botón"
                                     type="text"
-                                    placeholder="fa-square-arrow-up-right"
+                                    
                                     value="{{$module->data['link']['button_icon']}}"
                                 />
                             </div>
@@ -301,7 +301,7 @@
                                         name="link_button_text"
                                         label="Texto botón"
                                         type="text"
-                                        placeholder="Ver más"
+                                        
                                         value="{{$module->data['link']['button_text']}}"
                                     />
                                 </div>
@@ -312,7 +312,7 @@
                                 name="link_button_url"
                                 label="Url botton"
                                 type="text"
-                                placeholder="https://www.google.com"
+                                
                                 value="{{$module->data['link']['button_url']}}"
                             />
                         </div>

@@ -8,7 +8,7 @@
                     name="pre_tittle"
                     label="Ante título"
                     type="text"
-                    placeholder="Sugerencias"
+                    
                     value="{{$module->data['pre_tittle']}}"
                 />
             </div>
@@ -17,21 +17,21 @@
                     name="tittle"
                     label="Título"
                     type="text"
-                    placeholder="Alojamientos"
+                    
                     value="{{$module->data['tittle']}}"
                 />
             </div>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-            <textarea name="text" placeholder="¿Estas de visita en la ciudad?<br>Te recomendamos algunos lugares para hospedarte." class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
+            <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>
         <div class="mb-3">
             <x-form.input
                 name="icon"
                 label="Icono"
                 type="text"
-                placeholder="fa-heart"
+                
                 value="{{$module->data['icon']}}"
             />
         </div>
@@ -42,7 +42,7 @@
                         name="{{'suggestion_' . ($key+1)}}"
                         label="Sugerencia {{$key+1}}"
                         type="text"
-                        placeholder="Hotel Hilton"
+                        
                         value="{{$suggestion['suggestion_' . ($key+1)]}}"
                     />
                 </div>
@@ -51,7 +51,7 @@
                         name="{{'link_' . ($key+1)}}"
                         label="Link sugerencia {{$key+1}}"
                         type="text"
-                        placeholder="https://maps.google.com"
+                        
                         value="{{$suggestion['link_' . ($key+1)]}}"
                     />
                 </div>

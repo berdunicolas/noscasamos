@@ -54,7 +54,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                <textarea name="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$seller->text}}</textarea>
+                <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$seller->text}}</textarea>
             </div>
             <div class="row mb-3">
                 <div class="col-4">

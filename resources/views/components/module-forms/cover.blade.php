@@ -132,17 +132,7 @@
             <div class="ms-2 col-3 form-check form-switch">
                 <input class="form-check-input" onchange="checkboxSwitch(this, 'active_header')" type="checkbox" role="switch" {{$module->data['active_header'] ? 'checked' : ''}}>
                 <input type="text" hidden name="active_header" id="active_header" value="{{$module->data['active_header'] ? 1 : 0}}">
-                <label class="form-check-label" for="switchCheckChecked">Usar cabecera</label>
-            </div>
-            <div class="col-3 form-check form-switch">
-                <input class="form-check-input" onchange="checkboxSwitch(this, 'active_logo')" type="checkbox" role="switch" {{$module->data['active_logo'] ? 'checked' : ''}}>
-                <input type="text" hidden name="active_logo" id="active_logo" value="{{$module->data['active_logo'] ? 1 : 0}}">
-                <label class="form-check-label" for="switchCheckChecked">Usar logotipo</label>
-            </div>
-            <div class="col-4 form-check form-switch">
-                <input class="form-check-input" onchange="checkboxSwitch(this, 'active_central')" type="checkbox" role="switch" {{$module->data['active_central'] ? 'checked' : ''}}>
-                <input type="text" hidden name="active_central" id="active_central" value="{{$module->data['active_central'] ? 1 : 0}}">
-                <label class="form-check-label" for="switchCheckChecked">Usar imagen central</label>
+                <label class="form-check-label" for="">Usar cabecera</label>
             </div>
         </div>
         
@@ -152,8 +142,8 @@
                 <x-form.input
                     name="names"
                     label="Nombres"
-                    value="{{ $module->data['names'] }}"
-                    placeholder="Juan & Micaela"
+                    value="{{( empty($module->data['names'])) ? $hostNames : $module->data['names']}}"
+                    
                 />
             </div>
             <div class="col-4">
@@ -171,7 +161,7 @@
                     name="tittle"
                     label="Titulo"
                     value="{{ $module->data['tittle'] }}"
-                    placeholder="¡Nos Casamos!"
+                    
                 />
             </div>
             <div class="col-8">
@@ -179,14 +169,19 @@
                     name="detail"
                     label="Bajada"
                     value="{{ $module->data['detail'] }}"
-                    placeholder="Y queremos compartirlo con vos"
+                    
                 />
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col-6">
-                <x-form.upload-zone label="Logotipo" :zoneOwner="$module->name" zoneName="logo_cover" :isMultiple=false>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" onchange="checkboxSwitch(this, 'active_logo')" type="checkbox" role="switch" {{$module->data['active_logo'] ? 'checked' : ''}}>
+                    <input type="text" hidden name="active_logo" id="active_logo" value="{{$module->data['active_logo'] ? 1 : 0}}">
+                    <label class="form-check-label" for="">Usar logotipo</label>
+                </div>
+                <x-form.upload-zone :zoneOwner="$module->name" zoneName="logo_cover" :isMultiple=false>
                     @if($module->data['logo_cover'])
                         <div class="preview-item">
                             <img src="{{$module->data['logo_cover']}}" alt="preview">
@@ -199,7 +194,12 @@
                 </p>
             </div>
             <div class="col-6">
-                <x-form.upload-zone label="Imagen central" :zoneOwner="$module->name" zoneName="central_image_cover" :isMultiple=false>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" onchange="checkboxSwitch(this, 'active_central')" type="checkbox" role="switch" {{$module->data['active_central'] ? 'checked' : ''}}>
+                    <input type="text" hidden name="active_central" id="active_central" value="{{$module->data['active_central'] ? 1 : 0}}">
+                    <label class="form-check-label" for="">Usar imagen central</label>
+                </div>
+                <x-form.upload-zone :zoneOwner="$module->name" zoneName="central_image_cover" :isMultiple=false>
                     @if($module->data['central_image_cover'])
                         <div class="preview-item">
                             <img src="{{$module->data['central_image_cover']}}" alt="preview">
