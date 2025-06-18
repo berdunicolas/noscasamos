@@ -12,7 +12,7 @@
                         <x-form.input
                             name="name"
                             label="Nombre"
-                            placeholder="Nos casamos"
+                            
                             :errors="(array) $errors->get('name')"
                         />
                     </div>
@@ -20,7 +20,7 @@
                         <x-form.input
                             name="site_link"
                             label="Sitio web"
-                            placeholder="https://www.evnt.ar/"
+                            
                             :errors="(array) $errors->get('site_link')"
                         />
                     </div>

@@ -6,6 +6,7 @@ use App\Enums\ModuleTypeEnum;
 
 class VideoModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::VIDEO;
+    const ACTIVE = false;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = 'default';

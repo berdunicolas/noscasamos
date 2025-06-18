@@ -6,6 +6,7 @@ use App\Enums\ModuleTypeEnum;
 
 class EventsModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::EVENTS;
+    const ACTIVE = false;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = 'default';

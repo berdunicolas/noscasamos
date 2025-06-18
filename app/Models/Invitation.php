@@ -76,13 +76,26 @@ class Invitation extends Authenticatable
     public function isExpired(): bool|null
     {   
         if(!$this->date) return null;
+        
+        $date = Carbon::createFromFormat(
+            'Y-m-d H:i', 
+            $this->date . ' ' . $this->time, 
+            $this->time_zone
+        );
+
+        $currentDate = Carbon::now();
+
+        return $currentDate->greaterThan($date);
+    }
+
+    public function stillValid(): bool|null
+    {
+        if(!$this->date) return null;
 
         $validTime = Setting::where('name', 'valid_time')->first();
-        
+
         $date = Carbon::parse($this->date)->addDays($validTime->value);
         $currentDate = Carbon::now();
-        //$currentDate->setTimezone($this->time_zone);
-        //$date->setTimezone($this->time_zone);
 
         return $currentDate->greaterThan($date);
     }

@@ -6,6 +6,7 @@ use App\Enums\ModuleTypeEnum;
 
 class WelcomeModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::WELCOME;
+    const ACTIVE = false;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = 'default';

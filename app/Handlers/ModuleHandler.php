@@ -143,7 +143,7 @@ class ModuleHandler {
             ModuleTypeEnum::INTRO => new Intro($module),
             ModuleTypeEnum::MUSIC => new Music($module),
             ModuleTypeEnum::FLOAT_BUTTON => new FloatButton($module),
-            ModuleTypeEnum::COVER => new Cover($module),
+            ModuleTypeEnum::COVER => new Cover($module, $module->invitation->host_names),
             ModuleTypeEnum::GUEST => new Guest($module),
             ModuleTypeEnum::SAVE_DATE => new SaveDate($module),
             ModuleTypeEnum::WELCOME => new Welcome($module),
@@ -167,7 +167,11 @@ class ModuleHandler {
         $module = match($module->type->value){
             'INTRO' => new IntroModule($module, $invitation->style->value),
             'MUSIC' => new MusicModule($module),
-            'FLOAT_BUTTON' => new FloatButtonModule($module, $invitation->color),
+            'FLOAT_BUTTON' => new FloatButtonModule(
+                $module,
+                $invitation->color,
+                $invitation->modules()->where('type', ModuleTypeEnum::CONFIRMATION->value)->first()->data['form_button_url']
+            ),
             'COVER' => new CoverModule($module, $invitation->host_names, $invitation->meta_title, $invitation->color, $invitation->background_color),
             'GUEST' => new GuestModule($module),
             'SAVE_DATE' => new SaveDateModule(

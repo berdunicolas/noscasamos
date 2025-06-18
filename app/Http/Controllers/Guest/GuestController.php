@@ -16,7 +16,7 @@ class GuestController extends Controller
 {
     public function index(Invitation $invitation) {
 
-        if ($invitation->isExpired() || $invitation->isExpired() === null) {
+        if ($invitation->stillValid() || $invitation->stillValid() === null) {
             abort(404);
         }
 
@@ -29,7 +29,7 @@ class GuestController extends Controller
 
     public function store(Invitation $invitation, StoreGuestRequest $request) {
 
-        if ($invitation->isExpired() || $invitation->isExpired() === null) {
+        if ($invitation->stillValid() || $invitation->stillValid() === null) {
             abort(404);
         }
         $data = $request->validated();
@@ -50,7 +50,7 @@ class GuestController extends Controller
     }
 
     public function guest(Invitation $invitation) {
-        if ($invitation->isExpired() || $invitation->isExpired() === null) {
+        if ($invitation->stillValid() || $invitation->stillValid() === null) {
             abort(404);
         }
 
@@ -75,7 +75,7 @@ class GuestController extends Controller
 
     public function loginForm(Invitation $invitation) {
 
-        if ($invitation->isExpired() || $invitation->isExpired() === null) {
+        if ($invitation->stillValid() || $invitation->stillValid() === null) {
             abort(404);
         }
 
@@ -87,7 +87,7 @@ class GuestController extends Controller
     public function login(Invitation $invitation, GuestLoginRequest $request) {
         $data = $request->validated();
         
-        if ($invitation->isExpired() || $invitation->isExpired() === null) {
+        if ($invitation->stillValid() || $invitation->stillValid() === null) {
             abort(404);
         }
 

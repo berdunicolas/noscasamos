@@ -7,7 +7,7 @@
                 name="icon"
                 label="Icono"
                 type="text"
-                placeholder="fa-heart"
+                
                 value="{{$module->data['icon']}}"
             />
         </div>
@@ -29,13 +29,13 @@
                 name="tittle"
                 label="Título"
                 type="text"
-                placeholder="Titulo"
+                
                 value="{{$module->data['tittle']}}"
             />
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-            <textarea name="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
+            <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>
         <div class="row mb-3">
             <div class="col-6">
@@ -43,7 +43,7 @@
                     name="button_icon"
                     label="Icono botón"
                     type="text"
-                    placeholder="fa-square-arrow-up-right"
+                    
                     value="{{$module->data['button_icon']}}"
                 />
             </div>
@@ -53,7 +53,7 @@
                         name="button_text"
                         label="Texto botón"
                         type="text"
-                        placeholder="Ver más"
+                        
                         value="{{$module->data['button_text']}}"
                     />
                 </div>
@@ -64,7 +64,7 @@
                 name="button_url"
                 label="Url botton"
                 type="text"
-                placeholder="https://www.google.com"
+                
                 value="{{$module->data['button_url']}}"
             />
         </div>

@@ -106,7 +106,7 @@
             <div class="ibox-content p-0">
 
                 <div class="m-2">
-                    <input type="text" class="form-control form-control-sm mb-1 w-auto" id="filter" placeholder="Search in table">
+                    <input type="text" class="form-control form-control-sm mb-1 w-auto" id="filter" >
                 </div>
 
                 <table class="footable table table-stripped mb-0" data-page-size="8" data-filter=#filter>

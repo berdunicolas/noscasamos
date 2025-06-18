@@ -20,7 +20,7 @@
             <x-form.input
                 name="foot_text"
                 label="Texto de pie"
-                placeholder="Hecho con ❤ por"
+                
                 value="{{$module['foot_text']}}"
             />
         </div>

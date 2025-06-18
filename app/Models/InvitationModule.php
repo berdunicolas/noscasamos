@@ -19,6 +19,7 @@ class InvitationModule extends Model
         'name',
         'display_name',
         'active',
+        'fixed',
         'on_plan',
         'data',
         'invitation_id',
@@ -29,6 +30,7 @@ class InvitationModule extends Model
     protected $casts = [
         'type' => ModuleTypeEnum::class,
         'active' => 'boolean',
+        'fixed' => 'boolean',
         'on_plan' => 'boolean',
         'data' => 'array',
         'media_collections' => 'array',

@@ -6,6 +6,7 @@ use App\Enums\ModuleTypeEnum;
 
 class CoverModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::COVER;
+    const ACTIVE = true;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = 'default';

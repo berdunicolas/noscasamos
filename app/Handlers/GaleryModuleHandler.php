@@ -7,6 +7,7 @@ use App\Enums\PlanTypeEnum;
 
 class GaleryModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::GALERY;
+    const ACTIVE = false;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::GOLD->value;

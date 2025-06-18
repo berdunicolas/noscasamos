@@ -6,6 +6,7 @@ use App\Enums\ModuleTypeEnum;
 
 class HighlightsModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::HIGHLIGHTS;
+    const ACTIVE = false;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = 'default';

@@ -1,5 +1,7 @@
 
+@empty(!$label)
 <label>{{$label}}</label>
+@endempty
 <div id="upload-zone-{{$zoneOwner}}{{$zoneName}}" class="upload-zone"
     ondragover="manejarDragOver(event, 'upload-zone-{{$zoneOwner}}{{$zoneName}}')"
     ondragleave="manejarDragLeave(event, 'upload-zone-{{$zoneOwner}}{{$zoneName}}')"

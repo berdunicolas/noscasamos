@@ -12,7 +12,7 @@
                         <x-form.input
                             name="name"
                             label="Nombre de usuario"
-                            placeholder="Nombre y apellido"
+                            
                             :errors="(array) $errors->get('name')"
                         />
                     </div>
@@ -20,7 +20,7 @@
                         <x-form.input
                             name="email"
                             label="Correo"
-                            placeholder="example@email.com"
+                            
                             type="email"
                             :errors="(array) $errors->get('email')"
                         />
@@ -29,7 +29,7 @@
                         <x-form.input
                             name="password"
                             label="Contraseña"
-                            placeholder="********"
+                            
                             type="password"
                             :errors="(array) $errors->get('password')"
                         />
@@ -38,7 +38,7 @@
                         <x-form.input
                             name="password_confirmation"
                             label="Confirmar contraseña"
-                            placeholder="********"
+                            
                             type="password"
                         />
                     </div>

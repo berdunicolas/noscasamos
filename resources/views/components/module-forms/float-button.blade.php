@@ -26,16 +26,18 @@
                 name="icon_button"
                 label="Icono"
                 value="{{ $module->data['icon_button'] }}"
-                placeholder="clipboard-list-check"                
+                                
             />
         </div>
         <div id="url_input" class="mb-3">
-            <x-form.input
-                name="url_button"
-                label="URL"
-                value="{{ $module->data['url_button'] }}"
-                placeholder="https://www.google.com"                
-            />
+            <x-form.input-group label="URL" labelFor="url_button">
+                <span class="input-group-text" id="basic-addon3">https://</span>
+                <x-form.input
+                    name="url_button"
+                    value="{{ $module->data['url_button'] }}"
+                                    
+                />
+            </x-form.input-group>
         </div>
 
         <div class="d-flex flex-row justify-content-end mt-5">

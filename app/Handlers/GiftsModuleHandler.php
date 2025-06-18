@@ -7,6 +7,7 @@ use App\Enums\PlanTypeEnum;
 
 class GiftsModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::GIFTS;
+    const ACTIVE = false;
     const FIXED =  false;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::CLÁSICO->value;

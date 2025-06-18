@@ -8,7 +8,7 @@
                     name="icon"
                     label="Icono"
                     type="text"
-                    placeholder="fa-gift"
+                    
                     value="{{$module->data['icon']}}"
                 />
             </div>
@@ -18,7 +18,7 @@
                         name="pre_tittle"
                         label="Antetitulo"
                         type="text"
-                        placeholder="RSVP"
+                        
                         value="{{$module->data['pre_tittle']}}"
                     />
                 </div>
@@ -29,20 +29,20 @@
                 name="tittle"
                 label="Titulo"
                 type="text"
-                placeholder="Confirmar asistencia"
+                
                 value="{{$module->data['tittle']}}"
             />
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-            <textarea name="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
+            <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>
         <div class="mb-3">
             <x-form.input
                 name="limit_date"
                 label="Limite de confirmación"
                 value="{{$module->data['limit_date']}}"
-                placeholder="Tenés tiempo hasta el 20 de Marzo."
+                
             />
         </div>
 
@@ -64,20 +64,20 @@
                                 name="card_tittle"
                                 label="Titulo"
                                 type="text"
-                                placeholder="Valor de tarjeta"
+                                
                                 value="{{$module->data['card_tittle']}}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="card_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['card_text']}}</textarea>
+                            <textarea name="card_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['card_text']}}</textarea>
                         </div>
                         <div class="mb-3">
                             <x-form.input
                                 name="card_button_text"
                                 label="Texto boton"
                                 type="text"
-                                placeholder="Cómo abonar"
+                                
                                 value="{{$module->data['card_button_text']}}"
                             />
                         </div>
@@ -102,7 +102,7 @@
                                     name="form_button_text"
                                     label="Texto boton"
                                     type="text"
-                                    placeholder="Confirmár asistencia"
+                                    
                                     value="{{$module->data['form_button_text']}}"
                                 />
                             </div>
@@ -111,14 +111,14 @@
                                     name="form_button_url"
                                     label="Link boton"
                                     type="text"
-                                    placeholder="forms.google.com"
+                                    
                                     value="{{$module->data['form_button_url']}}"
                                 />
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="form_text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['form_text']}}</textarea>
+                            <textarea name="form_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['form_text']}}</textarea>
                         </div>
 
                         <div class="row mb-3">
@@ -127,7 +127,7 @@
                                     name="form_ill_attend"
                                     label="Asistiré"
                                     type="text"
-                                    placeholder="Asistiré"
+                                    
                                     value="{{$module->data['form_ill_attend']}}"
                                 />
                             </div>
@@ -136,7 +136,7 @@
                                     name="form_ill_n_attend"
                                     label="No asistiré"
                                     type="text"
-                                    placeholder="No asistiré"
+                                    
                                     value="{{$module->data['form_ill_n_attend']}}"
                                 />
                             </div>
@@ -146,7 +146,7 @@
                                 name="form_name"
                                 label="Nombre"
                                 type="text"
-                                placeholder="Apellido y nombre"
+                                
                                 value="{{$module->data['form_name']}}"
                             />
                         </div>
@@ -156,7 +156,7 @@
                                     name="form_email"
                                     label="Email"
                                     type="text"
-                                    placeholder="Correo electronico"
+                                    
                                     value="{{$module->data['form_email']}}"
                                 />
                             </div>
@@ -165,7 +165,7 @@
                                     name="form_phone"
                                     label="Teléfono"
                                     type="text"
-                                    placeholder="Teléfono"
+                                    
                                     value="{{$module->data['form_phone']}}"
                                 />
                             </div>
@@ -175,7 +175,7 @@
                                 name="form_special_menu"
                                 label="Menu especial"
                                 type="text"
-                                placeholder="¿Necesitas un menu especial?"
+                                
                                 value="{{$module->data['form_special_menu']}}"
                             />
                         </div>
@@ -185,7 +185,7 @@
                                     name="form_nothing"
                                     label="Ninguno"
                                     type="text"
-                                    placeholder="Ninguno"
+                                    
                                     value="{{$module->data['form_nothing']}}"
                                 />
                             </div>
@@ -194,7 +194,7 @@
                                     name="form_menu1"
                                     label="Menu 1"
                                     type="text"
-                                    placeholder="Celiaco"
+                                    
                                     value="{{$module->data['form_menu1']}}"
                                 />
                             </div>
@@ -203,7 +203,7 @@
                                     name="form_menu2"
                                     label="Menu 2"
                                     type="text"
-                                    placeholder="Vegetariano"
+                                    
                                     value="{{$module->data['form_menu2']}}"
                                 />
                             </div>
@@ -214,7 +214,7 @@
                                     name="form_menu3"
                                     label="Menu 3"
                                     type="text"
-                                    placeholder="Vegano"
+                                    
                                     value="{{$module->data['form_menu3']}}"
                                 />
                             </div>
@@ -223,7 +223,7 @@
                                     name="form_menu4"
                                     label="Menu 4"
                                     type="text"
-                                    placeholder="Diabetico"
+                                    
                                     value="{{$module->data['form_menu4']}}"
                                 />
                             </div>
@@ -232,7 +232,7 @@
                                     name="form_menu5"
                                     label="Menu 5"
                                     type="text"
-                                    placeholder="Kosher"
+                                    
                                     value="{{$module->data['form_menu5']}}"
                                 />
                             </div>
@@ -243,7 +243,7 @@
                                 name="form_transfer"
                                 label="Traslado"
                                 type="text"
-                                placeholder="¿Necesitas traslado?"
+                                
                                 value="{{$module->data['form_transfer']}}"
                             />
                         </div>
@@ -253,7 +253,7 @@
                                     name="form_option1"
                                     label="Opción 1"
                                     type="text"
-                                    placeholder="No, voy por mis medios"
+                                    
                                     value="{{$module->data['form_option1']}}"
                                 />
                             </div>
@@ -262,7 +262,7 @@
                                     name="form_option2"
                                     label="Opción 2"
                                     type="text"
-                                    placeholder="Si, necesito traslado"
+                                    
                                     value="{{$module->data['form_option2']}}"
                                 />
                             </div>
@@ -291,7 +291,7 @@
                                 name="form_companions"
                                 label="Acompañantes"
                                 type="text"
-                                placeholder="Nombre y apellido de acompañantes (si corresponde)"
+                                
                                 value="{{$module->data['form_companions']}}"
                             />
                         </div>
@@ -300,7 +300,7 @@
                                 name="form_comments"
                                 label="Comentarios"
                                 type="text"
-                                placeholder="Comentarios o mensajes"
+                                
                                 value="{{$module->data['form_comments']}}"
                             />
                         </div>
@@ -309,7 +309,7 @@
                                 name="form_errors"
                                 label="Errores de formulario"
                                 type="text"
-                                placeholder="Por favor completa todos los campos"
+                                
                                 value="{{$module->data['form_errors']}}"
                             />
                         </div>
@@ -318,7 +318,7 @@
                                 name="form_thanks"
                                 label="Gracias"
                                 type="text"
-                                placeholder="¡Gracias por confirmar asistencia!"
+                                
                                 value="{{$module->data['form_thanks']}}"
                             />
                         </div>

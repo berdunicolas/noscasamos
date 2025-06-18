@@ -7,7 +7,7 @@
                 name="icon"
                 label="Icono"
                 type="text"
-                placeholder="fa-heart"
+                
                 value="{{$module->data['icon']}}"
             />
         </div>
@@ -30,13 +30,13 @@
                 name="tittle"
                 label="Título"
                 type="text"
-                placeholder="Nuestra historia"
+                
                 value="{{$module->data['tittle']}}"
             />
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-            <textarea name="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit... " class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
+            <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>        
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">
