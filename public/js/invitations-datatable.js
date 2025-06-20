@@ -31,7 +31,10 @@ function renderDatatable(){
             { 
                 data: 'path_name',
                 responsivePriority: 2,
-                render: (data) => '<i class="fa-light fa-slash-forward"></i>' + data
+                render: function (data, type, row) {
+                    const url = '<i class="fa-light fa-slash-forward"></i>' + data;
+                    return `<a class="link-dark" href="${row.invitation_url}" target="_blank" >${url}</a>`;
+                }
             },
             { 
                 data: 'plan',
@@ -49,7 +52,6 @@ function renderDatatable(){
                     }
                 }
             },
-            { data: 'created_by' },
             { 
                 data: 'seller_name',
                 responsivePriority: 4,
@@ -68,6 +70,7 @@ function renderDatatable(){
                     }
                 }
             },
+            { data: 'created_by' },
             { 
                 data: 'url_item',
                 orderable: false,

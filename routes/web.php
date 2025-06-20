@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\User\RegisteredUserController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Middleware\EnsureCorrectAuthModel;
 use App\Models\Invitation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,7 @@ if(config('app.env') == 'production') {
 
     Route::domain(config('app.subdomain_url'))->group(function () {
     
-        Route::middleware('auth', EnsureCorrectAuthModel::class.':web')->group(function () {
+        Route::middleware(EnsureCorrectAuthModel::class.':web')->group(function () {
             Route::get('/', function () {
                 $years = Invitation::select(DB::raw("DATE_FORMAT(date, '%Y') as year"))
                     ->where('date', '!=', null)
@@ -54,7 +55,7 @@ if(config('app.env') == 'production') {
     });
 
 } else {
-    Route::middleware('auth', EnsureCorrectAuthModel::class.':web')->group(function () {
+    Route::middleware(EnsureCorrectAuthModel::class.':web')->group(function () {
         Route::get('/', function () {
             $years = Invitation::select(DB::raw("DATE_FORMAT(date, '%Y') as year"))
                 ->where('date', '!=', null)
@@ -90,7 +91,7 @@ if(config('app.env') == 'production') {
         Route::post('/{invitation:path_name}/invitados/login', [GuestController::class, 'login'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
         
         
-        Route::middleware('auth', EnsureCorrectAuthModel::class.':guests')->group(function () {
+        Route::middleware(EnsureCorrectAuthModel::class.':guests')->group(function () {
             Route::get('/{invitation:path_name}/invitados', [GuestController::class, 'guest'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests');
             Route::post('/{invitation:path_name}/invitados/logout', [GuestController::class, 'logout'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.logout');
         });
@@ -102,7 +103,7 @@ if(config('app.env') == 'production') {
     Route::post('/{invitation:path_name}/invitados/login', [GuestController::class, 'login'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
     
     
-    Route::middleware('auth', EnsureCorrectAuthModel::class.':guests')->group(function () {
+    Route::middleware(EnsureCorrectAuthModel::class.':guests')->group(function () {
         Route::get('/{invitation:path_name}/invitados', [GuestController::class, 'guest'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests');
         Route::post('/{invitation:path_name}/invitados/logout', [GuestController::class, 'logout'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.logout');
     });

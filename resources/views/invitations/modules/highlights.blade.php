@@ -18,7 +18,7 @@ $destacadoicons = "hover-heartbeat-alt";
             @endempty
                     
             @empty(!$module->data['tittle'])
-                <h2>{{$module->data['tittle']}}</h2>
+                <h2>{!!$module->data['tittle']!!}</h2>
             @endempty
             <p>{!!$module->data['text']!!}</p>
 <!--          <a href="#">Ver más</a>-->

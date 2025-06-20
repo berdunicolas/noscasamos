@@ -36,14 +36,14 @@ class GuestController extends Controller
 
         Guest::create([
             'invitation_id' => $invitation->id,
-            'nombre' => $data['nombre'],
-            'asiste' => $data['asiste'],
-            'nombre_a' => $data['nombre_a'],
-            'alimento' => $data['alimento'],
-            'mail' => $data['mail'],
-            'telefono' => $data['telefono'],
-            'traslado' => $data['traslado'],
-            'comentarios' => $data['comentarios'],
+            'nombre' => $data['nombre'] ?? '',
+            'asiste' => $data['asiste'] ?? '',
+            'nombre_a' => $data['nombre_a'] ?? '',
+            'alimento' => $data['alimento'] ?? '',
+            'mail' => $data['mail'] ?? '',
+            'telefono' => $data['telefono'] ?? '',
+            'traslado' => $data['traslado'] ?? '',
+            'comentarios' => $data['comentarios'] ?? '',
         ]);
 
         return response()->json(['message' => 'Guest created successfully'], Response::HTTP_CREATED);
@@ -97,17 +97,18 @@ class GuestController extends Controller
             ]);
         }
 
-        Auth::guard('guests')->login($invitation);
+        Auth::guard('guests')->attempt(['path_name' => $invitation->path_name, 'password' => $data['password']]);
+        //Auth::guard('guests')->login($invitation);
 
         return redirect()->route('invitation.guests', ['invitation' => $invitation->path_name]);
     }
 
     public function logout(Request $request) {
         Auth::guard('guests')->logout();
-
+/*
         $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+        $request->session()->regenerateToken();*/
 
         return redirect()->route('invitation.guests.login', ['invitation' => $request->route('invitation')]);
     }

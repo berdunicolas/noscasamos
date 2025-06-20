@@ -17,12 +17,12 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <x-form.input
-                            name="site_link"
-                            label="Sitio web"
-                            
-                            :errors="(array) $errors->get('site_link')"
-                        />
+                        <x-form.input-group label="Sitio web">
+                          <span class="input-group-text" id="basic-addon3">https://</span>
+                          <x-form.input
+                              name="site_link"
+                          />
+                      </x-form.input-group>
                     </div>
                 </div>
 

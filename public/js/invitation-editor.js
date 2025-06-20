@@ -78,7 +78,7 @@ function hideForms() {
 
 document.addEventListener("DOMContentLoaded", function() {
     let saveChangesBtn = document.getElementById('save-config-btn');
-    document.querySelectorAll("#config-form-input, #country-select, #country-division-select").forEach(function(element) {
+    document.querySelectorAll("#config-form-input, #country-select, #country-division-select, #image-input-invitationmeta_img").forEach(function(element) {
         element.addEventListener("change", function() {
             saveChangesBtn.removeAttribute("disabled");
             configFormChanges = true;
@@ -105,6 +105,9 @@ function saveInvitationChanges(e, form) {
     if(selectedFiles['invitation']['frame_image']){
         formData.append('frame_image', selectedFiles['invitation']['frame_image']);
     }
+    if(selectedFiles['invitation']['meta_img']){
+        formData.append('meta_img', selectedFiles['invitation']['meta_img']);
+    }
     formData.append('_method', 'PATCH');
 
     fetch(form.action, {
@@ -123,6 +126,12 @@ function saveInvitationChanges(e, form) {
     })
     .then(({statusCode, data}) => {
         if(statusCode === 201){
+            if(actualForm === 'configuration-form') {
+                document.getElementById('save-config-btn').setAttribute('disabled', 'disabled');
+            } 
+            if(actualForm === 'personalization-form') {
+                document.getElementById('save-style-btn').setAttribute('disabled', 'disabled');
+            }
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
         } else {
             console.error(data);

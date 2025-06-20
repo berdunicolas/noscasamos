@@ -24,6 +24,7 @@ class EventsModuleHandler extends GenericModuleHandler{
             'detail' => '',
             'button_url' => '',
             'button_text' => 'Cómo llegar',
+            'use_image' => false,
             'image' => '',
         ],
         'ceremony' => [
@@ -38,6 +39,7 @@ class EventsModuleHandler extends GenericModuleHandler{
             'detail' => '',
             'button_url' => '',
             'button_text' => 'Cómo llegar',
+            'use_image' => false,
             'image' => '',
         ],
         'party' => [
@@ -52,6 +54,7 @@ class EventsModuleHandler extends GenericModuleHandler{
             'detail' => '',
             'button_url' => '',
             'button_text' => 'Cómo llegar',
+            'use_image' => false,
             'image' => '',
         ],
         'dresscode' => [
@@ -63,6 +66,7 @@ class EventsModuleHandler extends GenericModuleHandler{
             'detail' => '',
             'button_url' => '',
             'button_text' => '',
+            'use_image' => false,
             'image' => '',
         ],
     ];

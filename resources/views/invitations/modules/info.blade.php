@@ -22,7 +22,7 @@ $infoicon = "warimioc";
         </div>
     @endif
         
-    @if (!empty($module->data['tittle']))
+    @if (!empty($module->data['text']))
         <div class="text wow animate__animated animate__fadeInUp">
             @empty(!$module->data['icon'])
                 @if($icontype==='a')
@@ -31,9 +31,9 @@ $infoicon = "warimioc";
                     <i class="fa-thin {{$module->data['icon']}}"></i>
                 @endif
             @endempty
-                <h2>{{$module->data['tittle']}}</h2>
+                <h2>{!!$module->data['tittle']!!}</h2>
             @empty(!$module->data['text'])
-            <p>{{$module->data['text']}}</p>
+            <p>{!!$module->data['text']!!}</p>
             @endempty
         </div>
     @endif   

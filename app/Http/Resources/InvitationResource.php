@@ -33,7 +33,8 @@ class InvitationResource extends JsonResource
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
 
-            'url_item' => route('api.invitations.show', $this->id)
+            'url_item' => route('api.invitations.show', $this->id),
+            'invitation_url' => route('invitation', ['invitation' => $this->path_name]),
         ];
     }
 }

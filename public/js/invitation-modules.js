@@ -641,3 +641,28 @@ function writteSrlFrame(frame, id){
         vimeoFrame.src += '?h=b86574a207&autoplay=1&color=A2AE8C&title=0&byline=0&portrait=0';
     }
 }
+
+// confirmation 
+
+function changeConfirmationForm(select) {
+    let linkForm = document.getElementById('confirmation-link-form');
+    let formForm = document.getElementById('confirmation-form-form');
+
+
+    if (select.value === 'form') {
+        formForm.classList.remove('d-none');
+        linkForm.classList.add('d-none');
+    } else {
+        linkForm.classList.remove('d-none');
+        formForm.classList.add('d-none');
+    }
+}
+
+function showCollapseSwitch(switchInput, idCollapse, idInput) {
+    const collapse = document.getElementById(idCollapse);
+
+    collapse.classList.toggle('show');
+
+    checkboxSwitch(switchInput, idInput);
+}
+

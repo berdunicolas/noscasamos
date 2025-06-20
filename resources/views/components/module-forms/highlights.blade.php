@@ -37,7 +37,7 @@
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
             <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>
-        <div class="row mb-3">
+        {{--<div class="row mb-3">
             <div class="col-6">
                 <x-form.input
                     name="button_icon"
@@ -67,7 +67,7 @@
                 
                 value="{{$module->data['button_url']}}"
             />
-        </div>
+        </div>--}}
         
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">

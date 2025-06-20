@@ -41,11 +41,7 @@
             @else
                 <span class="me-1 badge text-bg-danger">No activo</span>
             @endif
-{{--
-            @if (now()->toDateString() >= $invitation->date->toDateString())
-                <span class="me-1 badge border border-warning text-warning">No activo</span>    
-                @endif
---}}
+
             @if ($invitation->date)
                 @if ($invitation->validity)
                     <span class="me-1 badge border text-bg-secondary">No vigente</span>
@@ -54,12 +50,6 @@
                 @endif
             @endif
             <span class="me-1 badge border border-black text-black">{{$invitation->seller->name}}</span>    
-{{--
-            @if ($invitation->createdBy)
-                <span class="me-3 badge border border-warning text-warning">{{$inviation->createdBy}}</span>    
-            @endif
---}}
-            
 
         </div>
         <div class="ms-auto">
@@ -343,27 +333,15 @@
                             />
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-4">
-                            <x-form.input
-                                id="config-form-input"
-                                name="meta_title"
-                                label="Meta titulo"
-                                type="text"
-                                value="{{$invitation->meta_title}}"
-                                :errors="(array) $errors->get('meta_title')"
-                            />
-                        </div>
-                        <div class="col-4">
-                            <x-form.input
-                                id="config-form-input"
-                                name="meta_description"
-                                label="Meta descripción"
-                                type="text"
-                                value="{{$invitation->meta_description}}"
-                                :errors="(array) $errors->get('meta_description')"
-                            />
-                        </div>
+                    <div class="mb-3">
+                        <x-form.upload-zone label="Meta imagen" zoneOwner="invitation" zoneName="meta_img" :isMultiple=false>
+                            @if($invitation->media('meta_img')->first())
+                                <div class="preview-item">
+                                    <img src="{{$invitation->media('meta_img')->first()?->getMediaUrl()}}" alt="preview">
+                                    <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'meta_img', null)">×</button>
+                                </div>
+                            @endif
+                        </x-form.upload-zone>
                     </div>
                     <div class="d-flex flex-row justify-content-end mt-5">
                         <x-form.button id="save-config-btn" type="submit" classes="btn btn-dark" disabled="true">
@@ -562,7 +540,8 @@
 
         let selectedFiles = {
             invitation: {
-                frame_image: null
+                frame_image: null,
+                meta_img: null
             }
         };
     </script>

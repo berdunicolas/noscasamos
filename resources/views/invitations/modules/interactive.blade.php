@@ -9,7 +9,7 @@ $inter1icons = "s";
 
 @if($interactives['spotify']['active'] || $interactives['hashtag']['active'] || $interactives['ig']['active'] || $interactives['link']['active'])
     <section class="social" style="{{(!empty($padding)) ? 'padding:'.$padding.'px 0px;' : ''}} background-image: url('{{(!empty($marco)) ? $marco : ''}}'); background-repeat:repeat-x;">
-        @foreach ($interactives as $key => $interactive)            
+        @foreach ($interactives as $key => $interactive)
             @if($interactive['active'])
                 <article class="item wow animate__animated animate__fadeInUp">
                     @empty(!$interactive['icon'])
@@ -21,7 +21,7 @@ $inter1icons = "s";
                     @endempty
                             
                     @empty(!$interactive['tittle'])
-                        <h2>{{$interactive['tittle']}}</h2>
+                        <h2>{!!$interactive['tittle']!!}</h2>
                     @endempty
                     @empty(!$interactive['text'])
                     <div>

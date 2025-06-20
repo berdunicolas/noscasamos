@@ -21,7 +21,7 @@ $galeriaicon = "wsaaegar";
         <span class="wow animate__animated animate__fadeInUp" data-wow-duration="1s">{{$module->data['pre_tittle']}}</span>
     @endempty
     @empty(!$module->data['tittle'])
-        <h2 class="wow animate__animated animate__fadeInUp" data-wow-duration="1s">{{$module->data['tittle']}}></h2>
+        <h2 class="wow animate__animated animate__fadeInUp" data-wow-duration="1s">{{$module->data['tittle']}}</h2>
     @endempty
     <div class="wall">
         @php

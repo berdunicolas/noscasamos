@@ -99,6 +99,10 @@ $tituloYBajada =  $invitation->tituloYBajada();
                     $('.error').fadeOut(200).show();
                 } else
                 {*/
+                    if (data.nombre === '')
+                    {
+                        $('.error').fadeOut(200).show();
+                    } else
                     fetch(form.action, {
                         method: 'POST',
                         credentials: 'include',
@@ -117,8 +121,8 @@ $tituloYBajada =  $invitation->tituloYBajada();
                     })
                     .then(async ({statusCode, data}) => {
                         if(statusCode === 201){
-                            $('.thanks').show()
-                            $('.cont').hide
+                            $('.thanks').fadeIn(200).show();
+                            $('.cont').fadeOut(200).hide();
                             $("#data").html(data);
                         } else {
                             console.error(data);

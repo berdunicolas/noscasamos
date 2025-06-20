@@ -44,7 +44,8 @@ class InvitationApiController extends Controller
                 'created_by' => auth()->user()->id,
             ]);
 
-            $token = randomToken();
+            $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+
             $invitation = Invitation::create([
                 'host_names' => $validatedData['name'],
                 'path_name' => str_replace(' ', '', strtolower($validatedData['name'])),
@@ -133,12 +134,12 @@ class InvitationApiController extends Controller
             $invitation->meta_description = $request->meta_description;
             $invitation->save();
 
-            if($request->meta_image){
+            if($request->meta_img){
                 $invitation->media('meta_img')->each(function ($media) {
                     $media->delete();
                 });
 
-                $invitation->addMedia($request->meta_image, 'meta_img', $invitation->id);
+                $invitation->addMedia($request->meta_img, 'meta_img', $invitation->id);
             }
             
             DB::commit();

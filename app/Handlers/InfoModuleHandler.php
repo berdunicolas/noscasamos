@@ -18,9 +18,9 @@ class InfoModuleHandler extends GenericModuleHandler{
         'image' => '',
         'tittle' => '',
         'text' => '',
-        'button_icon' => '',
+        /*'button_icon' => '',
         'button_text' => '',
-        'button_url' => '',
+        'button_url' => '',*/
     ];
 
     static function getMediaCollections(string $rootFolder, string $moduleFolder): array{
