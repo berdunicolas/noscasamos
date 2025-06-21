@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::patch('invitations/{invitation}/set-config', [InvitationApiController::class, 'setConfig'])->name('invitations.set-config');
     Route::patch('invitations/{invitation}/set-style', [InvitationApiController::class, 'setStyle'])->name('invitations.set-style');
     Route::patch('invitations/{invitation}/change-status', [InvitationApiController::class, 'changeStatus'])->name('invitations.change-status');
-    Route::get('invitations/{invitation}/clone', [InvitationApiController::class, 'clone'])->name('invitations.clone');
+    Route::post('invitations/{invitation}/clone', [InvitationApiController::class, 'clone'])->name('invitations.clone');
 
     Route::get('validate-invitation/{path_name?}', function($path_name = null){
         $invitation = \App\Models\Invitation::select('path_name')->where('path_name', $path_name)->count();

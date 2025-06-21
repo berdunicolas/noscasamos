@@ -12,5 +12,11 @@
     <div>
         <x-table.invitations />
     </div>
+    <x-admin.invitations.confirm-delete-modal />
+    <x-admin.invitations.confirm-clone-modal />
     <x-admin.invitations.new-invitation-modal />
+
+    <script>
+        window.VALIDATE_INVITATION = "{{ route('api.validate-invitation') }}";
+    </script>
 </x-admin.layout>

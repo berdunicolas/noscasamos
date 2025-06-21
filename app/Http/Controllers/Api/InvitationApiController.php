@@ -8,6 +8,7 @@ use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CloneInvitationRequest;
 use App\Http\Requests\StoreInvitationRequest;
 use App\Http\Requests\SetConfigInvitationRequest;
 use App\Http\Requests\SetStyleInvitationRequest;
@@ -244,13 +245,15 @@ class InvitationApiController extends Controller
         return response()->json(['message' => 'Invitation activation changed successfully'], Response::HTTP_CREATED);
     }
 
-    public function clone(Invitation $invitation){
+    public function clone(Invitation $invitation, CloneInvitationRequest $request){
+        $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
 
         DB::beginTransaction();
         try {
             $newInvitation = new Invitation($invitation->toArray());
-            $newInvitation->path_name = $invitation->path_name . '-clone';
-            $newInvitation->password = $invitation->plain_token;
+            $newInvitation->path_name = $request->path_name;
+            $newInvitation->password = $token;
+            $newInvitation->plain_token = $token;
             $newInvitation->created_by = auth()->user()->id;
             $newInvitation->save();
 

@@ -227,13 +227,12 @@
                     <div class="mb-3">
                         <x-form.input-group label="Nombre" labelFor="path_name" :errors="(array) $errors->get('path_name')">
                             <span class="input-group-text" id="basic-addon3">https://evnt.ar/</span>
-
                             <x-form.input
                                 id="config-form-input"
                                 name="path_name"
                                 
                                 value="{{$invitation->path_name}}"
-                                extraAttributes="onChange=checkPathName(this) data-original-pathname={{$invitation->path_name}}"
+                                extraAttributes="oninput=checkPathName(this) data-original-pathname={{$invitation->path_name}}"
                             />
                         </x-form.input-group>
                     </div>

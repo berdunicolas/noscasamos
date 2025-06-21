@@ -79,8 +79,18 @@ function renderDatatable(){
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" id="invitation-trigger" onChange="changeInvitationStatus(this, '${data}')" ${row.active ? 'checked' : ''}>
                             <a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
-                            <button class="btn btn-sm btn-outline-success" data-url="${data}" id="invitation-cloner"><i class="fa-light fa-clone"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="deleteInvitation('${data}')"><i class="fa-light fa-trash"></i></button>
+                            <button class="btn btn-sm btn-outline-success" 
+                                id="invitation-cloner-${row.id}" 
+                                data-url="${data}" 
+                                data-id="invitation-cloner-${row.id}" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#confirmcloneModal"
+                            ><i class="fa-light fa-clone"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" 
+                                data-bs-toggle="modal"
+                                data-bs-target="#confirmDeleteModal"
+                                data-url="${data}"
+                            ><i class="fa-light fa-trash"></i></button>
                         </div>
                     `;
                 }
@@ -119,41 +129,95 @@ function renderDatatable(){
             }
         ]
     });
+}
 
-    $('#datatable tbody').on('click', '#invitation-cloner', function () {
-        const button = $(this);
-        const url = button.data('url');
-    
-        const tr = button.closest('tr');
-        const row = $('#datatable').DataTable().row(tr);
-    
-        fetch(url + '/clone', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-            },
-        })
-        .then(async response => {
-        
-            if (!response.ok) showToast('<i class="fa-duotone fa-light fa-triangle-exclamation ms-3 me-2"></i>' + "<b>Error</b> en la clonación");
-            
-            return await response.json();
-        })
-        .then(data => {
-            const parentRow = button.closest('tr');
+// Clone Invitation
+let cloneUrl = null;
+let cloneBtn = null;
 
+const cloneModal = document.getElementById('confirmcloneModal');
+
+cloneModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    cloneUrl = button.getAttribute('data-url');
+    cloneBtn = button;
+
+});
+
+function cloneInvitation() {
+    const tr = cloneBtn.closest('tr');
+    const url = cloneUrl;
+    const row = $('#datatable').DataTable().row(tr);
+    const pathName = document.getElementById('path_name_input').value;
+
+    fetch(url + '/clone', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({path_name: pathName})
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });        
+    })
+    .then(({statusCode, data}) => {
+        if(statusCode === 201){
+            const parentRow = cloneBtn.closest('tr');
             const newRow = datatable.row.add(data.data).draw().node();
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
-        })
-        .catch(err => {
-            console.error(err);
-        });
+        } else {
+            console.error(data);
+            if(statusCode === 422){
+                mapErrorsToast(data.errors, data.message);
+            } else {
+                showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            }
+        }
+    })
+    .catch(err => {
+        console.error(err);
     });
 }
 
+function checkPathName(e){
+    let pathName = e.value;
+    let cloneBtnModal = document.getElementById('confirmCloneBtn');
+
+    if(pathName === ''){
+        e.classList.remove('is-invalid');
+        e.classList.remove('is-valid');
+        return;
+    }
+    fetch(window.VALIDATE_INVITATION + "/" + pathName, {})
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });
+    })
+    .then(({statusCode, data}) => {
+        if(statusCode === 200){
+            if(data.status){
+                e.classList.remove("is-invalid");
+                e.classList.add("is-valid");
+                cloneBtnModal.removeAttribute('disabled');
+            }else{
+                e.classList.remove("is-valid");
+                e.classList.add("is-invalid");
+                cloneBtnModal.setAttribute('disabled', 'disabled');
+            }
+        } else {
+            console.error(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
 
 function newInvitation(e) {
     e.preventDefault();
@@ -190,28 +254,44 @@ function newInvitation(e) {
     .catch(error => console.error('Error:', error));
 }
 
-function deleteInvitation(url) {
-    
-    fetch(url, {
-        method: 'DELETE',
-        credentials: 'include',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-        },
-    })
-    .then(async response => {
-        if(response.status === 200){
-            datatable.ajax.reload();
-        } else {
-            const text = await response.text();
-            const data = text ? JSON.parse(text) : {};
-            console.error(data);
-        }
-    })
-    .catch(error => console.error('Error:', error));
+
+// Delete invitation
+let deleteUrl = null;
+
+const deleteModal = document.getElementById('confirmDeleteModal');
+
+deleteModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    deleteUrl = button.getAttribute('data-url');
+
+});
+
+function deleteInvitation() {
+
+    if(deleteUrl) {
+        fetch(deleteUrl, {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+            },
+        })
+        .then(async response => {
+            if(response.status === 200){
+                deleteUrl = null;
+                datatable.ajax.reload();
+            } else {
+                const text = await response.text();
+                const data = text ? JSON.parse(text) : {};
+                console.error(data);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
 }
+
 
 function changeInvitationStatus(checkbox, url){
     const active = checkbox.checked ? true : false;
