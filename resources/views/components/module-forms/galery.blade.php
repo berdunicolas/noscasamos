@@ -35,9 +35,9 @@
             <x-form.upload-zone label="Fotos" :zoneOwner="$module->name" zoneName="galery_images" :isMultiple=true>
                 @foreach ($module->data['galery_images'] as $key => $image)
                     @if($image)
-                        <div class="preview-item">
-                            <img src="{{$image}}" alt="preview">
-                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'galery_images', {{$key}})">×</button>
+                        <div class="preview-item" data-preview-id="{{$key}}">
+                            <img class="preview-img" src="{{$image}}" alt="preview">
+                            <button type="button" class="remove-btn" data-index="{{$key}}" onclick="eliminarImagen(this, '{{$module->name}}', 'galery_images')">×</button>
                         </div>
                     @endif
                 @endforeach

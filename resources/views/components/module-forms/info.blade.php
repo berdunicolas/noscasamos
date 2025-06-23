@@ -16,7 +16,7 @@
                 @if($module->data['image'])
                     <div class="preview-item">
                         <img src="{{$module->data['image']}}" alt="preview">
-                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'info_image')">×</button>
+                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'info_image')">×</button>
                     </div>
                 @endif
             </x-form.upload-zone>

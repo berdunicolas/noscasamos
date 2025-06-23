@@ -86,7 +86,7 @@
                                 @if($events['civil']['image'])
                                     <div class="preview-item">
                                         <img src="{{$events['civil']['image']}}" alt="preview">
-                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'civil_image')">×</button>
+                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'civil_image')">×</button>
                                     </div>
                                 @endif
                             
@@ -204,7 +204,7 @@
                                 @if($events['ceremony']['image'])
                                     <div class="preview-item">
                                         <img src="{{$events['ceremony']['image']}}" alt="preview">
-                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'ceremony_image')">×</button>
+                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'ceremony_image')">×</button>
                                     </div>
                                 @endif
                             
@@ -322,7 +322,7 @@
                                 @if($events['party']['image'])
                                     <div class="preview-item">
                                         <img src="{{$events['party']['image']}}" alt="preview">
-                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'party_image')">×</button>
+                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'party_image')">×</button>
                                     </div>
                                 @endif
                             
@@ -414,7 +414,7 @@
                                 @if($events['dresscode']['image'])
                                     <div class="preview-item">
                                         <img src="{{$events['dresscode']['image']}}" alt="preview">
-                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'dresscode_image')">×</button>
+                                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'dresscode_image')">×</button>
                                     </div>
                                 @endif
                             

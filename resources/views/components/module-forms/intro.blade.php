@@ -7,7 +7,7 @@
                 @if($module->data['stamp_image'])
                     <div class="preview-item">
                         <img src="{{$module->data['stamp_image']}}" alt="preview">
-                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'stamp_image', null)">×</button>
+                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'stamp_image')">×</button>
                     </div>
                 @endif
             </x-form.upload-zone>

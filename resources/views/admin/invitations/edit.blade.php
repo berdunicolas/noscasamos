@@ -3,10 +3,10 @@
         asset('inspinia/plugins/jquery/js/jquery.min.js'),
         asset('inspinia/plugins/jquery-ui/js/jquery-ui.min.js'),
 
-        asset('js/upload-zone.js'),
-    
         asset('js/invitation-editor.js'),
         asset('js/invitation-modules.js'),
+
+        asset('js/upload-zone.js'),
     ]"
 >
     <div aria-label="breadcrumb" style="height: 4vh">
@@ -337,7 +337,7 @@
                             @if($invitation->media('meta_img')->first())
                                 <div class="preview-item">
                                     <img src="{{$invitation->media('meta_img')->first()?->getMediaUrl()}}" alt="preview">
-                                    <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'meta_img', null)">×</button>
+                                    <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'invitation', 'meta_img')">×</button>
                                 </div>
                             @endif
                         </x-form.upload-zone>
@@ -436,7 +436,7 @@
                         @if($invitation->media('frame_img')->first())
                             <div class="preview-item">
                                 <img src="{{$invitation->media('frame_img')->first()?->getMediaUrl()}}" alt="preview">
-                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'frame_image', null)">×</button>
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'invitation', 'frame_image')">×</button>
                             </div>
                         @endif
                     </x-form.upload-zone>
@@ -454,7 +454,7 @@
                     <h4 class="py-2">Módulos<button type="button" class="ms-2 btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#new-module-modal"><i class="fa-light fa-plus"></i></button></h4>
                     <div class="">
                         <ul id="invitation-modules" class="invitation-modules">
-                            @foreach ($modules as $module)                                
+                            @foreach ($modules as $module)            
                                 <li class="item-module shadow-sm mb-2 {{ $module['fixed'] ? 'fixed-module' : '' }}" data-module-id="{{ $module['display_name'] }}">
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">

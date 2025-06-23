@@ -34,7 +34,7 @@
                     @if($module->data['background_image'])
                         <div class="preview-item">
                             <img src="{{$module->data['background_image']}}" alt="preview">
-                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'gift_background_image')">×</button>
+                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'gift_background_image')">×</button>
                         </div>
                     @endif
                 </x-form.upload-zone>
@@ -48,7 +48,7 @@
                         @if($module->data['module_image'])
                             <div class="preview-item">
                                 <img src="{{$module->data['module_image']}}" alt="preview">
-                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'gift_module_image')">×</button>
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'gift_module_image')">×</button>
                             </div>
                         @endif
                     </x-form.upload-zone>
@@ -340,7 +340,7 @@
                                     @if($module->data['list']['product_image_1'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_1']}}" alt="preview">
-                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_1')">×</button>
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'list_product_image_1')">×</button>
                                         </div>
                                     @endif
                                 </x-form.upload-zone>
@@ -385,7 +385,7 @@
                                     @if($module->data['list']['product_image_2'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_2']}}" alt="preview">
-                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_2')">×</button>
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'list_product_image_2')">×</button>
                                         </div>
                                     @endif
                                 </x-form.upload-zone>
@@ -430,7 +430,7 @@
                                     @if($module->data['list']['product_image_3'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_3']}}" alt="preview">
-                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_3')">×</button>
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'list_product_image_3')">×</button>
                                         </div>
                                     @endif
                                 </x-form.upload-zone>
@@ -475,7 +475,7 @@
                                     @if($module->data['list']['product_image_4'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_4']}}" alt="preview">
-                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_4')">×</button>
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'list_product_image_4')">×</button>
                                         </div>
                                     @endif
                                 </x-form.upload-zone>
@@ -520,7 +520,7 @@
                                     @if($module->data['list']['product_image_5'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_5']}}" alt="preview">
-                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_5')">×</button>
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'list_product_image_5')">×</button>
                                         </div>
                                     @endif
                                 </x-form.upload-zone>
@@ -565,7 +565,7 @@
                                     @if($module->data['list']['product_image_6'])
                                         <div class="preview-item">
                                             <img src="{{$module->data['list']['product_image_6']}}" alt="preview">
-                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'list_product_image_6')">×</button>
+                                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'list_product_image_6')">×</button>
                                         </div>
                                     @endif
                                 </x-form.upload-zone>

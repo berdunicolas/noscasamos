@@ -120,11 +120,113 @@ $(document).ready(function () {
                 updateAudioInput(input);
             });
 
+            window.makeSortableGaleria();
+            window.makeSortableCoverDesktop();
+            window.makeSortableCoverMobile();
         } else {
             console.error(data);
         }
     })
     .catch(error => console.error('Error:', error));
+
+    window.sortableGaleria = null;
+    window.makeSortableGaleria = function () {
+        if(window.sortableGaleria !== null){
+            window.sortableGaleria.sortable('destroy');
+        }
+        window.sortableGaleria = $('#preview-container-galeríagalery_images');        
+        window.sortableGaleria.children().each(function (index, item) {
+            $(item).data('preview-id', index).attr('data-preview-id', index);
+        });
+        
+        window.sortableGaleria = $('#preview-container-galeríagalery_images');
+        window.sortableGaleria.sortable({
+            items: ".preview-item",
+            handle: ".preview-img",
+            cancel: "",
+            update: function (event, ui) {
+                let order = window.sortableGaleria.children().map(function () {
+                    return $(this).data('preview-id');
+                }).get();
+
+                selectedFiles['galería']['galery_images'] = window.sortableGaleria.children().map(function (key, item) {
+                    let button = $(this).find('button');
+                    button[0].dataset.index = key;
+
+                    let file = selectedFiles['galería']['galery_images'][$(item).data('preview-id')];
+                    $(item).data('preview-id', key);
+
+                    return file;
+                }).get();
+            }
+        });
+    }
+
+    window.sortableCoverDesktop = null; 
+    window.makeSortableCoverDesktop = function () {
+        if(window.sortableCoverDesktop !== null){
+            window.sortableCoverDesktop.sortable('destroy');
+        }
+        window.sortableCoverDesktop = $('#preview-container-portadaimages_desktop_cover');        
+        window.sortableCoverDesktop.children().each(function (index, item) {
+            $(item).data('preview-id', index).attr('data-preview-id', index);
+        });
+        
+        window.sortableCoverDesktop = $('#preview-container-portadaimages_desktop_cover');
+        window.sortableCoverDesktop.sortable({
+            items: ".preview-item",
+            handle: ".preview-img",
+            cancel: "",
+            update: function (event, ui) {
+                let order = window.sortableCoverDesktop.children().map(function () {
+                    return $(this).data('preview-id');
+                }).get();
+
+                selectedFiles['portada']['images_desktop_cover'] = window.sortableCoverDesktop.children().map(function (key, item) {
+                    let button = $(this).find('button');
+                    button[0].dataset.index = key;
+
+                    let file = selectedFiles['portada']['images_desktop_cover'][$(item).data('preview-id')];
+                    $(item).data('preview-id', key);
+
+                    return file;
+                }).get();
+            }
+        });
+    }
+
+    window.sortableCoverMobile = null; 
+    window.makeSortableCoverMobile = function () {
+        if(window.sortableCoverMobile !== null){
+            window.sortableCoverMobile.sortable('destroy');
+        }
+        window.sortableCoverMobile = $('#preview-container-portadaimages_mobile_cover');        
+        window.sortableCoverMobile.children().each(function (index, item) {
+            $(item).data('preview-id', index).attr('data-preview-id', index);
+        });
+        
+        window.sortableCoverMobile = $('#preview-container-portadaimages_mobile_cover');
+        window.sortableCoverMobile.sortable({
+            items: ".preview-item",
+            handle: ".preview-img",
+            cancel: "",
+            update: function (event, ui) {
+                let order = window.sortableCoverMobile.children().map(function () {
+                    return $(this).data('preview-id');
+                }).get();
+
+                selectedFiles['portada']['images_mobile_cover'] = window.sortableCoverMobile.children().map(function (key, item) {
+                    let button = $(this).find('button');
+                    button[0].dataset.index = key;
+
+                    let file = selectedFiles['portada']['images_mobile_cover'][$(item).data('preview-id')];
+                    $(item).data('preview-id', key);
+
+                    return file;
+                }).get();
+            }
+        });
+    }
 
 
     // DESPLAZAMIENTO

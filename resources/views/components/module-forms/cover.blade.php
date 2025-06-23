@@ -47,8 +47,8 @@
                     @foreach ($module->data['desktop_images'] as $key => $image)
                         @if($image)
                             <div class="preview-item">
-                                <img src="{{$image}}" alt="preview">
-                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'images_desktop_cover', {{$key}})">×</button>
+                                <img class="preview-img" src="{{$image}}" alt="preview">
+                                <button type="button" class="remove-btn" data-index="{{$key}}" onclick="eliminarImagen(this, '{{$module->name}}' 'images_desktop_cover')">×</button>
                             </div>
                         @endif
                     @endforeach
@@ -62,8 +62,8 @@
                     @foreach ($module->data['mobile_images'] as $key => $image)
                         @if($image)
                             <div class="preview-item">
-                                <img src="{{$image}}" alt="preview">
-                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'images_mobile_cover', {{$key}})">×</button>
+                                <img class="preview-img" src="{{$image}}" alt="preview">
+                                <button type="button" class="remove-btn" data-index="{{$key}}" onclick="eliminarImagen(this, '{{$module->name}}', 'images_mobile_cover')">×</button>
                             </div>
                         @endif
                     @endforeach
@@ -80,7 +80,7 @@
                         @if($module->data['desktop_design'])
                             <div class="preview-item">
                                 <img src="{{$module->data['desktop_design']}}" alt="preview">
-                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'design_desktop_cover')">×</button>
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'design_desktop_cover')">×</button>
                             </div>
                         @endif
                     </x-form.upload-zone>
@@ -93,7 +93,7 @@
                         @if($module->data['mobile_design'])
                             <div class="preview-item">
                                 <img src="{{$module->data['mobile_design']}}" alt="preview">
-                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'design_mobile_cover')">×</button>
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'design_mobile_cover')">×</button>
                             </div>
                         @endif
                     </x-form.upload-zone>
@@ -185,7 +185,7 @@
                     @if($module->data['logo_cover'])
                         <div class="preview-item">
                             <img src="{{$module->data['logo_cover']}}" alt="preview">
-                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'logo_cover')">×</button>
+                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'logo_cover')">×</button>
                         </div>
                     @endif
                 </x-form.upload-zone>
@@ -203,7 +203,7 @@
                     @if($module->data['central_image_cover'])
                         <div class="preview-item">
                             <img src="{{$module->data['central_image_cover']}}" alt="preview">
-                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'central_image_cover')">×</button>
+                            <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'central_image_cover')">×</button>
                         </div>
                     @endif
                 </x-form.upload-zone>

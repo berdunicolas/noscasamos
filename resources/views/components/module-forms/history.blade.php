@@ -16,7 +16,7 @@
                 @if($module->data['image'])
                     <div class="preview-item">
                         <img src="{{$module->data['image']}}" alt="preview">
-                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'history_image')">×</button>
+                        <button type="button" class="remove-btn" onclick="eliminarImagen(this, '{{$module->name}}', 'history_image')">×</button>
                     </div>
                 @endif
             

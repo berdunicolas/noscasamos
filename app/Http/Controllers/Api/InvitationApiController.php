@@ -265,6 +265,7 @@ class InvitationApiController extends Controller
                     'type' => $module->type,
                     'name' => $module->name,
                     'display_name' => $module->display_name,
+                    'fixed' => $module->fixed,
                     'active' => $module->active,
                     'on_plan' => $module->on_plan,
                     'data' => $module->data,
