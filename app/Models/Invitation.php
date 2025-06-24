@@ -35,8 +35,6 @@ class Invitation extends Authenticatable
         'path_name',
         'password',
         'plain_token',
-        'meta_title',
-        'meta_description',
         'icon_type',
         'style',
         'font',

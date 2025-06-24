@@ -3,35 +3,38 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Middleware\Authenticate;
 
-class EnsureCorrectAuthModel
+class EnsureCorrectAuthModel extends Authenticate
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $guard): Response
+
+    public function handle($request, Closure $next, ...$guards)
     {
-        $user = auth($guard)->user();
-
-        if (!$user) {
-            
-            if ($guard === 'guests') {
-                // Obtené el parámetro 'invitation' de la URL
-                $invitation = $request->route('invitation');
-
-                return redirect()->route('invitation.guests.login', ['invitation' => $invitation]);
-            }
-
-
-            return response()->json(['error' => 'No autorizado'], 403);
-        }
+        $this->authenticate($request, $guards);
 
         return $next($request);
-    
     }
-    
+
+
+    protected function unauthenticated($request, array $guards)
+    {
+        if (in_array('guests', $guards)) {
+            $invitation = $request->route('invitation');
+
+            throw new AuthenticationException(
+                'Unauthenticated.', $guards, route('invitation.guests.login', ['invitation' => $invitation])
+            );
+        }elseif(in_array('web', $guards)){
+
+            throw new AuthenticationException(
+                'Unauthenticated.', $guards, $this->redirectTo($request)
+            );
+        }
+    }
 }

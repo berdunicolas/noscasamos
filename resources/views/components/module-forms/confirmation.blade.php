@@ -46,25 +46,22 @@
             />
         </div>
 
-        <div class="accordion accordion-flush" id="accordionExample">
+        <div class="accordion accordion-flush mt-2">
             <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <label class="form-check-label" for="switchCheckChecked">Valor tarjeta</label>
-                        <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'card_active')" type="checkbox" role="switch" {{$module->data['card_active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="card_active" id="card_active" value="{{$module->data['card_active'] ? 1 : 0}}">
-                        </div>
-                    </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-header py-3">
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="">Valor tarjeta</label>
+                        <input class="form-check-input" onchange="showCollapseSwitch(this, 'collapse-card-form', 'card_active')" type="checkbox" role="switch" {{$module->data['card_active'] ? 'checked' : ''}}>
+                        <input type="text" hidden name="card_active" id="card_active" value="{{$module->data['card_active'] ? 1 : 0}}">
+                    </div>
+                </div>
+                <div id="collapse-card-form" class="accordion-collapse collapse {{$module->data['card_active'] ? 'show' : ''}}" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="mb-3">
                             <x-form.input
                                 name="card_tittle"
                                 label="Titulo"
                                 type="text"
-                                
                                 value="{{$module->data['card_tittle']}}"
                             />
                         </div>
@@ -72,261 +69,288 @@
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
                             <textarea name="card_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['card_text']}}</textarea>
                         </div>
-                        <div class="mb-3">
-                            <x-form.input
-                                name="card_button_text"
-                                label="Texto boton"
-                                type="text"
-                                
-                                value="{{$module->data['card_button_text']}}"
-                            />
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <x-form.input
+                                    name="card_button_text"
+                                    label="Texto boton"
+                                    type="text"
+                                    value="{{$module->data['card_button_text']}}"
+                                />
+                            </div>
+                            <div class="col-6">
+                                <x-form.input-group label="Url boton" labelFor="url_button">
+                                    <span class="input-group-text" id="basic-addon3">https://</span>
+                                    <x-form.input
+                                        name="card_button_url"
+                                        type="text"
+                                        value="{{$module->data['card_button_url']}}"
+                                    />
+                                </x-form.input-group>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        <label class="form-check-label" for="switchCheckChecked">Formulario</label>
-                        <div class="form-check form-switch form-check-reverse">
-                            <input class="form-check-input" onchange="checkboxSwitch(this, 'form_active')" type="checkbox" role="switch" {{$module->data['form_active'] ? 'checked' : ''}}>
-                            <input type="text" hidden name="form_active" id="form_active" value="{{$module->data['form_active'] ? 1 : 0}}">
-                        </div>
-                    </button>
-                </h2>
-                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-header py-3">
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="">Boton de asistencia</label>
+                        <input class="form-check-input" onchange="showCollapseSwitch(this, 'collapse-attend-form', 'form_active')" type="checkbox" role="switch" {{$module->data['form_active'] ? 'checked' : ''}}>
+                        <input type="text" hidden name="form_active" id="form_active" value="{{$module->data['form_active'] ? 1 : 0}}">
+                    </div>
+                </div>
+                <div id="collapse-attend-form" class="accordion-collapse collapse {{$module->data['form_active'] ? 'show' : ''}}">
                     <div class="accordion-body">
-                        <div class="row mb-3">
-                            <div class="col-6">
-                                <x-form.input
-                                    name="form_button_text"
-                                    label="Texto boton"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_button_text']}}"
+                        <div class="mb-3">
+                            <x-form.select
+                                name="form_type"
+                                label="Confirmar por"
+                                extraAttributes="onchange=changeConfirmationForm(this)"
+                            >
+                                <x-form.select-option
+                                    value="form"
+                                    label="Formulario de asistencia"
+                                    selected="{{ ($module->data['form_type'] ==  'form') ? true : false }}"
                                 />
-                            </div>
-                            <div class="col-6">
+                                <x-form.select-option
+                                    value="link"
+                                    label="Link de confirmación"
+                                    selected="{{ ($module->data['form_type'] ==  'link') ? true : false }}"
+                                />
+                            </x-form.select>
+                        </div>
+                        <div class="mb-3">
+                            <x-form.input
+                                name="form_button_text"
+                                label="Texto boton"
+                                type="text"
+                                
+                                value="{{$module->data['form_button_text']}}"
+                            />
+                        </div>
+                        <div id="confirmation-link-form" class="mb-3 {{($module->data['form_type'] == 'form') ? 'd-none' : ''}}">
+                            <x-form.input-group label="Link boton">
+                                <span class="input-group-text" id="basic-addon3">https://</span>
                                 <x-form.input
                                     name="form_button_url"
-                                    label="Link boton"
                                     type="text"
-                                    
                                     value="{{$module->data['form_button_url']}}"
                                 />
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="form_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['form_text']}}</textarea>
+                            </x-form.input-group>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-6">
+                        <div id="confirmation-form-form" class="{{($module->data['form_type'] == 'link') ? 'd-none' : ''}}">
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
+                                <textarea name="form_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['form_text']}}</textarea>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <x-form.input
+                                        name="form_ill_attend"
+                                        label="Asistiré"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_ill_attend']}}"
+                                    />
+                                </div>
+                                <div class="col-6">
+                                    <x-form.input
+                                        name="form_ill_n_attend"
+                                        label="No asistiré"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_ill_n_attend']}}"
+                                    />
+                                </div>
+                            </div>
+                            <div class="mb-3">
                                 <x-form.input
-                                    name="form_ill_attend"
-                                    label="Asistiré"
+                                    name="form_name"
+                                    label="Nombre"
                                     type="text"
                                     
-                                    value="{{$module->data['form_ill_attend']}}"
+                                    value="{{$module->data['form_name']}}"
                                 />
                             </div>
-                            <div class="col-6">
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <x-form.input
+                                        name="form_email"
+                                        label="Email"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_email']}}"
+                                    />
+                                </div>
+                                <div class="col-6">
+                                    <x-form.input
+                                        name="form_phone"
+                                        label="Teléfono"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_phone']}}"
+                                    />
+                                </div>
+                            </div>
+                            <div class="mb-3">
                                 <x-form.input
-                                    name="form_ill_n_attend"
-                                    label="No asistiré"
+                                    name="form_special_menu"
+                                    label="Menu especial"
                                     type="text"
                                     
-                                    value="{{$module->data['form_ill_n_attend']}}"
+                                    value="{{$module->data['form_special_menu']}}"
                                 />
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <x-form.input
-                                name="form_name"
-                                label="Nombre"
-                                type="text"
-                                
-                                value="{{$module->data['form_name']}}"
-                            />
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-6">
-                                <x-form.input
-                                    name="form_email"
-                                    label="Email"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_email']}}"
-                                />
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <x-form.input
+                                        name="form_nothing"
+                                        label="Ninguno"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_nothing']}}"
+                                    />
+                                </div>
+                                <div class="col-4">
+                                    <x-form.input
+                                        name="form_menu1"
+                                        label="Menu 1"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_menu1']}}"
+                                    />
+                                </div>
+                                <div class="col-4">
+                                    <x-form.input
+                                        name="form_menu2"
+                                        label="Menu 2"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_menu2']}}"
+                                    />
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <x-form.input
-                                    name="form_phone"
-                                    label="Teléfono"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_phone']}}"
-                                />
+                            <div class="row mb-3">
+                                <div class="col-4">
+                                    <x-form.input
+                                        name="form_menu3"
+                                        label="Menu 3"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_menu3']}}"
+                                    />
+                                </div>
+                                <div class="col-4">
+                                    <x-form.input
+                                        name="form_menu4"
+                                        label="Menu 4"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_menu4']}}"
+                                    />
+                                </div>
+                                <div class="col-4">
+                                    <x-form.input
+                                        name="form_menu5"
+                                        label="Menu 5"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_menu5']}}"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <x-form.input
-                                name="form_special_menu"
-                                label="Menu especial"
-                                type="text"
-                                
-                                value="{{$module->data['form_special_menu']}}"
-                            />
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-4">
-                                <x-form.input
-                                    name="form_nothing"
-                                    label="Ninguno"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_nothing']}}"
-                                />
-                            </div>
-                            <div class="col-4">
-                                <x-form.input
-                                    name="form_menu1"
-                                    label="Menu 1"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_menu1']}}"
-                                />
-                            </div>
-                            <div class="col-4">
-                                <x-form.input
-                                    name="form_menu2"
-                                    label="Menu 2"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_menu2']}}"
-                                />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-4">
-                                <x-form.input
-                                    name="form_menu3"
-                                    label="Menu 3"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_menu3']}}"
-                                />
-                            </div>
-                            <div class="col-4">
-                                <x-form.input
-                                    name="form_menu4"
-                                    label="Menu 4"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_menu4']}}"
-                                />
-                            </div>
-                            <div class="col-4">
-                                <x-form.input
-                                    name="form_menu5"
-                                    label="Menu 5"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_menu5']}}"
-                                />
-                            </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <x-form.input
-                                name="form_transfer"
-                                label="Traslado"
-                                type="text"
-                                
-                                value="{{$module->data['form_transfer']}}"
-                            />
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="mb-3">
                                 <x-form.input
-                                    name="form_option1"
-                                    label="Opción 1"
+                                    name="form_transfer"
+                                    label="Traslado"
                                     type="text"
                                     
-                                    value="{{$module->data['form_option1']}}"
+                                    value="{{$module->data['form_transfer']}}"
                                 />
                             </div>
-                            <div class="col-6">
-                                <x-form.input
-                                    name="form_option2"
-                                    label="Opción 2"
-                                    type="text"
-                                    
-                                    value="{{$module->data['form_option2']}}"
-                                />
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <x-form.input
+                                        name="form_option1"
+                                        label="Opción 1"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_option1']}}"
+                                    />
+                                </div>
+                                <div class="col-6">
+                                    <x-form.input
+                                        name="form_option2"
+                                        label="Opción 2"
+                                        type="text"
+                                        
+                                        value="{{$module->data['form_option2']}}"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-6">
-                                <x-form.input
-                                    name="form_option3"
-                                    label="Opción 3"
-                                    type="text"
-                                    value="{{$module->data['form_option3']}}"
-                                />
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <x-form.input
+                                        name="form_option3"
+                                        label="Opción 3"
+                                        type="text"
+                                        value="{{$module->data['form_option3']}}"
+                                    />
+                                </div>
+                                <div class="col-6">
+                                    <x-form.input
+                                        name="form_option4"
+                                        label="Opción 4"
+                                        type="text"
+                                        value="{{$module->data['form_option4']}}"
+                                    />
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <x-form.input
-                                    name="form_option4"
-                                    label="Opción 4"
-                                    type="text"
-                                    value="{{$module->data['form_option4']}}"
-                                />
-                            </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <x-form.input
-                                name="form_companions"
-                                label="Acompañantes"
-                                type="text"
-                                
-                                value="{{$module->data['form_companions']}}"
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <x-form.input
-                                name="form_comments"
-                                label="Comentarios"
-                                type="text"
-                                
-                                value="{{$module->data['form_comments']}}"
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <x-form.input
-                                name="form_errors"
-                                label="Errores de formulario"
-                                type="text"
-                                
-                                value="{{$module->data['form_errors']}}"
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <x-form.input
-                                name="form_thanks"
-                                label="Gracias"
-                                type="text"
-                                
-                                value="{{$module->data['form_thanks']}}"
-                            />
+                            <div class="mb-3">
+                                <x-form.input
+                                    name="form_companions"
+                                    label="Acompañantes"
+                                    type="text"
+                                    
+                                    value="{{$module->data['form_companions']}}"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <x-form.input
+                                    name="form_comments"
+                                    label="Comentarios"
+                                    type="text"
+                                    
+                                    value="{{$module->data['form_comments']}}"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <x-form.input
+                                    name="form_errors"
+                                    label="Errores de formulario"
+                                    type="text"
+                                    
+                                    value="{{$module->data['form_errors']}}"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <x-form.input
+                                    name="form_thanks"
+                                    label="Gracias"
+                                    type="text"
+                                    
+                                    value="{{$module->data['form_thanks']}}"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">

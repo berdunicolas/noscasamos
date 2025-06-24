@@ -8,6 +8,7 @@ use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CloneInvitationRequest;
 use App\Http\Requests\StoreInvitationRequest;
 use App\Http\Requests\SetConfigInvitationRequest;
 use App\Http\Requests\SetStyleInvitationRequest;
@@ -44,7 +45,8 @@ class InvitationApiController extends Controller
                 'created_by' => auth()->user()->id,
             ]);
 
-            $token = randomToken();
+            $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+
             $invitation = Invitation::create([
                 'host_names' => $validatedData['name'],
                 'path_name' => str_replace(' ', '', strtolower($validatedData['name'])),
@@ -133,12 +135,12 @@ class InvitationApiController extends Controller
             $invitation->meta_description = $request->meta_description;
             $invitation->save();
 
-            if($request->meta_image){
+            if($request->meta_img){
                 $invitation->media('meta_img')->each(function ($media) {
                     $media->delete();
                 });
 
-                $invitation->addMedia($request->meta_image, 'meta_img', $invitation->id);
+                $invitation->addMedia($request->meta_img, 'meta_img', $invitation->id);
             }
             
             DB::commit();
@@ -243,13 +245,15 @@ class InvitationApiController extends Controller
         return response()->json(['message' => 'Invitation activation changed successfully'], Response::HTTP_CREATED);
     }
 
-    public function clone(Invitation $invitation){
+    public function clone(Invitation $invitation, CloneInvitationRequest $request){
+        $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
 
         DB::beginTransaction();
         try {
             $newInvitation = new Invitation($invitation->toArray());
-            $newInvitation->path_name = $invitation->path_name . '-clone';
-            $newInvitation->password = $invitation->plain_token;
+            $newInvitation->path_name = $request->path_name;
+            $newInvitation->password = $token;
+            $newInvitation->plain_token = $token;
             $newInvitation->created_by = auth()->user()->id;
             $newInvitation->save();
 
@@ -261,6 +265,7 @@ class InvitationApiController extends Controller
                     'type' => $module->type,
                     'name' => $module->name,
                     'display_name' => $module->display_name,
+                    'fixed' => $module->fixed,
                     'active' => $module->active,
                     'on_plan' => $module->on_plan,
                     'data' => $module->data,

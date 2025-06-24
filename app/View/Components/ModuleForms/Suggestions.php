@@ -17,7 +17,7 @@ class Suggestions extends Component
         public InvitationModule $module
     ) {
         if(empty($module->data['suggestions'])){
-            for ($i=1; $i <= 8; $i++) { 
+            for ($i=1; $i <= 12; $i++) { 
                 $this->suggestions[] = ['suggestion_' . $i => '', 'link_' . $i => ''];
             }
         }else{

@@ -17,7 +17,7 @@ function manejarDragLeave(event, id) {
     document.getElementById(id).classList.remove('dragover');
 }
 
-function manejarDrop(event, zoneOwner, id, zoneName, isMultiple) {
+function manejarDrop(event, id, zoneOwner, zoneName, isMultiple) {
     event.preventDefault();
     let zoneElement = document.getElementById(id);
     zoneElement.classList.remove('dragover');
@@ -45,25 +45,30 @@ function procesarArchivos(files, zoneOwner, zoneName, isMultiple) {
             const div = document.createElement('div');
             div.classList.add('preview-item');
             div.innerHTML = `
-                <img src="${e.target.result}" alt="preview">
-                <button type="button" class="remove-btn" onclick="eliminarImagen(this, '${zoneOwner}', '${zoneName}', ${index})">&times;</button>
+                <img src="${e.target.result}" alt="preview" class="preview-img" >
+                <button type="button" class="remove-btn" data-index="${index}" onclick="eliminarImagen(this, '${zoneOwner}', '${zoneName}')">&times;</button>
             `;
             let previewContainer = document.getElementById('preview-container-'+zoneOwner+zoneName);
             if(!isMultiple){
                 previewContainer.innerHTML = '';
             }
+            div.classList.add();
             previewContainer.appendChild(div);
 
+            window.makeSortableGaleria();
+            window.makeSortableCoverDesktop();
+            window.makeSortableCoverMobile();
         };
         reader.readAsDataURL(file);
     }
 }
 
-function eliminarImagen(btnElement, zoneOwner, zoneName, index=null) {
-    if(index === null){
+function eliminarImagen(btnElement, zoneOwner, zoneName) {
+    btnE = btnElement;
+    if(btnElement.dataset.index === undefined){
         selectedFiles[zoneOwner][zoneName] = null;
     }else{
-        selectedFiles[zoneOwner][zoneName][index] = null;
+        selectedFiles[zoneOwner][zoneName][btnElement.dataset.index] = null;
     }
 
     let input = document.getElementById('image-input-'+ zoneOwner +zoneName);

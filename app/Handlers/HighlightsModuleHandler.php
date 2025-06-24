@@ -16,9 +16,9 @@ class HighlightsModuleHandler extends GenericModuleHandler{
         'image' => '',
         'tittle' => '',
         'text' => '',
-        'button_icon' => '',
+        /*'button_icon' => '',
         'button_text' => '',
-        'button_url' => '',
+        'button_url' => '',*/
     ];
 
 

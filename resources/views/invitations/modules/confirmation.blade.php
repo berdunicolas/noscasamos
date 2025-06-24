@@ -31,11 +31,11 @@ $rsvpicos = "s"
             @endif
         @endempty
         <br/>
-        <span>{{$module->data['pre_tittle']}}</span>
-        <h2>{{$module->data['tittle']}}</h2>
+        <span>{!!$module->data['pre_tittle']!!}</span>
+        <h2>{!!$module->data['tittle']!!}</h2>
         <p>{!!$module->data['text']!!}</p>
         @empty (!$module->data['limit_date'])
-            <p style='max-width: 790px; margin-top: 10px;'>{{$module->data['limit_date']}}</p>            
+            <p style='max-width: 790px; margin-top: 10px;'>{!!$module->data['limit_date']!!}</p>            
         @endempty
 
         <!-- DETALLES EXTRA -->
@@ -44,15 +44,19 @@ $rsvpicos = "s"
                 <h3>{{$module->data['card_tittle']}}</h3>
                 <p>{!!$module->data['card_text']!!}</p>
                 @empty (!$module->data['card_button_text'])
-                    <button class="link modal-button" href="#myModal1">{{$module->data['card_button_text']}}</button>
+                    @if(empty($module->data['card_button_url']))
+                        <button class="link modal-button" href="#myModal1">{!!$module->data['card_button_text']!!}</button>
+                    @else
+                        <a class="link modal-button" href="https://{{$module->data['card_button_url']}}">{!!$module->data['card_button_text']!!}</a>
+                    @endif
                 @endempty
             </div>
         @endempty
-        @empty (!$module->data['form_button_text'])    
-            @if (!empty ($module->data['form_button_url'])) 
-                <a class="link modal-button" href="{{$module->data['form_button_url']}}" target="_blank" style="padding:15px 32px;"><i class="fa-regular fa-circle-check" style="margin-right:10px"></i>{{$module->data['form_button_text']}}</a>
+        @empty (!$module->data['form_active'])    
+            @if ($module->data['form_type'] == 'link')
+                <a class="link modal-button" href="https://{{$module->data['form_button_url']}}" target="_blank" style="padding:15px 32px;"><i class="fa-regular fa-circle-check" style="margin-right:10px"></i>{!!$module->data['form_button_text']!!}</a>
             @else 
-                <button class="link modal-button" href="#myModal2" style="padding:15px 32px;"><i class="fa-regular fa-circle-check" style="margin-right:10px"></i>{{$module->data['form_button_text']}}</button>
+                <button class="link modal-button" href="#myModal2" style="padding:15px 32px;"><i class="fa-regular fa-circle-check" style="margin-right:10px"></i>{!!$module->data['form_button_text']!!}</button>
             @endif
         @endempty
     </div>
@@ -60,8 +64,8 @@ $rsvpicos = "s"
     <div class="contenido-modal">
             <span class="closeModal"><i class="fa-regular fa-xmark"></i></span>
             <div class="cont">
-                <span>{{$module->data['pre_tittle']}}</span>
-                <h2>{{$module->data['tittle']}}</h2>
+                <span>{!!$module->data['pre_tittle']!!}</span>
+                <h2>{!!$module->data['tittle']!!}</h2>
                 @empty(!$invitadoc)
                     <p>Personas / Pases <b>({{$invitadoc}})</b></p>
                 @endempty
@@ -89,7 +93,7 @@ $rsvpicos = "s"
                         <input type="hidden" name="asiste" id="asiste" value="si"/>
                         
                         <label>{{empty($module->data['form_name'])? 'Nombre y apellido' : $module->data['form_name'] }}</label>
-                        <input type="text" name="nombre" id="nombre" value="{{(empty($invitadon)) ? '' : $invitadon}}"/>
+                        <input type="text" name="nombre" id="nombre" value="{{(empty($invitadon)) ? '' : $invitadon}}" />
                         
                         @empty(!$module->data['form_email'])
                             <label>{{$module->data['form_email']}}</label>
@@ -155,5 +159,5 @@ $rsvpicos = "s"
                 <h2>{{$module->data['form_thanks']}}</h2>
             </div>
         </div>
-        </div>
+    </div>
 </section>

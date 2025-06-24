@@ -3,10 +3,10 @@
         asset('inspinia/plugins/jquery/js/jquery.min.js'),
         asset('inspinia/plugins/jquery-ui/js/jquery-ui.min.js'),
 
-        asset('js/upload-zone.js'),
-    
         asset('js/invitation-editor.js'),
         asset('js/invitation-modules.js'),
+
+        asset('js/upload-zone.js'),
     ]"
 >
     <div aria-label="breadcrumb" style="height: 4vh">
@@ -41,11 +41,7 @@
             @else
                 <span class="me-1 badge text-bg-danger">No activo</span>
             @endif
-{{--
-            @if (now()->toDateString() >= $invitation->date->toDateString())
-                <span class="me-1 badge border border-warning text-warning">No activo</span>    
-                @endif
---}}
+
             @if ($invitation->date)
                 @if ($invitation->validity)
                     <span class="me-1 badge border text-bg-secondary">No vigente</span>
@@ -54,12 +50,6 @@
                 @endif
             @endif
             <span class="me-1 badge border border-black text-black">{{$invitation->seller->name}}</span>    
-{{--
-            @if ($invitation->createdBy)
-                <span class="me-3 badge border border-warning text-warning">{{$inviation->createdBy}}</span>    
-            @endif
---}}
-            
 
         </div>
         <div class="ms-auto">
@@ -237,13 +227,12 @@
                     <div class="mb-3">
                         <x-form.input-group label="Nombre" labelFor="path_name" :errors="(array) $errors->get('path_name')">
                             <span class="input-group-text" id="basic-addon3">https://evnt.ar/</span>
-
                             <x-form.input
                                 id="config-form-input"
                                 name="path_name"
                                 
                                 value="{{$invitation->path_name}}"
-                                extraAttributes="onChange=checkPathName(this) data-original-pathname={{$invitation->path_name}}"
+                                extraAttributes="oninput=checkPathName(this) data-original-pathname={{$invitation->path_name}}"
                             />
                         </x-form.input-group>
                     </div>
@@ -343,27 +332,15 @@
                             />
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-4">
-                            <x-form.input
-                                id="config-form-input"
-                                name="meta_title"
-                                label="Meta titulo"
-                                type="text"
-                                value="{{$invitation->meta_title}}"
-                                :errors="(array) $errors->get('meta_title')"
-                            />
-                        </div>
-                        <div class="col-4">
-                            <x-form.input
-                                id="config-form-input"
-                                name="meta_description"
-                                label="Meta descripción"
-                                type="text"
-                                value="{{$invitation->meta_description}}"
-                                :errors="(array) $errors->get('meta_description')"
-                            />
-                        </div>
+                    <div class="mb-3">
+                        <x-form.upload-zone label="Meta imagen" zoneOwner="invitation" zoneName="meta_img" :isMultiple=false>
+                            @if($invitation->media('meta_img')->first())
+                                <div class="preview-item">
+                                    <img src="{{$invitation->media('meta_img')->first()?->getMediaUrl()}}" alt="preview">
+                                    <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'invitation', 'meta_img')">×</button>
+                                </div>
+                            @endif
+                        </x-form.upload-zone>
                     </div>
                     <div class="d-flex flex-row justify-content-end mt-5">
                         <x-form.button id="save-config-btn" type="submit" classes="btn btn-dark" disabled="true">
@@ -459,7 +436,7 @@
                         @if($invitation->media('frame_img')->first())
                             <div class="preview-item">
                                 <img src="{{$invitation->media('frame_img')->first()?->getMediaUrl()}}" alt="preview">
-                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'frame_image', null)">×</button>
+                                <button type="button" class="remove-btn" onclick="eliminarImagen(this, 'invitation', 'frame_image')">×</button>
                             </div>
                         @endif
                     </x-form.upload-zone>
@@ -477,7 +454,7 @@
                     <h4 class="py-2">Módulos<button type="button" class="ms-2 btn btn-white btn-sm" data-bs-toggle="modal" data-bs-target="#new-module-modal"><i class="fa-light fa-plus"></i></button></h4>
                     <div class="">
                         <ul id="invitation-modules" class="invitation-modules">
-                            @foreach ($modules as $module)                                
+                            @foreach ($modules as $module)            
                                 <li class="item-module shadow-sm mb-2 {{ $module['fixed'] ? 'fixed-module' : '' }}" data-module-id="{{ $module['display_name'] }}">
                                     <div class="d-flex align-items-center">
                                         <div class="flex-grow-1">
@@ -562,7 +539,8 @@
 
         let selectedFiles = {
             invitation: {
-                frame_image: null
+                frame_image: null,
+                meta_img: null
             }
         };
     </script>

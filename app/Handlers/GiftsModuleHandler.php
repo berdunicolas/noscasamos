@@ -18,7 +18,7 @@ class GiftsModuleHandler extends GenericModuleHandler{
         'text' => 'Tu presencia es lo más importante para nosotros. <br>Si además querés hacernos un regalo, podés ayudarnos con nuestra luna de miel.',
         'background_image' => '',
         'module_image' => '',
-        'button_icon' => '',
+        //'button_icon' => '',
         'button_text' => 'Más Información',
         'button_type' => '',
         'button_url' => '',

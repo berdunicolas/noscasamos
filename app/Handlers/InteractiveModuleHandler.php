@@ -38,10 +38,10 @@ class InteractiveModuleHandler extends GenericModuleHandler{
             'icon' => 'tgyvxauj',
             'order' => '',
             'tittle' => '',
-            'text' => '',
+            'text' => 'Seguinos en nuestra cuenta de instagram.',
             'button_icon' => '',
-            'button_text' => 'Seguinos en nuestra cuenta de instagram.',
-            'button_url' => 'Ir a Instagram',
+            'button_text' => 'Ir a Instagram',
+            'button_url' => '',
         ],
         'link' => [
             'active' => false,

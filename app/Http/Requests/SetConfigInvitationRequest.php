@@ -54,7 +54,7 @@ class SetConfigInvitationRequest extends FormRequest
             "duration" => "nullable|integer|min:0",
             "meta_title" => "nullable|string|max:255",
             "meta_description" => "nullable|string|max:255",
-            "meta_image" => [
+            "meta_img" => [
                 File::image()
                     ->types(['jpeg', 'png', 'jpg', 'svg'])
                     ->max(2048)

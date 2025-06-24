@@ -13,7 +13,7 @@ class HistoryModuleHandler extends GenericModuleHandler{
     const PLAN = PlanTypeEnum::PLATINO->value;
 
     const DATA = [
-        'icon' => '',
+        'icon' => 'aydxrkfl',
         'image' => '',
         'tittle' => 'Nuestra Historia',
         'text' => '',

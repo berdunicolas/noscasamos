@@ -5,14 +5,14 @@
                 <tr class="table-secondary">
                     <th class="text-start">Id</th>
                     <th class="text-start">Id evnt.</th>
+                    <th>Tipo</th>
                     <th>Evento</th>
-                    <th>Nombre</th>
-                    <th>Ruta</th>
+                    <th>URL</th>
                     <th>Plan</th>
-                    <th>Usuario</th>
                     <th>Seller</th>
                     <th class="text-start">Fecha</th>
                     <th>Vigencia</th>
+                    <th>Usuario</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

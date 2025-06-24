@@ -14,6 +14,8 @@ use App\View\Components\Form\Select;
 use App\View\Components\Form\SelectOption;
 use App\View\Components\Form\UploadZone;
 use App\View\Components\Modules\FootModule;
+use App\View\Components\Table\ConfirmCloneModal;
+use App\View\Components\Table\ConfirmDeleteModal;
 use App\View\Components\Table\Invitations;
 use App\View\Components\Table\NewInvitationModal;
 use App\View\Components\Table\Sellers;
@@ -55,6 +57,8 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('table.invitations', Invitations::class);
         Blade::component('admin.invitations.new-invitation-modal', NewInvitationModal::class);
+        Blade::component('admin.invitations.confirm-delete-modal', ConfirmDeleteModal::class);
+        Blade::component('admin.invitations.confirm-clone-modal', ConfirmCloneModal::class);
 
         Blade::component('module-forms.form', \App\View\Components\ModuleForms\Form::class);
 

@@ -383,6 +383,7 @@ class ModuleHandler {
                 'civil_detail' => 'nullable|string',
                 'civil_button_url' => 'nullable|string',
                 'civil_button_text' => 'nullable|string',
+                'civil_use_image' => 'nullable|boolean',
                 'civil_image' => [
                     'nullable',
                     File::image()
@@ -401,6 +402,7 @@ class ModuleHandler {
                 'ceremony_detail' => 'nullable|string',
                 'ceremony_button_url' => 'nullable|string',
                 'ceremony_button_text' => 'nullable|string',
+                'ceremony_use_image' => 'nullable|boolean',
                 'ceremony_image' => [
                     'nullable',
                     File::image()
@@ -419,6 +421,7 @@ class ModuleHandler {
                 'party_detail' => 'nullable|string',
                 'party_button_url' => 'nullable|string',
                 'party_button_text' => 'nullable|string',
+                'party_use_image' => 'nullable|boolean',
                 'party_image' => [
                     'nullable',
                     File::image()
@@ -434,6 +437,7 @@ class ModuleHandler {
                 'dresscode_detail' => 'nullable|string',
                 'dresscode_button_url' => 'nullable|string',
                 'dresscode_button_text' => 'nullable|string',
+                'dresscode_use_image' => 'nullable|boolean',
                 'dresscode_image' => [
                     'nullable',
                     File::image()
@@ -459,9 +463,9 @@ class ModuleHandler {
                 'icon' => 'nullable|string',
                 'tittle' => 'nullable|string',
                 'text' => 'nullable|string',
-                'button_icon' => 'nullable|string',
+                /*'button_icon' => 'nullable|string',
                 'button_text' => 'nullable|string',
-                'button_url' => 'nullable|string',
+                'button_url' => 'nullable|string',*/
                 'on_t_right' => 'boolean',
                 'image' => [
                     'nullable',
@@ -474,9 +478,9 @@ class ModuleHandler {
                 'icon' => 'nullable|string',
                 'tittle' => 'nullable|string',
                 'text' => 'nullable|string',
-                'button_icon' => 'nullable|string',
+                /*'button_icon' => 'nullable|string',
                 'button_text' => 'nullable|string',
-                'button_url' => 'nullable|string',
+                'button_url' => 'nullable|string',*/
                 'image' => [
                     'nullable',
                     File::image()
@@ -494,14 +498,14 @@ class ModuleHandler {
                 'spotify_button_text' => 'nullable|string',
                 'spotify_button_url' => 'nullable|string',
 
-                'hastag_active' => 'nullable|boolean',
-                'hastag_icon' => 'nullable|string',
-                'hastag_order' => 'nullable|string',
-                'hastag_tittle' => 'nullable|string',
-                'hastag_text' => 'nullable|string',
-                'hastag_button_icon' => 'nullable|string',
-                'hastag_button_text' => 'nullable|string',
-                'hastag_button_url' => 'nullable|string',
+                'hashtag_active' => 'nullable|boolean',
+                'hashtag_icon' => 'nullable|string',
+                'hashtag_order' => 'nullable|string',
+                'hashtag_tittle' => 'nullable|string',
+                'hashtag_text' => 'nullable|string',
+                'hashtag_button_icon' => 'nullable|string',
+                'hashtag_button_text' => 'nullable|string',
+                'hashtag_button_url' => 'nullable|string',
 
                 'ig_active' => 'nullable|boolean',
                 'ig_icon' => 'nullable|string',
@@ -541,6 +545,10 @@ class ModuleHandler {
                 'suggestion_6' => 'nullable|string', 'link_6' => 'nullable|string',
                 'suggestion_7' => 'nullable|string', 'link_7' => 'nullable|string',
                 'suggestion_8' => 'nullable|string', 'link_8' => 'nullable|string',
+                'suggestion_9' => 'nullable|string', 'link_9' => 'nullable|string',
+                'suggestion_10' => 'nullable|string', 'link_10' => 'nullable|string',
+                'suggestion_11' => 'nullable|string', 'link_11' => 'nullable|string',
+                'suggestion_12' => 'nullable|string', 'link_12' => 'nullable|string',
             ],
             'GALERY' => [
                 'icon' => 'nullable|string',
@@ -551,6 +559,7 @@ class ModuleHandler {
             'GIFTS' => [
                 'icon' => 'nullable|string',
                 'pre_tittle' => 'nullable|string',
+                'text' => 'nullable|string',
                 'background_image' => [
                     'nullable',
                     File::image()
@@ -563,7 +572,7 @@ class ModuleHandler {
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
                 ],
-                'button_icon' => 'nullable|string',
+                //'button_icon' => 'nullable|string',
                 'button_text' => 'nullable|string',
                 'button_type' => 'nullable|string',
                 'button_url' => 'nullable|string',
@@ -652,7 +661,9 @@ class ModuleHandler {
                 'card_tittle' => 'nullable|string',
                 'card_text' => 'nullable|string',
                 'card_button_text' => 'nullable|string',
+                'card_button_url' => 'nullable|string',
                 'form_active' => 'nullable|boolean',
+                'form_type' => 'nullable|string',
                 'form_button_text' => 'nullable|string',
                 'form_button_url' => 'nullable|string',
                 'form_text' => 'nullable|string',
@@ -797,6 +808,7 @@ class ModuleHandler {
                 $moduleData['civil']['detail'] = $data['civil_detail'] ?? '';
                 $moduleData['civil']['button_url'] = $data['civil_button_url'] ?? '';
                 $moduleData['civil']['button_text'] = $data['civil_button_text'] ?? '';
+                $moduleData['civil']['use_image'] = $data['civil_use_image'] ?? false;
                 $moduleData['civil']['image'] = $module->media($module->media_collections['civil_image'])->first()?->getMediaUrl();
                 $moduleData['ceremony']['active'] = $data['ceremony_active'] ?? false;
                 $moduleData['ceremony']['event'] = $data['ceremony_event'] ?? '';
@@ -809,6 +821,7 @@ class ModuleHandler {
                 $moduleData['ceremony']['detail'] = $data['ceremony_detail'] ?? '';
                 $moduleData['ceremony']['button_url'] = $data['ceremony_button_url'] ?? '';
                 $moduleData['ceremony']['button_text'] = $data['ceremony_button_text'] ?? '';
+                $moduleData['ceremony']['use_image'] = $data['ceremony_use_image'] ?? false;
                 $moduleData['ceremony']['image'] = $module->media($module->media_collections['ceremony_image'])->first()?->getMediaUrl();
                 $moduleData['party']['active'] = $data['party_active'] ?? false;
                 $moduleData['party']['event'] = $data['party_event'] ?? '';
@@ -821,6 +834,7 @@ class ModuleHandler {
                 $moduleData['party']['detail'] = $data['party_detail'] ?? '';
                 $moduleData['party']['button_url'] = $data['party_button_url'] ?? '';
                 $moduleData['party']['button_text'] = $data['party_button_text'] ?? '';
+                $moduleData['party']['use_image'] = $data['party_use_image'] ?? false;
                 $moduleData['party']['image'] = $module->media($module->media_collections['party_image'])->first()?->getMediaUrl();
                 $moduleData['dresscode']['active'] = $data['dresscode_active'] ?? false;
                 $moduleData['dresscode']['event'] = $data['dresscode_event'] ?? '';
@@ -830,12 +844,12 @@ class ModuleHandler {
                 $moduleData['dresscode']['detail'] = $data['dresscode_detail'] ?? '';
                 $moduleData['dresscode']['button_url'] = $data['dresscode_button_url'] ?? '';
                 $moduleData['dresscode']['button_text'] = $data['dresscode_button_text'] ?? '';
+                $moduleData['dresscode']['use_image'] = $data['dresscode_use_image'] ?? false;
                 $moduleData['dresscode']['image'] = $module->media($module->media_collections['dresscode_image'])->first()?->getMediaUrl();
 
                 uasort($moduleData, function ($a, $b) {
                     return ($a['order'] ?? PHP_INT_MAX) <=> ($b['order'] ?? PHP_INT_MAX);
                 });
-
                 return $moduleData;
             })(),
             'HISTORY' => (function () use ($module, $updateMediaTask, $data){
@@ -856,9 +870,9 @@ class ModuleHandler {
                     'icon' => $data['icon'],
                     'text' => $data['text'],
                     'on_t_right' => $data['on_t_right'],
-                    'button_icon' => $data['button_icon'],
+                    /*'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
-                    'button_url' => $data['button_url'],
+                    'button_url' => $data['button_url'],*/
                     'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
                 ];
             })(),
@@ -869,9 +883,9 @@ class ModuleHandler {
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
-                    'button_icon' => $data['button_icon'],
+                    /*'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
-                    'button_url' => $data['button_url'],
+                    'button_url' => $data['button_url'],*/
                     'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
                 ];
             })(),
@@ -949,6 +963,10 @@ class ModuleHandler {
                     ['suggestion_6' => $data['suggestion_6'], 'link_6' => $data['link_6']],
                     ['suggestion_7' => $data['suggestion_7'], 'link_7' => $data['link_7']],
                     ['suggestion_8' => $data['suggestion_8'], 'link_8' => $data['link_8']],
+                    ['suggestion_9' => $data['suggestion_9'], 'link_9' => $data['link_9']],
+                    ['suggestion_10' => $data['suggestion_10'], 'link_10' => $data['link_10']],
+                    ['suggestion_11' => $data['suggestion_11'], 'link_11' => $data['link_11']],
+                    ['suggestion_12' => $data['suggestion_12'], 'link_12' => $data['link_12']],
                 ]
             ],
             'GALERY' => (function () use ($module, $updateMediaTask, $data){
@@ -973,7 +991,7 @@ class ModuleHandler {
                     'text' => $data['text'],
                     'background_image' => $module->media($module->media_collections['background_image'])->first()?->getMediaUrl(),
                     'module_image' => $module->media($module->media_collections['module_image'])->first()?->getMediaUrl(),
-                    'button_icon' => $data['button_icon'],
+                    //'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_type' => $data['button_type'],
                     'button_url' => $data['button_url'],

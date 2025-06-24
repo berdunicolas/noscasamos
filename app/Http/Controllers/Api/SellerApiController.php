@@ -26,7 +26,7 @@ class SellerApiController extends Controller
             DB::beginTransaction();
             $seller = Seller::create([
                 'name' => $validatedData['name'],
-                'site_link' => $validatedData['site_link'],
+                'site_link' => 'https://' . $validatedData['site_link'],
             ]);
         
             DB::commit();
