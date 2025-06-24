@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Components\Admin\Invitations\Editor\Header;
 use App\View\Components\Admin\Layout;
 use App\View\Components\Admin\NavBar;
 use App\View\Components\Admin\Sellers\NewSellerModal;
@@ -59,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('admin.invitations.new-invitation-modal', NewInvitationModal::class);
         Blade::component('admin.invitations.confirm-delete-modal', ConfirmDeleteModal::class);
         Blade::component('admin.invitations.confirm-clone-modal', ConfirmCloneModal::class);
+        //Blade::component('admin.invitations.editor.header', Header::class);
 
         Blade::component('module-forms.form', \App\View\Components\ModuleForms\Form::class);
 
