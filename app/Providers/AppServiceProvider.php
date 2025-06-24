@@ -60,7 +60,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('admin.invitations.new-invitation-modal', NewInvitationModal::class);
         Blade::component('admin.invitations.confirm-delete-modal', ConfirmDeleteModal::class);
         Blade::component('admin.invitations.confirm-clone-modal', ConfirmCloneModal::class);
-        //Blade::component('admin.invitations.editor.header', Header::class);
 
         Blade::component('module-forms.form', \App\View\Components\ModuleForms\Form::class);
 
