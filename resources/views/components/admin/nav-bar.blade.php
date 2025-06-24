@@ -43,9 +43,9 @@
                 <span>{!! ($selected == 'settings') ? '<i class="fa-solid fa-gears me-2"></i>' : '<i class="fa-light fa-gears me-2"></i>' !!}<span class="text-nav-link">Ajustes</span></span>
             </a>
         </li>
-        <li class="nav-item {{ ($selected == 'settings') ? 'selected' : '' }}">
-            <a href="{{route('users.show', auth()->user()->id)}}" class="nav-link text-bg-dark btn btn-light rounded-0">
-                <span>{!! ($selected == 'settings') ? '<i class="fa-solid fa-circle-user me-2"></i>' : '<i class="fa-light fa-circle-user me-2"></i>' !!}<span class="text-nav-link">{{auth()->user()->name}}</span></span>
+        <li class="nav-item {{ ($selected == 'user') ? 'selected' : '' }}">
+            <a href="{{route('users.show', auth()->user()->id)}}" class="nav-link text-bg-dark btn btn-light rounded-0 user-nav-link">
+                <span>{!! ($selected == 'user') ? '<i class="fa-solid fa-circle-user me-2"></i>' : '<i class="fa-light fa-circle-user me-2"></i>' !!}<span class="text-nav-link">{{auth()->user()->name}}</span></span>
             </a>
         </li>
         <li class="nav-item">
