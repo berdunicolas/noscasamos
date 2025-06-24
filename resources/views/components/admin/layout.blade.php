@@ -8,6 +8,8 @@
     <title>Usuarios</title>
     <link rel="stylesheet" href="{{ asset('css/app.css')}}">
 
+    @livewireStyles
+
     <script src="{{ asset('js/bootstrap/bootstrap.js') }}" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/24d21a37ec.js" crossorigin="anonymous"></script>
 
@@ -19,8 +21,6 @@
     @foreach ($cssStyles as $style)
         <link rel="stylesheet" href="{{ $style }}">
     @endforeach
-
-
 </head>
 <body>
     <div class="d-flex">
@@ -61,6 +61,7 @@
     {{--
     <div class="h-100 d-flex">
     </div>--}}
+    @livewireScripts
     <script src="{{ asset('js/toasts.js') }}"></script>
     @if ($datatable)
     <script src="{{ asset('inspinia/plugins/jquery/js/jquery.min.js') }}"></script>

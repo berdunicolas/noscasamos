@@ -35,7 +35,7 @@ class InvitationController extends Controller
         $invitation->load(['event']);
         $invitation->event->load('country');
 
-        $con = Guest::where('invitation_id', $invitation->id)->orderBy('created_at', 'desc')->get();
+        $guests = Guest::where('invitation_id', $invitation->id)->orderBy('created_at', 'desc')->get();
 
         $countries = Country::where('active', 1)->get();
         $CountryDivision = CountryDivision::where('country_code', $invitation->event->country?->code)->get();
@@ -66,7 +66,7 @@ class InvitationController extends Controller
             'spacingTypes' => $spacingTypes,
             'fontTypes' => $fontTypes,
             'sellers' => $sellers,
-            'con' => $con,
+            'guests' => $guests,
             'availableModules' => $availableModules,
             'modules' => $modules,
         ]);

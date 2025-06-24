@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\View\Components\Admin\Invitations\Editor\Header;
 use App\View\Components\Admin\Layout;
 use App\View\Components\Admin\NavBar;
 use App\View\Components\Admin\Sellers\NewSellerModal;
