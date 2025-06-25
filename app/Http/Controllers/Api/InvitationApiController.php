@@ -29,6 +29,8 @@ class InvitationApiController extends Controller
     {
         $invitations = Invitation::orderBy('event_id', 'desc')->get();
 
+        //dd(Invitation::get());
+
         return response()->json(InvitationResource::collection($invitations), Response::HTTP_OK);
     }
 

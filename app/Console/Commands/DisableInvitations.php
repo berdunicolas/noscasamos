@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Invitation;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -27,7 +28,9 @@ class DisableInvitations extends Command
      */
     public function handle()
     {
-        $yesterday = Carbon::now()->subDay()->format('Y-m-d');
+        $validTime = Setting::where('name', 'valid_time')->first();
+
+        $yesterday = Carbon::now()->subDays($validTime)->format('Y-m-d');
         Invitation::where('date', $yesterday)
             ->where('was_disabled', false)
             ->update([

@@ -20,6 +20,7 @@ class Event extends Model
         'country_id',
         'country_division_id',
         'creted_by',
+        'is_legacy',
     ];
 
     protected $casts = [

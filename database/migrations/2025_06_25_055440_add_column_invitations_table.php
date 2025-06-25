@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::table('events', function (Blueprint $table) {
+            $table->boolean('is_legacy')->default(false);
+        });
         Schema::table('invitations', function (Blueprint $table) {
-            $table->boolean('is_legacy')->default(false)->after('active');
+            $table->boolean('is_legacy')->default(false);
         });
     }
 
@@ -21,6 +24,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('events', function (Blueprint $table) {
+            $table->dropColumn('is_legacy');
+        });
         Schema::table('invitations', function (Blueprint $table) {
             $table->dropColumn('is_legacy');
         });
