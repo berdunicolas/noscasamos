@@ -41,7 +41,7 @@
     @endphp
 
 @php
-$total = $total
+$total = $total;
 $asisten = $asisten;
 $faltan = $faltan;
     
