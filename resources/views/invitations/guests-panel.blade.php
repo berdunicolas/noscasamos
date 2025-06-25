@@ -41,9 +41,9 @@
     @endphp
 
 @php
-$total ='23';
-$asisten ='23';
-$faltan ='23';
+$total = $total
+$asisten = $asisten;
+$faltan = $faltan;
     
 @endphp
         <header>
