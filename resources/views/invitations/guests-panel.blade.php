@@ -24,6 +24,7 @@
     <body>
 
     @php
+    /*
         $total = '-';
         $asisten = '-';
         $faltan = '-';
@@ -41,7 +42,7 @@
             $con3 = "SELECT * FROM invitados WHERE `boda` =".$boda." AND asiste='no'";
             $con3_result = mysqli_query($link, $con3) or die('request "Could not execute SQL query" ' . $con3);
             $faltan = mysqli_num_rows($con3_result);
-        }
+        }*/
     @endphp
         <header>
             <div>
