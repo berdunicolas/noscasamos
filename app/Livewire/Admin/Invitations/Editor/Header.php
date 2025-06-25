@@ -21,7 +21,6 @@ class Header extends Component
 
     public function reloadData()
     {
-        //$this->invitation = Invitation::find($this->invitacion->id);
         $this->invitation->refresh();
     }
 
