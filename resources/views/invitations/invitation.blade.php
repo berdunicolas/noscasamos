@@ -150,14 +150,16 @@ $tituloYBajada =  $invitation->tituloYBajada();
             wow.init();
 
             function GeeksForGeeks() {
-                let copyGfGText =
-                        document.getElementById("GfGInput");
+                let copyGfGText = document.getElementById("GfGInput");
 
-                copyGfGText.select();
-                document.execCommand("copy");
-
-                document.getElementById("gfg")
-                        .innerHTML = "<i class='fa fa-circle-check'></i> Copiado en portapapeles!";
+                navigator.clipboard.writeText(copyGfGText.value)
+                    .then(() => {
+                        document.getElementById("gfg").innerHTML = 
+                            "<i class='fa fa-circle-check'></i> Copiado en portapapeles!";
+                    })
+                    .catch(err => {
+                        console.error("Error al copiar: ", err);
+                    });
             }
 
             var button = document.getElementById("button");
