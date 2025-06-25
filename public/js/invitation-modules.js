@@ -82,52 +82,7 @@ async function updateAudioInput(input) {
 
 $(document).ready(function () {
 
-    fetch(window.INVITATION_MODULES_URL, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-        }
-    })
-    .then(async response => {
-        const statusCode = response.status;
-        const text = await response.text();
-        const data = text ? JSON.parse(text) : {};
-        return ({ statusCode, data });
-    })
-    .then(async ({statusCode, data}) => {
-        if(statusCode === 200){
-            let moduleForms = document.getElementById('module-form');
-            data = data.join('');
-            moduleForms.innerHTML = data;
-
-            let selectedFilesUpdaters = document.getElementsByClassName('selectedFilesUpdater');
-            
-            Array.from(selectedFilesUpdaters).map(function (field) {
-                field = JSON.parse(field.innerHTML);
-                uptateSelectedFiles(field);
-            });
-
-            let videoInputs = document.getElementsByClassName('videoInput');
-            Array.from(videoInputs).map(function (input) {
-                updateVideoInput(input);
-            });
-
-            let audioInputs = document.getElementsByClassName('audioInput');
-            Array.from(audioInputs).map(function (input) {
-                updateAudioInput(input);
-            });
-
-            window.makeSortableGaleria();
-            window.makeSortableCoverDesktop();
-            window.makeSortableCoverMobile();
-        } else {
-            console.error(data);
-        }
-    })
-    .catch(error => console.error('Error:', error));
+    getModules();
 
     window.sortableGaleria = null;
     window.makeSortableGaleria = function () {
@@ -266,6 +221,55 @@ $(document).ready(function () {
     });
 });
 
+function getModules(){
+    fetch(window.INVITATION_MODULES_URL, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+        }
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });
+    })
+    .then(async ({statusCode, data}) => {
+        if(statusCode === 200){
+            let moduleForms = document.getElementById('module-form');
+            data = data.join('');
+            moduleForms.innerHTML = data;
+
+            let selectedFilesUpdaters = document.getElementsByClassName('selectedFilesUpdater');
+            
+            Array.from(selectedFilesUpdaters).map(function (field) {
+                field = JSON.parse(field.innerHTML);
+                uptateSelectedFiles(field);
+            });
+
+            let videoInputs = document.getElementsByClassName('videoInput');
+            Array.from(videoInputs).map(function (input) {
+                updateVideoInput(input);
+            });
+
+            let audioInputs = document.getElementsByClassName('audioInput');
+            Array.from(audioInputs).map(function (input) {
+                updateAudioInput(input);
+            });
+
+            window.makeSortableGaleria();
+            window.makeSortableCoverDesktop();
+            window.makeSortableCoverMobile();
+        } else {
+            console.error(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 function statusModuleSwitch(checkbox, module){
     
     fetch(window.INVITATION_MODULES_URL + '/' + module + '/change-status', {
@@ -362,6 +366,9 @@ function newModule(e, form){
     })
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
+            Livewire.dispatch('newModuleAdded');
+            getModules();
+
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
         } else {
             if(statusCode === 422){

@@ -48,7 +48,7 @@
                         @if($image)
                             <div class="preview-item">
                                 <img class="preview-img" src="{{$image}}" alt="preview">
-                                <button type="button" class="remove-btn" data-index="{{$key}}" onclick="eliminarImagen(this, '{{$module->name}}' 'images_desktop_cover')">×</button>
+                                <button type="button" class="remove-btn" data-index="{{$key}}" onclick="eliminarImagen(this, '{{$module->name}}', 'images_desktop_cover')">×</button>
                             </div>
                         @endif
                     @endforeach

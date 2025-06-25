@@ -98,7 +98,7 @@ function renderDatatable(){
         ],
         order: {
             name: 'nombre',
-            dir: 'asc'
+            dir: 'desc'
         },
         language: {
             lengthMenu: "Mostrar _MENU_ registros por página",

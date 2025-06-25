@@ -41,6 +41,8 @@ class Invitation extends Authenticatable
         'padding',
         'color',
         'background_color',
+        'was_disabled',
+        'is_legacy'
     ];
 
     protected $hidden = [

@@ -27,7 +27,9 @@ class InvitationApiController extends Controller
 {
     public function index(): JsonResponse
     {
-        $invitations = Invitation::orderBy('event_id', 'asc')->get();
+        $invitations = Invitation::orderBy('event_id', 'desc')->get();
+
+        //dd(Invitation::get());
 
         return response()->json(InvitationResource::collection($invitations), Response::HTTP_OK);
     }

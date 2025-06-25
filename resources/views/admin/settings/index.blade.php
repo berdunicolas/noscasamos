@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true">
+<x-admin.layout navBarSelected="settings" dabatable="false" dataTableName="" jqueryUI="true">
     
     <header class="d-flex flex-row align-items-center" style="height: 105px">
         <div>
