@@ -24,6 +24,10 @@
     <body>
 
     @php
+        $total = '-';
+        $asisten = '-';
+        $faltan = '-';
+
         if (isset($_SESSION['user_info']) && is_array($_SESSION['user_info'])){
             
             $con = "SELECT * FROM invitados WHERE `boda` =" . $boda ." ORDER BY date DESC";
@@ -39,13 +43,6 @@
             $faltan = mysqli_num_rows($con3_result);
         }
     @endphp
-
-@php
-$total = $total
-$asisten = $asisten;
-$faltan = $faltan;
-    
-@endphp
         <header>
             <div>
                 <h2>Lista de invitados</h2>
