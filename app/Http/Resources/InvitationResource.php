@@ -32,6 +32,7 @@ class InvitationResource extends JsonResource
             'created_by' => $this->createdBy?->name,
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
+            'is_legacy' => $this->is_legacy,
 
             'url_item' => route('api.invitations.show', $this->id),
             'invitation_url' => route('invitation', ['invitation' => $this->path_name]),
