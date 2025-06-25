@@ -75,24 +75,41 @@ function renderDatatable(){
                 data: 'url_item',
                 orderable: false,
                 render: function(data, type, row) {
-                    return `
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="invitation-trigger" onChange="changeInvitationStatus(this, '${data}')" ${row.active ? 'checked' : ''}>
-                            <a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
-                            <button class="btn btn-sm btn-outline-success" 
-                                id="invitation-cloner-${row.id}" 
-                                data-url="${data}" 
-                                data-id="invitation-cloner-${row.id}" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#confirmcloneModal"
-                            ><i class="fa-light fa-clone"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" 
-                                data-bs-toggle="modal"
-                                data-bs-target="#confirmDeleteModal"
-                                data-url="${data}"
-                            ><i class="fa-light fa-trash"></i></button>
-                        </div>
-                    `;
+                    let acctions = '';
+
+                    if(row.is_legacy){
+                        acctions = `
+                           <span class="visually-hidden">inactivo legacy</span>
+                           <div class="form-check form-switch">
+                               <button class="btn btn-sm btn-outline-danger" 
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#confirmDeleteModal"
+                                   data-url="${data}"
+                               ><i class="fa-light fa-trash"></i></button>
+                           </div>
+                        `;
+                    } else {
+                        acctions = `
+                           <span class="visually-hidden">${row.active ? 'activo' : 'inactivo'}</span>
+                           <div class="form-check form-switch">
+                               <input class="form-check-input" type="checkbox" role="switch" id="invitation-trigger" onChange="changeInvitationStatus(this, '${data}')" ${row.active ? 'checked' : ''}>
+                               <a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
+                               <button class="btn btn-sm btn-outline-success" 
+                                   id="invitation-cloner-${row.id}" 
+                                   data-url="${data}" 
+                                   data-id="invitation-cloner-${row.id}" 
+                                   data-bs-toggle="modal" 
+                                   data-bs-target="#confirmcloneModal"
+                               ><i class="fa-light fa-clone"></i></button>
+                               <button class="btn btn-sm btn-outline-danger" 
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#confirmDeleteModal"
+                                   data-url="${data}"
+                               ><i class="fa-light fa-trash"></i></button>
+                           </div>
+                       `;
+                    }
+                    return acctions;
                 }
             },
         ],
