@@ -54,11 +54,13 @@ use App\View\Components\ModuleForms\FloatButton;
 use App\View\Components\ModuleForms\Interactive;
 use App\View\Components\ModuleForms\Suggestions;
 use App\View\Components\ModuleForms\Confirmation;
+use App\View\Components\ModuleForms\Foot;
 use App\View\Components\Modules\HighlightsModule;
 use App\View\Components\Modules\FloatButtonModule;
 use App\View\Components\Modules\InteractiveModule;
 use App\View\Components\Modules\SuggestionsModule;
 use App\View\Components\Modules\ConfirmationModule;
+use App\View\Components\Modules\FootModule;
 
 class ModuleHandler {
 
@@ -79,6 +81,7 @@ class ModuleHandler {
     const GALERY = GaleryModuleHandler::class;
     const GIFTS = GiftsModuleHandler::class;
     const CONFIRMATION = ConfirmationModuleHandler::class;
+    const FOOT = FootModuleHandler::class;
 
 
     public static function getHandlersByPlan(PlanTypeEnum $plan): array
@@ -157,6 +160,7 @@ class ModuleHandler {
             ModuleTypeEnum::GALERY => new Galery($module),
             ModuleTypeEnum::GIFTS => new Gifts($module),
             ModuleTypeEnum::CONFIRMATION => new Confirmation($module),
+            ModuleTypeEnum::FOOT => new Foot($module),
         };
 
         return Blade::renderComponent($form);
@@ -268,6 +272,9 @@ class ModuleHandler {
                 $invitation->icon_type,
                 $invitation->frameImg(),
                 $invitation->padding,
+            ),
+            'FOOT' => new FootModule(
+                $module,
             ),
         };
 
@@ -688,7 +695,10 @@ class ModuleHandler {
                 'form_comments' => 'nullable|string',
                 'form_thanks' => 'nullable|string',
                 'form_errors' => 'nullable|string',
-            ]
+            ],
+            'FOOT' => [
+                'foot_text' => 'required|string',
+            ],
         };
 
         return $rules;
@@ -1049,7 +1059,8 @@ class ModuleHandler {
                     ],
                 ];
             })(),
-            'CONFIRMATION' => $data
+            'CONFIRMATION' => $data,
+            'FOOT' => $data,
         };
     }
 }

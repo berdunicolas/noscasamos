@@ -24,6 +24,7 @@ enum ModuleTypeEnum: string
     case GALERY = 'GALERY';
     case GIFTS ='GIFTS';
     case CONFIRMATION = 'CONFIRMATION';
+    case FOOT = 'FOOT';
 
     public static function keys(): array
     {
@@ -60,6 +61,7 @@ enum ModuleTypeEnum: string
             self::GALERY => 'Galería',
             self::GIFTS =>'Regalos',
             self::CONFIRMATION => 'Confirmación',
+            self::FOOT => 'Footer',
             default =>  null,
         };
     }
@@ -83,6 +85,7 @@ enum ModuleTypeEnum: string
             ['type' => self::GALERY, 'display_name' => 'Galería'],
             ['type' => self::GIFTS, 'display_name' =>'Regalos'],
             ['type' => self::CONFIRMATION, 'display_name' => 'Confirmación'],
+            ['type' => self::FOOT, 'display_name' => 'Footer'],
         ];
     }
 }

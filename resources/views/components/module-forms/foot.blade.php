@@ -1,27 +1,20 @@
-<div id="{{$id}}" class="module-form visually-hidden">
+<div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Foot</h4>
 
     <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
-            <x-form.select
-                name="seller_name"
+            <x-form.input
+                name=""
                 label="Seller"
-            >
-                @foreach ($sellers as $seller)    
-                    <x-form.select-option
-                        value="{{$seller->name}}"
-                        label="{{$seller->name}}"
-                        selected="{{ ($module['seller_name'] ==  $seller->name) ? true : false }}"
-                    />
-                @endforeach
-            </x-form.select>
+                value="{{$module->invitation->seller->name}}"
+                extraAttributes="disabled readonly"
+            />
         </div>
         <div class="mb-3">
             <x-form.input
                 name="foot_text"
                 label="Texto de pie"
-                
-                value="{{$module['foot_text']}}"
+                value="{!!$module->data['foot_text']!!}"
             />
         </div>
         <div class="d-flex flex-row justify-content-end mt-5">

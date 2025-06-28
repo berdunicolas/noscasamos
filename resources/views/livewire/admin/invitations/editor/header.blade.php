@@ -27,7 +27,7 @@
             @endif
 
             @if ($invitation->date)
-                @if ($invitation->validity)
+                @if ($invitation->stillValid())
                     <span class="me-1 badge border text-bg-secondary text-nowrap">No vigente</span>
                 @else
                     <span class="me-1 badge border text-bg-info text-nowrap">Vigente</span>
