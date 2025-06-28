@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ModuleTypeEnum;
+use App\Handlers\FootModuleHandler;
 use App\Handlers\ModuleHandler;
+use App\Handlers\MusicModuleHandler;
 use App\Http\Requests\UpdateModuleRequest;
 use App\Models\Invitation;
 use App\Models\InvitationModule;
@@ -87,8 +89,12 @@ class InvitationModuleApiController extends Controller
 
     public function addModule(Invitation $invitation, Request $request) {
         $module = $request->new_module;
-        $nextIndex = $invitation->modules()->max('index') + 1;
+        $nextIndex = $invitation->modules()->where('type', '!=', FootModuleHandler::TYPE->value)->max('index') + 1;
         $newModule = null;
+
+        $baseModule = null;
+        $baseName = null;
+        $trimName = null;
 
         if (in_array($module, [
             ModuleTypeEnum::INFO->value,
@@ -119,20 +125,14 @@ class InvitationModuleApiController extends Controller
             $baseName .= ($nextNumber > 1 ? ' ' . $nextNumber : '');
             $trimName = str_replace(' ', '_', strtolower($baseName));
 
-            $newModule = new InvitationModule([
-                'type' => $baseModule::TYPE,
-                'name' => $trimName,
-                'display_name' => $baseName,
-                'active' => false,
-                'on_plan' => false,
-                'data' => $baseModule::DATA,
-                'media_collections' => $baseModule::getMediaCollections($invitation->id, $trimName),
-                'index' => $nextIndex,
-            ]);
-
-            $newModule = $invitation->modules()->create($newModule->toArray());
-
         } else {
+            if($module == ModuleTypeEnum::MUSIC->value){
+                $nextIndex = MusicModuleHandler::INDEX;
+                $invitation->modules()
+                    ->where('fixed', false)
+                    ->increment('index');
+            }
+
             if($invitation->modules()->where('type', $module)->exists()){
                 return response()->json(['message' => 'The module ' . $module . ' already exists.'], Response::HTTP_CONFLICT);
             }
@@ -140,21 +140,20 @@ class InvitationModuleApiController extends Controller
             $baseModule = constant('App\Handlers\ModuleHandler::'.$module);
             $baseName = ModuleTypeEnum::getDisplayName($baseModule::TYPE);
             $trimName = str_replace(' ', '_', strtolower($baseName));
-
-            $newModule = new InvitationModule([
-                'type' => $baseModule::TYPE,
-                'name' => $trimName,
-                'display_name' => $baseName,
-                'active' => false,
-                'on_plan' => false,
-                'data' => $baseModule::DATA,
-                'media_collections' => $baseModule::getMediaCollections($invitation->id, $trimName),
-                'index' => $nextIndex,
-            ]);
-
-            $newModule = $invitation->modules()->create($newModule->toArray());
         }
 
+        $newModule = new InvitationModule([
+            'type' => $baseModule::TYPE,
+            'name' => $trimName,
+            'display_name' => $baseName,
+            'fixed' => $baseModule::FIXED,
+            'active' => false,
+            'on_plan' => false,
+            'data' => $baseModule::DATA,
+            'media_collections' => $baseModule::getMediaCollections($invitation->id, $trimName),
+            'index' => $nextIndex,
+        ]);
+        $newModule = $invitation->modules()->create($newModule->toArray());
         $invitation->save();
 
         $newModule->deleteUrl = route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $newModule->id]);

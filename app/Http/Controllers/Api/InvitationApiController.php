@@ -6,6 +6,7 @@ use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
+use App\Handlers\FootModuleHandler;
 use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CloneInvitationRequest;
@@ -78,6 +79,10 @@ class InvitationApiController extends Controller
                 ->map(function ($handler, $index) use ($invitation) {
                     $name = ModuleTypeEnum::getDisplayName($handler::TYPE);
                     $trimName = str_replace(' ', '_', strtolower($name));
+
+                    if($handler::TYPE === FootModuleHandler::TYPE){
+                        $index = FootModuleHandler::INDEX;
+                    }
 
                     return [
                         'type' => $handler::TYPE,

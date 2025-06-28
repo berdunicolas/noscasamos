@@ -9,6 +9,7 @@ class MusicModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::MUSIC;
     const ACTIVE = false;
     const FIXED =  true;
+    const INDEX = 1;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::GOLD->value;
 

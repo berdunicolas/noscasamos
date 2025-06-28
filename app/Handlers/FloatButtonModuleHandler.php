@@ -8,6 +8,7 @@ class FloatButtonModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::FLOAT_BUTTON;
     const ACTIVE = false;
     const FIXED =  true;
+    const INDEX =  2;
     const IS_UNIQUE = true;
     const PLAN = 'default';
     

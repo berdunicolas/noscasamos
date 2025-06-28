@@ -9,6 +9,7 @@ class IntroModuleHandler extends GenericModuleHandler{
     const TYPE = ModuleTypeEnum::INTRO;
     const ACTIVE = false;
     const FIXED =  true;
+    const INDEX = 0;
     const IS_UNIQUE = true;
     const PLAN = PlanTypeEnum::CLÁSICO->value;
 

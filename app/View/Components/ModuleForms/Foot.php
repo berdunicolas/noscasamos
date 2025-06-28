@@ -1,28 +1,26 @@
 <?php
 
-namespace App\View\Components\Modules;
+namespace App\View\Components\ModuleForms;
 
 use App\Models\InvitationModule;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FootModule extends Component
+class Foot extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public InvitationModule $module,
-    ) {
-        $module->load(['invitation', 'invitation.seller']);
-    }
+        public InvitationModule $module
+    ) {}
 
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view('invitations.modules.foot');
+        return view('components.module-forms.foot');
     }
 }
