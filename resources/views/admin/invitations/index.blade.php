@@ -2,18 +2,33 @@
 
     <header class="d-flex flex-row align-items-center" style="height: 105px">
         <h5 class="display-5">Invitaciones</h5>
-        <button class="btn btn-dark rounded-1 font-size-1 font-bold my-2 ms-auto" 
-        data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
-            <span class="mx-3">
-                <i class="fa-light fa-plus-large me-2"></i>Nuevo evento
-            </span>
-        </button>
+        <div class="ms-auto btn-group rounded-1">
+            <button class="btn btn-dark font-size-1 font-bold"
+            data-bs-toggle="modal" data-bs-target="#new-invitation-by-event-modal">
+                <span class="mx-3">
+                    <i class="fa-light fa-plus-large me-2"></i> Nueva invitación
+                </span>
+            </button>
+            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            </button>
+            <ul class="dropdown-menu p-0">
+                <li>
+                    <button class="btn font-size-1 font-bold"
+                    data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
+                        <span class="mx-3">
+                            Nuevo evento
+                        </span>
+                    </button>
+                </li>
+            </ul>
+        </div>
     </header>
     <div>
         <x-table.invitations />
     </div>
     <x-admin.invitations.confirm-delete-modal />
     <x-admin.invitations.confirm-clone-modal />
+    @livewire('table.new-invitation-by-event-modal')
     <x-admin.invitations.new-invitation-modal />
 
     <script>
