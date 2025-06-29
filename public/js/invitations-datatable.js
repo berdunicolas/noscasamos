@@ -271,6 +271,40 @@ function newInvitation(e) {
     .catch(error => console.error('Error:', error));
 }
 
+function newInvitationByEvent(e, form) {
+    e.preventDefault();
+
+    const closeModal = document.getElementById('close-new-invitation-by-event-modal-btn');
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    fetch(form.action, {
+        method: form.method,
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });
+    })
+    .then(async ({statusCode, data}) => {
+        if(statusCode === 201){
+            let id = await data.data.id;
+            window.location = 'invitations/' + id + '/edit';
+        } else {
+            console.error(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 
 // Delete invitation
 let deleteUrl = null;

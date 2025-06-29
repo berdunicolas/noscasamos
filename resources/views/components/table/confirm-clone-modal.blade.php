@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                    <x-form.input-group label="URL de invitación la nueva" labelFor="path_name">
+                    <x-form.input-group label="URL de la nueva invitación" labelFor="path_name">
                         <span class="input-group-text" id="basic-addon3">https://evnt.ar/</span>
                         <x-form.input
                             id="path_name_input"

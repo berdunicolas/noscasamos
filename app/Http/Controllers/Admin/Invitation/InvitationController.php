@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Invitation;
 
 use App\Enums\EventTypeEnum;
 use App\Enums\FontTypeEnum;
-use App\Enums\ModuleTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\SpacingTypeEnum;
 use App\Enums\StyleTypeEnum;

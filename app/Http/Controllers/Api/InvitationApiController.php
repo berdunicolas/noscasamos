@@ -13,6 +13,7 @@ use App\Http\Requests\CloneInvitationRequest;
 use App\Http\Requests\StoreInvitationRequest;
 use App\Http\Requests\SetConfigInvitationRequest;
 use App\Http\Requests\SetStyleInvitationRequest;
+use App\Http\Requests\StoreInvitationByEventRequest;
 use App\Http\Resources\InvitationResource;
 use App\Models\Country;
 use App\Models\Event;
@@ -29,8 +30,6 @@ class InvitationApiController extends Controller
     public function index(): JsonResponse
     {
         $invitations = Invitation::orderBy('event_id', 'desc')->get();
-
-        //dd(Invitation::get());
 
         return response()->json(InvitationResource::collection($invitations), Response::HTTP_OK);
     }
@@ -112,7 +111,81 @@ class InvitationApiController extends Controller
             }
             return response()->json(['message' => 'Error creating invitation'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+    }
 
+    public function storeByEvent(StoreInvitationByEventRequest $request): JsonResponse
+    {
+        $validatedData = $request->validated();
+
+        $event = Event::find($validatedData['event']);
+
+        try {
+            DB::beginTransaction();
+
+            $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+
+            $invitation = Invitation::create([
+                'host_names' => $event->name,
+                'path_name' => $validatedData['path_name'],
+                'event_id' => $event->id,
+                'date' => null,
+                'time_zone' => null,
+                'time' => '20:00:00',
+                'seller_id' => $validatedData['seller'],
+                'password' => $token,
+                'plain_token' => $token,
+                'duration' => 5,
+                'active' => true,
+                'created_by' => auth()->user()->id,
+                'meta_title' => null,
+                'meta_description' => null,
+                'country_id' => null,
+                'country_division' => null,
+                'color' => '#E2BF83',
+                'background_color' => '#F3F1ED',
+                'style' => StyleTypeEnum::LIGHT,
+                'font' => FontTypeEnum::deco,
+                'icon_type' => 'Animado',
+            ]);
+
+            $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::from($event->plan->value)))
+                ->values()
+                ->map(function ($handler, $index) use ($invitation) {
+                    $name = ModuleTypeEnum::getDisplayName($handler::TYPE);
+                    $trimName = str_replace(' ', '_', strtolower($name));
+
+                    if($handler::TYPE === FootModuleHandler::TYPE){
+                        $index = FootModuleHandler::INDEX;
+                    }
+
+                    return [
+                        'type' => $handler::TYPE,
+                        'name' => $trimName,
+                        'display_name' => $name,
+                        'active' => $handler::ACTIVE,
+                        'fixed' => $handler::FIXED,
+                        'on_plan' => true,
+                        'data' => $handler::DATA,
+                        'media_collections' => $handler::getMediaCollections($invitation->id, $trimName),
+                        'index' => $index,
+                    ];
+                });
+   
+            $invitation->modules()->createMany($modules->toArray());
+
+            DB::commit();
+    
+            return response()->json([
+                'message' => 'Invitation created successfully', 
+                'data' => new InvitationResource($invitation->refresh())
+            ], Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            if (config('app.debug')) {
+                return response()->json(['message' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+            return response()->json(['message' => 'Error creating invitation'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     public function setConfig(SetConfigInvitationRequest $request, Invitation $invitation){
