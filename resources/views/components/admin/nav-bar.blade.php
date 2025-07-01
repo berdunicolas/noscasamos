@@ -21,6 +21,7 @@
                 <span>{!! ($selected == 'invitations') ? '<i class="fa-solid fa-envelope-open me-2"></i>' : '<i class="fa-light fa-envelope-open me-2"></i>' !!}<span class="text-nav-link">Invitaciones</span></span>
             </a>
         </li>
+        @if(auth()->user()->isAdmin())
         <li class="nav-item {{ ($selected == 'metrics') ? 'selected' : '' }}">
             <a href="{{route('metrics.index')}}" class="nav-link text-dark btn btn-white rounded-0">
                 <span>{!! ($selected == 'metrics') ? '<i class="fa-solid fa-chart-mixed me-2"></i>' : '<i class="fa-light fa-chart-mixed me-2"></i>' !!}<span class="text-nav-link">Estadisticas</span></span>
@@ -31,8 +32,10 @@
                 <span>{!! ($selected == 'users') ? '<i class="fa-solid fa-user me-2"></i>' : '<i class="fa-light fa-user me-2"></i>' !!}<span class="text-nav-link">Usuarios</span></span>
             </a>
         </li>
+        @endif
     </ul>
     <ul class="nav navbar-nav flex-column mt-auto mb-4 font-size-2">
+        @if(auth()->user()->isAdmin())
         <li class="nav-item {{ ($selected == 'sellers') ? 'selected' : '' }}">
             <a href="{{route('sellers.index')}}" class="nav-link text-dark btn btn-white rounded-0">
                 <span>{!! ($selected == 'sellers') ? '<i class="fa-solid fa-user-tie me-2"></i>' : '<i class="fa-light fa-user-tie me-2"></i>' !!}<span class="text-nav-link">Sellers</span></span>
@@ -43,6 +46,7 @@
                 <span>{!! ($selected == 'settings') ? '<i class="fa-solid fa-gears me-2"></i>' : '<i class="fa-light fa-gears me-2"></i>' !!}<span class="text-nav-link">Ajustes</span></span>
             </a>
         </li>
+        @endif
         <li class="nav-item {{ ($selected == 'user') ? 'selected' : '' }}">
             <a href="{{route('users.show', auth()->user()->id)}}" class="nav-link text-bg-dark btn btn-light rounded-0 user-nav-link">
                 <span>{!! ($selected == 'user') ? '<i class="fa-solid fa-circle-user me-2"></i>' : '<i class="fa-light fa-circle-user me-2"></i>' !!}<span class="text-nav-link">{{auth()->user()->name}}</span></span>

@@ -27,6 +27,7 @@ class MetricsApiController extends Controller
                 plan,
                 COUNT(*) as total
             ")
+            ->forAdvisorFilter()
             ->whereIn(DB::raw('YEAR(created_at)'), $years)
             ->groupBy('month', 'month_number', 'year', 'plan')
             ->orderBy('month_number')
@@ -128,6 +129,7 @@ class MetricsApiController extends Controller
         $data = Invitation::selectRaw("
                 COUNT(*) as total
             ")
+            ->forAdvisorFilter()
             ->where('active', 1)
             ->first();
 

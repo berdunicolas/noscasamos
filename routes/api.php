@@ -28,7 +28,8 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::resource('users', UserApiController::class)->only(['index', 'store', 'show']);
     Route::resource('sellers', SellerApiController::class)->only(['index', 'store', 'show', 'destroy']);
     Route::resource('invitations', InvitationApiController::class)->only(['index', 'store', 'show', 'destroy']);
-    Route::post('invitations', [InvitationApiController::class, 'storeByEvent'])->name('invitations.store-by-event');
+    Route::middleware('role:ADMIN')->resource('invitations', InvitationApiController::class)->only(['destroy']);
+    Route::post('invitations/store-by_event', [InvitationApiController::class, 'storeByEvent'])->name('invitations.store-by-event');
     Route::patch('invitations/{invitation}/set-config', [InvitationApiController::class, 'setConfig'])->name('invitations.set-config');
     Route::patch('invitations/{invitation}/set-style', [InvitationApiController::class, 'setStyle'])->name('invitations.set-style');
     Route::patch('invitations/{invitation}/change-status', [InvitationApiController::class, 'changeStatus'])->name('invitations.change-status');
