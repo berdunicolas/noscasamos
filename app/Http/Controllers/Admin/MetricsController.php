@@ -12,8 +12,8 @@ class MetricsController extends Controller
 {
     public function index(){
         $countries = Country::where('active', 1)->get();
-        $years = Invitation::select(DB::raw("DATE_FORMAT(date, '%Y') as year"))
-            ->where('date', '!=', null)
+        $years = Invitation::select(DB::raw("DATE_FORMAT(created_at, '%Y') as year"))
+            ->where('created_at', '!=', null)
             ->groupBy('year')
             ->orderBy('year', 'desc')
             ->get();
