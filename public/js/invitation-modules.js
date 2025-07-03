@@ -148,6 +148,8 @@ $(document).ready(function () {
                 }).get();
             }
         });
+
+        Livewire.dispatch('updatedInvitationLogs');
     }
 
     window.sortableCoverMobile = null; 
@@ -212,6 +214,7 @@ $(document).ready(function () {
             })
             .then(async ({statusCode, data}) => {
                 if(statusCode === 201){
+                    Livewire.dispatch('updatedInvitationLogs');
                 } else {
                     console.error(data);
                 }
@@ -290,6 +293,7 @@ function statusModuleSwitch(checkbox, module){
     })
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
+            Livewire.dispatch('updatedInvitationLogs');
         } else {
             console.error(data);
         }
@@ -367,6 +371,7 @@ function newModule(e, form){
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
             Livewire.dispatch('newModuleAdded');
+            Livewire.dispatch('updatedInvitationLogs');
             getModules();
 
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
@@ -404,6 +409,7 @@ function deleteModule(button) {
         if (statusCode === 200) {
             if (li) li.remove();
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            Livewire.dispatch('updatedInvitationLogs');
         }else{
             showToast( '<i class="fa-duotone fa-light fa-triangle-exclamation ms-3 me-2"></i>' + data.message);
         }
@@ -537,6 +543,7 @@ function sendModuleForm(e, form, type = '', name = ''){
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            Livewire.dispatch('updatedInvitationLogs');
         } else {
             if(statusCode === 422){
                 mapErrorsToast(data.errors, data.message);

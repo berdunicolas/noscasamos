@@ -12,6 +12,7 @@ use App\Models\InvitationModule;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InvitationModuleApiController extends Controller
@@ -42,6 +43,14 @@ class InvitationModuleApiController extends Controller
             }
         }
 
+        $invitation->logs()->create([
+            'user_id' => Auth::id(),
+            'action' => 'Modulos ordenados',
+            'description' => 'Se cambio el orden de los modulos',
+            'data' => [
+            ],
+        ]);
+
         return response()->json(['message' => 'Order of invitation modules changed successfully'], Response::HTTP_CREATED);
     }
 
@@ -49,6 +58,14 @@ class InvitationModuleApiController extends Controller
 
         $module->active = $request['active'];
         $module->save();
+
+        $invitation->logs()->create([
+            'user_id' => Auth::id(),
+            'action' => $request['active'] ? 'Modulo activado' : 'Modulo desactivado',
+            'description' => 'Modulo ' . $module->display_name . ' ' . $request['active'] ? 'activado' : 'desactivado',
+            'data' => [
+            ],
+        ]);
         
         return response()->json(['message' => 'Invitation module activation changed successfully'], Response::HTTP_CREATED);
     }
@@ -61,6 +78,16 @@ class InvitationModuleApiController extends Controller
 
             $module->data = ModuleHandler::updateModuleHandle($module, $validatedData);
             $module->save();
+
+            $invitation->logs()->create([
+                'user_id' => Auth::id(),
+                'action' => 'Modulo actualizado',
+                'description' => 'Modulo ' . $module->display_name . ' actualizado',
+                'data' => [
+                    'old' => collect($module->getOriginal())->only(array_keys($module->getChanges())),
+                    'new' => $module->getChanges(),
+                ],
+            ]);
 
             DB::commit();
             return response()->json(['message' => 'Module ' . $module->display_name . ' updated successfully.'], Response::HTTP_CREATED);
@@ -81,6 +108,14 @@ class InvitationModuleApiController extends Controller
 
     public function deleteModule(Invitation $invitation, InvitationModule $module) {
         $module->delete();
+
+        $invitation->logs()->create([
+            'user_id' => Auth::id(),
+            'action' => 'Modulo eliminado',
+            'description' => 'Modulo ' . $module->display_name . ' eliminado',
+            'data' => [
+            ],
+        ]);
 
         return response()->json([
             'message' => 'Module ' . $module->display_name . ' deleted successfully.'
@@ -155,6 +190,14 @@ class InvitationModuleApiController extends Controller
         ]);
         $newModule = $invitation->modules()->create($newModule->toArray());
         $invitation->save();
+
+        $invitation->logs()->create([
+            'user_id' => Auth::id(),
+            'action' => 'Modulo añadido',
+            'description' => 'Modulo ' . $newModule->display_name . ' añadido',
+            'data' => [
+            ],
+        ]);
 
         $newModule->deleteUrl = route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $newModule->id]);
 

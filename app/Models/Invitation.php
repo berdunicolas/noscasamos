@@ -107,6 +107,10 @@ class Invitation extends Authenticatable
         return $this->belongsTo(Seller::class, 'seller_id', 'id');
     }
 
+    public function logs(): HasMany
+    {
+        return $this->hasMany(InvitationLog::class, 'invitation_id', 'id');
+    }
 
     public function fechat(): string 
     {

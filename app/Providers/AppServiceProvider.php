@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Invitation;
+use App\Observers\InvitationObserver;
 use App\View\Components\Admin\Invitations\Editor\Header;
 use App\View\Components\Admin\Layout;
 use App\View\Components\Admin\NavBar;

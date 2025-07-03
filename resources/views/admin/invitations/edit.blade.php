@@ -341,6 +341,20 @@
             </div>
             <div class="tab-form px-3 visually-hidden" id="logs-form">
                 <h4 class="py-2">Logs</h4>
+                <div class="h-100 overflow-auto" style="height: 500px; max-height: 500px !important">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Acción</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Fecha y hora</th>
+                            </tr>
+                        </thead>
+                        @livewire('admin.invitations.editor.logs', ['invitation' => $invitation->id])
+                    </table>
+                </div>
             </div>
         </div>
     </div>

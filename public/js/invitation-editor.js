@@ -127,6 +127,7 @@ function saveInvitationChanges(e, form) {
     .then(({statusCode, data}) => {
         if(statusCode === 201){
             Livewire.dispatch('updatedInvitation');
+            Livewire.dispatch('updatedInvitationLogs');
             if(actualForm === 'configuration-form') {
                 document.getElementById('save-config-btn').setAttribute('disabled', 'disabled');
             } 
