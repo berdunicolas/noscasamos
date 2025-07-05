@@ -10,9 +10,9 @@
     ]"
     >
     
-    <header class="d-flex flex-row justify-content-between align-items-center" style="height: 105px">
+    <header class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center" style="min-height: 105px">
         <h5 class="display-5">Dashboard</h5>
-        <div class="p-2 d-flex flex-row justify-content-end">
+        <div class="p-2 d-flex flex-column justify-content-end flex-sm-row">
             <div class="shadow border-0 rounded-3 ms-3 p-2">
                 <div class="text-end px-3 inline-block">
                     <div class="d-flex flex-row justify-content-between align-items-center">
@@ -25,15 +25,15 @@
                             <h4 id="active-invitations" class="m-0">
                                 --
                             </h4>
-                            <p class="m-0">
+                            <p class="m-0 text-nowrap">
                                 Invitaciones activas
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="shadow border-0 ms-3">
-                <button class="btn btn-dark rounded-3 p-2" data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
+            <div class="shadow border-0 ms-3 mt-sm-0 mt-3">
+                <button class="btn btn-dark rounded-3 p-2 w-100" data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
                     <div class="text-end px-3 inline-block">
                         <div class="d-flex flex-row justify-content-between align-items-center">
                             <div class="me-4">
@@ -42,10 +42,10 @@
                                 </h5>
                             </div>
                             <div>
-                                <h4 class="m-0">
+                                <h4 class="m-0 text-nowrap">
                                     Crear invitacion
                                 </h4>
-                                <p class="m-0">
+                                <p class="m-0 text-nowrap">
                                     A partir de un evento
                                 </p>
                             </div>

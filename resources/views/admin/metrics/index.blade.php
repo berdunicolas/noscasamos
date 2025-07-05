@@ -75,7 +75,7 @@
 
         </div>
         <div class="row">
-            <div class="col-6 p-2">
+            <div class="col-12 col-lg-6 p-2">
                 <div class="card shadow border-0">
                     <div class="card-body">
                         <div class="d-flex flex-row justify-content-between flex-wrap">
@@ -132,7 +132,7 @@
                 </div>
             </div>
         
-            <div class="col-6 p-2">
+            <div class="col-12 col-lg-6 p-2">
                 <div class="card shadow border-0">
                     <div class="card-body">
                         <div class="d-flex flex-row justify-content-between flex-wrap">

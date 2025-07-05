@@ -14,8 +14,8 @@
     <script src="https://kit.fontawesome.com/24d21a37ec.js" crossorigin="anonymous"></script>
 
     @if($datatable)
-        <link rel="stylesheet" href="{{ asset('inspinia/plugins/datatables/css/dataTables.bootstrap5.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('inspinia/plugins/datatables/css/buttons.bootstrap5.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('inspinia/plugins/datatables/css/datatables.min.css') }}">
+        {{--<link rel="stylesheet" href="{{ asset('inspinia/plugins/datatables/css/buttons.bootstrap5.min.css') }}">--}}
     @endif
 
     @foreach ($cssStyles as $style)
@@ -23,9 +23,9 @@
     @endforeach
 </head>
 <body>
-    <div class="d-flex">
+    <div class="d-flex flex-column flex-md-row">
         <x-admin.nav-bar :selected="$navBarSelected" />
-        <main class="content {{($overflowHidden) ? 'overflow-hidden h-100' : ''}}">
+        <main class="content container-xxl w-100 {{($overflowHidden) ? 'overflow-hidden h-100' : ''}}">
             {{ $slot }}
         </main>
     </div>
@@ -67,7 +67,7 @@
     <script src="{{ asset('inspinia/plugins/jquery/js/jquery.min.js') }}"></script>
 
     <!-- DataTables Core -->
-    <script src="{{ asset('inspinia/plugins/datatables/js/dataTables.min.js') }}"></script>
+    <script src="{{ asset('inspinia/plugins/datatables/js/datatables.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/datatables/js/dataTables.bootstrap5.min.js') }}"></script>
 
     <!-- DataTables Buttons & Dependencies -->

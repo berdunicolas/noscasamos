@@ -3,7 +3,7 @@
 
     <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <x-form.input
                     name="pre_tittle"
                     label="Ante título"
@@ -12,7 +12,7 @@
                     value="{{$module->data['pre_tittle']}}"
                 />
             </div>
-            <div class="col-6">
+            <div class="col-12 col-xl-6">
                 <x-form.input
                     name="tittle"
                     label="Título"
@@ -37,7 +37,7 @@
         </div>
         @foreach ($suggestions as $key => $suggestion)            
             <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                     <x-form.input
                         name="{{'suggestion_' . ($key+1)}}"
                         label="Sugerencia {{$key+1}}"
@@ -46,7 +46,7 @@
                         value="{{$suggestion['suggestion_' . ($key+1)]}}"
                     />
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-xl-6">
                     <x-form.input-group label="Link sugerencia {{$key+1}}">
                         <span class="input-group-text">https://</span>
                         <x-form.input

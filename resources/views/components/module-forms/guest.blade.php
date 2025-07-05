@@ -12,7 +12,7 @@
             />
         </div>
         <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <x-form.input
                     name="icon"
                     label="Icono"
@@ -21,7 +21,7 @@
                     value="{{$module->data['icon']}}"
                 />
             </div>
-            <div class="col-6">
+            <div class="col-12 col-xl-6">
                 <x-form.input
                     name="signs"
                     label="Indicaciones de personas"

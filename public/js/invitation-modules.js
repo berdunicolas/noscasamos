@@ -224,6 +224,67 @@ $(document).ready(function () {
     });
 });
 
+
+document.querySelector('#invitation-modules').addEventListener('click', function (e) {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+
+    const item = btn.closest('.item-module');
+    if (!item || item.classList.contains('fixed-module')) return;
+
+    const parent = item.parentElement;
+    const isLeft = btn.querySelector('.fa-chevron-left');
+    const isRight = btn.querySelector('.fa-chevron-right');
+
+    if (isLeft) {
+        const prev = item.previousElementSibling;
+        if (prev && !prev.classList.contains('fixed-module')) {
+            parent.insertBefore(item, prev);
+            updateOrder();
+        }
+    }
+
+    if (isRight) {
+        const next = item.nextElementSibling;
+        if (next) {
+            parent.insertBefore(next, item);
+            updateOrder();
+        }
+    }
+});
+
+// Función para enviar el nuevo orden al backend
+function updateOrder() {
+    const order = Array.from(document.querySelectorAll('#invitation-modules .item-module'))
+        .map(el => el.dataset.moduleId);
+
+    fetch(window.INVITATION_MODULES_URL + '/change-order', {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ order: order })
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return { statusCode, data };
+    })
+    .then(({ statusCode, data }) => {
+        if (statusCode === 201) {
+            Livewire.dispatch('updatedInvitationLogs');
+        } else {
+            console.error(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
 function getModules(){
     fetch(window.INVITATION_MODULES_URL, {
         method: 'GET',

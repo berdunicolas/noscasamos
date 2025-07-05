@@ -132,13 +132,13 @@
             <div class="ms-2 col-3 form-check form-switch">
                 <input class="form-check-input" onchange="checkboxSwitch(this, 'active_header')" type="checkbox" role="switch" {{$module->data['active_header'] ? 'checked' : ''}}>
                 <input type="text" hidden name="active_header" id="active_header" value="{{$module->data['active_header'] ? 1 : 0}}">
-                <label class="form-check-label" for="">Usar cabecera</label>
+                <label class="form-check-label text-nowrap" for="">Usar cabecera</label>
             </div>
         </div>
         
         
         <div class="row mb-3">
-            <div class="col-8">
+            <div class="col-12 col-xl-8 mb-3 mb-xl-0">
                 <x-form.input
                     name="names"
                     label="Nombres"
@@ -146,7 +146,7 @@
                     
                 />
             </div>
-            <div class="col-4">
+            <div class="col-12 col-xl-4">
                 <x-form.color-picker
                     id="text-color-cover"
                     name="text_color_cover"
@@ -156,7 +156,7 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-4">
+            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                 <x-form.input
                     name="tittle"
                     label="Titulo"
@@ -164,7 +164,7 @@
                     
                 />
             </div>
-            <div class="col-8">
+            <div class="col-12 col-xl-8">
                 <x-form.input
                     name="detail"
                     label="Bajada"
@@ -175,7 +175,7 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <div class="form-check form-switch">
                     <input class="form-check-input" onchange="checkboxSwitch(this, 'active_logo')" type="checkbox" role="switch" {{$module->data['active_logo'] ? 'checked' : ''}}>
                     <input type="text" hidden name="active_logo" id="active_logo" value="{{$module->data['active_logo'] ? 1 : 0}}">
@@ -193,7 +193,7 @@
                     @json( [$module->name => ['logo_cover' => $module->data['logo_cover']]])
                 </p>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-xl-6">
                 <div class="form-check form-switch">
                     <input class="form-check-input" onchange="checkboxSwitch(this, 'active_central')" type="checkbox" role="switch" {{$module->data['active_central'] ? 'checked' : ''}}>
                     <input type="text" hidden name="active_central" id="active_central" value="{{$module->data['active_central'] ? 1 : 0}}">

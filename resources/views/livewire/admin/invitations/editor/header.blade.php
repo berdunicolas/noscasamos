@@ -1,47 +1,72 @@
-<div class="d-flex flex-row justify-items-between overflow-x-hidden w-100" style="height: 12vh;">
-    <div>
-        <h5 class="display-5">{{$invitation->event->name}}</h5>
-        <div class="overflow-x-auto w-100 d-flex flex-nowrap">
-            <span class="me-3 text-nowrap"><i class="fa-light fa-hashtag"></i> {{$invitation->id}}</span>
-            <span class="me-3 text-nowrap"><i class="fa-light fa-calendar"></i> {{($invitation->date) ? $invitation->date : 'Sin Fecha' }}</span>
-            
-            <span class="me-1 badge text-bg-primary text-nowrap">{{$invitation->event->event}}</span>
-            
-            @switch($invitation->event->plan->value)
-                @case('Clásico')
-                    <span class="me-1 badge text-bg-info text-nowrap">{{$invitation->event->plan}}</span>
-                    @break
-                @case('Gold')
-                    <span class="me-1 badge text-bg-warning text-nowrap">{{$invitation->event->plan}}</span>
-                    @break
-                @case('Platino')
-                    <span class="me-1 badge text-bg-secondary text-nowrap">{{$invitation->event->plan}}</span>
-                    @break
-                @default
-            @endswitch
+<div class="d-flex flex-row justify-items-between overflow-x-hidden overflow-y-visible w-100" style="height: 14vh;">
+    <div class="w-100">
+        <div class="d-flex flex-nowrap">
+            <div>
+                <h5 class="display-5">{{$invitation->event->name}}</h5>
+            </div>
+            <div class="ms-auto d-none d-xl-flex flex-nowrap justify-content-center align-items-start">
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#linkModal"><span class="mx-3"><i class="fa-light fa-share me-2"></i>Compartir</span></button>
+                <button class="btn btn-outline-dark ms-1"  data-bs-toggle="modal" data-bs-target="#invitadosModal"><span class="mx-3"><i class="fa-light fa-users me-2"></i>Invitados</span></button>
+                <a class="btn btn-dark ms-1" href="{{route('invitation', ['invitation' => $invitation->path_name])}}" target="_blank"><span class="mx-3"><i class="fa-light fa-eye me-2"></i>Ver invitación</span></a>
+            </div>
 
-            @if ($invitation->active)
-                <span class="me-1 badge text-bg-success text-nowrap">Activo</span>
-            @else
-                <span class="me-1 badge text-bg-danger text-nowrap">No activo</span>
-            @endif
-
-            @if ($invitation->date)
-                @if ($invitation->stillValid())
-                    <span class="me-1 badge border text-bg-secondary text-nowrap">No vigente</span>
+            <div class="ms-auto d-block d-xl-none">
+                <div class="btn-group">
+                    <a class="btn btn-dark d-none d-sm-block" href="{{route('invitation', ['invitation' => $invitation->path_name])}}" target="_blank"><span class="mx-3"><i class="fa-light fa-eye me-2"></i>Ver invitación</span></a>
+                    <a class="btn btn-dark d-block d-sm-none rounded-start-2" href="{{route('invitation', ['invitation' => $invitation->path_name])}}" target="_blank"><span><i class="fa-light fa-eye"></i></span></a>
+                    <button class="btn btn-dark dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            
+                    <ul class="dropdown-menu dropdown-menu-end overflow-visible z-3" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <button class="btn dropdown-item" data-bs-toggle="modal" data-bs-target="#linkModal"><span class="mx-3"><i class="fa-light fa-share me-2"></i>Compartir</span></button>
+                        </li>
+                        <li>
+                            <button class="btn dropdown-item"  data-bs-toggle="modal" data-bs-target="#invitadosModal"><span class="mx-3"><i class="fa-light fa-users me-2"></i>Invitados</span></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap align-items-center">
+            <div class="d-flex flex-nowrap">
+                <span class="me-3 text-nowrap"><i class="fa-light fa-hashtag"></i> {{$invitation->id}}</span>
+                <span class="me-3 text-nowrap"><i class="fa-light fa-calendar"></i> {{($invitation->date) ? $invitation->date : 'Sin Fecha' }}</span>
+            </div>
+            <div class="d-flex flex-nowrap">
+                <span class="me-1 badge text-bg-primary text-nowrap">{{$invitation->event->event}}</span>
+                
+                @switch($invitation->event->plan->value)
+                    @case('Clásico')
+                        <span class="me-1 badge text-bg-info text-nowrap">{{$invitation->event->plan}}</span>
+                        @break
+                    @case('Gold')
+                        <span class="me-1 badge text-bg-warning text-nowrap">{{$invitation->event->plan}}</span>
+                        @break
+                    @case('Platino')
+                        <span class="me-1 badge text-bg-secondary text-nowrap">{{$invitation->event->plan}}</span>
+                        @break
+                    @default
+                @endswitch
+    
+                @if ($invitation->active)
+                    <span class="me-1 badge text-bg-success text-nowrap">Activo</span>
                 @else
-                    <span class="me-1 badge border text-bg-info text-nowrap">Vigente</span>
+                    <span class="me-1 badge text-bg-danger text-nowrap">No activo</span>
                 @endif
-            @endif
-            <span class="me-1 badge border border-black text-black text-nowrap">{{$invitation->seller->name}}</span>    
+    
+                @if ($invitation->date)
+                    @if ($invitation->stillValid())
+                        <span class="me-1 badge border text-bg-secondary text-nowrap">No vigente</span>
+                    @else
+                        <span class="me-1 badge border text-bg-info text-nowrap">Vigente</span>
+                    @endif
+                @endif
+                <span class="me-1 badge border border-black text-black text-nowrap">{{$invitation->seller->name}}</span>    
+            </div>
         </div>
 
     </div>
-    <div class="ms-auto">
-        <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#linkModal"><span class="mx-3"><i class="fa-light fa-share me-2"></i>Compartir</span></button>
-        <button class="btn btn-outline-dark"  data-bs-toggle="modal" data-bs-target="#invitadosModal"><span class="mx-3"><i class="fa-light fa-users me-2"></i>Invitados</span></button>
-        <a class="btn btn-dark" href="{{route('invitation', ['invitation' => $invitation->path_name])}}" target="_blank"><span class="mx-3"><i class="fa-light fa-eye me-2"></i>Ver invitación</span></a>
-    </div>
+
     <div class="modal fade" id="linkModal" tabindex="-1" aria-labelledby="linkModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

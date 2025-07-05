@@ -7,7 +7,6 @@
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th data-hide="phone,tablet">Role</th>
-                    <th data-hide="phone,tablet">Activo</th>
                     <th data-hide="phone,tablet">Acción</th>
                 </tr>
             </thead>

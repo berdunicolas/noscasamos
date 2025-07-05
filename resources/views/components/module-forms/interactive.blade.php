@@ -15,7 +15,7 @@
                 <div id="collapse-spotify-form" class="accordion-collapse collapse {{$module->data['spotify']['active'] ? 'show' : ''}}">
                     <div class="accordion-body">
                         <div class="row mb-3">
-                            <div class="col-9">
+                            <div class="col-8 col-xl-9">
                                 <x-form.input
                                     name="spotify_icon"
                                     label="Icono"
@@ -23,7 +23,7 @@
                                     value="{{$module->data['spotify']['icon']}}"
                                 />
                             </div>
-                            <div class="col-3">
+                            <div class="col-4 col-xl-3">
                                 <x-form.input
                                     name="spotify_order"
                                     label="Orden"
@@ -45,7 +45,7 @@
                             <textarea name="spotify_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['spotify']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <div class="mb-3">
                                     <x-form.input
                                         name="spotify_button_text"
@@ -55,7 +55,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <x-form.input-group label="Url botton">
                                     <span class="input-group-text" id="basic-addon3">https://</span>
                                     <x-form.input
@@ -80,7 +80,7 @@
                 <div id="collapse-hashtag-form" class="accordion-collapse collapse {{$module->data['hashtag']['active'] ? 'show' : ''}}" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="row mb-3">
-                            <div class="col-9">
+                            <div class="col-8 col-xl-9">
                                 <x-form.input
                                     name="hashtag_icon"
                                     label="Icono"
@@ -88,7 +88,7 @@
                                     value="{{$module->data['hashtag']['icon']}}"
                                 />
                             </div>
-                            <div class="col-3">
+                            <div class="col-4 col-xl-3">
                                 <x-form.input
                                     name="hashtag_order"
                                     label="Orden"
@@ -110,7 +110,7 @@
                             <textarea name="hashtag_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['hashtag']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <div class="mb-3">
                                     <x-form.input
                                         name="hashtag_button_text"
@@ -120,7 +120,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <x-form.input-group label="Url botton">
                                     <span class="input-group-text">https://</span>
                                     <x-form.input
@@ -145,7 +145,7 @@
                 <div id="collapse-instagram-form" class="accordion-collapse collapse {{$module->data['ig']['active'] ? 'show' : ''}}" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="row mb-3">
-                            <div class="col-9">
+                            <div class="col-8 col-xl-9">
                                 <x-form.input
                                     name="ig_icon"
                                     label="Icono"
@@ -154,7 +154,7 @@
                                     value="{{$module->data['ig']['icon']}}"
                                 />
                             </div>
-                            <div class="col-3">
+                            <div class="col-4 col-xl-3">
                                 <x-form.input
                                     name="ig_order"
                                     label="Orden"
@@ -178,7 +178,7 @@
                             <textarea name="ig_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['ig']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <div class="mb-3">
                                     <x-form.input
                                         name="ig_button_text"
@@ -188,7 +188,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <x-form.input-group label="Url botton">
                                     <span class="input-group-text">https://</span>
                                     <x-form.input
@@ -213,7 +213,7 @@
                 <div id="collapse-link-form" class="accordion-collapse collapse {{$module->data['link']['active'] ? 'show' : ''}}" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="row mb-3">
-                            <div class="col-9">
+                            <div class="col-8 col-xl-9">
                                 <x-form.input
                                     name="link_icon"
                                     label="Icono"
@@ -221,7 +221,7 @@
                                     value="{{$module->data['link']['icon']}}"
                                 />
                             </div>
-                            <div class="col-3">
+                            <div class="col-4 col-xl-3">
                                 <x-form.input
                                     name="link_order"
                                     label="Orden"
@@ -245,7 +245,7 @@
                             <textarea name="link_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['link']['text']}}</textarea>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <div class="mb-3">
                                     <x-form.input
                                         name="link_button_text"
@@ -256,7 +256,7 @@
                                     />
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <x-form.input-group label="Url botton">
                                     <span class="input-group-text">https://</span>
                                     <x-form.input

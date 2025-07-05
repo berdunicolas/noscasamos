@@ -12,7 +12,7 @@
             />
         </div>
         <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <x-form.input
                     name="pre_tittle"
                     label="Antetitulo"
@@ -21,7 +21,7 @@
                     value="{{$module->data['pre_tittle']}}"
                 />
             </div>
-            <div class="col-6">
+            <div class="col-12 col-xl-6">
                 <x-form.input
                     name="tittle"
                     label="Titulo"

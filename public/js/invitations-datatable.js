@@ -17,6 +17,12 @@ function renderDatatable(){
                 withCredentials: true
             }
         },
+        responsive: {
+            details: {
+                type: 'column',
+                target: 'tr' // despliega al hacer clic en toda la fila
+            }
+        },
         columns: [
             { data: 'id' },
             { 
@@ -130,6 +136,12 @@ function renderDatatable(){
                 }
             },
         ],
+        columnDefs: [
+            {
+                className: 'dtr-control',
+                targets: 0 // o cualquier otra columna como "nombre"
+            }
+        ],
         order: {
             name: 'nombre',
             dir: 'desc'
@@ -147,10 +159,10 @@ function renderDatatable(){
                 next: '<i class="fa-light fa-chevron-right"></i>',
                 previous: '<i class="fa-light fa-chevron-left"></i>'
             }
-        },
+        },/*
         dom: "<'row mb-2'<'col-sm-6'B><'col-sm-6'f>>" +
         "<'row'<'col-sm-12'tr>>" +
-        "<'row mt-2'<'col-sm-12 d-flex justify-content-between'<'mr-3'i><'ml-auto'p>>",
+        "<'row mt-2'<'col-sm-12 d-flex justify-content-between'<'mr-3'i><'ml-auto'p>>",*/
         buttons: [
             {
                 header: false,
