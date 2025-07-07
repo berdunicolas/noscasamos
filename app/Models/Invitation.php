@@ -9,6 +9,7 @@ use App\Enums\ModuleTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Traits\HasMedia;
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -42,7 +43,8 @@ class Invitation extends Authenticatable
         'color',
         'background_color',
         'was_disabled',
-        'is_legacy'
+        'is_legacy',
+        'created_at',
     ];
 
     protected $hidden = [
@@ -105,6 +107,10 @@ class Invitation extends Authenticatable
         return $this->belongsTo(Seller::class, 'seller_id', 'id');
     }
 
+    public function logs(): HasMany
+    {
+        return $this->hasMany(InvitationLog::class, 'invitation_id', 'id');
+    }
 
     public function fechat(): string 
     {
@@ -134,5 +140,13 @@ class Invitation extends Authenticatable
     public function frameImg(): string{
         $frameImg = $this->media('frame_img')->first()?->getMediaUrl();
         return $frameImg ?? '';
+    }
+
+    public function scopeForAdvisorFilter(Builder $query): Builder
+    {
+        if (auth()->user()->roles->where('name', 'ADVISOR')->isNotEmpty()) {
+            return $query->where('created_by', auth()->user()->id);
+        }
+        return $query;
     }
 }

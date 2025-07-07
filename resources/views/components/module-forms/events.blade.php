@@ -13,7 +13,7 @@
                 <div id="collapse-civil-form" class="accordion-collapse collapse {{$events['civil']['active'] ? 'show' : ''}}" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="row mb-3">
-                            <div class="col-5">
+                            <div class="col-12 col-xl-5 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="civil_event"
                                     label="Evento"
@@ -21,7 +21,7 @@
                                     value="{{$events['civil']['event']}}"
                                 />
                             </div>
-                            <div class="col-5">
+                            <div class="col-8 col-xl-5">
                                 <x-form.input
                                     name="civil_icon"
                                     label="Icono"
@@ -29,7 +29,7 @@
                                     value="{{$events['civil']['icon']}}"
                                 />
                             </div>
-                            <div class="col-2">
+                            <div class="col-4 col-xl-2">
                                 <x-form.input
                                     name="civil_order"
                                     label="Orden"
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="civil_date"
                                     label="Fecha"
@@ -47,7 +47,7 @@
                                     value="{{$events['civil']['date']}}"
                                 />
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="civil_time"
                                     label="Hora"
@@ -55,7 +55,7 @@
                                     value="{{$events['civil']['time']}}"
                                 />
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4">
                                 <x-form.input
                                     name="civil_hr_translation"
                                     label="Hs texto"
@@ -96,7 +96,7 @@
                             </p>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <x-form.input-group label="Url botón" >
                                     <span class="input-group-text">https://</span>
                                     <x-form.input
@@ -106,7 +106,7 @@
                                     />
                                 </x-form.input-group>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <div class="mb-3">
                                     <x-form.input
                                         name="civil_button_text"
@@ -131,7 +131,7 @@
                 <div id="collapse-ceremony-form" class="accordion-collapse collapse {{$events['ceremony']['active'] ? 'show' : ''}}" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="row mb-3">
-                            <div class="col-5">
+                            <div class="col-12 col-xl-5 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="ceremony_event"
                                     label="Evento"
@@ -139,7 +139,7 @@
                                     value="{{$events['ceremony']['event']}}"
                                 />
                             </div>
-                            <div class="col-5">
+                            <div class="col-8 col-xl-5">
                                 <x-form.input
                                     name="ceremony_icon"
                                     label="Icono"
@@ -147,7 +147,7 @@
                                     value="{{$events['ceremony']['icon']}}"
                                 />
                             </div>
-                            <div class="col-2">
+                            <div class="col-4 col-xl-2">
                                 <x-form.input
                                     name="ceremony_order"
                                     label="Orden"
@@ -157,7 +157,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="ceremony_date"
                                     label="Fecha"
@@ -165,7 +165,7 @@
                                     value="{{$events['ceremony']['date']}}"
                                 />
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="ceremony_time"
                                     label="Hora"
@@ -173,7 +173,7 @@
                                     value="{{$events['ceremony']['time']}}"
                                 />
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4">
                                 <x-form.input
                                     name="ceremony_hr_translation"
                                     label="Hs texto"
@@ -214,7 +214,7 @@
                             </p>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <x-form.input-group label="Url botón" >
                                     <span class="input-group-text">https://</span>
                                     <x-form.input
@@ -224,7 +224,7 @@
                                     />
                                 </x-form.input-group>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <div class="mb-3">
                                     <x-form.input
                                         name="ceremony_button_text"
@@ -249,7 +249,7 @@
                 <div id="collapse-party-form" class="accordion-collapse collapse {{$events['party']['active'] ? 'show' : ''}}" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="row mb-3">
-                            <div class="col-5">
+                            <div class="col-12 col-xl-5 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="party_event"
                                     label="Evento"
@@ -257,7 +257,7 @@
                                     value="{{$events['party']['event']}}"
                                 />
                             </div>
-                            <div class="col-5">
+                            <div class="col-8 col-xl-5">
                                 <x-form.input
                                     name="party_icon"
                                     label="Icono"
@@ -265,7 +265,7 @@
                                     value="{{$events['party']['icon']}}"
                                 />
                             </div>
-                            <div class="col-2">
+                            <div class="col-4 col-xl-2">
                                 <x-form.input
                                     name="party_order"
                                     label="Orden"
@@ -275,7 +275,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="party_date"
                                     label="Fecha"
@@ -283,7 +283,7 @@
                                     value="{{$events['party']['date']}}"
                                 />
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="party_time"
                                     label="Hora"
@@ -291,7 +291,7 @@
                                     value="{{$events['party']['time']}}"
                                 />
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-xl-4">
                                 <x-form.input
                                     name="party_hr_translation"
                                     label="Hs texto"
@@ -332,7 +332,7 @@
                             </p>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <x-form.input-group label="Url botón" >
                                     <span class="input-group-text">https://</span>
                                     <x-form.input
@@ -342,7 +342,7 @@
                                     />
                                 </x-form.input-group>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <div class="mb-3">
                                     <x-form.input
                                         name="party_button_text"
@@ -367,7 +367,7 @@
                 <div id="collapse-dresscode-form" class="accordion-collapse collapse {{$events['dresscode']['active'] ? 'show' : ''}}" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         <div class="row mb-3">
-                            <div class="col-5">
+                            <div class="col-12 col-xl-5 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="dresscode_event"
                                     label="Evento"
@@ -375,7 +375,7 @@
                                     value="{{$events['dresscode']['event']}}"
                                 />
                             </div>
-                            <div class="col-5">
+                            <div class="col-8 col-xl-5">
                                 <x-form.input
                                     name="dresscode_icon"
                                     label="Icono"
@@ -383,7 +383,7 @@
                                     value="{{$events['dresscode']['icon']}}"
                                 />
                             </div>
-                            <div class="col-2">
+                            <div class="col-4 col-xl-2">
                                 <x-form.input
                                     name="dresscode_order"
                                     label="Orden"
@@ -424,7 +424,7 @@
                             </p>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <x-form.input-group label="Url botón" >
                                     <span class="input-group-text">https://</span>
                                     <x-form.input
@@ -434,7 +434,7 @@
                                     />
                                 </x-form.input-group>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <div class="mb-3">
                                     <x-form.input
                                         name="dresscode_button_text"

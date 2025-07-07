@@ -3,7 +3,7 @@
 
     <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <x-form.input
                     name="pre_tittle"
                     label="Antetitulo"
@@ -12,7 +12,7 @@
                     value="{{$module->data['pre_tittle']}}"
                 />
             </div>
-            <div class="col-6">
+            <div class="col-12 col-xl-6">
                 <div class="mb-3">
                     <x-form.input
                         name="tittle"
@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-4">
+            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                 <x-form.input
                     id="video_id"
                     name="video_id"
@@ -36,12 +36,16 @@
                     extraAttributes="onchange=changeVideoId(this)"
                 />
             </div>
-            <div class="col-4">
+            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                 <x-form.select
                     name="type_video"
                     label="Tipo de video"
                     extraAttributes="onchange=changePlayerFrame(this)"
                 >
+                    <x-form.select-option
+                        value=""
+                        label="Elige un servicio"
+                    />
                     <x-form.select-option
                         value="Youtube"
                         label="Youtube"
@@ -54,12 +58,16 @@
                     />
                 </x-form.select>
             </div>
-            <div class="col-4">
+            <div class="col-12 col-xl-4">
                 <x-form.select
                     name="format"
                     label="Formato"
                     extraAttributes="onchange=changePlayerDirection(this)"
                 >
+                    <x-form.select-option
+                        value=""
+                        label="Elige un formato"
+                    />
                     <x-form.select-option
                         value="Horizontal"
                         label="Horizontal"

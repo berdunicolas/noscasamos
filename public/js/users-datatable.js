@@ -17,18 +17,29 @@ function renderDatatable(){
                 withCredentials: true
             }
         },
+        responsive: {
+            details: {
+                type: 'column',
+                target: 'tr' // despliega al hacer clic en toda la fila
+            }
+        },
         columns: [
             { data: 'id' },
             { data: 'name' },
-            { data: 'email' },
+            { data: 'email', title: 'Correo', resposivePriority: 10001 },
             { data: 'role' }, 
-            { data: 'active'},
             { 
                 data: 'url_item',
                 render: function(data) {
                     return `<a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
                             <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${data}')"><i class="fa-light fa-trash"></i></button>`;
                 }
+            }
+        ],
+        columnDefs: [
+            {
+                className: 'dtr-control',
+                targets: 0 // o cualquier otra columna como "nombre"
             }
         ],
         language: {

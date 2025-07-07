@@ -1,5 +1,5 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
-    <h4>Información del invitado</h4>
+    <h4>Guardar la fecha</h4>
 
     <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
         <div class="mb-3">
@@ -12,7 +12,7 @@
             />
         </div>
         <div class="row mb-3">
-            <div class="col-6">
+            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <x-form.input
                     name="icon"
                     label="Icono botón"
@@ -21,7 +21,7 @@
                     value="{{$module->data['icon']}}"
                 />
             </div>
-            <div class="col-6">
+            <div class="col-12 col-xl-6">
                 <x-form.input
                     name="text_button"
                     label="Texto botón"
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-3">
+            <div class="col-6 col-xl-3 mb-3 mb-xl-0">
                 <x-form.input
                     name="days_tanslation"
                     label="Días"
@@ -48,7 +48,7 @@
                     value="{{$module->data['days_tanslation']}}"
                 />
             </div>
-            <div class="col-3">
+            <div class="col-6 col-xl-3 mb-3 mb-xl-0">
                 <x-form.input
                     name="hr_tanslation"
                     label="Hs"
@@ -57,7 +57,7 @@
                     value="{{$module->data['hr_tanslation']}}"
                 />
             </div>
-            <div class="col-3">
+            <div class="col-6 col-xl-3">
                 <x-form.input
                     name="min_translation"
                     label="Min"
@@ -66,7 +66,7 @@
                     value="{{$module->data['min_translation']}}"
                 />
             </div>
-            <div class="col-3">
+            <div class="col-6 col-xl-3">
                 <x-form.input
                     name="sec_translation"
                     label="Seg"

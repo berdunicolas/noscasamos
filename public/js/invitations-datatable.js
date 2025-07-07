@@ -17,6 +17,12 @@ function renderDatatable(){
                 withCredentials: true
             }
         },
+        responsive: {
+            details: {
+                type: 'column',
+                target: 'tr' // despliega al hacer clic en toda la fila
+            }
+        },
         columns: [
             { data: 'id' },
             { 
@@ -89,29 +95,52 @@ function renderDatatable(){
                            </div>
                         `;
                     } else {
-                        acctions = `
-                           <span class="visually-hidden">${row.active ? 'activo' : 'inactivo'}</span>
-                           <div class="form-check form-switch">
-                               <input class="form-check-input" type="checkbox" role="switch" id="invitation-trigger" onChange="changeInvitationStatus(this, '${data}')" ${row.active ? 'checked' : ''}>
-                               <a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
-                               <button class="btn btn-sm btn-outline-success" 
-                                   id="invitation-cloner-${row.id}" 
-                                   data-url="${data}" 
-                                   data-id="invitation-cloner-${row.id}" 
-                                   data-bs-toggle="modal" 
-                                   data-bs-target="#confirmcloneModal"
-                               ><i class="fa-light fa-clone"></i></button>
-                               <button class="btn btn-sm btn-outline-danger" 
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#confirmDeleteModal"
-                                   data-url="${data}"
-                               ><i class="fa-light fa-trash"></i></button>
-                           </div>
-                       `;
+                        if(row.can_delete){
+                            acctions = `
+                               <span class="visually-hidden">${row.active ? 'activo' : 'inactivo'}</span>
+                               <div class="form-check form-switch">
+                                   <input class="form-check-input" type="checkbox" role="switch" id="invitation-trigger" onChange="changeInvitationStatus(this, '${data}')" ${row.active ? 'checked' : ''}>
+                                   <a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
+                                   <button class="btn btn-sm btn-outline-success" 
+                                       id="invitation-cloner-${row.id}" 
+                                       data-url="${data}" 
+                                       data-id="invitation-cloner-${row.id}" 
+                                       data-bs-toggle="modal" 
+                                       data-bs-target="#confirmcloneModal"
+                                   ><i class="fa-light fa-clone"></i></button>
+                                   <button class="btn btn-sm btn-outline-danger" 
+                                       data-bs-toggle="modal"
+                                       data-bs-target="#confirmDeleteModal"
+                                       data-url="${data}"
+                                   ><i class="fa-light fa-trash"></i></button>
+                               </div>
+                           `;
+                        } else {
+                            acctions = `
+                               <span class="visually-hidden">${row.active ? 'activo' : 'inactivo'}</span>
+                               <div class="form-check form-switch">
+                                   <input class="form-check-input" type="checkbox" role="switch" id="invitation-trigger" onChange="changeInvitationStatus(this, '${data}')" ${row.active ? 'checked' : ''}>
+                                   <a href="${data.replace('/api', '') + '/edit'}" class="btn btn-sm btn-outline-primary"><i class="fa-light fa-edit"></i></a>
+                                   <button class="btn btn-sm btn-outline-success" 
+                                       id="invitation-cloner-${row.id}" 
+                                       data-url="${data}" 
+                                       data-id="invitation-cloner-${row.id}" 
+                                       data-bs-toggle="modal" 
+                                       data-bs-target="#confirmcloneModal"
+                                   ><i class="fa-light fa-clone"></i></button>
+                               </div>
+                           `;
+                        }
                     }
                     return acctions;
                 }
             },
+        ],
+        columnDefs: [
+            {
+                className: 'dtr-control',
+                targets: 0 // o cualquier otra columna como "nombre"
+            }
         ],
         order: {
             name: 'nombre',
@@ -130,10 +159,10 @@ function renderDatatable(){
                 next: '<i class="fa-light fa-chevron-right"></i>',
                 previous: '<i class="fa-light fa-chevron-left"></i>'
             }
-        },
+        },/*
         dom: "<'row mb-2'<'col-sm-6'B><'col-sm-6'f>>" +
         "<'row'<'col-sm-12'tr>>" +
-        "<'row mt-2'<'col-sm-12 d-flex justify-content-between'<'mr-3'i><'ml-auto'p>>",
+        "<'row mt-2'<'col-sm-12 d-flex justify-content-between'<'mr-3'i><'ml-auto'p>>",*/
         buttons: [
             {
                 header: false,

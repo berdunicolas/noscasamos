@@ -34,6 +34,7 @@ class InvitationResource extends JsonResource
             'meta_description' => $this->meta_description,
             'is_legacy' => $this->is_legacy,
 
+            'can_delete' => auth()->user()->isAdmin(),
             'url_item' => route('api.invitations.show', $this->id),
             'invitation_url' => route('invitation', ['invitation' => $this->path_name]),
         ];

@@ -27,6 +27,8 @@ class MetricsApiController extends Controller
                 plan,
                 COUNT(*) as total
             ")
+            ->forAdvisorFilter()
+            ->where('name', '!=', 'Invitaciones Legacy')
             ->whereIn(DB::raw('YEAR(created_at)'), $years)
             ->groupBy('month', 'month_number', 'year', 'plan')
             ->orderBy('month_number')
@@ -55,6 +57,7 @@ class MetricsApiController extends Controller
         $data = match ($by) {
             'seller' => (function () use ($fromDate, $toDate) {
                 return Invitation::select('seller_id', DB::raw('count(*) as total'))
+                    ->where('invitations.is_legacy', 0)
                     ->when($fromDate, fn($query) => $query->whereDate('created_at', '>=', $fromDate))
                     ->when($toDate, fn($query) => $query->whereDate('created_at', '<=', $toDate))
                     ->with('seller:id,name')
@@ -72,6 +75,7 @@ class MetricsApiController extends Controller
 
             'plan' => (function () use ($fromDate, $toDate) {
                 return Invitation::select('events.plan', 'events.plan as label', DB::raw('count(*) as total'))
+                    ->where('invitations.is_legacy', 0)
                     ->join('events', 'invitations.event_id', '=', 'events.id')
                     ->when($fromDate, fn($query) => $query->whereDate('invitations.created_at', '>=', $fromDate))
                     ->when($toDate, fn($query) => $query->whereDate('invitations.created_at', '<=', $toDate))
@@ -81,6 +85,7 @@ class MetricsApiController extends Controller
 
             'creator' => (function () use ($fromDate, $toDate) {
                 return Invitation::select('created_by', DB::raw('count(*) as total'))
+                    ->where('invitations.is_legacy', 0)
                     ->when($fromDate, fn($query) => $query->whereDate('created_at', '>=', $fromDate))
                     ->when($toDate, fn($query) => $query->whereDate('created_at', '<=', $toDate))
                     ->with('createdBy:id,name')
@@ -107,6 +112,7 @@ class MetricsApiController extends Controller
 
         $query = Invitation::query()
             ->select(DB::raw("CONCAT(country_divisions.state_name, ' (', countries.name ,')') as label"), DB::raw("COUNT(invitations.id) as total"))
+            ->where('invitations.is_legacy', 0)
             ->when($fromDate, fn($query) => $query->whereDate('invitations.created_at', '>=', $fromDate))
             ->when($toDate, fn($query) => $query->whereDate('invitations.created_at', '<=', $toDate))
             ->join('events', 'invitations.event_id', '=', 'events.id')
@@ -128,6 +134,8 @@ class MetricsApiController extends Controller
         $data = Invitation::selectRaw("
                 COUNT(*) as total
             ")
+            ->where('is_legacy', 0)
+            ->forAdvisorFilter()
             ->where('active', 1)
             ->first();
 

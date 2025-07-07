@@ -148,6 +148,8 @@ $(document).ready(function () {
                 }).get();
             }
         });
+
+        Livewire.dispatch('updatedInvitationLogs');
     }
 
     window.sortableCoverMobile = null; 
@@ -212,6 +214,7 @@ $(document).ready(function () {
             })
             .then(async ({statusCode, data}) => {
                 if(statusCode === 201){
+                    Livewire.dispatch('updatedInvitationLogs');
                 } else {
                     console.error(data);
                 }
@@ -220,6 +223,67 @@ $(document).ready(function () {
         }
     });
 });
+
+
+document.querySelector('#invitation-modules').addEventListener('click', function (e) {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+
+    const item = btn.closest('.item-module');
+    if (!item || item.classList.contains('fixed-module')) return;
+
+    const parent = item.parentElement;
+    const isLeft = btn.querySelector('.fa-chevron-left');
+    const isRight = btn.querySelector('.fa-chevron-right');
+
+    if (isLeft) {
+        const prev = item.previousElementSibling;
+        if (prev && !prev.classList.contains('fixed-module')) {
+            parent.insertBefore(item, prev);
+            updateOrder();
+        }
+    }
+
+    if (isRight) {
+        const next = item.nextElementSibling;
+        if (next) {
+            parent.insertBefore(next, item);
+            updateOrder();
+        }
+    }
+});
+
+// Función para enviar el nuevo orden al backend
+function updateOrder() {
+    const order = Array.from(document.querySelectorAll('#invitation-modules .item-module'))
+        .map(el => el.dataset.moduleId);
+
+    fetch(window.INVITATION_MODULES_URL + '/change-order', {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ order: order })
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return { statusCode, data };
+    })
+    .then(({ statusCode, data }) => {
+        if (statusCode === 201) {
+            Livewire.dispatch('updatedInvitationLogs');
+        } else {
+            console.error(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 
 function getModules(){
     fetch(window.INVITATION_MODULES_URL, {
@@ -290,6 +354,7 @@ function statusModuleSwitch(checkbox, module){
     })
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
+            Livewire.dispatch('updatedInvitationLogs');
         } else {
             console.error(data);
         }
@@ -367,6 +432,7 @@ function newModule(e, form){
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
             Livewire.dispatch('newModuleAdded');
+            Livewire.dispatch('updatedInvitationLogs');
             getModules();
 
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
@@ -404,6 +470,7 @@ function deleteModule(button) {
         if (statusCode === 200) {
             if (li) li.remove();
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            Livewire.dispatch('updatedInvitationLogs');
         }else{
             showToast( '<i class="fa-duotone fa-light fa-triangle-exclamation ms-3 me-2"></i>' + data.message);
         }
@@ -537,6 +604,7 @@ function sendModuleForm(e, form, type = '', name = ''){
     .then(async ({statusCode, data}) => {
         if(statusCode === 201){
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            Livewire.dispatch('updatedInvitationLogs');
         } else {
             if(statusCode === 422){
                 mapErrorsToast(data.errors, data.message);

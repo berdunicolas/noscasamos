@@ -22,6 +22,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,7 +30,7 @@ class InvitationApiController extends Controller
 {
     public function index(): JsonResponse
     {
-        $invitations = Invitation::orderBy('event_id', 'desc')->get();
+        $invitations = Invitation::forAdvisorFilter()->orderBy('event_id', 'desc')->get();
 
         return response()->json(InvitationResource::collection($invitations), Response::HTTP_OK);
     }
@@ -97,6 +98,19 @@ class InvitationApiController extends Controller
                 });
    
             $invitation->modules()->createMany($modules->toArray());
+
+            $invitation->logs()->create([
+                'invitation_id' => $invitation->id,
+                'user_id' => Auth::id(),
+                'action' => 'Invitación y evento creado',
+                'description' => 'Se creo invitación y evento con nombre "' . $invitation->host_names . '"',
+                'data' => [
+                    'event_id' => $invitation->event_id,
+                    'path_name' => $invitation->path_name,
+                    'host_names' => $invitation->host_names,
+                    'seller_id' => $invitation->seller_id,
+                ],
+            ]);
 
             DB::commit();
     
@@ -173,6 +187,19 @@ class InvitationApiController extends Controller
    
             $invitation->modules()->createMany($modules->toArray());
 
+            $invitation->logs()->create([
+                'invitation_id' => $invitation->id,
+                'user_id' => Auth::id(),
+                'action' => 'Invitación creada',
+                'description' => 'Se creo invitación para el evento "' . $event->name . '"',
+                'data' => [
+                    'event_id' => $invitation->event_id,
+                    'path_name' => $invitation->path_name,
+                    'host_names' => $invitation->host_names,
+                    'seller_id' => $invitation->seller_id,
+                ],
+            ]);
+
             DB::commit();
     
             return response()->json([
@@ -222,6 +249,17 @@ class InvitationApiController extends Controller
 
                 $invitation->addMedia($request->meta_img, 'meta_img', $invitation->id);
             }
+
+            $invitation->logs()->create([
+                'invitation_id' => $invitation->id,
+                'user_id' => Auth::id(),
+                'action' => 'Configuración actualizada',
+                'description' => 'Se cambio la configuración de la invitación',
+                'data' => [
+                    'old' => collect($invitation->getOriginal())->only(array_keys($invitation->getChanges())),
+                    'new' => $invitation->getChanges(),
+                ],
+            ]);
             
             DB::commit();
 
@@ -259,6 +297,17 @@ class InvitationApiController extends Controller
                 });
                 $invitation->addMedia($request->frame_image, 'frame_img', $invitation->id);
             }
+
+            $invitation->logs()->create([
+                'invitation_id' => $invitation->id,
+                'user_id' => Auth::id(),
+                'action' => 'Personalización actualizada',
+                'description' => 'Se cambio la personalización de la invitación',
+                'data' => [
+                    'old' => collect($invitation->getOriginal())->only(array_keys($invitation->getChanges())),
+                    'new' => $invitation->getChanges(),
+                ],
+            ]);
         
             DB::commit();
 
@@ -321,6 +370,16 @@ class InvitationApiController extends Controller
 
         $invitation->active = $validated['active'];
         $invitation->save();
+        $invitation->logs()->create([
+            'invitation_id' => $invitation->id,
+            'user_id' => Auth::id(),
+            'action' => $validated['active'] ? 'Invitación activada' : 'Invitación desactivada',
+            'description' => $validated['active'] ? 'La invitación fue activada' : 'La invitación fue desactivada',
+            'data' => [
+                'old' => collect($invitation->getOriginal())->only(array_keys($invitation->getChanges())),
+                'new' => $invitation->getChanges(),
+            ],
+        ]);
 
         return response()->json(['message' => 'Invitation activation changed successfully'], Response::HTTP_CREATED);
     }
@@ -365,6 +424,32 @@ class InvitationApiController extends Controller
                     $newInvitation->addMedia($file, $media->collection_name, $newInvitation->id);
                 }
             });
+
+            $invitation->logs()->create([
+                'invitation_id' => $invitation->id,
+                'user_id' => Auth::id(),
+                'action' => 'Invitación clonada',
+                'description' => 'Invitación clonada. Nueva invitacion: #' . $newInvitation->id,
+                'data' => [
+                    'event_id' => $invitation->event_id,
+                    'path_name' => $invitation->path_name,
+                    'host_names' => $invitation->host_names,
+                    'seller_id' => $invitation->seller_id,
+                ],
+            ]);
+
+            $newInvitation->logs()->create([
+                'invitation_id' => $newInvitation->id,
+                'user_id' => Auth::id(),
+                'action' => 'Invitación creada como clon',
+                'description' => 'Invitación creada apartir de la #' . $newInvitation->id,
+                'data' => [
+                    'event_id' => $newInvitation->event_id,
+                    'path_name' => $newInvitation->path_name,
+                    'host_names' => $newInvitation->host_names,
+                    'seller_id' => $newInvitation->seller_id,
+                ],
+            ]);
 
             DB::commit();
 

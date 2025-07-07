@@ -1,12 +1,15 @@
 <x-admin.layout navBarSelected="invitations" datatable="true" dataTableName="invitations-datatable.js">
 
-    <header class="d-flex flex-row align-items-center" style="height: 105px">
+    <header class="d-flex flex-row align-items-center" style="min-height: 105px">
         <h5 class="display-5">Invitaciones</h5>
         <div class="ms-auto btn-group rounded-1">
             <button class="btn btn-dark font-size-1 font-bold"
             data-bs-toggle="modal" data-bs-target="#new-invitation-by-event-modal">
-                <span class="mx-3">
+                <span class="mx-3 d-none d-sm-block">
                     <i class="fa-light fa-plus-large me-2"></i> Nueva invitación
+                </span>
+                <span class="mx-3 d-block d-sm-none">
+                    <i class="fa-light fa-plus-large me-2"></i>
                 </span>
             </button>
             <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
@@ -23,9 +26,12 @@
             </ul>
         </div>
     </header>
-    <div>
+
+
+    <div class="mt-4">
         <x-table.invitations />
     </div>
+    
     <x-admin.invitations.confirm-delete-modal />
     <x-admin.invitations.confirm-clone-modal />
     @livewire('table.new-invitation-by-event-modal')

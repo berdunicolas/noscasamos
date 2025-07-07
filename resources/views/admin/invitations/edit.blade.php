@@ -18,9 +18,9 @@
 
     @livewire('admin.invitations.editor.header', ['invitation' => $invitation, 'guests' => $guests])
 
-    <div class="d-flex flex-row overflow-hidden pb-5" style="height: 82vh;">
-        <nav class="navbar-secondary">
-            <ul class="nav navbar-nav flex-column font-size-2" id="editor-nav-tab">
+    <div class="d-flex flex-lg-row flex-column overflow-hidden pb-5" style="height: 81vh;">
+        <nav class="navbar-secondary mb-3 ms-sm-3 ms-0">
+            <ul class="nav navbar-nav flex-row flex-lg-column font-size-2" id="editor-nav-tab">
                 <li class="nav-item selected">
                     <a onclick="selectEditorForm(this)" id="configuration" class="w-100 py-2 text-start text-dark btn btn-white rounded-0">
                         <span>Configuración</span>
@@ -28,7 +28,7 @@
                 </li>
                 <li class="nav-item">
                     <a onclick="selectEditorForm(this)" id="personalization" class="w-100 py-2 text-start text-dark btn btn-white rounded-0">
-                        <span>Personalización</span>
+                        <span>Estilo</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -44,11 +44,11 @@
             </ul>
         </nav>
         <div class="w-100 overflow-hidden">
-            <div class="tab-form px-3 h-100 overflow-auto" id="configuration-form">
+            <div class="tab-form px-0 px-sm-3 h-100 pb-5 overflow-auto" id="configuration-form">
                 <form action="{{route('api.invitations.set-config', $invitation->id)}}" onsubmit="saveInvitationChanges(event, this)">
                     <h4 class="py-2">Configuración de evento</h4>
                     <div class="row mb-3">
-                        <div class="col-4">
+                        <div class="col-12 col-sm-4 mb-3 mb-sm-0">
                             <x-form.input
                                 id="config-form-input"
                                 name="host_names"
@@ -56,10 +56,9 @@
                                 type="text"
                                 
                                 value="{{$invitation->host_names}}"
-                                {{--:errors="(array) $errors->get('meta_title')"--}}
                             />
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-sm-4">
                             <x-form.select
                                 id="country-select"
                                 name="country"
@@ -89,7 +88,7 @@
                                 @endif
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-sm-4">
                             <x-form.select
                                 id="country-division-select"
                                 name="country_division"
@@ -121,7 +120,7 @@
                         </x-form.input-group>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3 mb-3 mb-sm-0">
                             <x-form.select id="config-form-input" name="event" label="Tipo de evento">
                                 @foreach ($eventTypes as $eventType)
                                     <x-form.select-option
@@ -132,7 +131,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3 mb-3 mb-sm-0">
                             <x-form.select id="config-form-input" name="plan" label="Plan">
                                 @foreach ($planTypes as $planType)
                                     <x-form.select-option
@@ -144,7 +143,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3 mb-3">
                             <x-form.select id="config-form-input" name="active" label="Estado">
                                 <x-form.select-option
                                     value="1"
@@ -158,7 +157,7 @@
                                 />
                             </x-form.select>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3 mb-3">
                             <x-form.select id="config-form-input" name="seller" label="Seller">
                                 @foreach ($sellers as $seller)
                                     <x-form.select-option
@@ -172,7 +171,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3 mb-3 mb-sm-0">
                             <x-form.input
                                 id="config-form-input"
                                 name="date"
@@ -182,7 +181,7 @@
                                 :errors="(array) $errors->get('date')"
                             />
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3 mb-3 mb-sm-0">
                             <x-form.input
                                 id="config-form-input"
                                 name="time"
@@ -193,7 +192,7 @@
                                 :errors="(array) $errors->get('time')"
                             />
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3 mb-3">
                             <x-form.select id="config-form-input" name="time_zone" label="Zona horaria">
                                 @foreach ($timezones as $timezone)
                                     <x-form.select-option
@@ -204,7 +203,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-3">
+                        <div class="col-6 col-sm-3 mb-3">
                             <x-form.input
                                 id="config-form-input"
                                 name="duration"
@@ -235,11 +234,11 @@
                     </div>
                 </form>
             </div>
-            <div class="tab-form px-3 h-100 overflow-auto visually-hidden" id="personalization-form">
+            <div class="tab-form px-3 h-100 pb-5 overflow-auto visually-hidden" id="personalization-form">
                 <form action="{{route('api.invitations.set-style', $invitation->id)}}" onsubmit="saveInvitationChanges(event, this)">
-                    <h4 class="py-2">Personalización</h4>
+                    <h4 class="py-2">Estilo</h4>
                     <div class="row mb-3">
-                        <div class="col-4">
+                        <div class="col-12 col-sm-4 mb-3 mb-sm-0">
                             <x-form.select
                                 id="style-form-input"
                                 name="style"
@@ -254,7 +253,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-sm-4">
                             <x-form.color-picker
                                 id="style-form-input"
                                 name="color"
@@ -262,7 +261,7 @@
                                 value="{{$invitation->color}}"
                             />
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-sm-4">
                             <x-form.color-picker
                                 id="style-form-input"
                                 name="background_color"
@@ -272,7 +271,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-4">
+                        <div class="col-12 col-sm-4 mb-3 mb-sm-0">
                             <x-form.input
                                 id="style-form-input"
                                 name="padding"
@@ -282,7 +281,7 @@
                                 value="{{$invitation->padding}}"
                             />
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-sm-4">
                             <x-form.select
                                 id="style-form-input"
                                 name="font"
@@ -297,7 +296,7 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6 col-sm-4">
                             <x-form.select
                                 id="style-form-input"
                                 name="icon_type"
@@ -333,14 +332,28 @@
                     </div>
                 </form>
             </div>
-            <div class="tab-form px-3 h-100 overflow-auto visually-hidden d-flex flex-row nowrap" id="modules-form">
+            <div class="tab-form px-3 h-100 overflow-auto visually-hidden d-flex flex-column flex-md-row nowrap" id="modules-form">
                 @livewire('admin.invitations.editor.modules-list', ['invitation' => $invitation, 'modules' => $modules])
-                <div class="px-4 w-100" id="module-form">
+                <div class="px-4 pb-5 w-100" id="module-form">
                     
                 </div>
             </div>
             <div class="tab-form px-3 visually-hidden" id="logs-form">
                 <h4 class="py-2">Logs</h4>
+                <div class="h-100 overflow-auto" style="height: 500px; max-height: 500px !important">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Acción</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Fecha y hora</th>
+                            </tr>
+                        </thead>
+                        @livewire('admin.invitations.editor.logs', ['invitation' => $invitation->id])
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <div class="modal fade rounded-1 modal-lg" id="create-product-modal" tabindex="-1" aria-labelledby="create-product-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header border-0">
           <h4 class="modal-title">Registrar usuario</h4>

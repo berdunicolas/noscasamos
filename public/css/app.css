@@ -7,14 +7,41 @@ html, body {
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100vh !important;
+  width: 100vw !important;
   box-sizing: border-box;
   overflow: hidden;
 }
 
 body > * {
     height: 100%;
+}
+
+.scroll-suave {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.scroll-suave::-webkit-scrollbar {
+  height: 5px;
+}
+
+.scroll-suave::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-suave::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.scroll-suave::-webkit-scrollbar {
+  height: 0;
+}
+.scroll-suave:hover::-webkit-scrollbar {
+  height: 5px;
 }
 
 .bg-gradient-custom {
@@ -123,10 +150,27 @@ body > * {
     padding: 12px 0 12px 20px;
 }
 
-.navbar-secondary {
-    width: 200px;
-    padding: 0;
 
+
+@media (min-width: 992px) {
+    .navbar-secondary {
+        width: 200px;
+        padding: 0;
+
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-secondary {
+        width: 100%;
+    }
+
+    .navbar-secondary .selected a{
+        font-weight: bold !important;
+        border-bottom: 3px solid black;
+        border-right: none !important;
+        border-left: none !important;
+    }
 }
 
 .navbar-bg{
@@ -153,9 +197,18 @@ body > * {
     list-style: none;
 }
 
-.navbar-nav .selected a{
-    font-weight: bold !important;
-    border-right: 3px solid black;
+@media (min-width: 720px) {
+    .navbar-nav .selected a{
+        font-weight: bold !important;
+        border-right: 3px solid black;
+    }
+}
+@media (max-width: 719.99px) {
+    .navbar-nav .selected a{
+        font-weight: bold !important;
+        border-left: 3px solid black;
+        border-right: none !important;
+    }
 }
 /*
 .navbar-nav .selected a.user-nav-link{
@@ -170,8 +223,9 @@ body > * {
 
 .content {
     flex-grow: 1;
-    padding:  20px 70px 20px 70px;
-    height: 100%;
+    padding-top: 20px;
+    /*padding:  20px 70px 20px 70px;
+    height: 100%;*/
     overflow-y: auto;
 }
 
@@ -320,7 +374,7 @@ i.fa-grip-dots-vertical{
   padding-bottom: 56.25%;
 }
 .video .videoPlayer.v {
-  width: 400px;
+  max-width: 400px;
   margin: 48px auto 0 auto;
 }
 .video .videoPlayer.v .player {

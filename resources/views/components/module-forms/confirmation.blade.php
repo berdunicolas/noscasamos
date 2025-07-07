@@ -70,7 +70,7 @@
                             <textarea name="card_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['card_text']}}</textarea>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="card_button_text"
                                     label="Texto boton"
@@ -78,7 +78,7 @@
                                     value="{{$module->data['card_button_text']}}"
                                 />
                             </div>
-                            <div class="col-6">
+                            <div class="col-12 col-xl-6">
                                 <x-form.input-group label="Url boton" labelFor="url_button">
                                     <span class="input-group-text" id="basic-addon3">https://</span>
                                     <x-form.input
@@ -146,7 +146,7 @@
                                 <textarea name="form_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['form_text']}}</textarea>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                     <x-form.input
                                         name="form_ill_attend"
                                         label="Asistiré"
@@ -155,7 +155,7 @@
                                         value="{{$module->data['form_ill_attend']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12 col-xl-6">
                                     <x-form.input
                                         name="form_ill_n_attend"
                                         label="No asistiré"
@@ -175,7 +175,7 @@
                                 />
                             </div>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                     <x-form.input
                                         name="form_email"
                                         label="Email"
@@ -184,7 +184,7 @@
                                         value="{{$module->data['form_email']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12 col-xl-6">
                                     <x-form.input
                                         name="form_phone"
                                         label="Teléfono"
@@ -204,7 +204,7 @@
                                 />
                             </div>
                             <div class="row mb-3">
-                                <div class="col-4">
+                                <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                     <x-form.input
                                         name="form_nothing"
                                         label="Ninguno"
@@ -213,7 +213,7 @@
                                         value="{{$module->data['form_nothing']}}"
                                     />
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                     <x-form.input
                                         name="form_menu1"
                                         label="Menu 1"
@@ -222,7 +222,7 @@
                                         value="{{$module->data['form_menu1']}}"
                                     />
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12 col-xl-4">
                                     <x-form.input
                                         name="form_menu2"
                                         label="Menu 2"
@@ -233,7 +233,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-4">
+                                <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                     <x-form.input
                                         name="form_menu3"
                                         label="Menu 3"
@@ -242,7 +242,7 @@
                                         value="{{$module->data['form_menu3']}}"
                                     />
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12 col-xl-4 mb-3 mb-xl-0">
                                     <x-form.input
                                         name="form_menu4"
                                         label="Menu 4"
@@ -251,7 +251,7 @@
                                         value="{{$module->data['form_menu4']}}"
                                     />
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12 col-xl-4">
                                     <x-form.input
                                         name="form_menu5"
                                         label="Menu 5"
@@ -272,7 +272,7 @@
                                 />
                             </div>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                     <x-form.input
                                         name="form_option1"
                                         label="Opción 1"
@@ -281,7 +281,7 @@
                                         value="{{$module->data['form_option1']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12 col-xl-6">
                                     <x-form.input
                                         name="form_option2"
                                         label="Opción 2"
@@ -292,7 +292,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <div class="col-6">
+                                <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                                     <x-form.input
                                         name="form_option3"
                                         label="Opción 3"
@@ -300,7 +300,7 @@
                                         value="{{$module->data['form_option3']}}"
                                     />
                                 </div>
-                                <div class="col-6">
+                                <div class="col-12 col-xl-6">
                                     <x-form.input
                                         name="form_option4"
                                         label="Opción 4"
