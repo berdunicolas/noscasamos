@@ -13,7 +13,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
+        $schedule->command('app:disable-invitations')
+            ->dailyAt('23:30');
     }
+
+    protected $commands = [
+        \App\Console\Commands\ClearAllCache::class,
+    ];
 
     /**
      * Register the commands for the application.
@@ -23,5 +30,6 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__.'/Commands');
 
         require base_path('routes/console.php');
+
     }
 }

@@ -57,6 +57,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'subdomain_url' => env('APP_SUBDOMAIN', ''),
+
     'asset_url' => env('ASSET_URL'),
 
     /*
@@ -184,5 +186,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
+
+    'filesystem_disk' => env('FILESYSTEM_DISK', 'local'),
 
 ];
