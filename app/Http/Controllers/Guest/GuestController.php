@@ -11,16 +11,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class GuestController extends Controller
 {
     public function index(Invitation $invitation) {
 
         if ($invitation->stillValid() || $invitation->stillValid() === null) {
+            Log::info('Invitación ' . $invitation->path_name . ' con no vigente o sin fecha');
             abort(404);
         }
-
+        
         if(!$invitation->active) {
+            Log::info('Invitación ' . $invitation->path_name . ' no activa');
             abort(404);
         }
 
