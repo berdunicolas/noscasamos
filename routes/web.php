@@ -93,6 +93,24 @@ if(config('app.env') == 'production') {
 
 if(config('app.env') == 'production') {
 
+    Route::get('/qr/Gold', function() {
+        return redirect('https://tally.so/r/wg51oO');
+    });
+    Route::get('/qr/Platino', function() {
+        return redirect('https://tally.so/r/wLYpKJ');
+    });
+    Route::get('/qr/Clásica', function() {
+        return redirect('https://tally.so/r/3yvY4d');
+    });
+    Route::get('/qr/Cumplegold', function() {
+        return redirect('https://tally.so/r/n0vAE9');
+    });
+    Route::get('/qr/Cumpleplatino', function() {
+        return redirect('https://tally.so/r/nrLqV2');
+    });
+    Route::get('/qr/Cumpleclasica', function() {
+        return redirect('https://tally.so/r/3jWEL4');
+    });
     Route::domain(config('app.url'))->group(function () {
         Route::get('/status', function() {
             return '{"status": "OK"}';
@@ -109,8 +127,23 @@ if(config('app.env') == 'production') {
     });
 
 } else {
-    Route::get('/status', function() {
-        return '{"status": "OK"}';
+    Route::get('/qr/Gold', function() {
+        return redirect('https://tally.so/r/wg51oO');
+    });
+    Route::get('/qr/Platino', function() {
+        return redirect('https://tally.so/r/wLYpKJ');
+    });
+    Route::get('/qr/Clásica', function() {
+        return redirect('https://tally.so/r/3yvY4d');
+    });
+    Route::get('/qr/Cumplegold', function() {
+        return redirect('https://tally.so/r/n0vAE9');
+    });
+    Route::get('/qr/Cumpleplatino', function() {
+        return redirect('https://tally.so/r/nrLqV2');
+    });
+    Route::get('/qr/Cumpleclasica', function() {
+        return redirect('https://tally.so/r/3jWEL4');
     });
     Route::get('/{invitation:path_name}', [GuestController::class, 'index'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
     Route::get('/{invitation:path_name}/invitados/login', [GuestController::class, 'loginForm'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
