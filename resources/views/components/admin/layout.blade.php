@@ -67,7 +67,7 @@
     <script src="{{ asset('inspinia/plugins/jquery/js/jquery.min.js') }}"></script>
 
     <!-- DataTables Core -->
-    <script src="{{ asset('inspinia/plugins/datatables/js/datatables.min.js') }}"></script>
+    <script src="{{ asset('inspinia/plugins/datatables/js/dataTables.min.js') }}"></script>
     <script src="{{ asset('inspinia/plugins/datatables/js/dataTables.bootstrap5.min.js') }}"></script>
 
     <!-- DataTables Buttons & Dependencies -->
