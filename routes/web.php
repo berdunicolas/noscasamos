@@ -93,22 +93,22 @@ if(config('app.env') == 'production') {
 
 if(config('app.env') == 'production') {
 
-    Route::get('/qr/Gold', function() {
+    Route::get('/qr/gold', function() {
         return redirect('https://tally.so/r/wg51oO');
     });
-    Route::get('/qr/Platino', function() {
+    Route::get('/qr/platino', function() {
         return redirect('https://tally.so/r/wLYpKJ');
     });
-    Route::get('/qr/Clásica', function() {
+    Route::get('/qr/clasica', function() {
         return redirect('https://tally.so/r/3yvY4d');
     });
-    Route::get('/qr/Cumplegold', function() {
+    Route::get('/qr/cumplegold', function() {
         return redirect('https://tally.so/r/n0vAE9');
     });
-    Route::get('/qr/Cumpleplatino', function() {
+    Route::get('/qr/cumpleplatino', function() {
         return redirect('https://tally.so/r/nrLqV2');
     });
-    Route::get('/qr/Cumpleclasica', function() {
+    Route::get('/qr/cumpleclasica', function() {
         return redirect('https://tally.so/r/3jWEL4');
     });
     Route::domain(config('app.url'))->group(function () {
@@ -127,22 +127,22 @@ if(config('app.env') == 'production') {
     });
 
 } else {
-    Route::get('/qr/Gold', function() {
+    Route::get('/qr/gold', function() {
         return redirect('https://tally.so/r/wg51oO');
     });
-    Route::get('/qr/Platino', function() {
+    Route::get('/qr/platino', function() {
         return redirect('https://tally.so/r/wLYpKJ');
     });
-    Route::get('/qr/Clásica', function() {
+    Route::get('/qr/clasica', function() {
         return redirect('https://tally.so/r/3yvY4d');
     });
-    Route::get('/qr/Cumplegold', function() {
+    Route::get('/qr/cumplegold', function() {
         return redirect('https://tally.so/r/n0vAE9');
     });
-    Route::get('/qr/Cumpleplatino', function() {
+    Route::get('/qr/cumpleplatino', function() {
         return redirect('https://tally.so/r/nrLqV2');
     });
-    Route::get('/qr/Cumpleclasica', function() {
+    Route::get('/qr/cumpleclasica', function() {
         return redirect('https://tally.so/r/3jWEL4');
     });
     Route::get('/{invitation:path_name}', [GuestController::class, 'index'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
