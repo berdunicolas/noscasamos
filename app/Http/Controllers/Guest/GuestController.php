@@ -19,7 +19,7 @@ class GuestController extends Controller
 
         if ($invitation->stillValid() || $invitation->stillValid() === null) {
             Log::info('Invitación ' . $invitation->path_name . ' con no vigente o sin fecha');
-            return view('invitations.404');
+            abort(404);
         }
         
         if(!$invitation->active) {
