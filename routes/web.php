@@ -92,6 +92,10 @@ if(config('app.env') == 'production') {
 }
 
 if(config('app.env') == 'production') {
+    
+    Route::get('', function () {
+        return view('invitations.welcome');
+    });
 
     Route::get('/qr/gold', function() {
         return redirect('https://tally.so/r/wg51oO');
@@ -127,6 +131,10 @@ if(config('app.env') == 'production') {
     });
 
 } else {
+    Route::get('', function () {
+        return view('invitations.welcome');
+    });
+
     Route::get('/qr/gold', function() {
         return redirect('https://tally.so/r/wg51oO');
     });
