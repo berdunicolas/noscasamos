@@ -27,7 +27,7 @@ class GuestController extends Controller
             abort(404);
         }
 
-        $invitation->load(['modules' => fn ($q) => $q->where('active', 1)]);
+        $invitation->load(['modules' => fn ($q) => $q->where('active', 1)->orderBy('index')]);
 
         return view('invitations.invitation', [
             'invitation' => $invitation,
