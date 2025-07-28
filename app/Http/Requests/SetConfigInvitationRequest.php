@@ -31,6 +31,9 @@ class SetConfigInvitationRequest extends FormRequest
             "country" => "nullable|string|exists:countries,code",
             "country_division" => "nullable|string|exists:country_divisions,id",
             "host_names" => ["required", "string"],
+            "contact_name" => ["nullable", "string"],
+            "contact_phone" => ["nullable", "string"],
+            "calendar_title" => ["nullable", "string"],
             "path_name" => [
                 "nullable",
                 "string",

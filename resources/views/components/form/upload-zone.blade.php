@@ -9,7 +9,7 @@
     onclick="abrirSelector('upload-zone-{{$zoneOwner}}{{$zoneName}}')">
 
     <p>Arrastra imágenes aquí o haz clic para seleccionar</p>
-    <input type="file" id="image-input-{{$zoneOwner}}{{$zoneName}}" {{($isMultiple) ? 'multiple' : ''}} accept="image/*" hidden onchange="manejarSeleccion(this, '{{$zoneOwner}}', '{{$zoneName}}', {{$isMultiple}})">
+    <input type="file" id="image-input-{{$zoneOwner}}{{$zoneName}}" name="" {{($isMultiple) ? 'multiple' : ''}} accept="image/*" hidden onchange="manejarSeleccion(this, '{{$zoneOwner}}', '{{$zoneName}}', {{$isMultiple}})">
     <button type="button" class="btn btn-dark" id="add-more-btn" onclick="abrirSelector('image-input-{{$zoneOwner}}{{$zoneName}}')"><i class="fa-light fa-plus fa-xl"></i></button>
 </div>
 <div id="preview-container-{{$zoneOwner}}{{$zoneName}}" class="preview-container">

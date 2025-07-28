@@ -146,13 +146,14 @@ $tituloYBajada =  $invitation->tituloYBajada();
             )
             wow.init();
 
-            function GeeksForGeeks() {
+            function GeeksForGeeks(clickable) {
                 let copyGfGText = document.getElementById("GfGInput");
+                let copyText = clickable.dataset.copyText;
 
                 navigator.clipboard.writeText(copyGfGText.value)
                     .then(() => {
                         document.getElementById("gfg").innerHTML = 
-                            "<i class='fa fa-circle-check'></i> Copiado en portapapeles!";
+                            "<i class='fa fa-circle-check'></i> " + copyText;
                     })
                     .catch(err => {
                         console.error("Error al copiar: ", err);

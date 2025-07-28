@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PlanTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Invitation;
@@ -130,14 +131,23 @@ class MetricsApiController extends Controller
         return response()->json($data);
     }
 
-    public function activeInvitationsGraph(){
-        $data = Invitation::selectRaw("
+    public function activeInvitationsGraph(Request $request){
+        $plan = $request->input('plan', null);
+
+        $query = Invitation::query()
+            ->selectRaw("
                 COUNT(*) as total
             ")
-            ->where('is_legacy', 0)
+            ->join('events', 'events.id', '=', 'invitations.event_id')
+            ->where('invitations.is_legacy', 0)
             ->forAdvisorFilter()
-            ->where('active', 1)
-            ->first();
+            ->where('active', 1);
+
+        if($plan !== null){
+            $query->where('events.plan', $plan);
+        }
+            
+        $data = $query->first();
 
         return response()->json($data);
     }

@@ -4,9 +4,9 @@
         <h5 class="display-5">Invitaciones</h5>
         <div class="ms-auto btn-group rounded-1">
             <button class="btn btn-dark font-size-1 font-bold"
-            data-bs-toggle="modal" data-bs-target="#new-invitation-by-event-modal">
+            data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
                 <span class="mx-3 d-none d-sm-block">
-                    <i class="fa-light fa-plus-large me-2"></i> Nueva invitación
+                    <i class="fa-light fa-plus-large me-2"></i> Nuevo evento
                 </span>
                 <span class="mx-3 d-block d-sm-none">
                     <i class="fa-light fa-plus-large me-2"></i>
@@ -17,9 +17,9 @@
             <ul class="dropdown-menu p-0">
                 <li>
                     <button class="btn font-size-1 font-bold"
-                    data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
+                    data-bs-toggle="modal" data-bs-target="#new-invitation-by-event-modal">
                         <span class="mx-3">
-                            Nuevo evento
+                            Nueva invitacion
                         </span>
                     </button>
                 </li>

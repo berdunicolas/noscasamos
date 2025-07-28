@@ -26,8 +26,8 @@
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'on_t_right')" {{$module->data['on_t_right'] ? 'checked' : ''}}>
-                <input type="text" hidden name="on_t_right" id="on_t_right" value="{{$module->data['on_t_right'] ? 1 : 0}}">
+                <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'on_t_right_{{$module->name}}')" {{$module->data['on_t_right'] ? 'checked' : ''}}>
+                <input type="text" hidden name="on_t_right" id="on_t_right_{{$module->name}}" value="{{$module->data['on_t_right'] ? 1 : 0}}">
                 <label class="form-check-label" for="switchCheckChecked">Info Derecha</label>
             </div>
         </div>
@@ -37,51 +37,19 @@
                 label="Título"
                 type="text"
                 
-                value="{{$module->data['tittle']}}"
+                value="{!!$module->data['tittle']!!}"
             />
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-            <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
+            <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{!!$module->data['text']!!}</textarea>
         </div>
-        {{--
-        <div class="row mb-3">
-            <div class="col-6">
-                <x-form.input
-                    name="button_icon"
-                    label="Icono botón"
-                    type="text"
-                    
-                    value="{{$module->data['button_icon']}}"
-                />
-            </div>
-            <div class="col-6">
-                <div class="mb-3">
-                    <x-form.input
-                        name="button_text"
-                        label="Texto botón"
-                        type="text"
-                        
-                        value="{{$module->data['button_text']}}"
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="mb-3">
-            <x-form.input
-                name="button_url"
-                label="Url botton"
-                type="text"
-                
-                value="{{$module->data['button_url']}}"
-            />
-        </div>
-        --}}
         
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">
                 <span class="mx-3">
-                    <i class="fa-light fa-floppy-disk me-2"></i> Guardar
+                    <i class="fa-light fa-floppy-disk me-2" id="save-icon-form"></i>  
+                    <span class="spinner-border spinner-border-sm me-2 visually-hidden" aria-hidden="true" id="spinner-icon-form"></span> Guardar
                 </span>
             </x-form.button>
         </div>

@@ -24,10 +24,10 @@ class SuggestionsModule extends Component
     {
         if(empty($module->data['suggestions'])){
             for ($i=1; $i <= 8; $i++) { 
-                $suggestions[] = ['suggestion_' . $i => '', 'link_' . $i => ''];
+                $this->suggestions[] = ['suggestion_' . $i => '', 'link_' . $i => ''];
             }
         }else{
-            $suggestions = $module->data['suggestions'];
+            $this->suggestions = $module->data['suggestions'];
         }
     }
 
