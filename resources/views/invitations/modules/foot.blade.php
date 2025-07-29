@@ -29,5 +29,5 @@
     </section>
 @endif
 <footer>
-    <p>{!!$module->data['foot_text']!!} <a href="{{$module->invitation->seller->site_link}}" target="_blank">{{$module->invitation->seller->name}}</a></p>
+    <p>{!!$module->data['foot_text']!!} <a href="https://{{$module->invitation->seller->site_link}}" target="_blank">{{$module->invitation->seller->name}}</a></p>
 </footer>

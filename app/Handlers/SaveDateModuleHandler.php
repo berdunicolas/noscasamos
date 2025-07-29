@@ -21,5 +21,6 @@ class SaveDateModuleHandler extends GenericModuleHandler{
         'hr_tanslation' => 'Hs',
         'min_translation' => 'Min',
         'sec_translation' => 'Seg',
+        'date_text' => '',
     ];
 }

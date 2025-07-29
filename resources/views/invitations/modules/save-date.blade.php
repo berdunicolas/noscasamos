@@ -18,7 +18,12 @@ $stdmarco = $marco;
     @endif
     <br/>
     <p>{!!$module->data['tittle']!!}</p>
-    <h2>{{$dateTittle}}</h2>
+    @if (empty($module->data['date_text']))
+        <h2>{{$dateTittle}}</h2>
+    @else
+        <h2>{!!$module->data['date_text']!!}</h2>
+    @endif
+    
     @if ($module->data['is_countdown'] && !$module->invitation->isExpired())
         <div id="countdown" class="timer" data-init-value="{{$fullDateTime}}">
             <div><div id="days"></div><span>{{$module->data['days_tanslation']}}</span></div>
@@ -33,9 +38,7 @@ $stdmarco = $marco;
     @if (!empty($stdlink))
         <a href="{{$stdlink}}" target="_blank"><i class="fa-regular fa-calendar-check"></i>{{$module->data['text_button']}}</a>
     @else
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&dates={{substr($fechalip, 0, -6) .'T'.substr($fechalip, -6).'Z%2F'.substr($fechalif, 0, -6).'T'.substr($fechalif, -6).'Z&details=%0A&location=&text='.$nombres}}" target="_blank"><i class="fa-regular fa-calendar-check"></i>{!!$module->data['text_button']!!}</a>
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&dates={{substr($fechalip, 0, -6) .'T'.substr($fechalip, -6).'Z%2F'.substr($fechalif, 0, -6).'T'.substr($fechalif, -6).'Z&details=%0A&location=&text='.$calendarTitle}}" target="_blank"><i class="fa-regular fa-calendar-check"></i>{!!$module->data['text_button']!!}</a>
     @endif
-    
-<!--  <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&dates=<?php echo substr($fechalip, 0, -6); ?>T<?php echo substr($fechalip, -6); ?>Z%2F<?php echo substr($fechalif, 0, -6); ?>T<?php echo substr($fechalif, -6); ?>Z&details=%0A&location=&text=<?php echo $nombres; ?>" target="_blank"><i class="fa-regular fa-calendar-check"></i> Agendar fecha</a>-->
 </section>
 <script src="{{asset("assets/js/countdown.js")}}"></script>

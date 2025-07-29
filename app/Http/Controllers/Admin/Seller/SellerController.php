@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Seller;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\File;
 
 class SellerController extends Controller
@@ -18,11 +20,12 @@ class SellerController extends Controller
         return view('sellers.edit', ['seller' => $seller]);
     }
 
+    /*
     public function update(Seller $seller, Request $request): View
-    {
-        $request->validate([
+    {        
+        $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'text' => ['string'],
+            'text' => ['nullable', 'string'],
             'has_banner' => ['nullable', 'string'],
             'only_logo' => ['nullable', 'string'],
             'site_link' => ['nullable', 'string'],
@@ -31,44 +34,52 @@ class SellerController extends Controller
             'tk_link' => ['nullable', 'string'],
             'x_link' => ['nullable', 'string'],
             'ytube_link' => ['nullable', 'string'],
-            'background' => [
+            'banner_bg' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
                 ],
-            'logo_image' => [
+            'banner_logo' => [
+                    'nullable',
                     File::image()
                     ->types(['jpeg', 'png', 'jpg'])
                     ->max(2048)
                 ],
         ]);
 
-        $seller->name = $request->name;
-        $seller->text = $request->text;
-        $seller->has_banner = $request->has_banner;
-        $seller->only_logo = $request->only_logo;
-        $seller->site_link = $request->site_link;
-        $seller->ig_link = $request->ig_link;
-        $seller->wpp_link = $request->wpp_link;
-        $seller->tk_link = $request->tk_link;
-        $seller->x_link = $request->x_link;
-        $seller->ytube_link = $request->ytube_link;
-        $seller->save();
-
-
-        if(isset($request['background'])){ 
-            $seller->media('banner_bg')->each(function ($media) {
+        DB::beginTransaction();
+        try {
+            $seller->name = $request->name;
+            $seller->text = $request->text;
+            $seller->has_banner = $request->has_banner;
+            $seller->only_logo = $request->only_logo;
+            $seller->site_link = $request->site_link;
+            $seller->ig_link = $request->ig_link;
+            $seller->wpp_link = $request->wpp_link;
+            $seller->tk_link = $request->tk_link;
+            $seller->x_link = $request->x_link;
+            $seller->ytube_link = $request->ytube_link;
+            $seller->save();
+    
+    
+            $seller->media()->each(function ($media) {
                 $media->delete();
             });
-            $seller->addMedia($request['background'], 'banner_bg', 'seller/'.$seller->name);
-        }
-        if(isset($request['logo_image'])){ 
-            $seller->media('banner_logo')->each(function ($media) {
-                $media->delete();
-            });
-            $seller->addMedia($request['logo_image'], 'banner_logo', 'seller/'.$seller->name);
-        }
 
+            if(isset($request['banner_bg'])){ 
+                $seller->addMedia($request['banner_bg'], 'banner_bg', 'seller/'.$seller->name);
+            }
+            if(isset($request['banner_logo'])){ 
+                $seller->addMedia($request['banner_logo'], 'banner_logo', 'seller/'.$seller->name);
+            }
+            $seller->save();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+        }
+        
         return view('sellers.edit', ['seller' => $seller]);
     }
+    */
 }

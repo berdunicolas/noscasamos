@@ -53,6 +53,7 @@ class InvitationApiController extends Controller
             $invitation = Invitation::create([
                 'host_names' => $validatedData['name'],
                 'path_name' => str_replace(' ', '', strtolower($validatedData['name'])),
+                'calendar_title' => $validatedData['event'] . ' ' . $validatedData['name'],
                 'event_id' => $newEvent->id,
                 'date' => null,
                 'time_zone' => null,
@@ -232,7 +233,10 @@ class InvitationApiController extends Controller
             
             $invitation->seller_id = $request->seller;
             $invitation->host_names = $request->host_names;
+            $invitation->contact_name = $request->contact_name;
+            $invitation->contact_phone = $request->contact_phone;
             $invitation->path_name = $request->path_name;
+            $invitation->calendar_title = $request->calendar_title;
             $invitation->active = $request->active;
             $invitation->date = $request->date;
             $invitation->time = $request->time;
