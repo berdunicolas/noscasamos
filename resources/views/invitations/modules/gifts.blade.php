@@ -58,7 +58,7 @@ $regalosicon = "kezeezyg";
                             <p><b>{{$module->data['first_account']['data']}}:</b></P>
                             <input type="text" disabled="disabled" value="{{$module->data['first_account']['value']}}" id="GfGInput">
                             <p id="gfg" class="gfg"></p>
-                            <span onclick="GeeksForGeeks()" value="Copy"><i class="fa-regular fa-copy"></i>Copiar {{$module->data['first_account']['data']}}</span>
+                            <span onclick="GeeksForGeeks(this)" data-copy-text="{{$module->data['first_account']['copy_message']}}" value="Copy"><i class="fa-regular fa-copy"></i>{{$module->data['first_account']['copy_button_text']}}</span>
                         @endempty
                         {{--@if($btncopiar == "s")
                             <p id="gfg" class="gfg"></p>

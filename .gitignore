@@ -3,7 +3,6 @@
 /public/build
 /public/hot
 /public/storage
-/public/boda
 /storage/*.key
 /vendor
 .env
@@ -19,3 +18,16 @@ yarn-error.log
 /.idea
 /.vscode
 
+# Ignorar todo dentro de public/
+/public/*
+
+# No ignorar estas carpetas y archivos específicos
+!/public/css/
+!/public/assets/
+!/public/guest-admin/
+!/public/inspinia/
+!/public/js/
+!/public/miscellaneous/
+!/public/.htaccess
+!/public/favicon.ico
+!/public/index.php

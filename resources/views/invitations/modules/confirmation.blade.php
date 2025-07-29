@@ -41,13 +41,13 @@ $rsvpicos = "s"
         <!-- DETALLES EXTRA -->
         @empty (!$module->data['card_active'])
             <div class="value">
-                <h3>{{$module->data['card_tittle']}}</h3>
+                <h3>{!!$module->data['card_tittle']!!}</h3>
                 <p>{!!$module->data['card_text']!!}</p>
                 @empty (!$module->data['card_button_text'])
                     @if(empty($module->data['card_button_url']))
                         <button class="link modal-button" href="#myModal1">{!!$module->data['card_button_text']!!}</button>
                     @else
-                        <a class="link modal-button" href="https://{{$module->data['card_button_url']}}">{!!$module->data['card_button_text']!!}</a>
+                        <a class="link modal-button" href="https://{{$module->data['card_button_url']}}" target="_blank">{!!$module->data['card_button_text']!!}</a>
                     @endif
                 @endempty
             </div>

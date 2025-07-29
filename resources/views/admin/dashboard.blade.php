@@ -5,34 +5,16 @@
     :jsScripts="[
         asset('inspinia/plugins/jquery/js/jquery.min.js'),
         asset('inspinia/plugins/chartjs/js/Chart.min.js'),
-        asset('js/created-invitations-graph.js'),
         asset('js/invitations-datatable.js')
     ]"
     >
     
     <header class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center" style="min-height: 105px">
         <h5 class="display-5">Dashboard</h5>
-        <div class="p-2 d-flex flex-column justify-content-end flex-sm-row">
-            <div class="shadow border-0 rounded-3 ms-3 p-2">
-                <div class="text-end px-3 inline-block">
-                    <div class="d-flex flex-row justify-content-between align-items-center">
-                        <div class="me-4">
-                            <h5 class="display-6 m-0">
-                                <i class="fa-duotone fa-light fa-envelopes" style="--fa-primary-color: #0000c2; --fa-secondary-color: #0000c2;"></i>
-                            </h5>
-                        </div>
-                        <div>
-                            <h4 id="active-invitations" class="m-0">
-                                --
-                            </h4>
-                            <p class="m-0 text-nowrap">
-                                Invitaciones activas
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="shadow border-0 ms-3 mt-sm-0 mt-3">
+    </header>
+    <div class="row flex-row-reverse justify-content-end mt-3 px-0 px-sm-3 mb-5">
+        <div class="col-12 col-sm-6 col-md-4 col-3 pb-3 ">
+            <div class="shadow bg-light border-0 rounded-3">
                 <button class="btn btn-dark rounded-3 p-2 w-100" data-bs-toggle="modal" data-bs-target="#new-invitation-modal">
                     <div class="text-end px-3 inline-block">
                         <div class="d-flex flex-row justify-content-between align-items-center">
@@ -53,56 +35,69 @@
                     </div>
                 </button>
             </div>
-        </div>
-    </header>
-    <div class="mt-3">
-        <div class="p-2">
-            <div class="card shadow border-0">
-                <div class="card-body">
-                    <div class="d-flex flex-row justify-content-between flex-wrap">
-                        <div>
-                            <h4>Eventos del año</h4>
-                        </div>
-                        <div class="d-none">
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
-                                <x-form.input-group classes="input-group-sm">
-                                    <span class="input-group-text" id="basic-addon1">Año:</span>
-                                    <x-form.select
-                                        id="year-select"
-                                        name="year_select"
-                                        label=""
-                                        selectClasses="form-select-sm"
-                                        extraAttributes="onchange=renderCreatedInvitationsGraph()"
-                                    >
-                                        @foreach ($years as $year)
-                                            <x-form.select-option
-                                                value="{{$year->year}}"
-                                                label="{{$year->year}}"
-                                            />
-                                        @endforeach
-                                    </x-form.select>
-                                    <span class="input-group-text" id="basic-addon1">Comparar:</span>
-                                    <x-form.select
-                                        id="year-diff-select"
-                                        name="year_diff_select"
-                                        label=""
-                                        selectClasses="form-select-sm"
-                                        extraAttributes="onchange=renderCreatedInvitationsGraph()"
-                                    >
-                                        <x-form.select-option
-                                            value=""
-                                            label="Elegir"
-                                        />
-                                    </x-form.select>
-                                </x-form.input-group>
+            <div class="shadow border-0 rounded-3 mt-3">
+                <button class="btn btn-outline-dark rounded-3 p-2 w-100" onclick="syncLegacyInvitations(this)" disabled>
+                    <div class="text-end px-3 inline-block">
+                        <div class="d-flex flex-row justify-content-between align-items-center">
+                            <div class="me-4">
+                                <h5 class="display-6 m-0">
+                                    <i class="fa-light fa-arrows-rotate"></i>
+                                </h5>
+                            </div>
+                            <div>
+                                <h4 class="m-0 text-nowrap">
+                                    Sincronizar
+                                </h4>
+                                <p class="m-0 text-nowrap">
+                                    invitaciones legacy
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="chart-container" style="position: relative; height: 60vh; width: 100%;"> 
-                        <canvas id="created-invitations-graph"></canvas>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-md-8 shadow rounded-3 py-2 m-0">
+            <div class="border-0 pb-4">
+                <div class="text-end px-3 inline-block">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="me-4">
+                            <h1 class="display-1 m-0">
+                                <i class="fa-duotone fa-light fa-envelopes" style="--fa-primary-color: #0000c2; --fa-secondary-color: #0000c2;"></i>
+                            </h1>
+                        </div>
+                        <div>
+                            <h1 id="active-invitations" class="display-1 m-0">
+                                --
+                            </h1>
+                        </div>
                     </div>
-                    {{-- width="{{isMobile()? 600: 400}}" height="{{isMobile()? 300: 100}}"--}}
+                    <h3 class="m-0 display-6">
+                        Invitaciones activas
+                    </h3>
                 </div>
+            </div>
+            <hr>
+            <div class="py-4">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Invitaciones gold
+                        <span class="badge text-bg-warning rounded-pill" id="gold-active-invitations">--</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Invitaciones platino
+                        <span class="badge text-bg-secondary rounded-pill" id="platinum-active-invitations">--</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Invitaciones clasicas
+                        <span class="badge text-bg-info rounded-pill" id="classic-active-invitations">--</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="text-end">
+                <a href="{{route('invitations.index')}}" class="link-dark ms-auto" >Ir a invitaciones</a>
             </div>
         </div>
     </div>
@@ -111,8 +106,7 @@
     <x-admin.invitations.new-invitation-modal />
 
     <script>
-        window.createdInvitationsGraph = "{{route('api.created-invitations-graph')}}";
-
+        
         fetch("{{route('api.active-invitations-graph')}}", {
             credentials: 'include',
             headers: {
@@ -124,6 +118,54 @@
         .then(res => res.json())
         .then(data => {
             let sign = document.getElementById('active-invitations');
+
+            sign.innerHTML = data.total;
+            
+        });
+
+        fetch("{{route('api.active-invitations-graph')}}?plan=Gold", {
+            credentials: 'include',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            let sign = document.getElementById('gold-active-invitations');
+
+            sign.innerHTML = data.total;
+            
+        });
+
+        fetch("{{route('api.active-invitations-graph')}}?plan=Platino", {
+            credentials: 'include',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            let sign = document.getElementById('platinum-active-invitations');
+
+            sign.innerHTML = data.total;
+            
+        });
+
+        fetch("{{route('api.active-invitations-graph')}}?plan=Clásico", {
+            credentials: 'include',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            let sign = document.getElementById('classic-active-invitations');
 
             sign.innerHTML = data.total;
             

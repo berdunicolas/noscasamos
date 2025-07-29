@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::resource('users', UserApiController::class)->only(['index', 'store', 'show']);
     Route::resource('sellers', SellerApiController::class)->only(['index', 'store', 'show', 'destroy']);
+    Route::post('sellers/{seller}', [SellerApiController::class, 'update'])->name('sellers.update');
     Route::resource('invitations', InvitationApiController::class)->only(['index', 'store', 'show', 'destroy']);
     Route::middleware('role:ADMIN')->resource('invitations', InvitationApiController::class)->only(['destroy']);
     Route::post('invitations/store-by_event', [InvitationApiController::class, 'storeByEvent'])->name('invitations.store-by-event');

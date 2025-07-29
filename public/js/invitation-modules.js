@@ -12,6 +12,7 @@ async function uptateSelectedFiles(field) {
 
     if(selectedFiles[objTarget] === undefined) selectedFiles[objTarget] = {};
 
+    
     try {
         for (const [key, value] of Object.entries(data)) {
             if(selectedFiles[objTarget][key] === undefined) selectedFiles[objTarget][key] = Array.isArray(value) ? [] : null;
@@ -26,12 +27,17 @@ async function uptateSelectedFiles(field) {
 async function pushInSelectedFiles(objTarget, key, data) {
 
     if (!data) return;
-
+    
     const urls = Array.isArray(data) ? data : [data];
     
     try {
         const blobs = await Promise.all(urls.map(fetchMediaAsBlob));
-        selectedFiles[objTarget][key] = blobs.length === 1 ? blobs[0] : blobs;
+                
+        if(Array.isArray(selectedFiles[objTarget][key])) {
+            selectedFiles[objTarget][key] = blobs;
+        } else {
+            selectedFiles[objTarget][key] = blobs[0];
+        }
     } catch (error) {
         console.error('Error al convertir imágenes a blob:', error);
     }
@@ -485,6 +491,12 @@ function sendModuleForm(e, form, type = '', name = ''){
     e.preventDefault();
     let formData = new FormData(form);
 
+    const saveIcon = form.querySelector('#save-icon-form');
+    const spinnerIcon = form.querySelector('#spinner-icon-form');
+
+    if (saveIcon) saveIcon.classList.add('visually-hidden');
+    if (spinnerIcon) spinnerIcon.classList.remove('visually-hidden');
+
     switch(type){
         case 'INTRO':
             if(selectedFiles[name]['stamp_image']){
@@ -602,6 +614,9 @@ function sendModuleForm(e, form, type = '', name = ''){
         return ({ statusCode, data });
     })
     .then(async ({statusCode, data}) => {
+        if (saveIcon) saveIcon.classList.remove('visually-hidden');
+        if (spinnerIcon) spinnerIcon.classList.add('visually-hidden');
+
         if(statusCode === 201){
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
             Livewire.dispatch('updatedInvitationLogs');
@@ -614,6 +629,7 @@ function sendModuleForm(e, form, type = '', name = ''){
         }
     })
     .catch(error => console.error('Error:', error));
+
 }
 
 
@@ -692,16 +708,20 @@ function changeCoverFormat(select) {
         mobileImagesInput.attributes.add('disabled', 'disabled');
     }
 }
-
+/*
 function expandtext_color_coverPicker() {
     document.getElementById("text_color_cover-picker").click();
-}
+}*/
 
 function updatetext_color_coverColor() {
     let color = document.getElementById("text_color_cover-picker").value;
     document.getElementById('text_color_cover-input').value = color;
 }
 
+function updatetext_color_coverInput() {
+    let color = document.getElementById("text_color_cover-input").value;
+    document.getElementById('text_color_cover-picker').value = color;
+}
 
 function videoPreview(videoInput) {
     const file = videoInput.files[0];

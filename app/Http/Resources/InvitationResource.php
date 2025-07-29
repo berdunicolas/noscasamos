@@ -19,6 +19,8 @@ class InvitationResource extends JsonResource
             'name' => $this->event->name,
             'event' => $this->event->event,
             'id' => $this->id,
+            'contact_name' => $this->contact_name,
+            'contact_phone' => $this->contact_phone,
             'path_name' => $this->path_name,
             'seller_id' => $this->seller_id,
             'seller_name' => $this->seller?->name ?? 'Legacy',

@@ -22,7 +22,7 @@
             @if(!empty ($module->data['logo_cover']) && $module->data['active_logo'])
                 <img src="{{$module->data['logo_cover']}}"/>
             @else 
-                <h1 style="color:{{$module->data['text_color_cover']}}">{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                <h1 style="color:{{$module->data['text_color_cover']}}">{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
             @endif
             </header>
         @endif
@@ -33,7 +33,7 @@
                     @if (!empty ($module->data['logo_cover']) && $module->data['active_logo']) 
                         <img src='{{$module->data['logo_cover']}}'/>
                     @else 
-                        <h1>{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                        <h1>{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
                     @endif
                 @endif
                 
@@ -60,7 +60,7 @@
             @if(!empty ($module->data['logo_cover']) && $module->data['active_logo'])
                 <img src='{{$module->data['logo_cover']}}'/>
             @else 
-                <h1 style="color:{{$module->data['text_color_cover']}}">{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                <h1 style="color:{{$module->data['text_color_cover']}}">{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
             @endif
             </header>
         @endif
@@ -72,7 +72,7 @@
                     @if (!empty ($module->data['logo_cover']) && $module->data['active_logo']) 
                         <img src='{{$module->data['logo_cover']}}'/>
                     @else 
-                        <h1>{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                        <h1>{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
                     @endif
                 @endif
                 
@@ -99,7 +99,7 @@
             @if(!empty ($module->data['logo_cover']) && $module->data['active_logo'])
                 <img src="{{$module->data['logo_cover']}}"/>
             @else 
-                <h1 style="color:{{$module->data['text_color_cover']}}">{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                <h1 style="color:{{$module->data['text_color_cover']}}">{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
             @endif
             </header>
         @endif
@@ -110,7 +110,7 @@
                     @if (!empty ($module->data['logo_cover']) && $module->data['active_logo']) 
                         <img src='{{$module->data['logo_cover']}}'/>
                     @else 
-                        <h1>{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                        <h1>{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
                     @endif
                 @endif
                 
@@ -147,7 +147,7 @@
             @if (!empty ($module->data['logo_cover']) && $module->data['active_logo'])
                 <img src="{{$module->data['logo_cover']}}"/>
             @else
-                <h1>{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                <h1>{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
             @endif
         </header>
                 
@@ -188,7 +188,7 @@
             @if(!empty ($module->data['logo_cover']) && $module->data['active_logo']) 
                 <img src="{{$module->data['logo_cover']}}"/> 
             @else
-                <h1 style="color:{{$module->data['text_color_cover']}}">{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                <h1 style="color:{{$module->data['text_color_cover']}}">{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
             @endif
             </header>
         @endif
@@ -200,7 +200,7 @@
                     @if(!empty($module->data['logo_cover']) && $module->data['active_logo'])
                         <img src="{{$module->data['logo_cover']}}" />
                     @else
-                        <h1>{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                        <h1>{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
                     @endif
                 @endif
                 
@@ -229,7 +229,7 @@
             @if(!empty ($module->data['logo_cover']) && $module->data['active_logo'])
                 <img src={{$module->data['logo_cover']}} />
             @else 
-                <h1>{!!(empty($module->data['names'])) ? $hostNames : $module->data['names']!!}</h1>
+                <h1>{!!(empty($module->data['names'])) ? '' : $module->data['names']!!}</h1>
             @endif
         </header>
         <section class="cover design">
