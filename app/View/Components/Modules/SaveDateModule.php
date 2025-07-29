@@ -42,7 +42,7 @@ class SaveDateModule extends Component
             );
             $this->dateTittle = $dataTime->translatedFormat('j \d\e F');
 
-            $this->fullDateTime = $dataTime->translatedFormat('m/d/Y/ H:i:s');
+            $this->fullDateTime = $dataTime->translatedFormat('m/d/Y H:i:s');
             $this->fechali = $dataTime->translatedFormat('YmdHis');
 
             $this->fechalip = $dataTime->setTimezone('UTC')->translatedFormat('YmdHis');
