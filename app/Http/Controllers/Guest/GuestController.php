@@ -61,9 +61,11 @@ class GuestController extends Controller
             abort(404);
         }
 
-        $con = Guest::where('invitation_id', $invitation->id)->orderBy('created_at', 'desc')->get();
-        $con2 = Guest::where('invitation_id', $invitation->id)->where('asiste', 'si')->get();
-        $con3 = Guest::where('invitation_id', $invitation->id)->where('asiste', 'no')->get();
+        $invitationsIds = Invitation::where('event_id', $invitation->event_id)->pluck('id');
+
+        $con = Guest::whereIn('invitation_id', $invitationsIds)->orderBy('created_at', 'desc')->get();
+        $con2 = Guest::whereIn('invitation_id', $invitationsIds)->where('asiste', 'si')->get();
+        $con3 = Guest::whereIn('invitation_id', $invitationsIds)->where('asiste', 'no')->get();
         
         $total = $con->count();
         $asisten = $con2->count();
@@ -119,5 +121,11 @@ class GuestController extends Controller
 
         return redirect()->route('invitation.guests.login', ['invitation' => $request->route('invitation')]);
     }
-    
+
+
+    public function destroy(Invitation $invitation, Guest $guest) {
+        $guest->delete();
+
+        return response()->json(['message' => 'Guest deleted successfully'], Response::HTTP_CREATED);
+    }
 }
