@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\SellerApiController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\InvitationModuleApiController;
+use App\Http\Middleware\EnsureCorrectAuthModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,8 +64,10 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::get('metrics/total-invitations-graph', [MetricsApiController::class, 'totalInvitationsGraph'])->name('total-invitations-graph');
     Route::get('metrics/country-invitations-graph', [MetricsApiController::class, 'countryInvitationsGraph'])->name('country-invitations-graph');
     Route::get('metrics/active-invitations-graph', [MetricsApiController::class, 'activeInvitationsGraph'])->name('active-invitations-graph');
+
 });
 
+Route::middleware(EnsureCorrectAuthModel::class.':guests')->delete('{invitation:path_name}/invitados/{guest}', [GuestController::class, 'destroy'])->name('api.guests.delete');
 Route::post('/{invitation:path_name}/confirm-invitation', [GuestController::class, 'store'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('api.invitation.store');
 
 Route::get('/country-divisions/{code?}', function ($code = null) {
