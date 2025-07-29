@@ -6,6 +6,7 @@
         <title>Invitados</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -20,6 +21,7 @@
         <link href="{{asset('assets/css/icons/css/all.min.css')}}" rel="stylesheet">
         <link href="https://cdn.datatables.net/v/dt/dt-2.0.8/b-3.0.2/b-html5-3.0.2/datatables.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('css/bootstrap/bootstrap.min.css')}}">
     </head>
     <body>
 
@@ -78,6 +80,7 @@
                     <th class="none">Traslado</th>
                     <th class="none">Comentarios</th>
                     <th class="none">Fecha Confirmación</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,10 +95,37 @@
                         <td class='none'>{{$item->traslado}}</td>
                         <td class='none'>{{$item->comentarios}}</td>
                         <td class='none'>{{$item->created_at}}</td>
+                        <td class="none">
+                            <button class="btn btn-outline-danger" 
+                                data-guest-id="{{$item->id}}" 
+                                data-guest-name="{{$item->nombre}}"
+                                data-bs-toggle="modal"
+                                data-bs-target="#confirmDeleteModal"
+                                data-url="{{route('api.guests.delete', ['invitation' => $invitation->path_name, 'guest' => $item->id])}}"
+                                ><i class="fa-light fa-trash-can"></i></button>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
+        <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title" id="confirmDeleteModalLabel">¿Estás seguro?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        Esta acción eliminará al invitado permanentemente.
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-dark" id="confirmDeleteBtn" data-bs-dismiss="modal" onclick="deleteGuest()"><i class="fa-light fa-trash me-2"></i>Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer>
             <a href="https://evnt.ar" target="_blank"><b>Evnt</b>.ar</a>
         </footer>
@@ -107,9 +137,10 @@
         <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
-        <script src="assets/js/modal.js"></script>
+        <script src="{{asset('js/bootstrap/bootstrap.min.js')}}"></script>
+        <script src="{{asset('assets/js/modal.js')}}"></script>
         <script>
-            var table = new DataTable('#example', {
+            let table = new DataTable('#example', {
                 order: [[ 9, "desc" ]],
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/es-AR.json',
@@ -132,6 +163,40 @@
                     }
                 }
             });
+
+            let deleteUrl = null;
+
+            const deleteModal = document.getElementById('confirmDeleteModal');
+
+            deleteModal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                deleteUrl = button.getAttribute('data-url');
+            });
+
+            function deleteGuest(){
+                fetch(deleteUrl, {
+                    method: 'DELETE',
+                    credentials: 'include',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                    },
+                })
+                .then(async response => {
+                    const statusCode = response.status;
+                    const text = await response.text();
+                    const data = text ? JSON.parse(text) : {};
+                    return ({ statusCode, data });        
+                })
+                .then(({statusCode, data}) => {
+                    location.reload();
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+            }
+            
         </script>
     </body>
 </html>
