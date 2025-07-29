@@ -6,22 +6,22 @@
                 <div class="right">
                     <p>{!!$module->invitation->seller->text!!}</p>
                     @empty(!$module->invitation->seller->ig_link)
-                        <a href="{{$module->invitation->seller->ig_link}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://{{$module->invitation->seller->ig_link}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->wpp_link)
-                        <a href="{{$module->invitation->seller->wwp_link}}"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://{{$module->invitation->seller->wwp_link}}"><i class="fa-brands fa-whatsapp"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->tk_link)
-                        <a href="{{$module->invitation->seller->tk_link}}"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://{{$module->invitation->seller->tk_link}}"><i class="fa-brands fa-tiktok"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->x_link)
-                        <a href="{{$module->invitation->seller->x_link}}"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://{{$module->invitation->seller->x_link}}"><i class="fa-brands fa-x-twitter"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->ytube_link)
-                        <a href="{{$module->invitation->seller->ytube_link}}"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://{{$module->invitation->seller->ytube_link}}"><i class="fa-brands fa-youtube"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->site_link)
-                        <a href="{{$module->invitation->seller->site_link}}"><i class="fa-regular fa-link"></i></a>
+                        <a href="https://{{$module->invitation->seller->site_link}}"><i class="fa-regular fa-link"></i></a>
                     @endempty
                 </div>
             @endif
