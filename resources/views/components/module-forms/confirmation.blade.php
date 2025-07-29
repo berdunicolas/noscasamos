@@ -41,7 +41,7 @@
             <x-form.input
                 name="limit_date"
                 label="Limite de confirmación"
-                value="{{$module->data['limit_date']}}"
+                value="{!!$module->data['limit_date']!!}"
                 
             />
         </div>
@@ -62,12 +62,12 @@
                                 name="card_tittle"
                                 label="Titulo"
                                 type="text"
-                                value="{{$module->data['card_tittle']}}"
+                                value="{!!$module->data['card_tittle']!!}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                            <textarea name="card_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['card_text']}}</textarea>
+                            <textarea name="card_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{!!$module->data['card_text']!!}</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
@@ -143,7 +143,7 @@
                         <div id="confirmation-form-form" class="{{($module->data['form_type'] == 'link') ? 'd-none' : ''}}">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
-                                <textarea name="form_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['form_text']}}</textarea>
+                                <textarea name="form_text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{!!$module->data['form_text']!!}</textarea>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-12 col-xl-6 mb-3 mb-xl-0">
@@ -355,7 +355,8 @@
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">
                 <span class="mx-3">
-                    <i class="fa-light fa-floppy-disk me-2"></i> Guardar
+                    <i class="fa-light fa-floppy-disk me-2" id="save-icon-form"></i>  
+                    <span class="spinner-border spinner-border-sm me-2 visually-hidden" aria-hidden="true" id="spinner-icon-form"></span> Guardar
                 </span>
             </x-form.button>
         </div>

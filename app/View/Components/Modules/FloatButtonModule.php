@@ -14,8 +14,8 @@ class FloatButtonModule extends Component
      */
     public function __construct(
         public InvitationModule $module,
+        public InvitationModule $confirmation,
         public ?string $color,
-        public string $confirmationUrlForm,
     ) {}
 
     /**

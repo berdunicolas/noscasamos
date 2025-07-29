@@ -34,6 +34,12 @@ function renderDatatable(){
                 data: 'name',
                 responsivePriority: 1,
             },
+            {
+                data: 'contact_name',
+                render: function (data, type, row) {
+                    return `<p class="fs-6">${(row.contact_name == null) ? '' : row.contact_name} ${(row.contact_phone == null) ? '' : row.contact_phone}</p>`;
+                }
+            },
             { 
                 data: 'path_name',
                 responsivePriority: 2,

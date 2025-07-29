@@ -39,23 +39,31 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="civil_date"
                                     label="Fecha"
-                                    type="date"
+                                    type="text"
                                     value="{{$events['civil']['date']}}"
                                 />
                             </div>
-                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
+                                <x-form.input
+                                    name="civil_month"
+                                    label="Mes"
+                                    type="text"
+                                    value="{{$events['civil']['month']}}"
+                                />
+                            </div>
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="civil_time"
                                     label="Hora"
-                                    type="time"
+                                    type="text"
                                     value="{{$events['civil']['time']}}"
                                 />
                             </div>
-                            <div class="col-12 col-xl-4">
+                            <div class="col-12 col-xl-3">
                                 <x-form.input
                                     name="civil_hr_translation"
                                     label="Hs texto"
@@ -69,12 +77,12 @@
                                 name="civil_name"
                                 label="Nombre"
                                 type="text"
-                                value="{{$events['civil']['name']}}"
+                                value="{!!$events['civil']['name']!!}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="civil_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['civil']['detail']}}</textarea>
+                            <textarea name="civil_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{!!$events['civil']['detail']!!}</textarea>
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-switch">
@@ -157,7 +165,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="ceremony_date"
                                     label="Fecha"
@@ -165,7 +173,15 @@
                                     value="{{$events['ceremony']['date']}}"
                                 />
                             </div>
-                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
+                                <x-form.input
+                                    name="ceremony_month"
+                                    label="Mes"
+                                    type="text"
+                                    value="{{$events['ceremony']['month']}}"
+                                />
+                            </div>
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="ceremony_time"
                                     label="Hora"
@@ -173,7 +189,7 @@
                                     value="{{$events['ceremony']['time']}}"
                                 />
                             </div>
-                            <div class="col-12 col-xl-4">
+                            <div class="col-12 col-xl-3">
                                 <x-form.input
                                     name="ceremony_hr_translation"
                                     label="Hs texto"
@@ -187,12 +203,12 @@
                                 name="ceremony_name"
                                 label="Nombre"
                                 type="text"
-                                value="{{$events['ceremony']['name']}}"
+                                value="{!!$events['ceremony']['name']!!}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="ceremony_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['ceremony']['detail']}}</textarea>
+                            <textarea name="ceremony_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{!!$events['ceremony']['detail']!!}</textarea>
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-switch">
@@ -275,7 +291,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="party_date"
                                     label="Fecha"
@@ -283,7 +299,15 @@
                                     value="{{$events['party']['date']}}"
                                 />
                             </div>
-                            <div class="col-12 col-xl-4 mb-3 mb-xl-0">
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
+                                <x-form.input
+                                    name="party_month"
+                                    label="Mes"
+                                    type="text"
+                                    value="{{$events['party']['month']}}"
+                                />
+                            </div>
+                            <div class="col-12 col-xl-3 mb-3 mb-xl-0">
                                 <x-form.input
                                     name="party_time"
                                     label="Hora"
@@ -291,7 +315,7 @@
                                     value="{{$events['party']['time']}}"
                                 />
                             </div>
-                            <div class="col-12 col-xl-4">
+                            <div class="col-12 col-xl-3">
                                 <x-form.input
                                     name="party_hr_translation"
                                     label="Hs texto"
@@ -305,12 +329,12 @@
                                 name="party_name"
                                 label="Nombre"
                                 type="text"
-                                value="{{$events['party']['name']}}"
+                                value="{!!$events['party']['name']!!}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="party_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['party']['detail']}}</textarea>
+                            <textarea name="party_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{!!$events['party']['detail']!!}</textarea>
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-switch">
@@ -397,12 +421,12 @@
                                 name="dresscode_name"
                                 label="Nombre"
                                 type="text"
-                                value="{{$events['dresscode']['name']}}"
+                                value="{!!$events['dresscode']['name']!!}"
                             />
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">Detalle</label>
-                            <textarea name="dresscode_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$events['dresscode']['detail']}}</textarea>
+                            <textarea name="dresscode_detail"  class="form-control" id="exampleFormControlTextarea1" rows="3">{!!$events['dresscode']['detail']!!}</textarea>
                         </div>
                         <div class="mb-3">
                             <div class="form-check form-switch">
@@ -453,7 +477,8 @@
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">
                 <span class="mx-3">
-                    <i class="fa-light fa-floppy-disk me-2"></i> Guardar
+                    <i class="fa-light fa-floppy-disk me-2" id="save-icon-form"></i>  
+                    <span class="spinner-border spinner-border-sm me-2 visually-hidden" aria-hidden="true" id="spinner-icon-form"></span> Guardar
                 </span>
             </x-form.button>
         </div>

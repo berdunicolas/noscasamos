@@ -36,9 +36,9 @@ $evento1icon = "czmrowis";
                     @if (isset($event['date']))    
                     @if(!empty($event['date']) || !empty($event['time']))
                     <div class="txt" style="{{(!empty($event['name']) || !empty($event['detail'])) ? 'border-bottom: 1px solid rgba(135, 135, 135, 0.2); margin-bottom:15px; padding-bottom:15px;' : ''}}">
-                        @if(!empty($event['day']))
+                        @if(!empty($event['date']))
                             <div class="date">
-                                <p>{{$event['day']}}</p>
+                                <p>{{$event['date']}}</p>
                                 <span>{{$event['month']}}</span>
                             </div>
                         @endif
@@ -58,8 +58,8 @@ $evento1icon = "czmrowis";
                     @endif
                     @if(!empty($event['name']) || !empty($event['detail']))
                     <div class="place">
-                        <p><b>{{$event['name']}}</b></p>
-                        <p>{{$event['detail']}}</p>
+                        <p><b>{!!$event['name']!!}</b></p>
+                        <p>{!!$event['detail']!!}</p>
                     </div>
                     @endif
                 </div>

@@ -22,7 +22,7 @@ class SaveDateModule extends Component
      */
     public function __construct(
         public InvitationModule $module,
-        public ?string $nombres,
+        public ?string $calendarTitle,
         public ?string $date,
         public ?string $time,
         public ?string $timezone,

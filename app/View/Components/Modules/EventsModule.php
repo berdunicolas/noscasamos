@@ -26,7 +26,7 @@ class EventsModule extends Component
 
         Carbon::setLocale('es');
 
-        
+        /*
         $date = (!empty($this->events['civil']['date'])) ? $this->events['civil']['date'] : $module->invitation->date;
         $date = Carbon::parse($date);
         $this->events['civil']['day'] = $date->day;
@@ -40,7 +40,7 @@ class EventsModule extends Component
         $date = (!empty($this->events['party']['date'])) ? $this->events['party']['date'] : $module->invitation->date;
         $date = Carbon::parse($date);
         $this->events['party']['day'] = $date->day;
-        $this->events['party']['month'] = $date->translatedFormat('F');
+        $this->events['party']['month'] = $date->translatedFormat('F');*/
 
     }
     /**

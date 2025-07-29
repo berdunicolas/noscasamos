@@ -51,6 +51,11 @@ function procesarArchivos(files, zoneOwner, zoneName, isMultiple) {
             let previewContainer = document.getElementById('preview-container-'+zoneOwner+zoneName);
             if(!isMultiple){
                 previewContainer.innerHTML = '';
+
+                div.innerHTML = `
+                    <img src="${e.target.result}" alt="preview" class="preview-img" >
+                    <button type="button" class="remove-btn" onclick="eliminarImagen(this, '${zoneOwner}', '${zoneName}')">&times;</button>
+                `;
             }
             div.classList.add();
             previewContainer.appendChild(div);

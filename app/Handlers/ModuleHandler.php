@@ -68,19 +68,19 @@ class ModuleHandler {
     const MUSIC = MusicModuleHandler::class;
     const FLOAT_BUTTON = FloatButtonModuleHandler::class;
     const COVER = CoverModuleHandler::class;
+    const WELCOME = WelcomeModuleHandler::class;
     const GUEST = GuestModuleHandler::class;
     const SAVE_DATE = SaveDateModuleHandler::class;
-    const WELCOME = WelcomeModuleHandler::class;
     const EVENTS = EventsModuleHandler::class;
     const HISTORY = HistoryModuleHandler::class;
-    const INFO = InfoModuleHandler::class;
-    const HIGHLIGHTS = HighlightsModuleHandler::class;
     const INTERACTIVE = InteractiveModuleHandler::class;
     const VIDEO = VideoModuleHandler::class;
-    const SUGGESTIONS = SuggestionsModuleHandler::class;
     const GALERY = GaleryModuleHandler::class;
+    const INFO = InfoModuleHandler::class;
+    const SUGGESTIONS = SuggestionsModuleHandler::class;
     const GIFTS = GiftsModuleHandler::class;
     const CONFIRMATION = ConfirmationModuleHandler::class;
+    const HIGHLIGHTS = HighlightsModuleHandler::class;
     const FOOT = FootModuleHandler::class;
 
 
@@ -173,14 +173,14 @@ class ModuleHandler {
             'MUSIC' => new MusicModule($module),
             'FLOAT_BUTTON' => new FloatButtonModule(
                 $module,
+                $invitation->modules()->where('type', ModuleTypeEnum::CONFIRMATION->value)->first(),
                 $invitation->color,
-                $invitation->modules()->where('type', ModuleTypeEnum::CONFIRMATION->value)->first()->data['form_button_url']
             ),
             'COVER' => new CoverModule($module, $invitation->host_names, $invitation->meta_title, $invitation->color, $invitation->background_color),
             'GUEST' => new GuestModule($module),
             'SAVE_DATE' => new SaveDateModule(
                 $module,
-                $invitation->meta_title,
+                $invitation->calendar_title,
                 $invitation->date,
                 $invitation->time,
                 $invitation->time_zone,
@@ -371,6 +371,7 @@ class ModuleHandler {
                 'hr_tanslation' => 'nullable|string',
                 'min_translation' => 'nullable|string',
                 'sec_translation' => 'nullable|string',
+                'date_text' => 'nullable|string',
             ],
             'WELCOME' => [
                 'tittle' => 'nullable|string',
@@ -384,6 +385,7 @@ class ModuleHandler {
                 'civil_icon' => 'nullable|string',
                 'civil_order' => 'nullable|string',
                 'civil_date' => 'nullable|string',
+                'civil_month' => 'nullable|string',
                 'civil_time' => 'nullable|string',
                 'civil_hr_translation' => 'nullable|string',
                 'civil_name' => 'nullable|string',
@@ -403,6 +405,7 @@ class ModuleHandler {
                 'ceremony_icon' => 'nullable|string',
                 'ceremony_order' => 'nullable|string',
                 'ceremony_date' => 'nullable|string',
+                'ceremony_month' => 'nullable|string',
                 'ceremony_time' => 'nullable|string',
                 'ceremony_hr_translation' => 'nullable|string',
                 'ceremony_name' => 'nullable|string',
@@ -422,6 +425,7 @@ class ModuleHandler {
                 'party_icon' => 'nullable|string',
                 'party_order' => 'nullable|string',
                 'party_date' => 'nullable|string',
+                'party_month' => 'nullable|string',
                 'party_time' => 'nullable|string',
                 'party_hr_translation' => 'nullable|string',
                 'party_name' => 'nullable|string',
@@ -785,7 +789,8 @@ class ModuleHandler {
                 'days_tanslation' => $data['days_tanslation'],
                 'hr_tanslation' => $data['hr_tanslation'],
                 'min_translation' => $data['min_translation'],
-                'sec_translation' => $data['sec_translation']
+                'sec_translation' => $data['sec_translation'],
+                'date_text' => $data['date_text'],
             ],
             'WELCOME' => (function () use ($module, $updateMediaTask, $data){
                 $updateMediaTask($module->media_collections, $data);
@@ -812,6 +817,7 @@ class ModuleHandler {
                 $moduleData['civil']['icon'] = $data['civil_icon'] ?? '';
                 $moduleData['civil']['order'] = $data['civil_order'] ?? '';
                 $moduleData['civil']['date'] = $data['civil_date'] ?? '';
+                $moduleData['civil']['month'] = $data['civil_month'] ?? '';
                 $moduleData['civil']['time'] = $data['civil_time'] ?? '';
                 $moduleData['civil']['hr_translation'] = $data['civil_hr_translation'] ?? '';
                 $moduleData['civil']['name'] = $data['civil_name'] ?? '';
@@ -825,6 +831,7 @@ class ModuleHandler {
                 $moduleData['ceremony']['icon'] = $data['ceremony_icon'] ?? '';
                 $moduleData['ceremony']['order'] = $data['ceremony_order'] ?? '';
                 $moduleData['ceremony']['date'] = $data['ceremony_date'] ?? '';
+                $moduleData['ceremony']['month'] = $data['ceremony_month'] ?? '';
                 $moduleData['ceremony']['time'] = $data['ceremony_time'] ?? '';
                 $moduleData['ceremony']['hr_translation'] = $data['ceremony_hr_translation'] ?? '';
                 $moduleData['ceremony']['name'] = $data['ceremony_name'] ?? '';
@@ -838,6 +845,7 @@ class ModuleHandler {
                 $moduleData['party']['icon'] = $data['party_icon'] ?? '';
                 $moduleData['party']['order'] = $data['party_order'] ?? '';
                 $moduleData['party']['date'] = $data['party_date'] ?? '';
+                $moduleData['party']['month'] = $data['party_month'] ?? '';
                 $moduleData['party']['time'] = $data['party_time'] ?? '';
                 $moduleData['party']['hr_translation'] = $data['party_hr_translation'] ?? '';
                 $moduleData['party']['name'] = $data['party_name'] ?? '';

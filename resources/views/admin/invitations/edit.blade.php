@@ -58,7 +58,29 @@
                                 value="{{$invitation->host_names}}"
                             />
                         </div>
-                        <div class="col-6 col-sm-4">
+                        <div class="col-12 col-sm-4 mb-3 mb-sm-0">
+                            <x-form.input
+                                id="config-form-input"
+                                name="contact_name"
+                                label="Nombre de contacto"
+                                type="text"
+                                
+                                value="{{$invitation->contact_name}}"
+                            />
+                        </div>
+                        <div class="col-12 col-sm-4 mb-sm-0">
+                            <x-form.input
+                                id="config-form-input"
+                                name="contact_phone"
+                                label="Telefono de contacto"
+                                type="text"
+                                
+                                value="{{$invitation->contact_phone}}"
+                            />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
                             <x-form.select
                                 id="country-select"
                                 name="country"
@@ -88,7 +110,7 @@
                                 @endif
                             </x-form.select>
                         </div>
-                        <div class="col-6 col-sm-4">
+                        <div class="col-6">
                             <x-form.select
                                 id="country-division-select"
                                 name="country_division"
@@ -118,6 +140,16 @@
                                 extraAttributes="oninput=checkPathName(this) data-original-pathname={{$invitation->path_name}}"
                             />
                         </x-form.input-group>
+                    </div>
+                    <div class="mb-3">
+                        <x-form.input
+                            id="config-form-input"
+                            name="calendar_title"
+                            label="Titulo de calendario"
+                            type="text"
+                            
+                            value="{{$invitation->calendar_title}}"
+                        />
                     </div>
                     <div class="row mb-3">
                         <div class="col-6 col-sm-3 mb-3 mb-sm-0">
@@ -334,7 +366,7 @@
             </div>
             <div class="tab-form px-3 h-100 overflow-auto visually-hidden d-flex flex-column flex-md-row nowrap" id="modules-form">
                 @livewire('admin.invitations.editor.modules-list', ['invitation' => $invitation, 'modules' => $modules])
-                <div class="px-4 pb-5 w-100" id="module-form">
+                <div class="px-4 pb-5 w-100" style="{{(isMobile()) ? 'margin-bottom: 50px !important;' : ''}}" id="module-form">
                     
                 </div>
             </div>

@@ -32,6 +32,15 @@
             </div>
         </div>
         <div class="mb-3">
+            <x-form.input
+                name="date_text"
+                label="Fecha"
+                type="text"
+                
+                value="{!!$module->data['date_text']!!}"
+            />
+        </div>
+        <div class="mb-3">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'is_countdown')" {{$module->data['is_countdown'] ? 'checked' : ''}}>
                 <input type="text" hidden name="is_countdown" id="is_countdown" value="{{$module->data['is_countdown'] ? 1 : 0}}">
@@ -79,7 +88,8 @@
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">
                 <span class="mx-3">
-                    <i class="fa-light fa-floppy-disk me-2"></i> Guardar
+                    <i class="fa-light fa-floppy-disk me-2" id="save-icon-form"></i>  
+                    <span class="spinner-border spinner-border-sm me-2 visually-hidden" aria-hidden="true" id="spinner-icon-form"></span> Guardar
                 </span>
             </x-form.button>
         </div>

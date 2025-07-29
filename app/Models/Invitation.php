@@ -25,6 +25,10 @@ class Invitation extends Authenticatable
 
     protected $fillable = [
         'host_names',
+        'contact_name',
+        'contact_phone',
+        'calendar_title',
+        'host_names',
         'seller_id',
         'event_id',
         'date',
