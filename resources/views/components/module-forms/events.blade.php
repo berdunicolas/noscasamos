@@ -169,7 +169,7 @@
                                 <x-form.input
                                     name="ceremony_date"
                                     label="Fecha"
-                                    type="date"
+                                    type="text"
                                     value="{{$events['ceremony']['date']}}"
                                 />
                             </div>
@@ -185,7 +185,7 @@
                                 <x-form.input
                                     name="ceremony_time"
                                     label="Hora"
-                                    type="time"
+                                    type="text"
                                     value="{{$events['ceremony']['time']}}"
                                 />
                             </div>
@@ -295,7 +295,7 @@
                                 <x-form.input
                                     name="party_date"
                                     label="Fecha"
-                                    type="date"
+                                    type="text"
                                     value="{{$events['party']['date']}}"
                                 />
                             </div>
@@ -311,7 +311,7 @@
                                 <x-form.input
                                     name="party_time"
                                     label="Hora"
-                                    type="time"
+                                    type="text"
                                     value="{{$events['party']['time']}}"
                                 />
                             </div>
