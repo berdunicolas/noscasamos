@@ -22,6 +22,7 @@ use App\View\Components\Table\ConfirmDeleteModal;
 use App\View\Components\Table\Invitations;
 use App\View\Components\Table\NewInvitationModal;
 use App\View\Components\Table\Sellers;
+use App\View\Components\Table\Templates;
 use App\View\Components\Table\Users;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -62,6 +63,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('admin.invitations.new-invitation-modal', NewInvitationModal::class);
         Blade::component('admin.invitations.confirm-delete-modal', ConfirmDeleteModal::class);
         Blade::component('admin.invitations.confirm-clone-modal', ConfirmCloneModal::class);
+
+        Blade::component('table.templates', Templates::class);
 
         Blade::component('module-forms.form', \App\View\Components\ModuleForms\Form::class);
 

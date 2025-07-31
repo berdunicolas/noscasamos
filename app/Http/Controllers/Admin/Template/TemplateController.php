@@ -12,4 +12,9 @@ class TemplateController extends Controller
     {
         return view('admin.templates.index');
     }
+
+    public function edit(): View
+    {
+        return view();
+    }
 }
