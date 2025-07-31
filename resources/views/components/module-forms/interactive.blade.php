@@ -56,14 +56,12 @@
                                 </div>
                             </div>
                             <div class="col-12 col-xl-6">
-                                <x-form.input-group label="Url botton">
-                                    <span class="input-group-text" id="basic-addon3">https://</span>
-                                    <x-form.input
-                                        name="spotify_button_url"
-                                        type="text"
-                                        value="{{$module->data['spotify']['button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botton"
+                                    name="spotify_button_url"
+                                    type="text"
+                                    value="{{$module->data['spotify']['button_url']}}"
+                                />
                             </div>
                         </div>
                     </div>
@@ -121,14 +119,12 @@
                                 </div>
                             </div>
                             <div class="col-12 col-xl-6">
-                                <x-form.input-group label="Url botton">
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="hashtag_button_url"
-                                        type="text"
-                                        value="{{$module->data['hashtag']['button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botton"
+                                    name="hashtag_button_url"
+                                    type="text"
+                                    value="{{$module->data['hashtag']['button_url']}}"
+                                />
                             </div>
                         </div>
                     </div>
@@ -189,14 +185,12 @@
                                 </div>
                             </div>
                             <div class="col-12 col-xl-6">
-                                <x-form.input-group label="Url botton">
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="ig_button_url"
-                                        type="text"
-                                        value="{{$module->data['ig']['button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botton"
+                                    name="ig_button_url"
+                                    type="text"
+                                    value="{{$module->data['ig']['button_url']}}"
+                                />
                             </div>
                         </div>
                     </div>
@@ -257,14 +251,12 @@
                                 </div>
                             </div>
                             <div class="col-12 col-xl-6">
-                                <x-form.input-group label="Url botton">
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="link_button_url"
-                                        type="text"
-                                        value="{{$module->data['link']['button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botton"
+                                    name="link_button_url"
+                                    type="text"
+                                    value="{{$module->data['link']['button_url']}}"
+                                />
                             </div>
                         </div>
                     </div>
