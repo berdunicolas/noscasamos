@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="sellers" datatable="true" dataTableName="sellers-datatable.js">
+<x-admin.layout navBarSelected="sellers" datatable="true" dataTableName="sellers-datatable.js" pageTabTitle="Sellers">
     <header class="d-flex flex-row align-items-center" style="height: 105px">
         <h5 class="display-5">Sellers</h5>
         <button class="btn btn-dark rounded-1 font-size-1 font-bold my-2 ms-auto" 

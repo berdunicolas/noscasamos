@@ -65,7 +65,7 @@
             </header>
         @endif
         
-        <section class="cover full">
+        <section class="cover full design">
             <div class="text">
                 
                 @if (!$module->data['active_header'])

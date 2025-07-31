@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="sellers"  datatable="false"
+<x-admin.layout navBarSelected="sellers"  datatable="false" pageTabTitle="Sellers"
     :jsScripts="[
         asset('inspinia/plugins/jquery/js/jquery.min.js'),
         asset('js/upload-zone.js'),
@@ -72,66 +72,54 @@
             </div>
             <div class="row mb-3">
                 <div class="col-4">
-                    <x-form.input-group label="Sitio web">
-                        <span class="input-group-text" id="basic-addon3">https://</span>
-                        <x-form.input
-                            name="site_link"
-                            value="{{$seller->site_link}}"
-                            :errors="(array) $errors->get('site_link')"
-                        />
-                    </x-form.input-group>
+                    <x-form.input
+                        label="Sitio web"
+                        name="site_link"
+                        value="{{$seller->site_link}}"
+                        :errors="(array) $errors->get('site_link')"
+                    />
                 </div>
                 <div class="col-4">
-                    <x-form.input-group label="Instagram">
-                        <span class="input-group-text" id="basic-addon3">https://</span>
-                        <x-form.input
-                            name="ig_link"
-                            value="{{$seller->ig_link}}"
-                            :errors="(array) $errors->get('ig_link')"
-                        />
-                    </x-form.input-group>
+                    <x-form.input
+                        label="Instagram"
+                        name="ig_link"
+                        value="{{$seller->ig_link}}"
+                        :errors="(array) $errors->get('ig_link')"
+                    />
                 </div>
                 <div class="col-4">
-                    <x-form.input-group label="Whatsapp">
-                        <span class="input-group-text" id="basic-addon3">https://</span>
-                        <x-form.input
-                            name="wpp_link"
-                            value="{{$seller->wpp_link}}"
-                            :errors="(array) $errors->get('wpp_link')"
-                        />
-                    </x-form.input-group>
+                    <x-form.input
+                        label="Whatsapp"
+                        name="wpp_link"
+                        value="{{$seller->wpp_link}}"
+                        :errors="(array) $errors->get('wpp_link')"
+                    />
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-4">
-                    <x-form.input-group label="Tiktok">
-                        <span class="input-group-text" id="basic-addon3">https://</span>
-                        <x-form.input
-                            name="tk_link"
-                            value="{{$seller->tk_link}}"
-                            :errors="(array) $errors->get('tk_link')"
-                        />
-                    </x-form.input-group>
+                    <x-form.input
+                        label="Tiktok"
+                        name="tk_link"
+                        value="{{$seller->tk_link}}"
+                        :errors="(array) $errors->get('tk_link')"
+                    />
                 </div>
                 <div class="col-4">
-                    <x-form.input-group label="X/Twitter">
-                        <span class="input-group-text" id="basic-addon3">https://</span>
-                        <x-form.input
-                            name="x_link"
-                            value="{{$seller->x_link}}"
-                            :errors="(array) $errors->get('x_link')"
-                        />
-                    </x-form.input-group>
+                    <x-form.input
+                        label="X/Twitter"
+                        name="x_link"
+                        value="{{$seller->x_link}}"
+                        :errors="(array) $errors->get('x_link')"
+                    />
                 </div>
                 <div class="col-4">
-                    <x-form.input-group label="Youtube">
-                        <span class="input-group-text" id="basic-addon3">https://</span>
-                        <x-form.input
-                            name="ytube_link"
-                            value="{{$seller->ytube_link}}"
-                            :errors="(array) $errors->get('ytube_link')"
-                        />
-                    </x-form.input-group>
+                    <x-form.input
+                        label="Youtube"
+                        name="ytube_link"
+                        value="{{$seller->ytube_link}}"
+                        :errors="(array) $errors->get('ytube_link')"
+                    />
                 </div>
             </div>
             <div class="d-flex flex-row justify-content-end mt-5">

@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="metrics" 
+<x-admin.layout navBarSelected="metrics" pageTabTitle="Estadisticas"
     :cssStyles="[
         
     ]"

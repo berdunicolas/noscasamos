@@ -30,7 +30,7 @@ class ConfirmationModuleHandler extends GenericModuleHandler{
         'form_text' => 'El formulario es individual.<br> Si tu invitación incluye acompañantes repetí el proceso por cada persona.',
         'form_ill_attend' => 'Asistiré',
         'form_ill_n_attend' => 'No Asistiré',
-        'form_name' => '',
+        'form_name' => 'Nombre y Apellido',
         'form_email' => '',
         'form_phone' => '',
         'form_special_menu' => '¿Necesitas un menú especial?',

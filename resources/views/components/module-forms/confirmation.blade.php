@@ -79,14 +79,12 @@
                                 />
                             </div>
                             <div class="col-12 col-xl-6">
-                                <x-form.input-group label="Url boton" labelFor="url_button">
-                                    <span class="input-group-text" id="basic-addon3">https://</span>
-                                    <x-form.input
-                                        name="card_button_url"
-                                        type="text"
-                                        value="{{$module->data['card_button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url boton"
+                                    name="card_button_url"
+                                    type="text"
+                                    value="{{$module->data['card_button_url']}}"
+                                />
                             </div>
                         </div>
                     </div>
@@ -130,14 +128,12 @@
                             />
                         </div>
                         <div id="confirmation-link-form" class="mb-3 {{($module->data['form_type'] == 'form') ? 'd-none' : ''}}">
-                            <x-form.input-group label="Link boton">
-                                <span class="input-group-text" id="basic-addon3">https://</span>
-                                <x-form.input
-                                    name="form_button_url"
-                                    type="text"
-                                    value="{{$module->data['form_button_url']}}"
-                                />
-                            </x-form.input-group>
+                            <x-form.input
+                                label="Link boton"
+                                name="form_button_url"
+                                type="text"
+                                value="{{$module->data['form_button_url']}}"
+                            />
                         </div>
 
                         <div id="confirmation-form-form" class="{{($module->data['form_type'] == 'link') ? 'd-none' : ''}}">

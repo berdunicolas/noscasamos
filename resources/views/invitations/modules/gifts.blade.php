@@ -34,7 +34,7 @@ $regalosicon = "kezeezyg";
         
         @if(!empty ($module->data['button_text']))
             @if($module->data['button_type'] == 'Link')
-                <a class="modal-button" href="https://{{$module->data['button_url']}}" target="_blank">{!!$module->data['button_text']!!}</a>
+                <a class="modal-button" href="{{urlParser($module->data['button_url'])}}" target="_blank">{!!$module->data['button_text']!!}</a>
             @else
                 <button class="modal-button" href="#myModal1">{!!$module->data['button_text']!!}</button>
             @endif
@@ -76,7 +76,7 @@ $regalosicon = "kezeezyg";
                     <div class="right">
                         <p>{!!$module->data['second_account']['text']!!}</p>
                         @empty(!$module->data['second_account']['button_text'])
-                            <a href="https://{{$module->data['second_account']['button_url']}}" class="link" target="_blank">{!!$module->data['second_account']['button_text']!!}</a>
+                            <a href="{{urlParser($module->data['second_account']['button_url'])}}" class="link" target="_blank">{!!$module->data['second_account']['button_text']!!}</a>
                         @endempty
                     </div>
                 </div>
@@ -90,7 +90,7 @@ $regalosicon = "kezeezyg";
                 <div class="right">
                     <p>{!!$module->data['box']['text']!!}</p>
                     @empty(!$module->data['box']['button_text'])
-                    <a href="https://{{$module->data['box']['button_url']}}" class="link" target="_blank">{!!$module->data['box']['button_text']!!}</a>
+                    <a href="{{urlParser($module->data['box']['button_url'])}}" class="link" target="_blank">{!!$module->data['box']['button_text']!!}</a>
                     @endempty
                 </div>
             </div>
@@ -109,7 +109,7 @@ $regalosicon = "kezeezyg";
                     
                     <div class="list">
                         @empty(!$module->data['list']['product_1'])
-                            <a href="https://{{$module->data['list']['product_url_1']}}" target="_blank">
+                            <a href="{{urlParser($module->data['list']['product_url_1'])}}" target="_blank">
                                 {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module->data['list']['product_1']}}"/>--}}
                                 <img src="{{$module->data['list']['product_image_1']}}" alt="{{$module->data['list']['product_1']}}"/>
                                 <p>{!!$module->data['list']['product_1']!!}</p>
@@ -117,7 +117,7 @@ $regalosicon = "kezeezyg";
                             </a>
                         @endempty
                         @empty(!$module->data['list']['product_2'])
-                            <a href="https://{{$module->data['list']['product_url_2']}}" target="_blank">
+                            <a href="{{urlParser($module->data['list']['product_url_2'])}}" target="_blank">
                                 {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module->data['list']['product_2']}}"/>--}}
                                 <img src="{{$module->data['list']['product_image_2']}}" alt="{{$module->data['list']['product_2']}}"/>
                                 <p>{!!$module->data['list']['product_2']!!}</p>
@@ -125,7 +125,7 @@ $regalosicon = "kezeezyg";
                             </a>
                         @endempty
                         @empty(!$module->data['list']['product_3'])
-                            <a href="https://{{$module->data['list']['product_url_3']}}" target="_blank">
+                            <a href="{{urlParser($module->data['list']['product_url_3'])}}" target="_blank">
                                 {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module->data['list']['product_3']}}"/>--}}
                                 <img src="{{$module->data['list']['product_image_3']}}" alt="{{$module->data['list']['product_3']}}"/>
                                 <p>{!!$module->data['list']['product_3']!!}</p>
@@ -133,7 +133,7 @@ $regalosicon = "kezeezyg";
                             </a>
                         @endempty
                         @empty(!$module->data['list']['product_4'])
-                            <a href="https://{{$module->data['list']['product_url_4']}}" target="_blank">
+                            <a href="{{urlParser($module->data['list']['product_url_4'])}}" target="_blank">
                                 {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module->data['list']['product_4']}}"/>--}}
                                 <img src="{{$module->data['list']['product_image_4']}}" alt="{{$module->data['list']['product_4']}}"/>
                                 <p>{!!$module->data['list']['product_4']!!}</p>
@@ -141,7 +141,7 @@ $regalosicon = "kezeezyg";
                             </a>
                         @endempty
                         @empty(!$module->data['list']['product_5'])
-                            <a href="https://{{$module->data['list']['product_url_5']}}" target="_blank">
+                            <a href="{{urlParser($module->data['list']['product_url_5'])}}" target="_blank">
                                 {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module->data['list']['product_5']}}"/>--}}
                                 <img src="{{$module->data['list']['product_image_5']}}" alt="{{$module->data['list']['product_5']}}"/>
                                 <p>{!!$module->data['list']['product_5']!!}</p>
@@ -149,7 +149,7 @@ $regalosicon = "kezeezyg";
                             </a>
                         @endempty
                         @empty(!$module->data['list']['product_6'])
-                            <a href="https://{{$module->data['list']['product_url_6']}}" target="_blank">
+                            <a href="{{urlParser($module->data['list']['product_url_6'])}}" target="_blank">
                                 {{--<img src="images/regalos/{{$productoimg1}}" alt="{{$module->data['list']['product_6']}}"/>--}}
                                 <img src="{{$module->data['list']['product_image_6']}}" alt="{{$module->data['list']['product_6']}}"/>
                                 <p>{!!$module->data['list']['product_6']!!}</p>

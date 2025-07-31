@@ -25,10 +25,10 @@ class GiftsModuleHandler extends GenericModuleHandler{
         'first_account' => [
             'active' => false,
             'tittle' => 'Cuenta bancaria',
-            'text' => '<b>Cuenta:</b><br>
-<b>Titular:</b><br>
-<b>Alias:</b><br>
-<b>CBU:</b><br>',
+            'text' => '<b>Cuenta:</b>
+<b>Titular:</b>
+<b>Alias:</b>
+<b>CBU:</b>',
             'data' => 'CBU',
             'value' => '',
             'copy_button_text' => 'Copiar CBU',
@@ -37,9 +37,12 @@ class GiftsModuleHandler extends GenericModuleHandler{
         'second_account' => [
             'active' => false,
             'tittle' => 'Cuenta en dólares',
-            'text' => '',
+            'text' => '<b>Cuenta:</b>
+<b>Titular:</b>
+<b>Alias:</b>
+<b>CBU:</b>',
             'button_url' => '',
-            'button_text' => 'Ir a punto de pago',
+            'button_text' => '',
             'value' => '',
         ],
         'box' => [
