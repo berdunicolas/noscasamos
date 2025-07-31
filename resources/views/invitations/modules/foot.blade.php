@@ -6,22 +6,22 @@
                 <div class="right">
                     <p>{!!$module->invitation->seller->text!!}</p>
                     @empty(!$module->invitation->seller->ig_link)
-                        <a href="https://{{$module->invitation->seller->ig_link}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="{{urlParser($module->invitation->seller->ig_link)}}" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->wpp_link)
-                        <a href="https://{{$module->invitation->seller->wwp_link}}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="{{urlParser($module->invitation->seller->wwp_link)}}" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->tk_link)
-                        <a href="https://{{$module->invitation->seller->tk_link}}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="{{urlParser($module->invitation->seller->tk_link)}}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->x_link)
-                        <a href="https://{{$module->invitation->seller->x_link}}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="{{urlParser($module->invitation->seller->x_link)}}" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->ytube_link)
-                        <a href="https://{{$module->invitation->seller->ytube_link}}" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="{{urlParser($module->invitation->seller->ytube_link)}}" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                     @endempty
                     @empty(!$module->invitation->seller->site_link)
-                        <a href="https://{{$module->invitation->seller->site_link}}" target="_blank"><i class="fa-regular fa-link"></i></a>
+                        <a href="{{urlParser($module->invitation->seller->site_link)}}" target="_blank"><i class="fa-regular fa-link"></i></a>
                     @endempty
                 </div>
             @endif
@@ -29,5 +29,5 @@
     </section>
 @endif
 <footer>
-    <p>{!!$module->data['foot_text']!!} <a href="https://{{$module->invitation->seller->site_link}}" target="_blank">{{$module->invitation->seller->name}}</a></p>
+    <p>{!!$module->data['foot_text']!!} <a href="{{urlParser($module->invitation->seller->site_link)}}" target="_blank">{{$module->invitation->seller->name}}</a></p>
 </footer>

@@ -61,7 +61,7 @@ class InvitationApiController extends Controller
                 'seller_id' => $validatedData['seller'],
                 'password' => $token,
                 'plain_token' => $token,
-                'duration' => 5,
+                'duration' => 8,
                 'active' => true,
                 'created_by' => auth()->user()->id,
                 'meta_title' => null,

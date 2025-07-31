@@ -17,12 +17,10 @@
                         />
                     </div>
                     <div class="mb-3">
-                        <x-form.input-group label="Sitio web">
-                          <span class="input-group-text" id="basic-addon3">https://</span>
-                          <x-form.input
-                              name="site_link"
-                          />
-                      </x-form.input-group>
+                        <x-form.input
+                            label="Sitio web"
+                            name="site_link"
+                        />
                     </div>
                 </div>
 

@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="user"  datatable="true" dataTableName="users-datatable.js">
+<x-admin.layout navBarSelected="user"  datatable="true" dataTableName="users-datatable.js" pageTabTitle="Usuarios">
     <header class="d-flex flex-row align-items-center" style="height: 105px">
         <p style="font-size: 2em;">Información de usuario</p>
     </header>

@@ -18,6 +18,7 @@ class Layout extends Component
         public array $cssStyles = [],
         public array $jsScripts = [],
         public bool $overflowHidden = false,
+        public string $pageTabTitle = '',
     ) {}
 
     /**

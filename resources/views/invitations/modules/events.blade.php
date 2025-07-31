@@ -65,7 +65,7 @@ $evento1icon = "czmrowis";
                 </div>
                 
                 @empty(!$event['button_text'])
-                    <a href="https://{{$event['button_url']}}" target="_blank">{{$event['button_text']}}</a>
+                    <a href="{{urlParser($event['button_url'])}}" target="_blank">{{$event['button_text']}}</a>
                 @endempty
             </article>
         @endif

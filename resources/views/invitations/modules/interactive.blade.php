@@ -29,7 +29,7 @@ $inter1icons = "s";
                     </div>
                     @endempty
                     @empty(!$interactive['button_url'])
-                        <a href="https://{{$interactive['button_url']}}" target="_blank">{{$interactive['button_text']}}</a>
+                        <a href="{{urlParser($interactive['button_url'])}}" target="_blank">{{$interactive['button_text']}}</a>
                     @endempty
                 </article>
             @endif

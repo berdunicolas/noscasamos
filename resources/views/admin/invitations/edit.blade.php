@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true" overflowHidden="true"
+<x-admin.layout navBarSelected="invitations" dabatable="false" dataTableName="" jqueryUI="true" overflowHidden="true" pageTabTitle="Invitaciones"
     :jsScripts="[
         asset('inspinia/plugins/jquery/js/jquery.min.js'),
         asset('inspinia/plugins/jquery-ui/js/jquery-ui.min.js'),

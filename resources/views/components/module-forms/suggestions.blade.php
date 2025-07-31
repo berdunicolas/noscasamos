@@ -47,14 +47,12 @@
                     />
                 </div>
                 <div class="col-12 col-xl-6">
-                    <x-form.input-group label="Link sugerencia {{$key+1}}">
-                        <span class="input-group-text">https://</span>
-                        <x-form.input
-                            name="{{'link_' . ($key+1)}}"
-                            type="text"
-                            value="{{$suggestion['link_' . ($key+1)]}}"
-                        />
-                    </x-form.input-group>
+                    <x-form.input
+                        label="Link sugerencia {{$key+1}}"
+                        name="{{'link_' . ($key+1)}}"
+                        type="text"
+                        value="{{$suggestion['link_' . ($key+1)]}}"
+                    />
                 </div>
             </div>
         @endforeach
