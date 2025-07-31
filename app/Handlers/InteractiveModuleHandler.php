@@ -31,7 +31,7 @@ class InteractiveModuleHandler extends GenericModuleHandler{
             'text' => 'Sumate a la boda compartiendo fotos y videos con nuestro hashtag.',
             'button_icon' => '',
             'button_text' => 'Ir a Instagram',
-            'button_url' => '',
+            'button_url' => 'www.instagram.com/explore/tags/noscasamos/',
         ],
         'ig' => [
             'active' => false,

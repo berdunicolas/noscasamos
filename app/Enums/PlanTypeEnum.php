@@ -4,9 +4,9 @@ namespace App\Enums;
 
 enum PlanTypeEnum: string
 {
-    case CLÁSICO = 'Clásico';
-    case PLATINO = 'Platino';
     case GOLD = 'Gold';
+    case PLATINO = 'Platino';
+    case CLÁSICO = 'Clásico';
 
     public static function values(): array
     {

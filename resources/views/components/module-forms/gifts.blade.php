@@ -89,13 +89,11 @@
             </div>
             <div class="col-12 col-xl-6">
                 <div class="mb-3">
-                    <x-form.input-group label="Url botón" >
-                        <span class="input-group-text" id="basic-addon3">https://</span>
-                        <x-form.input
-                            name="button_url"
-                            value="{{ $module->data['button_url'] }}"               
-                        />
-                    </x-form.input-group>
+                    <x-form.input
+                        label="Url botón"
+                        name="button_url"
+                        value="{{ $module->data['button_url'] }}"               
+                    />
                 </div>
             </div>
         </div>
@@ -192,13 +190,11 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                <x-form.input-group label="Url botón" >
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="second_account_button_url"
-                                        value="{{ $module->data['second_account']['button_url'] }}"               
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botón"
+                                    name="second_account_button_url"
+                                    value="{{ $module->data['second_account']['button_url'] }}"               
+                                />
                             </div>
                             <div class="col-12 col-xl-6">
                                 <x-form.input
@@ -247,13 +243,11 @@
                                 />
                             </div>
                             <div class="col-12 col-xl-6">
-                                <x-form.input-group label="Url botón" >
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="box_button_url"
-                                        value="{{ $module->data['box']['button_url'] }}"               
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botón"
+                                    name="box_button_url"
+                                    value="{{ $module->data['box']['button_url'] }}"               
+                                />
                             </div>
                         </div>
                     </div>
@@ -295,13 +289,11 @@
                                     />
                                 </div>
                                 <div class="col-12 col-xl-4 mb-3 mb-xl-0">
-                                    <x-form.input-group label="Link de producto" >
-                                        <span class="input-group-text">https://</span>
-                                        <x-form.input
-                                            name="list_product_url_1"
-                                            value="{{ $module->data['list']['product_url_1'] }}"               
-                                        />
-                                    </x-form.input-group>
+                                    <x-form.input
+                                        label="Link de producto"
+                                        name="list_product_url_1"
+                                        value="{{ $module->data['list']['product_url_1'] }}"               
+                                    />
                                 </div>
                                 <div class="col-12 col-xl-4">
                                     <x-form.input
@@ -340,13 +332,11 @@
                                     />
                                 </div>
                                 <div class="col-12 col-xl-4 mb-3 mb-xl-0">
-                                    <x-form.input-group label="Link de producto" >
-                                        <span class="input-group-text">https://</span>
-                                        <x-form.input
-                                            name="list_product_url_2"
-                                            value="{{ $module->data['list']['product_url_2'] }}"               
-                                        />
-                                    </x-form.input-group>
+                                    <x-form.input
+                                        label="Link de producto"
+                                        name="list_product_url_2"
+                                        value="{{ $module->data['list']['product_url_2'] }}"               
+                                    />
                                 </div>
                                 <div class="col-12 col-xl-4">
                                     <x-form.input
@@ -385,13 +375,11 @@
                                     />
                                 </div>
                                 <div class="col-12 col-xl-4 mb-3 mb-xl-0">
-                                    <x-form.input-group label="Link de producto" >
-                                        <span class="input-group-text">https://</span>
-                                        <x-form.input
-                                            name="list_product_url_3"
-                                            value="{{ $module->data['list']['product_url_3'] }}"               
-                                        />
-                                    </x-form.input-group>
+                                    <x-form.input
+                                        label="Link de producto"
+                                        name="list_product_url_3"
+                                        value="{{ $module->data['list']['product_url_3'] }}"               
+                                    />
                                 </div>
                                 <div class="col-12 col-xl-4">
                                     <x-form.input
@@ -430,13 +418,11 @@
                                     />
                                 </div>
                                 <div class="col-12 col-xl-4 mb-3 mb-xl-0">
-                                    <x-form.input-group label="Link de producto" >
-                                        <span class="input-group-text">https://</span>
-                                        <x-form.input
-                                            name="list_product_url_4"
-                                            value="{{ $module->data['list']['product_url_4'] }}"               
-                                        />
-                                    </x-form.input-group>
+                                    <x-form.input
+                                        label="Link de producto"
+                                        name="list_product_url_4"
+                                        value="{{ $module->data['list']['product_url_4'] }}"               
+                                    />
                                 </div>
                                 <div class="col-12 col-xl-4">
                                     <x-form.input
@@ -475,13 +461,11 @@
                                     />
                                 </div>
                                 <div class="col-12 col-xl-4 mb-3 mb-xl-0">
-                                    <x-form.input-group label="Link de producto" >
-                                        <span class="input-group-text">https://</span>
-                                        <x-form.input
-                                            name="list_product_url_5"
-                                            value="{{ $module->data['list']['product_url_5'] }}"               
-                                        />
-                                    </x-form.input-group>
+                                    <x-form.input
+                                        label="Link de producto"
+                                        name="list_product_url_5"
+                                        value="{{ $module->data['list']['product_url_5'] }}"               
+                                    />
                                 </div>
                                 <div class="col-12 col-xl-4">
                                     <x-form.input
@@ -520,13 +504,11 @@
                                     />
                                 </div>
                                 <div class="col-12 col-xl-4 mb-3 mb-xl-0">
-                                    <x-form.input-group label="Link de producto" >
-                                        <span class="input-group-text">https://</span>
-                                        <x-form.input
-                                            name="list_product_url_6"
-                                            value="{{ $module->data['list']['product_url_6'] }}"               
-                                        />
-                                    </x-form.input-group>
+                                    <x-form.input
+                                        label="Link de producto"
+                                        name="list_product_url_6"
+                                        value="{{ $module->data['list']['product_url_6'] }}"               
+                                    />
                                 </div>
                                 <div class="col-12 col-xl-4">
                                     <x-form.input

@@ -47,14 +47,14 @@ $rsvpicos = "s"
                     @if(empty($module->data['card_button_url']))
                         <button class="link modal-button" href="#myModal1">{!!$module->data['card_button_text']!!}</button>
                     @else
-                        <a class="link modal-button" href="https://{{$module->data['card_button_url']}}" target="_blank">{!!$module->data['card_button_text']!!}</a>
+                        <a class="link modal-button" href="{{urlParser($module->data['card_button_url'])}}" target="_blank">{!!$module->data['card_button_text']!!}</a>
                     @endif
                 @endempty
             </div>
         @endempty
         @empty (!$module->data['form_active'])    
             @if ($module->data['form_type'] == 'link')
-                <a class="link modal-button" href="https://{{$module->data['form_button_url']}}" target="_blank" style="padding:15px 32px;"><i class="fa-regular fa-circle-check" style="margin-right:10px"></i>{!!$module->data['form_button_text']!!}</a>
+                <a class="link modal-button" href="{{urlParser($module->data['form_button_url'])}}" target="_blank" style="padding:15px 32px;"><i class="fa-regular fa-circle-check" style="margin-right:10px"></i>{!!$module->data['form_button_text']!!}</a>
             @else 
                 <button class="link modal-button" href="#myModal2" style="padding:15px 32px;"><i class="fa-regular fa-circle-check" style="margin-right:10px"></i>{!!$module->data['form_button_text']!!}</button>
             @endif

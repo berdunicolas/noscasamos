@@ -30,14 +30,12 @@
             />
         </div>
         <div id="url_input" class="mb-3">
-            <x-form.input-group label="URL" labelFor="url_button">
-                <span class="input-group-text" id="basic-addon3">https://</span>
-                <x-form.input
-                    name="url_button"
-                    value="{{ $module->data['url_button'] }}"
-                                    
-                />
-            </x-form.input-group>
+            <x-form.input
+                label="URL"
+                name="url_button"
+                value="{{ $module->data['url_button'] }}"
+                                
+            />
         </div>
 
         <div class="d-flex flex-row justify-content-end mt-5">

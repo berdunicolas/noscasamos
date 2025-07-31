@@ -105,14 +105,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                <x-form.input-group label="Url botón" >
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="civil_button_url"
-                                        type="text"
-                                        value="{{$events['civil']['button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botón"
+                                    name="civil_button_url"
+                                    type="text"
+                                    value="{{$events['civil']['button_url']}}"
+                                />
                             </div>
                             <div class="col-12 col-xl-6">
                                 <div class="mb-3">
@@ -231,14 +229,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                <x-form.input-group label="Url botón" >
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="ceremony_button_url"
-                                        type="text"
-                                        value="{{$events['ceremony']['button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botón"
+                                    name="ceremony_button_url"
+                                    type="text"
+                                    value="{{$events['ceremony']['button_url']}}"
+                                />
                             </div>
                             <div class="col-12 col-xl-6">
                                 <div class="mb-3">
@@ -357,14 +353,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                <x-form.input-group label="Url botón" >
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="party_button_url"
-                                        type="text"
-                                        value="{{$events['party']['button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botón"
+                                    name="party_button_url"
+                                    type="text"
+                                    value="{{$events['party']['button_url']}}"
+                                />
                             </div>
                             <div class="col-12 col-xl-6">
                                 <div class="mb-3">
@@ -449,14 +443,12 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                <x-form.input-group label="Url botón" >
-                                    <span class="input-group-text">https://</span>
-                                    <x-form.input
-                                        name="dresscode_button_url"
-                                        type="text"
-                                        value="{{$events['dresscode']['button_url']}}"
-                                    />
-                                </x-form.input-group>
+                                <x-form.input
+                                    label="Url botón"
+                                    name="dresscode_button_url"
+                                    type="text"
+                                    value="{{$events['dresscode']['button_url']}}"
+                                />
                             </div>
                             <div class="col-12 col-xl-6">
                                 <div class="mb-3">

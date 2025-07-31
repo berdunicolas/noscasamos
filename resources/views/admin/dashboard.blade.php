@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="dashboard"
+<x-admin.layout navBarSelected="dashboard" pageTabTitle="Dashboard"
     :cssStyles="[
         
     ]"

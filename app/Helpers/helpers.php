@@ -27,3 +27,14 @@ if (!function_exists("randomToken")) {
         return $token;
     }
 }
+
+if(!function_exists("urlParser")) {
+    function urlParser(string $url): string
+    {
+        if (!preg_match('#^https?://#i', $url)) {
+            return 'https://' . ltrim($url, '/');
+        }
+
+        return $url;
+    }
+}
