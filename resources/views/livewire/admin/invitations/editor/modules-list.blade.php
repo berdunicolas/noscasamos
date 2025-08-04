@@ -21,7 +21,14 @@
                         </div>
                         <div class="d-flex flex-row align-items-center ms-auto justify-content-end flex-nowrap">
                             @if (!$module['on_plan'])
-                                <button class="btn btn-sm btn-white" data-url="{{route('api.invitation.delete-module', ['invitation' => $invitation->id, 'module' => $module->id])}}" onclick="deleteModule(this)"><i class="fa-light fa-trash-can"></i></button>
+                                @php
+                                    if(get_class($moduleOwner) == 'App\Models\Template'){
+                                        $route = route('api.template.delete-module', ['template' => $moduleOwner->id, 'module' => $module->id]);
+                                    } else {
+                                        $route = route('api.invitation.delete-module', ['invitation' => $moduleOwner->id, 'module' => $module->id]);
+                                    }
+                                @endphp
+                                <button class="btn btn-sm btn-white" data-url="{{$route}}" onclick="deleteModule(this)"><i class="fa-light fa-trash-can"></i></button>
                             @endif
                             <button class="btn btn-sm btn-white module-edit-button" onclick="showForm(this, '{{$module['name']}}')"><i class="fa-light fa-pen-to-square"></i></button>
                             <div class="form-check form-switch form-check-reverse">

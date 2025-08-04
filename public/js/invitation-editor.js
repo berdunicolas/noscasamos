@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function() {
     let saveChangesBtn = document.getElementById('save-style-btn');
-    document.querySelectorAll("#style-form-input, #color-picker #color-input, #background_color-picker, #background_color-input, #image-input-invitationframe_image").forEach(function(element) {
+    document.querySelectorAll("#style-form-input, #color-picker, #color-input, #background_color-picker, #background_color-input, #image-input-invitationframe_image").forEach(function(element) {
         element.addEventListener("change", function() {
             saveChangesBtn.removeAttribute("disabled");
             configFormChanges = true;

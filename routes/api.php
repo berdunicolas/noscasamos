@@ -3,9 +3,11 @@
 use App\Http\Controllers\Api\InvitationApiController;
 use App\Http\Controllers\Api\MetricsApiController;
 use App\Http\Controllers\Api\SellerApiController;
+use App\Http\Controllers\Api\TemplateApiController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Controllers\InvitationModuleApiController;
+use App\Http\Controllers\TemplateModuleApiController;
 use App\Http\Middleware\EnsureCorrectAuthModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -52,13 +54,22 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
         }
     })->name('validate-invitation');
 
-    Route::get('intivations/{invitation}/modules', [InvitationModuleApiController::class, 'getInvitationModules'])->name('invitation.modules');
-    Route::patch('intivations/{invitation}/modules/change-order', [InvitationModuleApiController::class, 'changeModulesOrder'])->name('invitation.modules.change-order');
-    Route::patch('intivations/{invitation}/modules/{module}/change-status', [InvitationModuleApiController::class, 'changeModuleStatus'])->name('invitation.modules.change-status');
+    Route::get('invitations/{invitation}/modules', [InvitationModuleApiController::class, 'getInvitationModules'])->name('invitation.modules');
+    Route::patch('invitations/{invitation}/modules/change-order', [InvitationModuleApiController::class, 'changeModulesOrder'])->name('invitation.modules.change-order');
+    Route::patch('invitations/{invitation}/modules/{module}/change-status', [InvitationModuleApiController::class, 'changeModuleStatus'])->name('invitation.modules.change-status');
     Route::patch('invitations/{invitation}/modules/{module}', [InvitationModuleApiController::class, 'updateModule'])->name('invitation.modules.update');
     Route::get('invitations/{invitation}/modules/available-modules', [InvitationModuleApiController::class, 'availableModules'])->name('invitation.available-modules');
     Route::delete('invitations/{invitation}/modules/{module}/delete-module', [InvitationModuleApiController::class, 'deleteModule'])->name('invitation.delete-module');
     Route::post('invitations/{invitation}/modules/add-module', [InvitationModuleApiController::class, 'addModule'])->name('invitation.add-module');
+
+    Route::resource('templates', TemplateApiController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+    Route::get('templates/{template}/modules', [TemplateModuleApiController::class, 'getTemplateModules'])->name('template.modules');
+    Route::patch('templates/{template}/modules/change-order', [TemplateModuleApiController::class, 'changeModulesOrder'])->name('template.modules.change-order');
+    Route::patch('templates/{template}/modules/{module}/change-status', [TemplateModuleApiController::class, 'changeModuleStatus'])->name('template.modules.change-status');
+    Route::patch('templates/{template}/modules/{module}', [TemplateModuleApiController::class, 'updateModule'])->name('template.modules.update');
+    Route::get('templates/{template}/modules/available-modules', [TemplateModuleApiController::class, 'availableModules'])->name('template.available-modules');
+    Route::delete('templates/{template}/modules/{module}/delete-module', [TemplateModuleApiController::class, 'deleteModule'])->name('template.delete-module');
+    Route::post('templates/{template}/modules/add-module', [TemplateModuleApiController::class, 'addModule'])->name('template.add-module');
     
     Route::get('metrics/created-invitations-graph', [MetricsApiController::class, 'createdInvitationsGraph'])->name('created-invitations-graph');
     Route::get('metrics/total-invitations-graph', [MetricsApiController::class, 'totalInvitationsGraph'])->name('total-invitations-graph');

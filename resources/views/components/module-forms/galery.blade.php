@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Galeria</h4>
 
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="mb-3">
             <x-form.input
                 name="icon"
@@ -31,6 +31,7 @@
                 />
             </div>
         </div>
+        @if ($isInvitation)            
         <div class="mb-3">
             <x-form.upload-zone label="Fotos" :zoneOwner="$module->name" zoneName="galery_images" :isMultiple=true>
                 @foreach ($module->data['galery_images'] as $key => $image)
@@ -46,6 +47,7 @@
                 @json( [$module->name => ['galery_images' => $module->data['galery_images']]])
             </p>
         </div>
+        @endif
         
         <div class="d-flex flex-row justify-content-end mt-5">
             <x-form.button id="save-style-btn" type="submit" classes="btn btn-dark">

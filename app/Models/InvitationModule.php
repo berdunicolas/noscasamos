@@ -3,17 +3,13 @@
 namespace App\Models;
 
 use App\Enums\ModuleTypeEnum;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-class InvitationModule extends Model
+class InvitationModule extends Module
 {
-    use HasFactory;
-
     protected $fillable = [
         'type',
         'name',
@@ -21,19 +17,10 @@ class InvitationModule extends Model
         'active',
         'fixed',
         'on_plan',
-        'data',
         'invitation_id',
+        'data',
         'media_collections',
         'index',
-    ];
-
-    protected $casts = [
-        'type' => ModuleTypeEnum::class,
-        'active' => 'boolean',
-        'fixed' => 'boolean',
-        'on_plan' => 'boolean',
-        'data' => 'array',
-        'media_collections' => 'array',
     ];
 
     public function invitation(): BelongsTo

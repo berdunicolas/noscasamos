@@ -57,6 +57,7 @@ if(config('app.env') == 'production') {
             Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
             Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
             Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+            Route::get('/templates/{template}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
         });
     });
 
@@ -91,6 +92,7 @@ if(config('app.env') == 'production') {
             Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
             Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
             Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+            Route::get('/templates/{template}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
     });
 }
 

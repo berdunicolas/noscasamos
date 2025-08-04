@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Portada</h4>
 
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="mb-3">
             <x-form.select
                 name="format"
@@ -41,6 +41,7 @@
             </x-form.select>
         </div>
 
+        @if($isInvitation)
         <div id="images_format_inputs" class="{{ str_contains('Imagenes con marco', $module->data['format']) ? '' : 'd-none' }}">
             <div class="mb-3">
                 <x-form.upload-zone label="Imágenes desktop" :zoneOwner="$module->name" zoneName="images_desktop_cover" :isMultiple=true>
@@ -73,6 +74,8 @@
                 </p>
             </div>
         </div>
+        @endif
+        @if($isInvitation)
         <div id="design_format_inputs" class="{{ str_contains('Diseño con marco', $module->data['format']) ? '' : 'd-none' }}">
             <div class="row mb-3">
                 <div class="col-6">
@@ -103,6 +106,8 @@
                 </div>
             </div>
         </div>
+        @endif
+        @if($isInvitation)
         <div id="video_format_inputs" class="{{ str_contains('Video centrado', $module->data['format']) ? '' : 'd-none' }}">
             <div class="row mb-3">
                 <div class="col-6">
@@ -128,6 +133,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <div class="row mt-4 mb-3">
             <div class="ms-2 col-3 form-check form-switch">
                 <input class="form-check-input" onchange="checkboxSwitch(this, 'active_header')" type="checkbox" role="switch" {{$module->data['active_header'] ? 'checked' : ''}}>
@@ -173,7 +179,6 @@
                 />
             </div>
         </div>
-
         <div class="row mb-3">
             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <div class="form-check form-switch">
@@ -181,6 +186,7 @@
                     <input type="text" hidden name="active_logo" id="active_logo" value="{{$module->data['active_logo'] ? 1 : 0}}">
                     <label class="form-check-label" for="">Usar logotipo</label>
                 </div>
+                @if($isInvitation)
                 <x-form.upload-zone :zoneOwner="$module->name" zoneName="logo_cover" :isMultiple=false>
                     @if($module->data['logo_cover'])
                         <div class="preview-item">
@@ -192,6 +198,7 @@
                 <p class="selectedFilesUpdater" hidden>
                     @json( [$module->name => ['logo_cover' => $module->data['logo_cover']]])
                 </p>
+                @endif
             </div>
             <div class="col-12 col-xl-6">
                 <div class="form-check form-switch">
@@ -199,6 +206,7 @@
                     <input type="text" hidden name="active_central" id="active_central" value="{{$module->data['active_central'] ? 1 : 0}}">
                     <label class="form-check-label" for="">Usar imagen central</label>
                 </div>
+                @if($isInvitation)
                 <x-form.upload-zone :zoneOwner="$module->name" zoneName="central_image_cover" :isMultiple=false>
                     @if($module->data['central_image_cover'])
                         <div class="preview-item">
@@ -210,6 +218,7 @@
                 <p class="selectedFilesUpdater" hidden>
                     @json( [$module->name => ['central_image_cover' => $module->data['central_image_cover']]])
                 </p>
+                @endif
             </div>
         </div>
 
