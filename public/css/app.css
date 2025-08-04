@@ -10,7 +10,7 @@ html, body {
   height: 100vh !important;
   width: 100vw !important;
   box-sizing: border-box;
-  /*overflow: hidden;*/
+  overflow: hidden;
 }
 
 body > * {
