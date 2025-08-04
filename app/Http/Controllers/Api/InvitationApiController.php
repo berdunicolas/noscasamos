@@ -98,7 +98,18 @@ class InvitationApiController extends Controller
                     ];
                 });
 
-
+                $invitation->logs()->create([
+                    'invitation_id' => $invitation->id,
+                    'user_id' => Auth::id(),
+                    'action' => 'Invitación y evento creado con plantilla',
+                    'description' => 'Se creo invitación y evento con nombre "' . $invitation->host_names . '" usando la plantilla "' . $template->name . '".',
+                    'data' => [
+                        'event_id' => $invitation->event_id,
+                        'path_name' => $invitation->path_name,
+                        'host_names' => $invitation->host_names,
+                        'seller_id' => $invitation->seller_id,
+                    ],
+                ]);
     
                 $invitation->modules()->createMany($modules->toArray());
                 
@@ -160,23 +171,21 @@ class InvitationApiController extends Controller
                             'index' => $index,
                         ];
                     });
-    
+
+                $invitation->logs()->create([
+                    'invitation_id' => $invitation->id,
+                    'user_id' => Auth::id(),
+                    'action' => 'Invitación y evento creado',
+                    'description' => 'Se creo invitación y evento con nombre "' . $invitation->host_names . '"',
+                    'data' => [
+                        'event_id' => $invitation->event_id,
+                        'path_name' => $invitation->path_name,
+                        'host_names' => $invitation->host_names,
+                        'seller_id' => $invitation->seller_id,
+                    ],
+                ]);
                 $invitation->modules()->createMany($modules->toArray());
-
             }
-
-            $invitation->logs()->create([
-                'invitation_id' => $invitation->id,
-                'user_id' => Auth::id(),
-                'action' => 'Invitación y evento creado',
-                'description' => 'Se creo invitación y evento con nombre "' . $invitation->host_names . '"',
-                'data' => [
-                    'event_id' => $invitation->event_id,
-                    'path_name' => $invitation->path_name,
-                    'host_names' => $invitation->host_names,
-                    'seller_id' => $invitation->seller_id,
-                ],
-            ]);
             DB::commit();
     
             return response()->json([

@@ -35,7 +35,7 @@ class StoreInvitationRequest extends FormRequest
             ],
             'use_template' => 'required|boolean',
             'template' => [
-                Rule::requiredIf(fn () => $this->input('use_template') === true),
+                Rule::excludeIf(fn () => $this->input('use_template') == false),
                 Rule::exists('templates', 'id'),
             ],
         ];
