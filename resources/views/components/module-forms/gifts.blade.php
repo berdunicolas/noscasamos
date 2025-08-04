@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Regalos</h4>
 
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="row mb-3">
             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <x-form.input
@@ -28,6 +28,7 @@
             <label for="exampleFormControlTextarea1" class="form-label">Texto</label>
             <textarea name="text"  class="form-control" id="exampleFormControlTextarea1" rows="3">{{$module->data['text']}}</textarea>
         </div>
+        @if ($isInvitation)    
         <div class="row mb-3">
             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
                 <x-form.upload-zone label="Imagen de fondo" :zoneOwner="$module->name" zoneName="gift_background_image" :isMultiple=false>
@@ -58,6 +59,7 @@
                 </div>
             </div>
         </div>
+        @endif
         <div class="mb-3">
             <div class="mb-3">
                 <x-form.input
@@ -305,6 +307,7 @@
                                     />
                                 </div>
                             </div>
+                            @if ($isInvitation)                                
                             <div class="mb-3">
                                 <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_1" :isMultiple=false>
                                     @if($module->data['list']['product_image_1'])
@@ -318,6 +321,7 @@
                                     @json( [$module->name => ['list_product_image_1' => $module->data['list']['product_image_1']]])
                                 </p>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <h5 class="mt-5 mb-4">Producto 2</h5>
@@ -348,6 +352,7 @@
                                     />
                                 </div>
                             </div>
+                            @if ($isInvitation)                          
                             <div class="mb-3">
                                 <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_2" :isMultiple=false>
                                     @if($module->data['list']['product_image_2'])
@@ -361,6 +366,7 @@
                                     @json( [$module->name => ['list_product_image_2' => $module->data['list']['product_image_2']]])
                                 </p>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <h5 class="mt-5 mb-4">Producto 3</h5>
@@ -391,6 +397,7 @@
                                     />
                                 </div>
                             </div>
+                            @if ($isInvitation)                                
                             <div class="mb-3">
                                 <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_3" :isMultiple=false>
                                     @if($module->data['list']['product_image_3'])
@@ -404,6 +411,7 @@
                                     @json( [$module->name => ['list_product_image_3' => $module->data['list']['product_image_3']]])
                                 </p>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <h5 class="mt-5 mb-4">Producto 4</h5>
@@ -434,6 +442,7 @@
                                     />
                                 </div>
                             </div>
+                            @if ($isInvitation)
                             <div class="mb-3">
                                 <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_4" :isMultiple=false>
                                     @if($module->data['list']['product_image_4'])
@@ -447,6 +456,7 @@
                                     @json( [$module->name => ['list_product_image_4' => $module->data['list']['product_image_4']]])
                                 </p>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <h5 class="mt-5 mb-4">Producto 5</h5>
@@ -477,6 +487,7 @@
                                     />
                                 </div>
                             </div>
+                            @if ($isInvitation)  
                             <div class="mb-3">
                                 <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_5" :isMultiple=false>
                                     @if($module->data['list']['product_image_5'])
@@ -490,6 +501,7 @@
                                     @json( [$module->name => ['list_product_image_5' => $module->data['list']['product_image_5']]])
                                 </p>
                             </div>
+                            @endif
                         </div>
                         <div>
                             <h5 class="mt-5 mb-4">Producto 6</h5>
@@ -520,6 +532,7 @@
                                     />
                                 </div>
                             </div>
+                            @if ($isInvitation)
                             <div class="mb-3">
                                 <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="list_product_image_6" :isMultiple=false>
                                     @if($module->data['list']['product_image_6'])
@@ -533,6 +546,7 @@
                                     @json( [$module->name => ['list_product_image_6' => $module->data['list']['product_image_6']]])
                                 </p>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

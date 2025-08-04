@@ -10,7 +10,7 @@
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-dark" id="confirmDeleteBtn" data-bs-dismiss="modal" onclick="deleteInvitation()"><i class="fa-light fa-trash me-2"></i>Eliminar</button>
+                <button type="button" class="btn btn-dark" id="confirmDeleteBtn" data-bs-dismiss="modal" onclick="{{$onClick}}"><i class="fa-light fa-trash me-2"></i>Eliminar</button>
             </div>
         </div>
     </div>

@@ -1,7 +1,8 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Musica</h4>
 
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
+    @if($isInvitation)
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="mb-3">
             <label for="song">Musica</label>
             <div class="input-group mb-3">
@@ -21,4 +22,5 @@
             </x-form.button>
         </div>
     </x-module-forms.form>
+    @endif
 </div>

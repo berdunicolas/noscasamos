@@ -365,7 +365,7 @@
                 </form>
             </div>
             <div class="tab-form px-3 h-100 overflow-auto visually-hidden d-flex flex-column flex-md-row nowrap" id="modules-form">
-                @livewire('admin.invitations.editor.modules-list', ['invitation' => $invitation, 'modules' => $modules])
+                @livewire('admin.invitations.editor.modules-list', ['moduleOwner' => $invitation, 'modules' => $modules])
                 <div class="px-4 pb-5 w-100" style="{{(isMobile()) ? 'margin-bottom: 50px !important;' : ''}}" id="module-form">
                     
                 </div>

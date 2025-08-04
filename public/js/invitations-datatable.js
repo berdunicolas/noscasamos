@@ -406,3 +406,8 @@ function changeInvitationStatus(checkbox, url){
     })
     .catch(error => console.error('Error:', error));
 }
+
+function checkboxSwitch(checkbox, inputId) {
+    let input = document.getElementById(inputId);
+    input.value = checkbox.checked ? 1 : 0;
+}

@@ -3,24 +3,25 @@
 namespace App\Livewire\Admin\Invitations\Editor;
 
 use App\Models\Invitation;
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class ModulesList extends Component
 {
     public Collection $modules;
-    public Invitation $invitation;
+    public Invitation|Template $moduleOwner;
 
     protected $listeners = ['newModuleAdded' => 'reloadData'];
 
-    public function mount(Invitation $invitation, Collection $modules){
-        $this->invitation = $invitation;
+    public function mount(Invitation|Template $moduleOwner, Collection $modules){
+        $this->moduleOwner = $moduleOwner;
         $this->modules = $modules;
     }
 
     public function reloadData()
     {
-        $this->modules = $this->invitation->modules()->orderBy('index')->get();
+        $this->modules = $this->moduleOwner->modules()->orderBy('index')->get();
     }
 
     public function render()

@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>{{$module->display_name}}</h4>
 
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="mb-3">
             <x-form.input
                 name="icon"
@@ -11,6 +11,7 @@
                 value="{{$module->data['icon']}}"
             />
         </div>
+        @if ($isInvitation)            
         <div class="mb-3">
             <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="info_image" :isMultiple=false>
                 @if($module->data['image'])
@@ -24,6 +25,7 @@
                 @json( [$module->name => ['info_image' => $module->data['image']]])
             </p>
         </div>
+        @endif
         <div class="mb-3">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" onchange="checkboxSwitch(this, 'on_t_right_{{$module->name}}')" {{$module->data['on_t_right'] ? 'checked' : ''}}>

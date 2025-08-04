@@ -1,7 +1,7 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Bienvenida</h4>
 
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="mb-3">
             <x-form.input
                 name="icon"
@@ -11,6 +11,7 @@
                 value="{{$module->data['icon']}}"
             />
         </div>
+        @if ($isInvitation) 
         <div class="mb-3">
             <x-form.upload-zone label="Imagen" :zoneOwner="$module->name" zoneName="welcome_image" :isMultiple=false>
                 @if($module->data['image'])
@@ -24,6 +25,7 @@
                 @json( [$module->name => ['welcome_image' => $module->data['image']]])
             </p>
         </div>
+        @endif
         <div class="mb-3">
             <x-form.input
                 name="tittle"

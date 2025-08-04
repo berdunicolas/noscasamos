@@ -1,6 +1,6 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Eventos</h4>
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="accordion accordion-flush" id="accordionExample">
             <div class="accordion-item">
                 <div class="accordion-header py-3">
@@ -90,6 +90,7 @@
                                 <input type="text" hidden name="civil_use_image" id="civil_use_image" value="{{$events['civil']['use_image'] ? 1 : 0}}">
                                 <label class="form-check-label" for="">Usar imagen</label>
                             </div>
+                            @if ($isInvitation)
                             <x-form.upload-zone :zoneOwner="$module->name" zoneName="civil_image" :isMultiple=false>
                                 @if($events['civil']['image'])
                                     <div class="preview-item">
@@ -102,6 +103,7 @@
                             <p class="selectedFilesUpdater" hidden>
                                 @json( [$module->name => ['civil_image' => $events['civil']['image']]])
                             </p>
+                            @endif
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
@@ -214,6 +216,7 @@
                                 <input type="text" hidden name="ceremony_use_image" id="ceremony_use_image" value="{{$events['ceremony']['use_image'] ? 1 : 0}}">
                                 <label class="form-check-label" for="">Usar imagen</label>
                             </div>
+                            @if($isInvitation)
                             <x-form.upload-zone :zoneOwner="$module->name" zoneName="ceremony_image" :isMultiple=false>
                                 @if($events['ceremony']['image'])
                                     <div class="preview-item">
@@ -226,6 +229,7 @@
                             <p class="selectedFilesUpdater" hidden>
                                 @json( [$module->name => ['ceremony_image' => $events['ceremony']['image']]])
                             </p>
+                            @endif
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
@@ -338,6 +342,7 @@
                                 <input type="text" hidden name="party_use_image" id="party_use_image" value="{{$events['party']['use_image'] ? 1 : 0}}">
                                 <label class="form-check-label" for="">Usar imagen</label>
                             </div>
+                            @if ($isInvitation)    
                             <x-form.upload-zone :zoneOwner="$module->name" zoneName="party_image" :isMultiple=false>
                                 @if($events['party']['image'])
                                     <div class="preview-item">
@@ -350,6 +355,7 @@
                             <p class="selectedFilesUpdater" hidden>
                                 @json( [$module->name => ['party_image' => $events['party']['image']]])
                             </p>
+                            @endif
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
@@ -428,6 +434,7 @@
                                 <input type="text" hidden name="dresscode_use_image" id="dresscode_use_image" value="{{$events['dresscode']['use_image'] ? 1 : 0}}">
                                 <label class="form-check-label" for="">Usar imagen</label>
                             </div>
+                            @if ($isInvitation)                                
                             <x-form.upload-zone :zoneOwner="$module->name" zoneName="dresscode_image" :isMultiple=false>
                                 @if($events['dresscode']['image'])
                                     <div class="preview-item">
@@ -440,6 +447,7 @@
                             <p class="selectedFilesUpdater" hidden>
                                 @json( [$module->name => ['dresscode_image' => $events['dresscode']['image']]])
                             </p>
+                            @endif
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-xl-6 mb-3 mb-xl-0">
