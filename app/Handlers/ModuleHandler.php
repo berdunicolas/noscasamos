@@ -756,10 +756,10 @@ class ModuleHandler {
                 return [
                     'desktop_images' => $module->media($module->media_collections['desktop_images']?? '')?->get()?->map(function ($media) {
                         return $media->getMediaUrl();
-                    })->toArray(),
+                    })->toArray() ?? [],
                     'mobile_images' => $module->media($module->media_collections['mobile_images']?? '')?->get()?->map(function ($media) {
                         return $media->getMediaUrl();
-                    })->toArray(),
+                    })->toArray() ?? [],
                     'desktop_video' => $module->media($module->media_collections['desktop_video']?? '')?->first()?->getMediaUrl(),
                     'mobile_video' => $module->media($module->media_collections['mobile_video']?? '')?->first()?->getMediaUrl(),
                     'desktop_design' => $module->media($module->media_collections['desktop_design']?? '')?->first()?->getMediaUrl(),
@@ -993,7 +993,7 @@ class ModuleHandler {
                 return [
                     'galery_images' => $module->media($module->media_collections['galery_images']?? '')?->get()?->map(function ($media) {
                         return $media->getMediaUrl();
-                    })->toArray(),
+                    })->toArray() ?? [],
                     'pre_tittle' => $data['pre_tittle'],
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon']

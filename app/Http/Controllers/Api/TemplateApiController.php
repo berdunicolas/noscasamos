@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
 use App\Enums\PlanTypeEnum;
+use App\Enums\StyleTypeEnum;
 use App\Handlers\FootModuleHandler;
 use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
@@ -36,6 +38,12 @@ class TemplateApiController extends Controller
                 'name' => $validatedData['name'],
                 'event' => $validatedData['event'],
                 'plan' => $validatedData['plan'],
+                'duration' => 8,
+                'color' => '#E2BF83',
+                'background_color' => '#F3F1ED',
+                'style' => StyleTypeEnum::LIGHT,
+                'font' => FontTypeEnum::deco,
+                'icon_type' => 'Animado',
             ]);
 
             $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::from($validatedData['plan'])))

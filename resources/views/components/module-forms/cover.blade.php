@@ -40,7 +40,6 @@
                 />
             </x-form.select>
         </div>
-
         @if($isInvitation)
         <div id="images_format_inputs" class="{{ str_contains('Imagenes con marco', $module->data['format']) ? '' : 'd-none' }}">
             <div class="mb-3">

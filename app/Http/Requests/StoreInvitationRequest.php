@@ -33,6 +33,11 @@ class StoreInvitationRequest extends FormRequest
                 'required',
                 Rule::exists('sellers', 'id')
             ],
+            'use_template' => 'required|boolean',
+            'template' => [
+                Rule::requiredIf(fn () => $this->input('use_template') === true),
+                Rule::exists('templates', 'id'),
+            ],
         ];
     }
 }

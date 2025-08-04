@@ -18,6 +18,7 @@ use App\Http\Resources\InvitationResource;
 use App\Models\Country;
 use App\Models\Event;
 use App\Models\Invitation;
+use App\Models\Template;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,69 +37,133 @@ class InvitationApiController extends Controller
     }
 
     public function store(StoreInvitationRequest $request): JsonResponse
-    {
+    {        
         $validatedData = $request->validated();
 
         try {
             DB::beginTransaction();
-            $newEvent = Event::create([
-                'name' => $validatedData['name'],
-                'event' => $validatedData['event'],
-                'plan' => $validatedData['plan'],
-                'created_by' => auth()->user()->id,
-            ]);
+            $invitation = new Invitation();
 
-            $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+            if($validatedData['use_template']) {
+                $template = Template::find($validatedData['template']);
 
-            $invitation = Invitation::create([
-                'host_names' => $validatedData['name'],
-                'path_name' => str_replace(' ', '', strtolower($validatedData['name'])),
-                'calendar_title' => $validatedData['event'] . ' ' . $validatedData['name'],
-                'event_id' => $newEvent->id,
-                'date' => null,
-                'time_zone' => null,
-                'time' => '20:00:00',
-                'seller_id' => $validatedData['seller'],
-                'password' => $token,
-                'plain_token' => $token,
-                'duration' => 8,
-                'active' => true,
-                'created_by' => auth()->user()->id,
-                'meta_title' => null,
-                'meta_description' => null,
-                'country_id' => null,
-                'country_division' => null,
-                'color' => '#E2BF83',
-                'background_color' => '#F3F1ED',
-                'style' => StyleTypeEnum::LIGHT,
-                'font' => FontTypeEnum::deco,
-                'icon_type' => 'Animado',
-            ]);
+                $newEvent = Event::create([
+                    'name' => $validatedData['name'],
+                    'event' => $template->event,
+                    'plan' => $template->plan,
+                    'created_by' => auth()->user()->id,
+                ]);
 
-            $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::from($validatedData['plan'])))
-                ->values()
-                ->map(function ($handler, $index) use ($invitation) {
-                    $name = ModuleTypeEnum::getDisplayName($handler::TYPE);
-                    $trimName = str_replace(' ', '_', strtolower($name));
+                $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
 
-                    if($handler::TYPE === FootModuleHandler::TYPE){
-                        $index = FootModuleHandler::INDEX;
-                    }
+                $invitation = Invitation::create([
+                    'host_names' => $validatedData['name'],
+                    'path_name' => str_replace(' ', '', strtolower($validatedData['name'])),
+                    'calendar_title' => $template->event->value . ' ' . $validatedData['name'],
+                    'event_id' => $newEvent->id,
+                    'date' => null,
+                    'time_zone' => null,
+                    'time' => '20:00:00',
+                    'seller_id' => $validatedData['seller'],
+                    'password' => $token,
+                    'plain_token' => $token,
+                    'duration' => $template->duration,
+                    'active' => true,
+                    'created_by' => auth()->user()->id,
+                    'meta_title' => null,
+                    'meta_description' => null,
+                    'country_id' => null,
+                    'country_division' => null,
+                    'color' => $template->color,
+                    'background_color' => $template->background_color,
+                    'style' => $template->style,
+                    'font' => $template->font,
+                    'icon_type' => $template->icon_type,
+                ]);
+
+                $modules = $template->modules()->get();
+                $modules = $modules->map(function ($module) use ($invitation) {
+                    $handler = constant('App\Handlers\ModuleHandler::' . $module->type->value);
 
                     return [
-                        'type' => $handler::TYPE,
-                        'name' => $trimName,
-                        'display_name' => $name,
-                        'active' => $handler::ACTIVE,
-                        'fixed' => $handler::FIXED,
-                        'on_plan' => true,
-                        'data' => $handler::DATA,
-                        'media_collections' => $handler::getMediaCollections($invitation->id, $trimName),
-                        'index' => $index,
+                        'type' => $module->type,
+                        'name' => $module->name,
+                        'display_name' => $module->display_name,
+                        'active' => $module->active,
+                        'fixed' => $module->fixed,
+                        'on_plan' => $module->on_plan,
+                        'data' => $module->data,
+                        'media_collections' => $handler::getMediaCollections($invitation->id, $module->name),
+                        'index' => $module->index,
                     ];
                 });
-   
-            $invitation->modules()->createMany($modules->toArray());
+
+
+    
+                $invitation->modules()->createMany($modules->toArray());
+                
+            } else {
+                    
+                $newEvent = Event::create([
+                    'name' => $validatedData['name'],
+                    'event' => $validatedData['event'],
+                    'plan' => $validatedData['plan'],
+                    'created_by' => auth()->user()->id,
+                ]);
+
+                $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+
+                $invitation = Invitation::create([
+                    'host_names' => $validatedData['name'],
+                    'path_name' => str_replace(' ', '', strtolower($validatedData['name'])),
+                    'calendar_title' => $validatedData['event'] . ' ' . $validatedData['name'],
+                    'event_id' => $newEvent->id,
+                    'date' => null,
+                    'time_zone' => null,
+                    'time' => '20:00:00',
+                    'seller_id' => $validatedData['seller'],
+                    'password' => $token,
+                    'plain_token' => $token,
+                    'duration' => 8,
+                    'active' => true,
+                    'created_by' => auth()->user()->id,
+                    'meta_title' => null,
+                    'meta_description' => null,
+                    'country_id' => null,
+                    'country_division' => null,
+                    'color' => '#E2BF83',
+                    'background_color' => '#F3F1ED',
+                    'style' => StyleTypeEnum::LIGHT,
+                    'font' => FontTypeEnum::deco,
+                    'icon_type' => 'Animado',
+                ]);
+
+                $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::from($validatedData['plan'])))
+                    ->values()
+                    ->map(function ($handler, $index) use ($invitation) {
+                        $name = ModuleTypeEnum::getDisplayName($handler::TYPE);
+                        $trimName = str_replace(' ', '_', strtolower($name));
+
+                        if($handler::TYPE === FootModuleHandler::TYPE){
+                            $index = FootModuleHandler::INDEX;
+                        }
+
+                        return [
+                            'type' => $handler::TYPE,
+                            'name' => $trimName,
+                            'display_name' => $name,
+                            'active' => $handler::ACTIVE,
+                            'fixed' => $handler::FIXED,
+                            'on_plan' => true,
+                            'data' => $handler::DATA,
+                            'media_collections' => $handler::getMediaCollections($invitation->id, $trimName),
+                            'index' => $index,
+                        ];
+                    });
+    
+                $invitation->modules()->createMany($modules->toArray());
+
+            }
 
             $invitation->logs()->create([
                 'invitation_id' => $invitation->id,
@@ -112,7 +177,6 @@ class InvitationApiController extends Controller
                     'seller_id' => $invitation->seller_id,
                 ],
             ]);
-
             DB::commit();
     
             return response()->json([
