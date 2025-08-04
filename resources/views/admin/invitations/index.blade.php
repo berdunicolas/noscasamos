@@ -32,7 +32,7 @@
         <x-table.invitations />
     </div>
     
-    <x-admin.invitations.confirm-delete-modal />
+    <x-admin.invitations.confirm-delete-modal onClick="deleteInvitation()" />
     <x-admin.invitations.confirm-clone-modal />
     @livewire('table.new-invitation-by-event-modal')
     <x-admin.invitations.new-invitation-modal />

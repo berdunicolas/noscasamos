@@ -150,6 +150,14 @@ body > * {
     padding: 12px 0 12px 20px;
 }
 
+.navbar.collapsed .nav-subordinate {
+    display: none;
+}
+
+.nav-subordinate {
+    display: block;
+    background: rgba(216, 140, 140, 0.1);
+}
 
 
 @media (min-width: 992px) {
@@ -302,8 +310,6 @@ tr.shown td.details-control {
 i.fa-grip-dots-vertical{
     cursor: grab;
 }
-
-
 
 .upload-zone {
     border: 2px dashed #ccc;

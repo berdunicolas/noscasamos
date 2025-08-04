@@ -1,12 +1,12 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Foot</h4>
 
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id">
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="mb-3">
             <x-form.input
                 name=""
                 label="Seller"
-                value="{{$module->invitation->seller->name}}"
+                value="{{$seller}}"
                 extraAttributes="disabled readonly"
             />
         </div>

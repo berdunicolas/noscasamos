@@ -5,7 +5,7 @@ namespace App\Handlers;
 use App\Models\Invitation;
 use App\Enums\PlanTypeEnum;
 use App\Enums\ModuleTypeEnum;
-use App\Models\InvitationModule;
+use App\Models\Module;
 use App\Handlers\InfoModuleHandler;
 use App\Handlers\CoverModuleHandler;
 use App\Handlers\GiftsModuleHandler;
@@ -141,12 +141,12 @@ class ModuleHandler {
         return array_values((new \ReflectionClass(self::class))->getConstants());
     }
 
-    public static function getModuleForm(InvitationModule $module) {
+    public static function getModuleForm(Module $module) {
         $form = match($module->type){
             ModuleTypeEnum::INTRO => new Intro($module),
             ModuleTypeEnum::MUSIC => new Music($module),
             ModuleTypeEnum::FLOAT_BUTTON => new FloatButton($module),
-            ModuleTypeEnum::COVER => new Cover($module, $module->invitation->host_names),
+            ModuleTypeEnum::COVER => new Cover($module, $module->invitation?->host_names ?? ''),
             ModuleTypeEnum::GUEST => new Guest($module),
             ModuleTypeEnum::SAVE_DATE => new SaveDate($module),
             ModuleTypeEnum::WELCOME => new Welcome($module),
@@ -166,7 +166,7 @@ class ModuleHandler {
         return Blade::renderComponent($form);
     }
 
-    public static function getModuleComponent(InvitationModule $module, Invitation $invitation) {
+    public static function getModuleComponent(Module $module, Invitation $invitation) {
 
         $module = match($module->type->value){
             'INTRO' => new IntroModule($module, $invitation->style->value),
@@ -281,7 +281,7 @@ class ModuleHandler {
         return Blade::renderComponent($module);
     }
 
-    public static function getModuleRequestRules(InvitationModule $module): array
+    public static function getModuleRequestRules(Module $module): array
     {
         $rules = match($module->type->value){
             'INTRO' => [
@@ -709,7 +709,7 @@ class ModuleHandler {
     }
     
 
-    public static function updateModuleHandle(InvitationModule $module, array $data): array
+    public static function updateModuleHandle(Module $module, array $data): array
     {
         $updateMediaTask = function (array $collections, array $data) use ($module) {
             foreach($collections as $key => $collection){
@@ -754,18 +754,18 @@ class ModuleHandler {
                 $updateMediaTask($module->media_collections, $data);
 
                 return [
-                    'desktop_images' => $module->media($module->media_collections['desktop_images'])->get()?->map(function ($media) {
+                    'desktop_images' => $module->media($module->media_collections['desktop_images']?? '')?->get()?->map(function ($media) {
                         return $media->getMediaUrl();
-                    })->toArray(),
-                    'mobile_images' => $module->media($module->media_collections['mobile_images'])->get()?->map(function ($media) {
+                    })->toArray() ?? [],
+                    'mobile_images' => $module->media($module->media_collections['mobile_images']?? '')?->get()?->map(function ($media) {
                         return $media->getMediaUrl();
-                    })->toArray(),
-                    'desktop_video' => $module->media($module->media_collections['desktop_video'])->first()?->getMediaUrl(),
-                    'mobile_video' => $module->media($module->media_collections['mobile_video'])->first()?->getMediaUrl(),
-                    'desktop_design' => $module->media($module->media_collections['desktop_design'])->first()?->getMediaUrl(),
-                    'mobile_design' => $module->media($module->media_collections['mobile_design'])->first()?->getMediaUrl(),
-                    'logo_cover' => $module->media($module->media_collections['logo_cover'])->first()?->getMediaUrl(),
-                    'central_image_cover' => $module->media($module->media_collections['central_image_cover'])->first()?->getMediaUrl(),
+                    })->toArray() ?? [],
+                    'desktop_video' => $module->media($module->media_collections['desktop_video']?? '')?->first()?->getMediaUrl(),
+                    'mobile_video' => $module->media($module->media_collections['mobile_video']?? '')?->first()?->getMediaUrl(),
+                    'desktop_design' => $module->media($module->media_collections['desktop_design']?? '')?->first()?->getMediaUrl(),
+                    'mobile_design' => $module->media($module->media_collections['mobile_design']?? '')?->first()?->getMediaUrl(),
+                    'logo_cover' => $module->media($module->media_collections['logo_cover']?? '')?->first()?->getMediaUrl(),
+                    'central_image_cover' => $module->media($module->media_collections['central_image_cover']?? '')?->first()?->getMediaUrl(),
                     'active_header' => $data['active_header'],
                     'active_logo' => $data['active_logo'],
                     'active_central' => $data['active_central'],
@@ -799,7 +799,7 @@ class ModuleHandler {
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
-                    'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
+                    'image' => $module->media($module->media_collections['image'] ?? '')?->first()?->getMediaUrl()
                 ];
             })(),
             'EVENTS' => (function () use ($module, $updateMediaTask, $data){
@@ -825,7 +825,7 @@ class ModuleHandler {
                 $moduleData['civil']['button_url'] = $data['civil_button_url'] ?? '';
                 $moduleData['civil']['button_text'] = $data['civil_button_text'] ?? '';
                 $moduleData['civil']['use_image'] = $data['civil_use_image'] ?? false;
-                $moduleData['civil']['image'] = $module->media($module->media_collections['civil_image'])->first()?->getMediaUrl();
+                $moduleData['civil']['image'] = $module->media($module->media_collections['civil_image']?? '')?->first()?->getMediaUrl();
                 $moduleData['ceremony']['active'] = $data['ceremony_active'] ?? false;
                 $moduleData['ceremony']['event'] = $data['ceremony_event'] ?? '';
                 $moduleData['ceremony']['icon'] = $data['ceremony_icon'] ?? '';
@@ -839,7 +839,7 @@ class ModuleHandler {
                 $moduleData['ceremony']['button_url'] = $data['ceremony_button_url'] ?? '';
                 $moduleData['ceremony']['button_text'] = $data['ceremony_button_text'] ?? '';
                 $moduleData['ceremony']['use_image'] = $data['ceremony_use_image'] ?? false;
-                $moduleData['ceremony']['image'] = $module->media($module->media_collections['ceremony_image'])->first()?->getMediaUrl();
+                $moduleData['ceremony']['image'] = $module->media($module->media_collections['ceremony_image']?? '')?->first()?->getMediaUrl();
                 $moduleData['party']['active'] = $data['party_active'] ?? false;
                 $moduleData['party']['event'] = $data['party_event'] ?? '';
                 $moduleData['party']['icon'] = $data['party_icon'] ?? '';
@@ -853,7 +853,7 @@ class ModuleHandler {
                 $moduleData['party']['button_url'] = $data['party_button_url'] ?? '';
                 $moduleData['party']['button_text'] = $data['party_button_text'] ?? '';
                 $moduleData['party']['use_image'] = $data['party_use_image'] ?? false;
-                $moduleData['party']['image'] = $module->media($module->media_collections['party_image'])->first()?->getMediaUrl();
+                $moduleData['party']['image'] = $module->media($module->media_collections['party_image']?? '')?->first()?->getMediaUrl();
                 $moduleData['dresscode']['active'] = $data['dresscode_active'] ?? false;
                 $moduleData['dresscode']['event'] = $data['dresscode_event'] ?? '';
                 $moduleData['dresscode']['icon'] = $data['dresscode_icon'] ?? '';
@@ -863,7 +863,7 @@ class ModuleHandler {
                 $moduleData['dresscode']['button_url'] = $data['dresscode_button_url'] ?? '';
                 $moduleData['dresscode']['button_text'] = $data['dresscode_button_text'] ?? '';
                 $moduleData['dresscode']['use_image'] = $data['dresscode_use_image'] ?? false;
-                $moduleData['dresscode']['image'] = $module->media($module->media_collections['dresscode_image'])->first()?->getMediaUrl();
+                $moduleData['dresscode']['image'] = $module->media($module->media_collections['dresscode_image']?? '')?->first()?->getMediaUrl();
 
                 uasort($moduleData, function ($a, $b) {
                     return ($a['order'] ?? PHP_INT_MAX) <=> ($b['order'] ?? PHP_INT_MAX);
@@ -877,7 +877,7 @@ class ModuleHandler {
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon'],
                     'text' => $data['text'],
-                    'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
+                    'image' => $module->media($module->media_collections['image']?? '')?->first()?->getMediaUrl()
                 ];
             })(),
             'INFO' => (function () use ($module, $updateMediaTask, $data){
@@ -891,7 +891,7 @@ class ModuleHandler {
                     /*'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_url' => $data['button_url'],*/
-                    'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
+                    'image' => $module->media($module->media_collections['image']?? '')?->first()?->getMediaUrl()
                 ];
             })(),
             'HIGHLIGHTS' => (function () use ($module, $updateMediaTask, $data){
@@ -904,7 +904,7 @@ class ModuleHandler {
                     /*'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_url' => $data['button_url'],*/
-                    'image' => $module->media($module->media_collections['image'])->first()?->getMediaUrl()
+                    'image' => $module->media($module->media_collections['image']?? '')?->first()?->getMediaUrl()
                 ];
             })(),
             'INTERACTIVE' => (function () use ($module, $updateMediaTask, $data){
@@ -991,9 +991,9 @@ class ModuleHandler {
                 $updateMediaTask($module->media_collections, $data);
  
                 return [
-                    'galery_images' => $module->media($module->media_collections['galery_images'])->get()?->map(function ($media) {
+                    'galery_images' => $module->media($module->media_collections['galery_images']?? '')?->get()?->map(function ($media) {
                         return $media->getMediaUrl();
-                    })->toArray(),
+                    })->toArray() ?? [],
                     'pre_tittle' => $data['pre_tittle'],
                     'tittle' => $data['tittle'],
                     'icon' => $data['icon']
@@ -1007,8 +1007,8 @@ class ModuleHandler {
                     'icon' => $data['icon'],
                     'pre_tittle' => $data['pre_tittle'],
                     'text' => $data['text'],
-                    'background_image' => $module->media($module->media_collections['background_image'])->first()?->getMediaUrl(),
-                    'module_image' => $module->media($module->media_collections['module_image'])->first()?->getMediaUrl(),
+                    'background_image' => $module->media($module->media_collections['background_image']?? '')?->first()?->getMediaUrl(),
+                    'module_image' => $module->media($module->media_collections['module_image']?? '')?->first()?->getMediaUrl(),
                     //'button_icon' => $data['button_icon'],
                     'button_text' => $data['button_text'],
                     'button_type' => $data['button_type'],
@@ -1043,27 +1043,27 @@ class ModuleHandler {
                         'product_1' => $data['list_product_1'],
                         'product_url_1' => $data['list_product_url_1'],
                         'product_price_1' => $data['list_product_price_1'],
-                        'product_image_1' => $module->media($module->media_collections['list_product_image_1'])->first()?->getMediaUrl(),
+                        'product_image_1' => $module->media($module->media_collections['list_product_image_1']?? '')?->first()?->getMediaUrl(),
                         'product_2' => $data['list_product_2'],
                         'product_url_2' => $data['list_product_url_2'],
                         'product_price_2' => $data['list_product_price_2'],
-                        'product_image_2' => $module->media($module->media_collections['list_product_image_2'])->first()?->getMediaUrl(),
+                        'product_image_2' => $module->media($module->media_collections['list_product_image_2']?? '')?->first()?->getMediaUrl(),
                         'product_3' => $data['list_product_3'],
                         'product_url_3' => $data['list_product_url_3'],
                         'product_price_3' => $data['list_product_price_3'],
-                        'product_image_3' => $module->media($module->media_collections['list_product_image_3'])->first()?->getMediaUrl(),
+                        'product_image_3' => $module->media($module->media_collections['list_product_image_3']?? '')?->first()?->getMediaUrl(),
                         'product_4' => $data['list_product_4'],
                         'product_url_4' => $data['list_product_url_4'],
                         'product_price_4' => $data['list_product_price_4'],
-                        'product_image_4' => $module->media($module->media_collections['list_product_image_4'])->first()?->getMediaUrl(),
+                        'product_image_4' => $module->media($module->media_collections['list_product_image_4']?? '')?->first()?->getMediaUrl(),
                         'product_5' => $data['list_product_5'],
                         'product_url_5' => $data['list_product_url_5'],
                         'product_price_5' => $data['list_product_price_5'],
-                        'product_image_5' => $module->media($module->media_collections['list_product_image_5'])->first()?->getMediaUrl(),
+                        'product_image_5' => $module->media($module->media_collections['list_product_image_5']?? '')?->first()?->getMediaUrl(),
                         'product_6' => $data['list_product_6'],
                         'product_url_6' => $data['list_product_url_6'],
                         'product_price_6' => $data['list_product_price_6'],
-                        'product_image_6' => $module->media($module->media_collections['list_product_image_6'])->first()?->getMediaUrl(),
+                        'product_image_6' => $module->media($module->media_collections['list_product_image_6']?? '')?->first()?->getMediaUrl(),
                     ],
                 ];
             })(),

@@ -1,7 +1,8 @@
 <div id="{{$module->name}}-module-form" class="module-form visually-hidden">
     <h4>Intro animada</h4>
 
-    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :invitationId="$module->invitation_id" :moduleId="$module->id" inputName="stamp_image">
+    @if ($isInvitation)        
+    <x-module-forms.form :moduleType="$module->type->value" :moduleName="$module->name" :action="$action">
         <div class="mb-3">
             <x-form.upload-zone label="Imagen sello sobre" :zoneOwner="$module->name" zoneName="stamp_image" :isMultiple=false>
                 @if($module->data['stamp_image'])
@@ -24,4 +25,5 @@
             </x-form.button>
         </div>
     </x-module-forms.form>
+    @endif
 </div>

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Invitation\InvitationController;
 use App\Http\Controllers\Admin\MetricsController;
 use App\Http\Controllers\Admin\Seller\SellerController;
 use App\Http\Controllers\Admin\Settings\SettingsController;
+use App\Http\Controllers\Admin\Template\TemplateController;
 use App\Http\Controllers\Admin\User\RegisteredUserController;
 use App\Http\Controllers\Guest\GuestController;
 use App\Http\Middleware\EnsureCorrectAuthModel;
@@ -55,6 +56,8 @@ if(config('app.env') == 'production') {
 
             Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
             Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
+            Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+            Route::get('/templates/{template}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
         });
     });
 
@@ -88,11 +91,13 @@ if(config('app.env') == 'production') {
 
             Route::get('/invitations', [InvitationController::class, 'index'])->name('invitations.index');
             Route::get('/invitations/{invitation}/edit', [InvitationController::class, 'edit'])->name('invitations.edit');
+            Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+            Route::get('/templates/{template}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
     });
 }
 
 if(config('app.env') == 'production') {
-    
+
     Route::get('', function () {
         return view('invitations.welcome');
     });

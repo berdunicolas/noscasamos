@@ -1,6 +1,6 @@
 <table class="table table-bordered table-hover align-middle" id="datatable">
     <thead>
-        <tr class="table-secondary">
+        <tr>
             <th class="text-start">Id</th>
             <th class="text-start">Id evnt.</th>
             <th>Tipo</th>

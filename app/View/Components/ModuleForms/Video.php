@@ -2,19 +2,26 @@
 
 namespace App\View\Components\ModuleForms;
 
-use App\Models\InvitationModule;
+use App\Models\Module;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Video extends Component
 {
+    public string $action = '';
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public InvitationModule $module
-    ) {}
+        public Module $module
+    ) {
+        if(get_class($module) == 'App\Models\TemplateModule'){
+            $this->action = route('api.template.modules.update', ['template' => $module->template_id, 'module' => $module->id]);
+        } else {
+            $this->action = route('api.invitation.modules.update', ['invitation' => $module->invitation_id, 'module' => $module->id]);
+        }
+    }
 
     /**
      * Get the view / contents that represent the component.
