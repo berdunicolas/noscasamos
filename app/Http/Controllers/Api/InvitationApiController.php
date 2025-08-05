@@ -542,4 +542,28 @@ class InvitationApiController extends Controller
             return response()->json(['message' => 'Error cloning invitation'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    public function enableGuestToken(Invitation $invitation, Request $request){
+
+        $validated = $request->validate([
+            "active" => "required|boolean"
+        ]);
+
+        $invitation->enable_guest_token = $validated['active'];
+        $invitation->save();
+
+        $invitation->logs()->create([
+            'invitation_id' => $invitation->id,
+            'user_id' => Auth::id(),
+            'action' => $validated['active'] ? 'Token para invitados activado' : 'Token para invitados desactivado',
+            'description' => $validated['active'] ? 'El token para invitados fue activado' : 'El token para invitados fue desactivado',
+            'data' => [
+                'old' => collect($invitation->getOriginal())->only(array_keys($invitation->getChanges())),
+                'new' => $invitation->getChanges(),
+            ],
+        ]);
+
+        return response()->json(['message' => 'Invitation activation changed successfully'], Response::HTTP_CREATED);
+    }
 }

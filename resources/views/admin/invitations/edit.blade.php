@@ -442,6 +442,7 @@
         window.INVITATION_MODULES_URL = "{{ route('api.invitation.modules', $invitation->id) }}";
         window.COUNTRY_DIVISIONS = "{{ route('api.countries-divisions') }}";
         window.VALIDATE_INVITATION = "{{ route('api.validate-invitation') }}";
+        window.ENABLE_GUEST_TOKEN = "{{ route('api.invitations.enable-guest-token', $invitation->id) }}";
 
         let selectedFiles = {
             invitation: {
