@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Guest;
 
+use App\Handlers\IntroModuleHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GuestLoginRequest;
 use App\Http\Requests\StoreGuestRequest;
@@ -127,5 +128,28 @@ class GuestController extends Controller
         $guest->delete();
 
         return response()->json(['message' => 'Guest deleted successfully'], Response::HTTP_CREATED);
+    }
+
+
+    public function guestTokenForm(Invitation $invitation)
+    {
+        $module = $invitation->modules()->where('type', IntroModuleHandler::TYPE->value)->first();
+        $style = $invitation->style->value;
+        return view('invitations.guest-token-form', compact('invitation', 'style', 'module'));
+    }
+
+    public function verifyGuestToken(Request $request, Invitation $invitation)
+    {
+        $request->validate([
+            'token' => 'required|string'
+        ]);
+
+        if ($request->token === $invitation->guest_token) {
+            return redirect()
+                ->route('invitation', ['invitation' => $invitation->path_name])
+                ->withCookie(cookie('guest_token_' . $invitation->id, $invitation->guest_token, 60 * 24)); // 1 día
+        }
+
+        return back()->withErrors(['token' => 'Token incorrecto.'])->withInput();
     }
 }

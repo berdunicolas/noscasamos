@@ -155,10 +155,12 @@ if(config('app.env') == 'production') {
     Route::get('/qr/cumpleclasica', function() {
         return redirect('https://tally.so/r/3jWEL4');
     });
-    Route::get('/{invitation:path_name}', [GuestController::class, 'index'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
+    Route::middleware('check.guest.token')->get('/{invitation:path_name}', [GuestController::class, 'index'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation');
     Route::get('/{invitation:path_name}/invitados/login', [GuestController::class, 'loginForm'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
     Route::post('/{invitation:path_name}/invitados/login', [GuestController::class, 'login'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests.login');
     
+    Route::get('/{invitation:path_name}/guest-token', [GuestController::class, 'guestTokenForm'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('guest-token.form');
+    Route::post('/{invitation:path_name}/guest-token', [GuestController::class, 'verifyGuestToken'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('guest-token.verify');
     
     Route::middleware(EnsureCorrectAuthModel::class.':guests')->group(function () {
         Route::get('/{invitation:path_name}/invitados', [GuestController::class, 'guest'])->where('invitation', '^(?!login$|logout$)[a-zA-Z0-9_-]+')->name('invitation.guests');
