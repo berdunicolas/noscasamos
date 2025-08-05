@@ -206,3 +206,31 @@ function checkPathName(e){
     })
     .catch(error => console.error('Error:', error));
 }
+
+
+function guestTokenSwitch(checkbox){
+    fetch(window.ENABLE_GUEST_TOKEN, {
+        method: 'PATCH',
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({active: checkbox.checked ? true : false})
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });
+    })
+    .then(async ({statusCode, data}) => {
+        if(statusCode === 201){
+            Livewire.dispatch('updatedInvitationLogs');
+        } else {
+            console.error(data);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}

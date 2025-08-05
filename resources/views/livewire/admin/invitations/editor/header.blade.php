@@ -75,11 +75,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
+                <div class="mb-3 form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" onchange="guestTokenSwitch(this)" {{($invitation->enable_guest_token) ? 'checked' : ''}}>
+                    <label class="form-check-label" for="">Token para invitados: {{$invitation->guest_token}}</label>
+                </div>
                 <div class="input-group">
-                <input type="text" class="form-control" id="linkInput" value="{{route('invitation', ['invitation' => $invitation->path_name])}}" readonly>
-                <button class="btn btn-dark" type="button" onclick="copiarEnlace()">
-                    <i class="fa-light fa-copy"></i>
-                </button>
+                    <input type="text" class="form-control" id="linkInput" value="{{route('invitation', ['invitation' => $invitation->path_name])}}" readonly>
+                    <button class="btn btn-dark" type="button" onclick="copiarEnlace()">
+                        <i class="fa-light fa-copy"></i>
+                    </button>
                 </div>
             </div>
             </div>

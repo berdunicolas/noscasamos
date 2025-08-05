@@ -48,6 +48,8 @@ class Invitation extends Authenticatable
         'background_color',
         'was_disabled',
         'is_legacy',
+        'enable_guest_token',
+        'guest_token',
         'created_at',
     ];
 
