@@ -133,6 +133,7 @@ function saveInvitationChanges(e, form) {
             } 
             if(actualForm === 'personalization-form') {
                 document.getElementById('save-style-btn').setAttribute('disabled', 'disabled');
+                Livewire.dispatch('verifyIconsType');
             }
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
         } else {

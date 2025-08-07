@@ -27,7 +27,9 @@
                 label="Icono"
                 value="{{ $module->data['icon_button'] }}"
                                 
-            />
+                    extraAttributes='list=icons-list'
+                />
+                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
         </div>
         <div id="url_input" class="mb-3">
             <x-form.input
