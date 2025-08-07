@@ -4,14 +4,9 @@
     <input type="color" id="{{$name}}-picker" name="{{$name}}" class="form-control-color bg-transparent border border-0 position-absolute top-0 end-0" style="width:40px !important;" value="{{$value}}" onchange="update{{$name}}Color()">
 </div>
 <datalist id="{{$name}}-colors">
-    <option value="#DDC190">Dorado</option>
-    <option value="#A5AFA0">Verde 1</option>
-    <option value="#83A29B">Verde 2</option>
-    <option value="#D6B4A8">Ocre</option>
-    <option value="#DD9090">Salmón</option>
-    <option value="#A8C5D6">Celeste</option>
-    <option value="#BBB2C7">Violeta</option>
-    <option value="#D58CAB">Rosa</option>  
+    @foreach ($colors as $color)
+        <option value="{{$color->color_code}}">{{$color->color_name}}</option>
+    @endforeach 
 </datalist>
 
 <script>
