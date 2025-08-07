@@ -7,10 +7,11 @@
                 <x-form.input
                     name="icon"
                     label="Icono"
-                    type="text"
-                    
+                    type="text"  
                     value="{{$module->data['icon']}}"
+                    extraAttributes='list=icons-list'
                 />
+                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
             </div>
             <div class="col-6">
                 <div class="mb-3">

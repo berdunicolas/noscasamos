@@ -21,7 +21,9 @@
                                     label="Icono"
                                     type="text"
                                     value="{{$module->data['spotify']['icon']}}"
+                                    extraAttributes='list=icons-list'
                                 />
+                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
                             </div>
                             <div class="col-4 col-xl-3">
                                 <x-form.input
@@ -84,7 +86,9 @@
                                     label="Icono"
                                     type="text"
                                     value="{{$module->data['hashtag']['icon']}}"
+                                    extraAttributes='list=icons-list'
                                 />
+                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
                             </div>
                             <div class="col-4 col-xl-3">
                                 <x-form.input
@@ -148,7 +152,9 @@
                                     type="text"
                                     
                                     value="{{$module->data['ig']['icon']}}"
+                                    extraAttributes='list=icons-list'
                                 />
+                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
                             </div>
                             <div class="col-4 col-xl-3">
                                 <x-form.input
@@ -213,7 +219,9 @@
                                     label="Icono"
                                     type="text"
                                     value="{{$module->data['link']['icon']}}"
+                                    extraAttributes='list=icons-list'
                                 />
+                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
                             </div>
                             <div class="col-4 col-xl-3">
                                 <x-form.input

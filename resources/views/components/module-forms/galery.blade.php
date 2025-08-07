@@ -9,7 +9,9 @@
                 type="text"
                 
                 value="{{$module->data['icon']}}"
+                extraAttributes='list=icons-list'
             />
+            @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
         </div>
         <div class="row mb-3">
             <div class="col-12 col-xl-6 mb-3 mb-xl-0">

@@ -67,7 +67,6 @@ function newUser(e) {
     const form = document.getElementById('new-product-form');
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-    console.table(JSON.stringify(data));
     
     fetch('api/users', {
         method: 'POST',
