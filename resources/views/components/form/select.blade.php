@@ -1,7 +1,7 @@
 
-@isset($label)
+@empty(!$label)
 <label for="{{$name}}" class="form-label {{$labelClasses}}">{{$label}}</label>
-@endisset
+@endempty
 
 <select 
     id="{{$id}}"
