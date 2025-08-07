@@ -79,6 +79,8 @@ class InvitationApiController extends Controller
                     'style' => $template->style,
                     'font' => $template->font,
                     'icon_type' => $template->icon_type,
+                    'guest_token' => str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT),
+                    'enable_guest_token' => false,
                 ]);
 
                 $modules = $template->modules()->get();
@@ -147,6 +149,8 @@ class InvitationApiController extends Controller
                     'style' => StyleTypeEnum::LIGHT,
                     'font' => FontTypeEnum::deco,
                     'icon_type' => 'Animado',
+                    'guest_token' => str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT),
+                    'enable_guest_token' => false,
                 ]);
 
                 $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::from($validatedData['plan'])))
@@ -225,6 +229,8 @@ class InvitationApiController extends Controller
                 'duration' => 5,
                 'active' => true,
                 'created_by' => auth()->user()->id,
+                'guest_token' => str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT),
+                'enable_guest_token' => false,
                 'meta_title' => null,
                 'meta_description' => null,
                 'country_id' => null,

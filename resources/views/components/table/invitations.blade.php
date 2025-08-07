@@ -5,7 +5,7 @@
             <th class="text-start">Id evnt.</th>
             <th>Tipo</th>
             <th>Evento</th>
-            <th>Contact</th>
+            <th>Contacto</th>
             <th>URL</th>
             <th>Plan</th>
             <th>Seller</th>

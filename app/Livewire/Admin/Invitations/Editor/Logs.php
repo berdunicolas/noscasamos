@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Admin\Invitations\Editor;
 
-use App\Models\Invitation;
 use App\Models\InvitationLog;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
