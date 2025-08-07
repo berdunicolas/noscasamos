@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\InvitationApiController;
 use App\Http\Controllers\Api\MetricsApiController;
 use App\Http\Controllers\Api\SellerApiController;
+use App\Http\Controllers\Api\SettingApiController;
 use App\Http\Controllers\Api\TemplateApiController;
 use App\Http\Controllers\Api\UserApiController;
 use App\Http\Controllers\Guest\GuestController;
@@ -77,6 +78,11 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::get('metrics/country-invitations-graph', [MetricsApiController::class, 'countryInvitationsGraph'])->name('country-invitations-graph');
     Route::get('metrics/active-invitations-graph', [MetricsApiController::class, 'activeInvitationsGraph'])->name('active-invitations-graph');
 
+    Route::post('settings/set-invitations-settings', [SettingApiController::class, 'setInvitationsSettings'])->name('settings.set-invitations-settings');
+    Route::post('settings/colors', [SettingApiController::class, 'addColor'])->name('settings.colors.store');
+    Route::delete('settings/colors/{color}', [SettingApiController::class, 'deleteColor'])->name('settings.colors.destroy');
+    Route::post('settings/icons', [SettingApiController::class, 'addIcon'])->name('settings.icons.store');
+    Route::delete('settings/icons/{icon}', [SettingApiController::class, 'deleteIcon'])->name('settings.icons.destroy');
 });
 
 Route::middleware(EnsureCorrectAuthModel::class.':guests')->delete('{invitation:path_name}/invitados/{guest}', [GuestController::class, 'destroy'])->name('api.guests.delete');
