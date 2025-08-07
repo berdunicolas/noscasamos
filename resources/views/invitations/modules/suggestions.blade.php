@@ -27,7 +27,11 @@ $sugerenciasicons = '';
     <div class="list wow animate__animated animate__fadeInUp" data-wow-delay="0.6s">
         @foreach ($suggestions as $key => $suggestion)
             @empty(!$suggestion['suggestion_' . $key+1])
-                <a href="{{urlParser($suggestion['link_' . $key+1])}}" target="_blank"><i class="fa-regular fa-map-marker-alt"></i>{{$suggestion['suggestion_' . $key+1]}}</a>
+                @if (str_contains($suggestion['link_' . $key+1], 'tel:'))
+                    <a href="{{$suggestion['link_' . $key+1]}}" target="_blank"><i class="fa-regular fa-map-marker-alt"></i>{{$suggestion['suggestion_' . $key+1]}}</a>
+                @else
+                    <a href="{{urlParser($suggestion['link_' . $key+1])}}" target="_blank"><i class="fa-regular fa-map-marker-alt"></i>{{$suggestion['suggestion_' . $key+1]}}</a>
+                @endif
             @endempty    
         @endforeach
     </div>
