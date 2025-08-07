@@ -34,13 +34,11 @@
                     <a href="{{route('invitations.index')}}" class="nav-link text-dark btn btn-white rounded-0">
                         <span>{!! ($selected == 'invitations') ? '<i class="fa-solid fa-envelope-open me-2"></i>' : '<i class="fa-light fa-envelope-open me-2"></i>' !!}<span class="text-nav-link">Invitaciones</span></span>
                     </a>
-                    <ul class="font-size-1 p-0">
-                        <ui class="nav-subordinate {{ ($selected == 'invitations.templates') ? 'selected' : '' }}">
-                            <a href="{{route('templates.index')}}" class="nav-link text-dark btn btn-light rounded-0">
-                                Plantillas
-                            </a>
-                        </ui>
-                    </ul>
+                </li>
+                <li class="nav-item {{ ($selected == 'templates') ? 'selected' : '' }}">
+                    <a href="{{route('templates.index')}}" class="nav-link text-dark btn btn-light rounded-0">
+                        <span>{!! ($selected == 'templates') ? '<i class="fa-solid fa-files me-2"></i>' : '<i class="fa-light fa-files me-2"></i>' !!}<span class="text-nav-link">Plantillas</span></span>
+                    </a>
                 </li>
                 @if(auth()->user()->isAdmin())
                 <li class="nav-item {{ ($selected == 'metrics') ? 'selected' : '' }}">
@@ -111,13 +109,11 @@
             <a href="{{route('invitations.index')}}" class="nav-link text-dark btn btn-white rounded-0">
                 <span>{!! ($selected == 'invitations') ? '<i class="fa-solid fa-envelope-open me-2"></i>' : '<i class="fa-light fa-envelope-open me-2"></i>' !!}<span class="text-nav-link">Invitaciones</span></span>
             </a>
-            <ul class="font-size-1">
-                <ui class="nav-subordinate {{ ($selected == 'invitations.templates') ? 'selected' : '' }}">
-                    <a href="{{route('templates.index')}}" class="nav-link text-dark btn btn-light rounded-0">
-                        Plantillas
-                    </a>
-                </ui>
-            </ul>
+        </li>
+        <li class="nav-item {{ ($selected == 'templates') ? 'selected' : '' }}">
+            <a href="{{route('templates.index')}}" class="nav-link text-dark btn btn-light rounded-0">
+                <span>{!! ($selected == 'templates') ? '<i class="fa-solid fa-files me-2"></i>' : '<i class="fa-light fa-files me-2"></i>' !!}<span class="text-nav-link">Plantillas</span></span>
+            </a>
         </li>
         @if(auth()->user()->isAdmin())
         <li class="nav-item {{ ($selected == 'metrics') ? 'selected' : '' }}">

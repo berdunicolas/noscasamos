@@ -19,7 +19,7 @@ class SettingApiController extends Controller
         $settings->save();
         $settings->refresh();
 
-        return response()->json(['message' => 'Settings updated successfully'], Response::HTTP_OK);
+        return response()->json(['message' => 'Settings updated successfully'], Response::HTTP_CREATED);
     }
 
     public function addColor(Request $request) {

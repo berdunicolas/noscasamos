@@ -1,4 +1,4 @@
-<div class="table-container" style="max-height: 300px; overflow-y: auto;">
+<div class="table-container" style="max-height: 550px; overflow-y: auto;">
     <form action="{{ route('api.settings.colors.store') }}" onsubmit="saveInvitationChanges(event, this)">
         <table class="table">
             <thead style="position: sticky; top: 0; z-index: 2;">

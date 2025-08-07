@@ -152,7 +152,6 @@ function saveInvitationChanges(e, form) {
     })
     .then(({statusCode, data}) => {
         if(statusCode === 201){
-            console.log(actualForm);
             if(actualForm === 'invitations-form') {
                 document.getElementById('save-invitations-btn').setAttribute('disabled', 'disabled');
             } 

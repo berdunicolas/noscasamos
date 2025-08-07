@@ -39,7 +39,7 @@
 
             <div class="tab-form px-0 px-sm-3 h-100 pb-5 overflow-auto" id="invitations-form">
                 <h4 class="py-2">Configuración de invitaciones</h4>
-                <form action="{{route('settings.invitations.store')}}" method="POST">
+                <form action="{{route('api.settings.set-invitations-settings')}}" onsubmit="saveInvitationChanges(event, this)">
                     @csrf
                     <div class="mb-3">
                         <x-form.input-group label="Periodo de validez" labelFor="path_name"> {{-- :errors="(array) $errors->get('path_name')">--}}
