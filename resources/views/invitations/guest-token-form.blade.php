@@ -1,3 +1,7 @@
+@php
+$tituloYBajada =  $invitation->tituloYBajada();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
