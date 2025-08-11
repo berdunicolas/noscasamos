@@ -38,14 +38,14 @@ $tituloYBajada =  $invitation->tituloYBajada();
         <!-- FONTS -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Parisienne&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sacramento&display=swap&family=Permanent+Marker&display=swap" rel="stylesheet">
+        <link href="{!!getFont($invitation->font)->font_url!!}" rel="stylesheet">
         <link href="{{asset("assets/css/icons/css/all.css")}}" rel="stylesheet">
         <style>
             body, header{
                 background-color: {{$invitation->background_color}};
             }
             h2,h3, .countdown .timer div, header h1{
-                font-family: {!!getFont($invitation->font)!!}
+                font-family: {!!getFont($invitation->font)->font_family!!};
             }
             header h1, .cover .text i, .timer div, .countdown p, .countdown a i, .events .item i, .social .item i, .video span, .gallery span, .hotels span,.hotels i, .hotels .list a i, .gallery i, .gifts i, .modalGift h3, .modalGift .item .right p b, .modalGift .item .right .list a h4, .modalGift .closeModal i, .invites i, .invites span, .confirmation .link i, .confirmation .modalGift .contenido-modal .form label, .confirmation .modalGift .contenido-modal span, .confirmation .modalGift .contenido-modal .thanks i, footer p i, .content .info .text i, .cover .text h1, .cover.full.design .text h2, .cover.design .text h2{
                 color: {{$invitation->color}};

@@ -65,11 +65,7 @@
             </div>
             <div class="tab-form px-0 px-sm-3 h-100 pb-5 overflow-auto visually-hidden" id="fonts-form">
                 <h4 class="py-2">Fuentes</h4>
-                <x-form.button id="save-fonts-btn" type="submit" classes="btn btn-dark" disabled="true">
-                    <span class="mx-3">
-                        <i class="fa-light fa-floppy-disk me-2"></i> Guardar
-                    </span>
-                </x-form.button>     
+                @livewire('admin.settings.fonts-table')    
             </div>
             <div class="tab-form px-0 px-sm-3 h-100 pb-5 overflow-auto visually-hidden" id="icons-form">
                 <h4 class="py-2">Íconos</h4>

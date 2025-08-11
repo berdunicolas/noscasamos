@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Enums\EventTypeEnum;
-use App\Enums\PlanTypeEnum;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -31,10 +30,6 @@ class StoreTemplateRequest extends FormRequest
             'event' => [
                 'required',
                 Rule::enum(EventTypeEnum::class)
-            ],
-            'plan' => [
-                'required',
-                Rule::enum(PlanTypeEnum::class)
             ],
         ];
     }

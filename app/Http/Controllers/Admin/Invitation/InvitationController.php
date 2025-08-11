@@ -11,6 +11,7 @@ use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\CountryDivision;
+use App\Models\Font;
 use App\Models\Guest;
 use App\Models\Invitation;
 use App\Models\Seller;
@@ -44,7 +45,7 @@ class InvitationController extends Controller
         $styleTypes = StyleTypeEnum::values();
         $spacingTypes = SpacingTypeEnum::values();
         $sellers = Seller::select('id', 'name')->get();
-        $fontTypes = FontTypeEnum::values();
+        $fonts = Font::get();
         $availableModules = ModuleHandler::availableModules($invitation->modules->map(function ($module) {
             return [
                 'type' => $module->type,
@@ -63,7 +64,7 @@ class InvitationController extends Controller
             'planTypes' => $planTypes,
             'styleTypes' => $styleTypes,
             'spacingTypes' => $spacingTypes,
-            'fontTypes' => $fontTypes,
+            'fonts' => $fonts,
             'sellers' => $sellers,
             'guests' => $guests,
             'availableModules' => $availableModules,

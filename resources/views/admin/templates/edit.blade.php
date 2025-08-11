@@ -47,7 +47,7 @@
                 <form action="{{route('api.templates.update', $template->id)}}" onsubmit="saveTemplateChanges(event, this)">
                     <h4 class="py-2">Configuración de evento</h4>
                     <div class="row mb-4">
-                        <div class="col-12 col-sm-8 mb-3 mb-sm-0">
+                        <div class="col-12 col-sm-4 mb-3 mb-sm-0">
                             <x-form.input
                                 id="general-form-input"
                                 name="name"
@@ -55,18 +55,6 @@
                                 type="text"
                                 
                                 value="{{$template->name}}"
-                            />
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-12 col-sm-4 mb-3 mb-sm-0">
-                            <x-form.input
-                                id="general-form-input"
-                                name="duration"
-                                label="Duración del evento"
-                                type="text"
-                                
-                                value="{{$template->duration}}"
                             />
                         </div>
                         <div class="col-6 col-sm-4 mb-3 mb-sm-0">
@@ -80,17 +68,15 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="col-6 col-sm-4 mb-3 mb-sm-0">
-                            <x-form.select id="general-form-input" name="plan" label="Plan">
-                                @foreach ($planTypes as $planType)
-                                    <x-form.select-option
-                                        value="{{$planType}}"
-                                        label="{{$planType}}"
-                                        selected="{{($template->plan->value == $planType) ? true : false}}"
-                                    />
-                                    
-                                @endforeach
-                            </x-form.select>
+                        <div class="col-12 col-sm-4 mb-3 mb-sm-0">
+                            <x-form.input
+                                id="general-form-input"
+                                name="duration"
+                                label="Duración del evento"
+                                type="text"
+                                
+                                value="{{$template->duration}}"
+                            />
                         </div>
                     </div>
                     <h4 class="py-2">Estilo</h4>

@@ -17,6 +17,7 @@ use App\Http\Requests\StoreInvitationByEventRequest;
 use App\Http\Resources\InvitationResource;
 use App\Models\Country;
 use App\Models\Event;
+use App\Models\Font;
 use App\Models\Invitation;
 use App\Models\Template;
 use Exception;
@@ -50,7 +51,7 @@ class InvitationApiController extends Controller
                 $newEvent = Event::create([
                     'name' => $validatedData['name'],
                     'event' => $template->event,
-                    'plan' => $template->plan,
+                    'plan' => $validatedData['plan'],
                     'created_by' => auth()->user()->id,
                 ]);
 
@@ -125,6 +126,7 @@ class InvitationApiController extends Controller
                 ]);
 
                 $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+                $font = Font::first()?->font_name;
 
                 $invitation = Invitation::create([
                     'host_names' => $validatedData['name'],
@@ -147,7 +149,7 @@ class InvitationApiController extends Controller
                     'color' => '#E2BF83',
                     'background_color' => '#F3F1ED',
                     'style' => StyleTypeEnum::LIGHT,
-                    'font' => FontTypeEnum::deco,
+                    'font' => $font ?? '',
                     'icon_type' => 'Animado',
                     'guest_token' => str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT),
                     'enable_guest_token' => false,
@@ -215,6 +217,7 @@ class InvitationApiController extends Controller
             DB::beginTransaction();
 
             $token = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+            $font = Font::first()?->font_name;
 
             $invitation = Invitation::create([
                 'host_names' => $event->name,
@@ -238,7 +241,7 @@ class InvitationApiController extends Controller
                 'color' => '#E2BF83',
                 'background_color' => '#F3F1ED',
                 'style' => StyleTypeEnum::LIGHT,
-                'font' => FontTypeEnum::deco,
+                'font' => $font ?? '',
                 'icon_type' => 'Animado',
             ]);
 

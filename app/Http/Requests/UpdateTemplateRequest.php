@@ -38,10 +38,6 @@ class UpdateTemplateRequest extends FormRequest
                 'required',
                 Rule::enum(EventTypeEnum::class)
             ],
-            'plan' => [
-                'required',
-                Rule::enum(PlanTypeEnum::class)
-            ],
             'duration' => 'nullable|string',
             'icon_type' => 'nullable|string',
             'style' => [
@@ -50,7 +46,7 @@ class UpdateTemplateRequest extends FormRequest
             ],
             'font' => [
                 'required',
-                Rule::enum(FontTypeEnum::class)
+                Rule::exists('fonts', 'font_name'),
             ],
             'padding' => 'nullable|string',
             'color' => 'nullable|string',

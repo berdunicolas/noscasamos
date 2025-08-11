@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\FontTypeEnum;
+use App\Models\Font;
 
 if (!function_exists("isMobile")) {
     function isMobile() {
@@ -9,8 +10,12 @@ if (!function_exists("isMobile")) {
 }
 
 if (!function_exists("getFont")) {
-    function getFont($font): string {
-        return FontTypeEnum::getFont($font);
+    function getFont($font): Font {
+        $font = Font::where('font_name', $font)->first();
+        if(!$font) {
+            $font = new Font(['font_name' => '', 'font_url' => '']);
+        }
+        return $font;
     }
 }
 

@@ -83,6 +83,8 @@ Route::middleware(['auth:sanctum'])->name('api.')->group(function () {
     Route::delete('settings/colors/{color}', [SettingApiController::class, 'deleteColor'])->name('settings.colors.destroy');
     Route::post('settings/icons', [SettingApiController::class, 'addIcon'])->name('settings.icons.store');
     Route::delete('settings/icons/{icon}', [SettingApiController::class, 'deleteIcon'])->name('settings.icons.destroy');
+    Route::post('settings/fonts', [SettingApiController::class, 'addFont'])->name('settings.fonts.store');
+    Route::delete('settings/fonts/{font}', [SettingApiController::class, 'deleteFont'])->name('settings.fonts.destroy');
 });
 
 Route::middleware(EnsureCorrectAuthModel::class.':guests')->delete('{invitation:path_name}/invitados/{guest}', [GuestController::class, 'destroy'])->name('api.guests.delete');

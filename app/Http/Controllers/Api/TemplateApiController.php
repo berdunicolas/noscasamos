@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTemplateRequest;
 use App\Http\Requests\UpdateTemplateRequest;
 use App\Http\Resources\TemplateResource;
+use App\Models\Font;
 use App\Models\Template;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -33,20 +34,21 @@ class TemplateApiController extends Controller
 
         try {
             DB::beginTransaction();
+            $font = Font::first()?->font_name; 
 
             $template = Template::create([
                 'name' => $validatedData['name'],
                 'event' => $validatedData['event'],
-                'plan' => $validatedData['plan'],
+                'plan' => PlanTypeEnum::GOLD,
                 'duration' => 8,
                 'color' => '#E2BF83',
                 'background_color' => '#F3F1ED',
                 'style' => StyleTypeEnum::LIGHT,
-                'font' => FontTypeEnum::deco,
+                'font' => $font ?? '',
                 'icon_type' => 'Animado',
             ]);
 
-            $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::from($validatedData['plan'])))
+            $modules = collect(ModuleHandler::getHandlersByPlan(PlanTypeEnum::GOLD))
                 ->values()
                 ->map(function ($handler, $index) use ($template) {
                     $name = ModuleTypeEnum::getDisplayName($handler::TYPE);

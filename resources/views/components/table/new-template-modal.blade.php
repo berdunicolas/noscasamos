@@ -29,19 +29,6 @@
                                 @endforeach
                             </x-form.select>
                         </div>
-                        <div class="mb-3">
-                            <x-form.select 
-                                name="plan"
-                                label="Plan"
-                            >
-                                @foreach ($planTypes as $planType)
-                                    <x-form.select-option
-                                        value="{{$planType}}"
-                                        label="{{$planType}}"
-                                    />
-                                @endforeach
-                            </x-form.select>
-                        </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">

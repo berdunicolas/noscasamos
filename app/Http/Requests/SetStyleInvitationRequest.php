@@ -2,14 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\FontTypeEnum;
-use App\Enums\SpacingTypeEnum;
 use App\Enums\StyleTypeEnum;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\File;
 
 class SetStyleInvitationRequest extends FormRequest
 {
@@ -37,7 +34,7 @@ class SetStyleInvitationRequest extends FormRequest
             "background_color" => "string|max:7",
             "padding" => "nullable|string",
             "font" => [
-                Rule::in(FontTypeEnum::keys())
+                Rule::exists('fonts', 'font_name'),
             ],
             "frame_image" => 'nullable',
 

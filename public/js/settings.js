@@ -156,6 +156,7 @@ function saveInvitationChanges(e, form) {
                 document.getElementById('save-invitations-btn').setAttribute('disabled', 'disabled');
             } 
             if(actualForm === 'fonts-form') {
+                Livewire.dispatch('updateFontsTable');
                 document.getElementById('save-fonts-btn').setAttribute('disabled', 'disabled');
             }
             if(actualForm === 'icons-form') {
@@ -229,6 +230,37 @@ function deleteIcon(e, btn) {
     .then(({statusCode, data}) => {
         if(statusCode === 204){
             Livewire.dispatch('updateIconsTable');
+            showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i> Color deleted successfully');
+        } else {
+            if(statusCode === 422){
+                mapErrorsToast(data.errors, data.message);
+            } else {
+                showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i>' + data.message);
+            }
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+function deleteFont(e, btn) {
+    e.preventDefault();
+    let url = btn.dataset.deleteUrl;
+
+    fetch(url, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        }
+    })
+    .then(async response => {
+        const statusCode = response.status;
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        return ({ statusCode, data });
+    })
+    .then(({statusCode, data}) => {
+        if(statusCode === 204){
+            Livewire.dispatch('updateFontsTable');
             showToast( '<i class="fa-duotone fa-light fa-circle-check ms-3 me-2"></i> Color deleted successfully');
         } else {
             if(statusCode === 422){

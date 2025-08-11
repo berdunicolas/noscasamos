@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Color;
+use App\Models\Font;
 use App\Models\Icon;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -51,5 +52,21 @@ class SettingApiController extends Controller
         $icon->delete();
 
         return response()->json(['message' => 'Icon deleted successfully'], Response::HTTP_NO_CONTENT);
+    }
+
+    public function addFont(Request $request) {
+        Font::create([
+            'font_name' => $request->font_name,
+            'font_family' => $request->font_family,
+            'font_url' => $request->font_url,
+        ]);
+
+        return response()->json(['message' => 'Font added successfully'], Response::HTTP_CREATED);
+    }
+
+    public function deleteFont(Font $font) {
+        $font->delete();
+
+        return response()->json(['message' => 'Font deleted successfully'], Response::HTTP_NO_CONTENT);
     }
 }
