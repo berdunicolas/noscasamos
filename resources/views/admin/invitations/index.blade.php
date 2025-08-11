@@ -1,4 +1,4 @@
-<x-admin.layout navBarSelected="invitations" datatable="true" dataTableName="invitations-datatable.js" pageTabTitle="Invitaciones" :overflowHidden="true">
+<x-admin.layout navBarSelected="invitations" datatable="true" dataTableName="invitations-datatable.js" pageTabTitle="Invitaciones" :overflowHidden="false">
 
     <header class="d-flex flex-row align-items-center" style="min-height: 105px">
         <h5 class="display-5">Invitaciones</h5>

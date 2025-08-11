@@ -25,8 +25,11 @@
 <body>
     <div class="d-flex flex-column flex-md-row">
         <x-admin.nav-bar :selected="$navBarSelected" />
-        <main class="content container-xxl w-100 {{($overflowHidden) ? 'overflow-hidden h-100' : ''}}">
-            {{ $slot }}
+        <main class="content {{($overflowHidden) ? 'overflow-hidden h-100' : ''}}">
+            <div class="container-xxl w-100">
+                
+                {{ $slot }}
+            </div>
         </main>
     </div>
     <div aria-live="polite" aria-atomic="true" class="position-absolute">
