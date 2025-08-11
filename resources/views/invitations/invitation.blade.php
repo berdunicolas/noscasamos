@@ -15,7 +15,11 @@ $tituloYBajada =  $invitation->tituloYBajada();
 <html>
     <head>
         <meta property="og:image" content="{{$invitation->metaImg()}}">
+        @if(empty($invitation->meta_title))
         <meta property="og:title" content="{{$invitation->host_names}} - {{$invitation->fechat()}}">
+        @else
+        <meta property="og:title" content="{{$invitation->meta_title}}">
+        @endif
         <meta property="og:description" content="{{$tituloYBajada['titulo']}} {{$tituloYBajada['bajada']}}">
         <meta property="og:type" content="website" />
         <meta property="og:url" content="{{route('invitation', ['invitation' => $invitation->path_name])}}">

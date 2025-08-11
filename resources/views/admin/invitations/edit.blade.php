@@ -248,6 +248,17 @@
                         </div>
                     </div>
                     <div class="mb-3">
+                        <x-form.input
+                            id="config-form-input"
+                            name="meta_title"
+                            label="Meta titulo"
+                            type="text"
+                            value="{{$invitation->meta_title}}"
+
+                            :errors="(array) $errors->get('meta_title')"
+                        />
+                    </div>
+                    <div class="mb-3">
                         <x-form.upload-zone label="Meta imagen" zoneOwner="invitation" zoneName="meta_img" :isMultiple=false>
                             @if($invitation->media('meta_img')->first())
                                 <div class="preview-item">
