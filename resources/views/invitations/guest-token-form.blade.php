@@ -29,6 +29,7 @@ $tituloYBajada =  $invitation->tituloYBajada();
         <link rel="stylesheet" href="{{asset("assets/css/styleb.css")}}?build=@version.1"/>
     @endif
     <link rel="stylesheet" href="{{asset("assets/js/wow/animate.css")}}"/>
+    <link rel="stylesheet" href="{{ asset('css/app.css')}}">
 
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
