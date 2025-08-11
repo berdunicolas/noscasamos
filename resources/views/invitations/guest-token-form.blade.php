@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta property="og:image" content="{{$invitation->metaImg()}}">
+    @if(empty($invitation->meta_title))
+    <meta property="og:title" content="{{$invitation->host_names}} - {{$invitation->fechat()}}">
+    @else
+    <meta property="og:title" content="{{$invitation->meta_title}}">
+    @endif
+    <meta property="og:description" content="{{$tituloYBajada['titulo']}} {{$tituloYBajada['bajada']}}">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{route('invitation', ['invitation' => $invitation->path_name])}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{$invitation->host_names}} - {{$invitation->fechat()}} - {{config('app.name')}}</title>
+    <link rel="icon" type="image/x-icon" href="{{asset("assets/images/favicon.ico")}}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$invitation->host_names}} - {{$invitation->fechat()}} - {{config('app.name')}}</title>
-
-    <link rel="stylesheet" href="{{ asset('css/app.css')}}">
 
     <link rel="stylesheet" href="{{asset("assets/css/bootstrap-reboot.css")}}"/>
 
@@ -20,7 +29,7 @@
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Parisienne&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sacramento&display=swap&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="{!!getFont($invitation->font)->font_url!!}" rel="stylesheet">
     <link href="{{asset("assets/css/icons/css/all.css")}}" rel="stylesheet">
     <style>
         body, header{
