@@ -42,7 +42,7 @@ class ImportLegacyInvitations extends Command
 
         DB::beginTransaction();
         try {
-            $font = Font::first()?->name;
+            $font = Font::first()?->font_name;
 
             $event = Event::firstOrCreate(
                 ['name' => 'Invitaciones Legacy'],

@@ -130,11 +130,11 @@
                                 name="font"
                                 label="Tipo de letra"
                             >
-                                @foreach ($fonts as $font->name)
+                                @foreach ($fonts as $font->font_name)
                                     <x-form.select-option
-                                        value="{{$font->name}}"
-                                        label="{{$font->name}}"
-                                        selected="{{$template->font == $font->name ? true : false}}"
+                                        value="{{$font->font_name}}"
+                                        label="{{$font->font_name}}"
+                                        selected="{{$template->font == $font->font_name ? true : false}}"
                                     />  
                                 @endforeach
                             </x-form.select>

@@ -26,7 +26,7 @@ class InvitationsPreview extends Seeder
     public function run(): void
     {
 
-        $font = Font::first()?->name;
+        $font = Font::first()?->font_name;
         DB::beginTransaction();
         try {
             for($i = 0; $i < 600; $i++){
