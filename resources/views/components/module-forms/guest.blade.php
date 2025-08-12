@@ -21,7 +21,7 @@
                     value="{{$module->data['icon']}}"
                     extraAttributes='list=icons-list'
                 />
-                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
             </div>
             <div class="col-12 col-xl-6">
                 <x-form.input

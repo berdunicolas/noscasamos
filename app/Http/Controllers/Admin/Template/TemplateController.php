@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin\Template;
 
 use App\Enums\EventTypeEnum;
-use App\Enums\FontTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Handlers\ModuleHandler;
 use App\Http\Controllers\Controller;
+use App\Models\Font;
 use App\Models\Template;
 use Illuminate\View\View;
 
@@ -23,7 +23,7 @@ class TemplateController extends Controller
         $eventTypes = EventTypeEnum::values();
         $planTypes = PlanTypeEnum::values();
         $styleTypes = StyleTypeEnum::values();
-        $fontTypes = FontTypeEnum::values();
+        $fonts = Font::get();
         $modules = $template->modules()->orderBy('index')->get();
         $availableModules = ModuleHandler::availableModules($modules->map(function ($module) {
             return [
@@ -32,6 +32,6 @@ class TemplateController extends Controller
             ];
         })->toArray());
 
-        return view('admin.templates.edit', compact('template', 'eventTypes', 'planTypes', 'fontTypes', 'styleTypes', 'modules', 'availableModules'));
+        return view('admin.templates.edit', compact('template', 'eventTypes', 'planTypes', 'fonts', 'styleTypes', 'modules', 'availableModules'));
     }
 }

@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use App\Enums\EventTypeEnum;
-use App\Enums\FontTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Models\Country;
 use App\Models\CountryDivision;
 use App\Models\Event;
+use App\Models\Font;
 use App\Models\Invitation;
 use App\Models\Seller;
 use App\Models\User;
@@ -26,6 +26,7 @@ class InvitationsPreview extends Seeder
     public function run(): void
     {
 
+        $font = Font::first()?->name;
         DB::beginTransaction();
         try {
             for($i = 0; $i < 600; $i++){
@@ -76,7 +77,7 @@ class InvitationsPreview extends Seeder
                     'meta_description' => null,
                     'icon_type' => 'Estatico',
                     'style' => StyleTypeEnum::LIGHT,
-                    'font' => FontTypeEnum::clasic,
+                    'font' => $font?? '',
                     'padding' => null,
                     'password' => '',
                     'plain_token' => '',

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Enums\EventTypeEnum;
-use App\Enums\FontTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
 use Illuminate\Contracts\Validation\Validator;

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\EventTypeEnum;
-use App\Enums\FontTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +27,6 @@ class Template extends Model
     ];
 
     protected $casts = [
-        'font' => FontTypeEnum::class,
         'style' => StyleTypeEnum::class,
         'event' => EventTypeEnum::class,
         'plan' => PlanTypeEnum::class,

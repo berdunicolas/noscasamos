@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Casts\TimeFormatCast;
-use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Traits\HasMedia;
@@ -59,7 +58,6 @@ class Invitation extends Authenticatable
     ];
 
     protected $casts = [
-        'font' => FontTypeEnum::class,
         'style' => StyleTypeEnum::class,
         //'spacing' => SpacingTypeEnum::class,
         'active' => 'boolean',

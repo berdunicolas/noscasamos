@@ -35,7 +35,7 @@
                 value="{{$module->data['icon']}}"
                     extraAttributes='list=icons-list'
                 />
-                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
         </div>
         @foreach ($suggestions as $key => $suggestion)            
             <div class="row mb-3">

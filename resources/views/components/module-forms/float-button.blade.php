@@ -29,7 +29,7 @@
                                 
                     extraAttributes='list=icons-list'
                 />
-                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
         </div>
         <div id="url_input" class="mb-3">
             <x-form.input

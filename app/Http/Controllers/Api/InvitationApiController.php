@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\FontTypeEnum;
 use App\Enums\ModuleTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;

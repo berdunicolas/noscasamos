@@ -11,7 +11,7 @@
                 value="{{$module->data['icon']}}"
                 extraAttributes='list=icons-list'
             />
-            @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+            @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
         </div>
         @if ($isInvitation)            
         <div class="mb-3">

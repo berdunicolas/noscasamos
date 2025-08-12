@@ -60,4 +60,8 @@ class InvitationModule extends Module
             'disk' => $disk, // Guardamos en qué disco se almacena
         ]);
     }
+
+    public function ownerModel() {
+        return $this->invitation()->first();
+    }
 }

@@ -29,4 +29,8 @@ class TemplateModule extends Module
     {
         return null;
     }
+
+    public function ownerModel() {
+        return $this->template()->first();
+    }
 }

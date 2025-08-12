@@ -3,10 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Enums\EventTypeEnum;
-use App\Enums\FontTypeEnum;
 use App\Enums\PlanTypeEnum;
 use App\Enums\StyleTypeEnum;
 use App\Models\Event;
+use App\Models\Font;
 use App\Models\Invitation;
 use Exception;
 use Illuminate\Console\Command;
@@ -42,7 +42,7 @@ class ImportLegacyInvitations extends Command
 
         DB::beginTransaction();
         try {
-            
+            $font = Font::first()?->name;
 
             $event = Event::firstOrCreate(
                 ['name' => 'Invitaciones Legacy'],
@@ -93,7 +93,7 @@ class ImportLegacyInvitations extends Command
                     'meta_description' => null,
                     'icon_type' => 'Estatico',
                     'style' => StyleTypeEnum::LIGHT,
-                    'font' => FontTypeEnum::clasic,
+                    'font' => $font?? '',
                     'padding' => null,
                     'password' => '',
                     'plain_token' => '',

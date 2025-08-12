@@ -23,7 +23,7 @@
                                     value="{{$module->data['spotify']['icon']}}"
                                     extraAttributes='list=icons-list'
                                 />
-                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
                             </div>
                             <div class="col-4 col-xl-3">
                                 <x-form.input
@@ -88,7 +88,7 @@
                                     value="{{$module->data['hashtag']['icon']}}"
                                     extraAttributes='list=icons-list'
                                 />
-                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
                             </div>
                             <div class="col-4 col-xl-3">
                                 <x-form.input
@@ -154,7 +154,7 @@
                                     value="{{$module->data['ig']['icon']}}"
                                     extraAttributes='list=icons-list'
                                 />
-                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
                             </div>
                             <div class="col-4 col-xl-3">
                                 <x-form.input
@@ -221,7 +221,7 @@
                                     value="{{$module->data['link']['icon']}}"
                                     extraAttributes='list=icons-list'
                                 />
-                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
                             </div>
                             <div class="col-4 col-xl-3">
                                 <x-form.input

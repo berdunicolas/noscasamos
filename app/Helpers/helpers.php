@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\FontTypeEnum;
 use App\Models\Font;
 
 if (!function_exists("isMobile")) {

@@ -29,7 +29,7 @@
                                     value="{{$events['civil']['icon']}}"
                                     extraAttributes='list=icons-list'
                                 />
-                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
                             </div>
                             <div class="col-4 col-xl-2">
                                 <x-form.input
@@ -157,7 +157,7 @@
                                     value="{{$events['ceremony']['icon']}}"
                                     extraAttributes='list=icons-list'
                                 />
-                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
                             </div>
                             <div class="col-4 col-xl-2">
                                 <x-form.input
@@ -285,7 +285,7 @@
                                     value="{{$events['party']['icon']}}"
                                     extraAttributes='list=icons-list'
                                 />
-                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
                             </div>
                             <div class="col-4 col-xl-2">
                                 <x-form.input
@@ -413,7 +413,7 @@
                                     value="{{$events['dresscode']['icon']}}"
                                     extraAttributes='list=icons-list'
                                 />
-                                @livewire('admin.invitations.editor.icon-data-list', ['invitation' => $module->invitation])
+                                @livewire('admin.invitations.editor.icon-data-list', ['model' => $module->ownerModel()])
                             </div>
                             <div class="col-4 col-xl-2">
                                 <x-form.input
