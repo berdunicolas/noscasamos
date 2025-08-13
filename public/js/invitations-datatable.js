@@ -201,6 +201,8 @@ function cloneInvitation() {
     const url = cloneUrl;
     const row = $('#datatable').DataTable().row(tr);
     const pathName = document.getElementById('path_name_input').value;
+    const useTemplate = document.getElementById('clone_use_template').value;
+    const template = document.getElementById('clone_template').value;
 
     fetch(url + '/clone', {
         method: 'POST',
@@ -210,7 +212,7 @@ function cloneInvitation() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
         },
-        body: JSON.stringify({path_name: pathName})
+        body: JSON.stringify({path_name: pathName, use_template: useTemplate, template: template})
     })
     .then(async response => {
         const statusCode = response.status;

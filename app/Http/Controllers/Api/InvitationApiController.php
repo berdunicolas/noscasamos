@@ -474,67 +474,161 @@ class InvitationApiController extends Controller
 
         DB::beginTransaction();
         try {
-            $newInvitation = new Invitation($invitation->toArray());
-            $newInvitation->path_name = $request->path_name;
-            $newInvitation->password = $token;
-            $newInvitation->plain_token = $token;
-            $newInvitation->created_by = auth()->user()->id;
-            $newInvitation->save();
-
-            $modules = $invitation->modules()->get();
-            $modules->each(function ($module) use ($newInvitation) {
-                $handler = constant('App\Handlers\ModuleHandler::' . $module->type->value);
-
-                $newModule = new \App\Models\InvitationModule([
-                    'type' => $module->type,
-                    'name' => $module->name,
-                    'display_name' => $module->display_name,
-                    'fixed' => $module->fixed,
-                    'active' => $module->active,
-                    'on_plan' => $module->on_plan,
-                    'data' => $module->data,
-                    'media_collections' => $handler::getMediaCollections($newInvitation->id, $module->name),
-                    'index' => $module->index,
+            if(!$request->use_template){
+                $newInvitation = new Invitation($invitation->toArray());
+                $newInvitation->path_name = $request->path_name;
+                $newInvitation->password = $token;
+                $newInvitation->plain_token = $token;
+                $newInvitation->created_by = auth()->user()->id;
+                $newInvitation->save();
+    
+                $modules = $invitation->modules()->get();
+                $modules->each(function ($module) use ($newInvitation) {
+                    $handler = constant('App\Handlers\ModuleHandler::' . $module->type->value);
+    
+                    $newModule = new \App\Models\InvitationModule([
+                        'type' => $module->type,
+                        'name' => $module->name,
+                        'display_name' => $module->display_name,
+                        'fixed' => $module->fixed,
+                        'active' => $module->active,
+                        'on_plan' => $module->on_plan,
+                        'data' => $module->data,
+                        'media_collections' => $handler::getMediaCollections($newInvitation->id, $module->name),
+                        'index' => $module->index,
+                    ]);
+    
+                    $newModule = $newInvitation->modules()->create($newModule->toArray());
+    
+                    $handler::cloneMedia($module, $newModule);
+                    $newModule->save();
+                });
+    
+                $invitation->media()->get()->each(function ($media) use ($newInvitation) {
+                    $file = $media->getFile();
+                    if ($file) {
+                        $newInvitation->addMedia($file, $media->collection_name, $newInvitation->id);
+                    }
+                });
+    
+                $invitation->logs()->create([
+                    'invitation_id' => $invitation->id,
+                    'user_id' => Auth::id(),
+                    'action' => 'Invitación clonada',
+                    'description' => 'Invitación clonada. Nueva invitacion: #' . $newInvitation->id,
+                    'data' => [
+                        'event_id' => $invitation->event_id,
+                        'path_name' => $invitation->path_name,
+                        'host_names' => $invitation->host_names,
+                        'seller_id' => $invitation->seller_id,
+                    ],
                 ]);
+    
+                $newInvitation->logs()->create([
+                    'invitation_id' => $newInvitation->id,
+                    'user_id' => Auth::id(),
+                    'action' => 'Invitación creada como clon',
+                    'description' => 'Invitación creada apartir de la #' . $newInvitation->id,
+                    'data' => [
+                        'event_id' => $newInvitation->event_id,
+                        'path_name' => $newInvitation->path_name,
+                        'host_names' => $newInvitation->host_names,
+                        'seller_id' => $newInvitation->seller_id,
+                    ],
+                ]);
+            } else {
+                $template = Template::find($request->template);
+                
+                $newInvitation = new Invitation([]);
+                $newInvitation->host_names = $invitation->host_names;
+                $newInvitation->contact_name = $invitation->contact_name;
+                $newInvitation->contact_phone = $invitation->contact_phone;
+                $newInvitation->calendar_title = $invitation->calendar_title;
+                $newInvitation->meta_title = $invitation->meta_title;
+                $newInvitation->seller_id = $invitation->seller_id;
+                $newInvitation->event_id = $invitation->event_id;
+                $newInvitation->date = $invitation->date;
+                $newInvitation->time = $invitation->time;
+                $newInvitation->time_zone = $invitation->time_zone;
+                $newInvitation->active = $invitation->active;
+                $newInvitation->was_disabled = $invitation->was_disabled;
+                $newInvitation->enable_guest_token = $invitation->enable_guest_token;
+                $newInvitation->guest_token = $invitation->guest_token;
+                $newInvitation->path_name = $request->path_name;
+                $newInvitation->password = $token;
+                $newInvitation->plain_token = $token;
+                $newInvitation->created_by = auth()->user()->id;
+                
+                $newInvitation->duration = (empty($invitation->duration)) ? $template->duration : $invitation->duration;
+                $newInvitation->icon_type = (empty($invitation->icon_type)) ? $template->icon_type : $invitation->icon_type;
+                $newInvitation->style = (empty($invitation->style)) ? $template->style : $invitation->style;
+                $newInvitation->font = (empty($invitation->font)) ? $template->font : $invitation->font;
+                $newInvitation->padding = (empty($invitation->padding)) ? $template->padding : $invitation->padding;
+                $newInvitation->color = (empty($invitation->color)) ? $template->color : $invitation->color;
+                $newInvitation->background_color = (empty($invitation->background_color)) ? $template->background_color : $invitation->background_color;
+                $newInvitation->save();
+    
+                $modules = $invitation->modules()->get();
+                $modules->each(function ($module) use ($newInvitation, $template) {
+                    $handler = constant('App\Handlers\ModuleHandler::' . $module->type->value);
 
-                $newModule = $newInvitation->modules()->create($newModule->toArray());
+                    $tModule = $template->modules()->where('type', $module->type)->first();
 
-                $handler::cloneMedia($module, $newModule);
-                $newModule->save();
-            });
+                    $newModule = new \App\Models\InvitationModule([
+                        'type' => $module->type,
+                        'name' => $module->name,
+                        'display_name' => $module->display_name,
+                        'fixed' => $module->fixed,
+                        'active' => $module->active,
+                        'on_plan' => $module->on_plan,
+                        'data' => $module->data,
+                        'media_collections' => $handler::getMediaCollections($newInvitation->id, $module->name),
+                        'index' => $module->index,
+                    ]);
+                   
+                    $newModule = $newInvitation->modules()->create($newModule->toArray());
 
-            $invitation->media()->get()->each(function ($media) use ($newInvitation) {
-                $file = $media->getFile();
-                if ($file) {
-                    $newInvitation->addMedia($file, $media->collection_name, $newInvitation->id);
-                }
-            });
+                    if($tModule){
+                        $handler::cloneDataWithTemplate($tModule, $module, $newModule);
+                    }
 
-            $invitation->logs()->create([
-                'invitation_id' => $invitation->id,
-                'user_id' => Auth::id(),
-                'action' => 'Invitación clonada',
-                'description' => 'Invitación clonada. Nueva invitacion: #' . $newInvitation->id,
-                'data' => [
-                    'event_id' => $invitation->event_id,
-                    'path_name' => $invitation->path_name,
-                    'host_names' => $invitation->host_names,
-                    'seller_id' => $invitation->seller_id,
-                ],
-            ]);
-
-            $newInvitation->logs()->create([
-                'invitation_id' => $newInvitation->id,
-                'user_id' => Auth::id(),
-                'action' => 'Invitación creada como clon',
-                'description' => 'Invitación creada apartir de la #' . $newInvitation->id,
-                'data' => [
-                    'event_id' => $newInvitation->event_id,
-                    'path_name' => $newInvitation->path_name,
-                    'host_names' => $newInvitation->host_names,
-                    'seller_id' => $newInvitation->seller_id,
-                ],
-            ]);
+                    $handler::cloneMedia($module, $newModule);
+                    $newModule->save();
+                });
+    
+                $invitation->media()->get()->each(function ($media) use ($newInvitation) {
+                    $file = $media->getFile();
+                    if ($file) {
+                        $newInvitation->addMedia($file, $media->collection_name, $newInvitation->id);
+                    }
+                });
+    
+                $invitation->logs()->create([
+                    'invitation_id' => $invitation->id,
+                    'user_id' => Auth::id(),
+                    'action' => 'Invitación clonada',
+                    'description' => 'Invitación clonada. Nueva invitacion: #' . $newInvitation->id,
+                    'data' => [
+                        'event_id' => $invitation->event_id,
+                        'path_name' => $invitation->path_name,
+                        'host_names' => $invitation->host_names,
+                        'seller_id' => $invitation->seller_id,
+                    ],
+                ]);
+    
+                $newInvitation->logs()->create([
+                    'invitation_id' => $newInvitation->id,
+                    'user_id' => Auth::id(),
+                    'action' => 'Invitación creada como clon',
+                    'description' => 'Invitación creada apartir de la #' . $newInvitation->id,
+                    'data' => [
+                        'event_id' => $newInvitation->event_id,
+                        'path_name' => $newInvitation->path_name,
+                        'host_names' => $newInvitation->host_names,
+                        'seller_id' => $newInvitation->seller_id,
+                    ],
+                ]);
+            }
 
             DB::commit();
 

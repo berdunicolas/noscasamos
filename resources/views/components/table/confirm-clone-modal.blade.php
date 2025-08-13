@@ -6,14 +6,37 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                    <x-form.input-group label="URL de la nueva invitación" labelFor="path_name">
-                        <span class="input-group-text" id="basic-addon3">https://evnt.ar/</span>
-                        <x-form.input
-                            id="path_name_input"
-                            name="path_name"                            
-                            extraAttributes="oninput=checkPathName(this)"
+                <x-form.input-group label="URL de la nueva invitación" labelFor="path_name">
+                    <span class="input-group-text" id="basic-addon3">https://evnt.ar/</span>
+                    <x-form.input
+                        id="path_name_input"
+                        name="path_name"                            
+                        extraAttributes="oninput=checkPathName(this)"
+                    />
+                </x-form.input-group>
+                <div class="mt-3">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" onchange="checkboxSwitch(this, 'clone_use_template')" type="checkbox" role="switch">
+                        <input type="text" hidden value="0" name="use_template" id="clone_use_template">
+                        <label class="form-check-label" for="">Usar plantilla</label>
+                    </div>
+                    <x-form.select 
+                        name="template"
+                        id="clone_template"
+                    >
+                        <x-form.select-option
+                            value=""
+                            label="Selecciona una plantilla"
                         />
-                    </x-form.input-group>
+                        @foreach ($templates as $template)
+                            <x-form.select-option
+                                value="{{$template->id}}"
+                                label="{{$template->name}}"
+                            />
+                        @endforeach
+                    </x-form.select>
+                </div>
+                
             </div>
             <div class="modal-footer border-0">
                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>

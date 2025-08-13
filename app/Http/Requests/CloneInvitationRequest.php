@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class CloneInvitationRequest extends FormRequest
 {
@@ -25,6 +26,11 @@ class CloneInvitationRequest extends FormRequest
     {
         return [
             'path_name' => 'required|unique:invitations,path_name',
+            'use_template' => 'required|boolean',
+            'template' => [
+                Rule::excludeIf(fn () => $this->input('use_template') == false),
+                Rule::exists('templates', 'id'),
+            ],
         ];
     }
     

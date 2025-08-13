@@ -28,7 +28,6 @@ class Invitation extends Authenticatable
         'contact_phone',
         'calendar_title',
         'meta_title',
-        'host_names',
         'seller_id',
         'event_id',
         'date',
