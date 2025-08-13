@@ -25,7 +25,12 @@ $tituloYBajada =  $invitation->tituloYBajada();
         <meta property="og:url" content="{{route('invitation', ['invitation' => $invitation->path_name])}}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        @if(empty($invitation->meta_title))
         <title>{{$invitation->host_names}} - {{$invitation->fechat()}} - {{config('app.name')}}</title>
+        @else
+        <title>{{$invitation->meta_title}} - {{config('app.name')}}</title>
+        @endif
+
         <link rel="icon" type="image/x-icon" href="{{asset("assets/images/favicon.ico")}}">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
